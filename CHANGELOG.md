@@ -76,9 +76,7 @@ this release. The earliest repository commit covered is from
 `2026-05-14`; the latest is the commit that introduced this changelog
 section.
 
-## Unreleased - Current Working Tree
-
-Status: in progress and not yet treated as a committed release checkpoint.
+## 2026-05-24 - Standalone Documentation And Policy Layout
 
 ### Standalone documentation and policy layout
 
@@ -144,8 +142,8 @@ Status: in progress and not yet treated as a committed release checkpoint.
   - bounce/impact points staying locked as sharp constraints
   - source keyed frames acting as hard constraints when requested
   - smooth arcs reducing source key schedules while preserving endpoints
-- Current validation status should be checked from the owning integration lane
-  before treating this mode as released.
+- Validation for the mode is covered by the v1 release gate and the focused
+  motion-path-smooth unit tests.
 
 ## 2026-05-24 - Standalone Packaging And Test Layout
 
