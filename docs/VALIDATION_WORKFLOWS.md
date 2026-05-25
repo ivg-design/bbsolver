@@ -131,3 +131,17 @@ suite including `slow` tests, policies, install/package smoke, packaged JSON
 examples, install hygiene checks, and the full `clangd` sweep when available.
 The clangd sweep runs in parallel; use `--clangd-jobs N` to cap it separately
 from build/test parallelism when the machine is under load.
+
+## CI Triage
+
+When public CI fails, triage the narrowest red surface first:
+
+- `quick-linux` failures usually identify build, policy, package-smoke, or
+  incremental validator regressions fastest.
+- `package-macos` and `package-windows` failures usually indicate platform
+  portability, filesystem locking, path handling, or installed-package issues.
+- `release-validation` failures are release blockers. Reproduce them with
+  `python3 scripts/validate_standalone_package.py --jobs 8 --clangd-jobs 8`
+  from a clean checkout before tagging.
+
+Do not tag a release while any required job is red or cancelled.

@@ -18,6 +18,17 @@ source repository has synced `solver/` into the standalone repository root.
 
 ## Version Bump
 
+`bbsolver` uses semantic versioning for the public CLI, JSON schema, and CMake
+package surface:
+
+- Patch: bug fixes, documentation, test coverage, and behavior-preserving
+  packaging changes.
+- Minor: backward-compatible CLI flags, solve modes, metadata, examples, or
+  C++ helper additions.
+- Major: incompatible JSON schema changes, changed exit-code meaning, removed
+  CLI flags or modes, renamed CMake targets, or intentionally different solve
+  semantics for an existing mode.
+
 For a normal release, update the version in these source locations before
 syncing:
 
@@ -59,6 +70,11 @@ gh workflow run "bbsolver CI" --repo ivg-design/bbsolver --ref main
 ```
 
 Wait for the manual run to finish and confirm that `release-validation` passed.
+If any job is red, open the failed job log first. For packaging failures, start
+with the `Package smoke` or `Clean standalone release validator` step. For
+platform-only failures, compare the failing command against the matching local
+command in [`VALIDATION_WORKFLOWS.md`](VALIDATION_WORKFLOWS.md), then rerun the
+smallest focused target locally before changing release docs or tags.
 
 ## Tag
 
@@ -105,3 +121,9 @@ repository and a `BBSOLVER_PUBLIC_REPO_TOKEN` secret with permission to push to
 the standalone repository. If the integration repository cannot run Actions,
 use the local sync command and then rely on the standalone repository CI before
 tagging.
+
+Use the narrowest token that can push to the standalone repository. For GitHub
+fine-grained personal access tokens, grant repository `Contents: Read and
+write` for `ivg-design/bbsolver`. Rotate the token when maintainers change,
+after suspected exposure, or on the same cadence as the project's other
+release credentials.

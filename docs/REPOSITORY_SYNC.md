@@ -53,7 +53,9 @@ publishes `solver/` into the standalone repository. It requires:
 - public repository: `ivg-design/bbsolver` or the repository named by the
   workflow input / `BBSOLVER_PUBLIC_REPO` variable
 - secret: `BBSOLVER_PUBLIC_REPO_TOKEN`, a token with permission to push to that
-  public repository
+  public repository. For GitHub fine-grained personal access tokens, use the
+  narrowest scope that can push repository contents: `Contents: Read and write`
+  on `ivg-design/bbsolver`.
 - target branch: `main`, unless overridden by workflow input /
   `BBSOLVER_PUBLIC_BRANCH`
 
@@ -70,6 +72,9 @@ sync workflow.
 For protected public repositories, publish to a staging branch and open a pull
 request, or run this workflow with a token that is explicitly allowed by the
 branch protection rules.
+
+Rotate the publication token when maintainers change, after suspected exposure,
+or on the same cadence as the project's other release credentials.
 
 ## Standalone CI
 

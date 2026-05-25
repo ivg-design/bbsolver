@@ -19,7 +19,6 @@ double CubicBezier(double u, double p0, double p1, double p2, double p3) {
 }  // namespace
 
 int main() {
-  // TODO: Replace this skeleton with GoogleTest if the unit-test framework changes.
   const bbsolver::TemporalEase ease{0.0, 33.3};
   const double u = bbsolver::SolveTemporalParam(0.5, 0.0, ease, 1.0, ease);
   assert(std::abs(u - 0.5) < 1e-9);
