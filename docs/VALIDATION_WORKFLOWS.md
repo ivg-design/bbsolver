@@ -10,6 +10,8 @@ For what each test suite covers and how to interpret pass/fail output, see
 project that the `package-smoke` preset wraps, see
 [`PACKAGING.md`](PACKAGING.md). For the final release gate, see
 [`../scripts/validate_standalone_package.py`](../scripts/validate_standalone_package.py).
+For public tagging and GitHub Release creation, see
+[`RELEASE_PROCESS.md`](RELEASE_PROCESS.md).
 
 ## Presets
 

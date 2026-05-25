@@ -66,6 +66,10 @@ third-party archive mirror, the full C++ test suite, solver-owned source
 policies, package install/smoke tests, JSON examples, negative bundle checks,
 install hygiene checks, and clangd when available.
 
+Maintainers should also follow [`docs/RELEASE_PROCESS.md`](docs/RELEASE_PROCESS.md)
+for version bumps, public CI confirmation, release-validation, tagging, and
+GitHub Release creation.
+
 ## Code organization rules
 
 - Public headers belong under `include/bbsolver/<area>/`.

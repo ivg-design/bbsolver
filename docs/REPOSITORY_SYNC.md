@@ -61,6 +61,12 @@ The workflow validates the source package with the incremental standalone
 validator, exports into a temporary standalone repository, validates that
 exported repository, and only then pushes.
 
+Automatic publication depends on the integration repository's configured
+branch and path filters. Commits outside the tracked solver payload, such as
+progress reports or repository-local audit notes, should not publish a new
+standalone snapshot unless they also change `solver/`, the sync tool, or the
+sync workflow.
+
 For protected public repositories, publish to a staging branch and open a pull
 request, or run this workflow with a token that is explicitly allowed by the
 branch protection rules.
@@ -94,3 +100,5 @@ python3 scripts/validate_standalone_package.py --jobs 8 --clangd-jobs 8
   — the release-gate validator the workflow invokes.
 - [`PACKAGING.md`](PACKAGING.md) — install tree, exported CMake targets, and
   the consumer-side `find_package(bbsolver CONFIG)` smoke project.
+- [`RELEASE_PROCESS.md`](RELEASE_PROCESS.md) — maintainer checklist for version
+  bumps, public CI, release-validation, tags, and GitHub Releases.

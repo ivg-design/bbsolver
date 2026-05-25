@@ -273,6 +273,8 @@ embedding.
   commands, and valid/invalid output expectations.
 - [Validation Workflows](docs/VALIDATION_WORKFLOWS.md): fast focused,
   incremental package, package-smoke, and clean release validation loops.
+- [Release Process](docs/RELEASE_PROCESS.md): maintainer checklist for version
+  bumps, public CI, release-validation, tags, and GitHub Releases.
 - [Repository Sync](docs/REPOSITORY_SYNC.md): maintainer workflow for
   exporting `solver/` into the public standalone repository.
 - [JSON examples](examples/json/README.md): runnable, non-AE JSON

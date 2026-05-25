@@ -122,3 +122,6 @@ checks the package as a fresh consumer would:
 Use `--use-remote-deps` to validate the normal remote dependency path instead
 of the forced local archive path, and `--keep-temp` when you need to inspect a
 failed validation workspace.
+
+For the maintainer sequence around version bumps, public CI, tags, and GitHub
+Releases, see [`RELEASE_PROCESS.md`](RELEASE_PROCESS.md).
