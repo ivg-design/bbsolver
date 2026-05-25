@@ -3,9 +3,8 @@
 //   BuildShapeFlatOutlinePolyline(shape_flat, options)
 //   ShapeFlatFrameOutlineErrorFromPolylines(source, fitted, cutoff)
 //
-// PFF6 extracts the trio after PFF5 promoted the dense-polyline /
-// outline-polyline pipeline into pff_dense. Behavior is byte-faithful with
-// the previous anonymous-namespace definitions in path_frame_fit.cpp:
+// The dense-polyline / outline-polyline pipeline lives in pff_dense. Behavior
+// is stable with the previous anonymous-namespace definitions in path_frame_fit.cpp:
 // `cutoff_error` short-circuits the second pass exactly as before, mismatched
 // open/closed yields infinity, malformed shape_flat yields a not-ok
 // polyline.

@@ -1,7 +1,7 @@
 // Implements bbsolver::ExtractShapeFlatFeatureAnchors (declared in
 // path_frame_fit.hpp, public surface) and bbsolver::pff_anchor::SnapFractionsToFrameFeatureAnchors
-// (declared in path_feature_anchor.hpp). PFF8 moves both bodies byte-faithfully
-// out of path_frame_fit.cpp's anonymous namespace; no algorithmic change.
+// (declared in path_feature_anchor.hpp). No algorithmic change from the
+// previous in-file helper bodies.
 //
 // Diagnostics decision: **none / pure layout**. The anchor extractor returns
 // an empty vector for malformed inputs / zero-perimeter frames; the snap

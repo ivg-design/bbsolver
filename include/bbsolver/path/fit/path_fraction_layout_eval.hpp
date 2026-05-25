@@ -3,9 +3,9 @@
 // Internal solver header that exposes the canonical-layout evaluator used by
 // the outline-fraction expansion and feature-layout subsystems. The struct
 // and function previously lived in path_frame_fit.cpp's anonymous namespace;
-// PFF3 promotes them to external linkage so a separately-translated module
-// (path_outline_fraction_expand.cpp) can call into the same evaluator without
-// duplicating the dense-polyline pipeline that drives it.
+// they now have external linkage so separately-translated modules can call into
+// the same evaluator without duplicating the dense-polyline pipeline that
+// drives it.
 //
 // Behavior: EvaluateFractionLayout replays a candidate outline-fraction
 // layout against every supplied source frame via FitShapeFlatFrameAtFractions

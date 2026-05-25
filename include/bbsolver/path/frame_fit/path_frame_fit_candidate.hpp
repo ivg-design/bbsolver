@@ -1,10 +1,9 @@
 #pragma once
 
 // Shared candidate-fit struct used by the main fitter (BuildBestCandidate)
-// and the per-frame Refine extractor (BuildRefinedCandidate). PFF10a moves
-// this struct + the BuildBestCandidate forward declaration out of
-// path_frame_fit.cpp's anonymous namespace so PFF10b can call into
-// BuildBestCandidate from a separate translation unit.
+// and the per-frame Refine extractor (BuildRefinedCandidate). This header
+// exposes the BuildBestCandidate forward declaration so refinement can reuse
+// the same candidate builder from a separate translation unit.
 //
 // Pure data + a single forward declaration. The function body stays in
 // path_frame_fit.cpp; only its linkage changes from internal (anonymous
@@ -33,8 +32,8 @@ struct Candidate {
 // landmark indices, trying zero-tangent, Catmull-Rom tangent (if
 // `options.use_catmull_tangents`), and per-segment cubic-fit variants and
 // returning whichever has the smallest outline error against the source
-// dense polyline. The body lives in path_frame_fit.cpp; PFF10a promotes
-// only the linkage so PFF10b's path_frame_geometry_refine.cpp can call it.
+// dense polyline. The body lives in path_frame_fit.cpp; this header exposes
+// the linkage so path_frame_geometry_refine.cpp can call it.
 Candidate BuildBestCandidate(const std::vector<DensePoint>& dense,
                              const std::vector<int>& kept,
                              const std::vector<bool>& sharp_source_vertices,

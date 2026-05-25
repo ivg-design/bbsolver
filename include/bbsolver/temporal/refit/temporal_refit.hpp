@@ -114,11 +114,11 @@ struct TemporalRefitResult {
   //   "cancelled"       — cancel_fn returned true during the pass
   //   "degenerate"      — input has < 3 keys, refit has nothing to reduce
   //   "ineligible_*"    — property kind / sampling mode / topology not supported
-  //                       by the current slice. Notable shape/custom cases:
+  //                       by the current temporal-refit implementation. Notable shape/custom cases:
   //                       ineligible_custom_property,
   //                       ineligible_shape_flat_source_malformed,
   //                       ineligible_shape_flat_key_topology.
-  //   "not_implemented" — reserved for older phase-0 callers; current code does not emit this
+  //   "not_implemented" — reserved for older callers; current code does not emit this
   std::string rejection_reason;
 
   // Always populated. On rejection, this is exactly the input K1.
@@ -148,8 +148,8 @@ struct TemporalRefitResult {
 //
 // Entry point. Idempotent (running it twice on the same accepted_keys
 // is a no-op the second time because the first call already minimised
-// the key count). Safe to call on every property in a bundle. Phase 1
-// supports fixed-dimension non-Custom numeric streams (Scalar, vector,
+// the key count). Safe to call on every property in a bundle. The current
+// implementation supports fixed-dimension non-Custom numeric streams (Scalar, vector,
 // and spatial variants with samples_per_frame == 1) plus Custom
 // `shape_flat` streams whose accepted keys have stable candidate
 // topology. shape_flat candidates are always validated against the
@@ -170,8 +170,7 @@ struct TemporalRefitResult {
 //   config         — solver config; refit consults `tolerance`,
 //                    `tolerance_screen_px`, and the path-replacement
 //                    /shape-temporal/influence settings already
-//                    governing the primary fit. No new flags are
-//                    introduced in phase 1.
+//                    governing the primary fit.
 //   comp           — composition info (fps, layer transform) for
 //                    screen-px validation.
 //   options        — refit-specific knobs and callbacks.

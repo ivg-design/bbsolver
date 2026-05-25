@@ -40,6 +40,16 @@ Dense hand-drawn Position samples become a cleaner keyed motion path.
 
 https://github.com/user-attachments/assets/cecca4cc-0578-474b-ae6f-c95c3fa3f359
 
+### What to Look For
+
+These clips show the integration problems `bbsolver` is built to solve:
+dense samples become sparse editable keys, expression and rig output can be
+baked into ordinary host keyframes, and path-heavy animations can be reduced
+without changing the intended shape beyond the configured tolerance. The
+benchmark/case-study corpus will add exact runtime, key-count reduction,
+max-error, memory, and job-count determinism numbers when that package is
+ready to publish.
+
 > **Integration surface.** The supported integration is the CLI process
 > boundary plus the JSON SampleBundle/KeyBundle schemas. The CMake
 > package additionally exports `bbsolver::bbsolver` (the CLI) and
@@ -50,6 +60,19 @@ https://github.com/user-attachments/assets/cecca4cc-0578-474b-ae6f-c95c3fa3f359
 > for the full public/private boundary discussion.
 
 **Current version:** `bbsolver 1.0.0`. License: [MIT](LICENSE).
+
+## Repository model
+
+`ivg-design/bbsolver` is the public standalone release/export repository.
+During the current transition, active solver development is staged in the
+`solver/` subtree of the integration repository and exported here as the
+repository root. Public issues and pull requests are welcome in the standalone
+repository; maintainers may route core solver patches back through the
+integration subtree before the next export so the two trees stay identical.
+
+See [`docs/REPOSITORY_SYNC.md`](docs/REPOSITORY_SYNC.md) for the export
+workflow, [`docs/ROADMAP.md`](docs/ROADMAP.md) for near-term priorities, and
+[`docs/MAINTAINERS.md`](docs/MAINTAINERS.md) for maintainer policy.
 
 ## Quickstart
 
@@ -117,6 +140,7 @@ bbsolver/
 |-- CHANGELOG.md
 |-- .github/workflows/     # Standalone CI
 |-- protocol/              # FlatBuffers schemas used to generate headers
+|-- schemas/               # JSON Schema files for SampleBundle/KeyBundle
 |-- examples/
 |   |-- after-effects/      # Minimal AE ScriptUI integration harness
 |   `-- json/               # Runnable non-AE JSON SampleBundle examples
@@ -217,6 +241,15 @@ cmake -S tests/package_smoke -B build-package-smoke \
   -DBBSOLVER_FORCE_BUNDLED_DEPS=ON
 ```
 
+To validate JSON bundles before invoking the solver:
+
+```sh
+python3 scripts/validate_json_bundle.py examples/json/minimal_scalar.bbsm.json
+```
+
+The JSON Schema files live in [`schemas/`](schemas/) and are installed under
+`share/bbsolver/schemas`.
+
 By default CMake first uses installed packages, then pinned upstream
 downloads, then the hash-checked archives under `third_party/archive` if
 fallback is enabled and a remote download is unavailable. The full
@@ -304,6 +337,9 @@ embedding.
   bumps, public CI, release-validation, tags, and GitHub Releases.
 - [Repository Sync](docs/REPOSITORY_SYNC.md): maintainer workflow for
   exporting `solver/` into the public standalone repository.
+- [Roadmap](docs/ROADMAP.md): public near-term and longer-term work.
+- [Maintainers](docs/MAINTAINERS.md): triage, support, release, and security
+  ownership policy.
 - [JSON examples](examples/json/README.md): runnable, non-AE JSON
   SampleBundles + smoke loop.
 - [Third-party archives](third_party/README.md) and

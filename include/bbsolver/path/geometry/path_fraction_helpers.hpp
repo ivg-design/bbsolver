@@ -9,8 +9,8 @@
 // Pure leaf: no DiagnosticsWriter, no progress, no acceptance state — only
 // fraction arithmetic. These helpers previously lived in
 // path_frame_fit.cpp's anonymous namespace and had 4–10 call sites each
-// across the file; PFF2 promotes them so canonical-layout and outline-fraction
-// expansion can be extracted in subsequent slices without duplicating the
+// across the file; this module promotes them so canonical-layout and outline-fraction
+// expansion can be extracted into focused modules without duplicating the
 // seam-wraparound logic.
 //
 // Usage from a .cpp:

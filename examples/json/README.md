@@ -6,7 +6,9 @@ enough to inspect by eye and verify deterministically against the CLI.
 
 These bundles match the JSON contract documented in
 [`../../docs/SOLVER_CLI.md`](../../docs/SOLVER_CLI.md) and
-[`../../docs/API_REFERENCE.md`](../../docs/API_REFERENCE.md).
+[`../../docs/API_REFERENCE.md`](../../docs/API_REFERENCE.md). JSON Schema
+files live in [`../../schemas/`](../../schemas/), and the packaged validator is
+[`../../scripts/validate_json_bundle.py`](../../scripts/validate_json_bundle.py).
 
 For an AE-side integration that wraps the same JSON contract in a ScriptUI
 panel, see [`../after-effects/`](../after-effects/) and the recipe in
@@ -31,10 +33,14 @@ cmake --build build -j
 
 # Solve and verify each example. Each verify command should exit 0 (ok=true).
 for name in minimal_scalar minimal_position minimal_shape_flat; do
+  python3 scripts/validate_json_bundle.py \
+    examples/json/${name}.bbsm.json
   ./build/bbsolver solve \
     examples/json/${name}.bbsm.json \
     /tmp/${name}.bbky.json \
     --jobs 1
+  python3 scripts/validate_json_bundle.py \
+    /tmp/${name}.bbky.json
   ./build/bbsolver verify \
     /tmp/${name}.bbky.json \
     examples/json/${name}.bbsm.json

@@ -1,12 +1,11 @@
 #pragma once
 
-// Decimation pipeline for the path frame fitter. PFF12 lifts the
-// SimplifyDensePolyline + EnsureMinimumKept entry points out of
-// path_frame_fit.cpp so the new FitShapeFlatFrame module
-// (path_frame_fit_main.cpp) can call them across translation units. All
-// supporting helpers (CubicMarkKept, BuildForwardSourceVertexCandidates,
-// SimplifyCandidateIntervalDp, SimplifySourceVertexIntervals) move with
-// the entry points and stay private to the new TU.
+// Decimation pipeline for the path frame fitter. Exposes the
+// SimplifyDensePolyline + EnsureMinimumKept entry points so the
+// FitShapeFlatFrame module can call them across translation units. Supporting
+// helpers (CubicMarkKept, BuildForwardSourceVertexCandidates,
+// SimplifyCandidateIntervalDp, SimplifySourceVertexIntervals) stay private to
+// the decimation translation unit.
 //
 // Pure layout helper: no DiagnosticsWriter, no progress, no operator
 // state. Failure is surfaced via an empty `kept` vector. Diagnostics

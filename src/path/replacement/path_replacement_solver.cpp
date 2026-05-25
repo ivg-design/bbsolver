@@ -131,9 +131,9 @@ ReplacementPathFitResult FitReplacementPathProperty(
           progress->Emit(progress_event);
         };
 
-    // Phase 2: per-frame automatic fit at target vertex count. Low-topology
+    // Per-frame automatic fit at target vertex count. Low-topology
     // targets may be impossible for independent frames but still work with a
-    // semantic shared fraction layout, so a Phase 2 miss is not terminal.
+    // semantic shared fraction layout, so an independent-frame miss is not terminal.
     ReplacementPhase2FitResult phase2_fit =
         FitReplacementPhase2Records(
             property_samples,
@@ -188,9 +188,9 @@ ReplacementPathFitResult FitReplacementPathProperty(
       return false;
     };
 
-    // Phase 3A: cross-frame feature-layout seed. This is the primary
-    // low-topology path: it does not require independent per-frame automatic
-    // simplification to hit the target first.
+    // Cross-frame feature-layout seed. This is the primary low-topology path:
+    // it does not require independent per-frame automatic simplification to
+    // hit the target first.
     ReplacementFeatureLayoutTrialResult feature_layout_trial;
 
     if (phase2_ok) {

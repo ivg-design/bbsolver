@@ -40,6 +40,14 @@ FlatBuffers schemas in [`protocol/`](../protocol/) are design
 references for a future binary IO surface and are not used by the CLI
 today.
 
+JSON Schema files live in [`schemas/`](../schemas/). To validate a host
+bundle before invoking the CLI:
+
+```sh
+python3 scripts/validate_json_bundle.py in.bbsm.json
+python3 scripts/validate_json_bundle.py out.bbky.json
+```
+
 ### `bbsolver solve <input> <output> [opts]`
 
 ```

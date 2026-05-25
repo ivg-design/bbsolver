@@ -1,9 +1,7 @@
 #pragma once
 
-// Across-frame feature-anchor clustering. PFF9 promotes the cluster machinery
-// out of path_frame_fit.cpp's anonymous namespace so the canonical-layout
-// builder (BuildShapeFlatFeatureFractionLayout, declared in path_frame_fit.hpp)
-// can live in its own module.
+// Across-frame feature-anchor clustering used by the canonical-layout builder
+// (BuildShapeFlatFeatureFractionLayout, declared in path_frame_fit.hpp).
 //
 // Pure layout / pure geometry leaf: no DiagnosticsWriter, no progress,
 // no acceptance state. Diagnostics ownership: **caller-owned** — the

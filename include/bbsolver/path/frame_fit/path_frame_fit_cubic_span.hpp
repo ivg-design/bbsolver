@@ -1,11 +1,9 @@
 #pragma once
 
-// Cubic-span fit support struct + a forward declaration for the public
-// per-segment cubic fitter. PFF12 promotes only the linkage of
-// `CubicSpanFit` + `FitDenseSpanCubic` so the new decimation module
-// (path_frame_fit_decimate.cpp) can call into the cubic-span machinery
-// while its body stays in path_frame_fit.cpp alongside its peer cubic
-// helpers (ScoreDenseSpanCubic, SolveUnconstrainedDenseSpanCubic, etc.).
+// Cubic-span fit support struct + a forward declaration for the per-segment
+// cubic fitter. The decimation module can call into the cubic-span machinery
+// while its body stays in path_frame_fit.cpp alongside its peer cubic helpers
+// (ScoreDenseSpanCubic, SolveUnconstrainedDenseSpanCubic, etc.).
 //
 // Pure layout helper: no DiagnosticsWriter, no progress, no operator state.
 // Diagnostics ownership: caller-owned (the candidate-build and decimation

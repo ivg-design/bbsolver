@@ -1,10 +1,8 @@
 // Implements bbsolver::FitShapeFlatFrameAtFractions (declared in
-// path_frame_fit.hpp). PFF11 moves the public fixed-fraction frame fitter
-// out of path_frame_fit.cpp now that all of its internal-helper dependencies
-// (BuildDenseWithFractionLandmarks, BuildBestCandidate, Candidate, the
-// dense-polyline pipeline, the sharp-feature classifier, the anchor snap)
-// are reachable through the PFF1–PFF10a shared headers. Behavior is
-// byte-faithful: same warning strings, same target-vertex/tolerance
+// path_frame_fit.hpp). The fixed-fraction frame fitter depends on
+// BuildDenseWithFractionLandmarks, BuildBestCandidate, Candidate, the
+// dense-polyline pipeline, the sharp-feature classifier, and anchor snapping.
+// Behavior is stable: same warning strings, same target-vertex/tolerance
 // branches, same NormalizeOutlineFractions guard.
 //
 // Diagnostics decision: **none / pure layout**. Acceptance-style helper that

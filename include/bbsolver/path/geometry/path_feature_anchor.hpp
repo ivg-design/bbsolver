@@ -2,14 +2,14 @@
 
 // Per-frame feature-anchor extraction + canonical-fraction snap helper.
 // `ExtractShapeFlatFeatureAnchors` is the public surface (declared in
-// path_frame_fit.hpp); PFF8 hosts its implementation here. The internal
+// path_frame_fit.hpp); this header hosts its implementation. The internal
 // `pff_anchor::SnapFractionsToFrameFeatureAnchors` was anonymous-namespace
-// in path_frame_fit.cpp; PFF8 promotes it to external linkage so the new
-// module can own the body while the original two call sites in
-// path_frame_fit.cpp continue to reach it via `using namespace pff_anchor;`.
+// in path_frame_fit.cpp and now has external linkage so the feature-anchor
+// module can own the body while existing call sites reach it via
+// `using namespace pff_anchor;`.
 //
 // `FeatureClusterRadiusForCount` lives here because both SnapFractions and
-// the future canonical-layout cluster builder (PFF9) need it; it's the only
+// the canonical-layout cluster builder need it; it's the only
 // cluster-radius helper that crosses the anchor/cluster boundary, so we
 // host it on the anchor side (the lower-level module in the dependency
 // graph) to avoid a circular include.
@@ -30,8 +30,7 @@ namespace bbsolver {
 namespace pff_anchor {
 
 // Cluster radius in normalized outline-fraction units, scaled by target
-// vertex count. Promoted from path_frame_fit.cpp's anonymous namespace in
-// PFF8 because both the per-frame snap helper and the canonical-layout
+// vertex count. Both the per-frame snap helper and the canonical-layout
 // cluster builder need to agree on it.
 //
 // target_count <= 0 returns the empty-frame default 0.02; the positive case

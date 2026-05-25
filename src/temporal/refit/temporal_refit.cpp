@@ -1,12 +1,11 @@
 // bbsolver post-cleanup temporal refit.
 //
-// Phase 1 intentionally stays narrow: scalar/vector/non-Custom
-// properties use the existing verifier + DP fitter to attempt a
-// smaller temporal key set, then validate the candidate against the
-// original source samples. shape_flat custom properties use the same
-// temporal refit loop but validate only through source-outline path
-// temporal validation. Other custom properties remain deterministic
-// no-ops.
+// The temporal-refit pass is deliberately narrow: scalar/vector/non-Custom
+// properties use the existing verifier + DP fitter to attempt a smaller
+// temporal key set, then validate the candidate against the original source
+// samples. shape_flat custom properties use the same temporal refit loop but
+// validate only through source-outline path temporal validation. Other custom
+// properties remain deterministic no-ops.
 //
 // The helper modules under bbsolver/temporal/refit own the staged budget,
 // resampling, structural validation, and candidate-acceptance logic.

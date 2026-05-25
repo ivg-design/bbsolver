@@ -1,10 +1,9 @@
 // Implements bbsolver::RefineShapeFlatFrameGeometry (declared in
-// path_frame_fit.hpp). PFF10b moves the body and its Refine-only helpers
-// (BuildRefinedCandidate, IsLockedRefineVertex, BoundsForDense,
-// BoundsDiagonal, PointBounds, plus a small IsSharpDenseIndex copy) out
-// of path_frame_fit.cpp's anonymous namespace. Behavior is byte-faithful:
-// same warning strings, same target-vertex/tolerance branches, same step /
-// max_move / min_step adaptive sequence, same 8-direction search grid.
+// path_frame_fit.hpp). Owns the body and Refine-only helpers
+// (BuildRefinedCandidate, IsLockedRefineVertex, BoundsForDense, BoundsDiagonal,
+// PointBounds, plus a small IsSharpDenseIndex copy). Behavior is stable: same
+// warning strings, same target-vertex/tolerance branches, same step / max_move
+// / min_step adaptive sequence, same 8-direction search grid.
 //
 // Diagnostics decision: **none / pure layout**. The function returns a
 // PathFrameGeometryRefineResult whose `warning` and `fit.warning` fields

@@ -487,6 +487,10 @@ install(
   DESTINATION "${CMAKE_INSTALL_DATADIR}/bbsolver/protocol"
   FILES_MATCHING PATTERN "*.fbs")
 install(
+  DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/schemas/"
+  DESTINATION "${CMAKE_INSTALL_DATADIR}/bbsolver/schemas"
+  FILES_MATCHING PATTERN "*.schema.json")
+install(
   DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/docs/"
   DESTINATION "${CMAKE_INSTALL_DOCDIR}"
   FILES_MATCHING PATTERN "*.md")
@@ -494,6 +498,12 @@ install(
   DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/examples/"
   DESTINATION "${CMAKE_INSTALL_DATADIR}/bbsolver/examples"
   PATTERN ".DS_Store" EXCLUDE)
+install(
+  DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/scripts/"
+  DESTINATION "${CMAKE_INSTALL_DATADIR}/bbsolver/scripts"
+  FILES_MATCHING
+    PATTERN "*.py"
+    PATTERN "__pycache__" EXCLUDE)
 install(
   DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/third_party/"
   DESTINATION "${CMAKE_INSTALL_DATADIR}/bbsolver/third_party"

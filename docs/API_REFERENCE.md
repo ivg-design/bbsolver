@@ -53,6 +53,19 @@ in [`../protocol/`](../protocol/) as schema references and for generated
 C++ types, but binary `.bbsm` / `.bbky` CLI IO is not part of the
 process contract.
 
+JSON Schema files for host-side validation live in
+[`../schemas/`](../schemas/). From the package root:
+
+```sh
+python3 scripts/validate_json_bundle.py examples/json/minimal_scalar.bbsm.json
+python3 scripts/validate_json_bundle.py output.bbky.json
+```
+
+The validator checks the packaged schema plus bbsolver-specific vector-length
+rules such as `samples[].v.length == property.dimensions * samples_per_frame`
+for ordinary properties and `keys[].v.length == property_results[].dimensions`
+for KeyBundles.
+
 Host examples can use
 [`../examples/after-effects/bbsolver-test-harness/`](../examples/after-effects/bbsolver-test-harness/)
 for ExtendScript JSON writing, KeyBundle parsing, AE property lookup, sampling,
@@ -124,6 +137,8 @@ Top-level JSON:
 
 `_schema` must be `"samples"`, and `schema_version` must equal the supported
 version declared in `include/bbsolver/io/schema_contract.hpp`.
+The JSON Schema reference is
+[`../schemas/sample_bundle.schema.json`](../schemas/sample_bundle.schema.json).
 `solve` rejects missing, swapped, unsupported, empty, or structurally malformed
 SampleBundle markers before writing output.
 
@@ -295,6 +310,8 @@ Top-level JSON:
 declared in `include/bbsolver/io/schema_contract.hpp`. `verify` rejects
 missing, swapped, or unsupported KeyBundle/SampleBundle markers before
 replaying keys.
+The JSON Schema reference is
+[`../schemas/key_bundle.schema.json`](../schemas/key_bundle.schema.json).
 
 Each `property_results[]` entry must include a non-empty `property_id`, a
 positive integer `dimensions`, and a `keys` array. Every `keys[].v` length must

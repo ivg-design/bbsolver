@@ -120,9 +120,8 @@ inline Point SegmentPoint(Point a, Point b, double t) {
 }
 
 // Bernstein-form cubic Bezier evaluator at parameter t in [0, 1]. p0/p3 are
-// the endpoints; p1/p2 are the inner control points. Promoted from
-// path_frame_fit.cpp's anonymous namespace in PFF5 so the dense-polyline
-// module can call it without duplication.
+// the endpoints; p1/p2 are the inner control points. Shared here so the
+// dense-polyline module can call it without duplication.
 inline Point Cubic(Point p0, Point p1, Point p2, Point p3, double t) {
   const double u = 1.0 - t;
   const double uu = u * u;
@@ -135,10 +134,9 @@ inline Point Cubic(Point p0, Point p1, Point p2, Point p3, double t) {
   };
 }
 
-// Distance from point `p` to the closed segment a-b. Promoted from
-// path_frame_fit.cpp's anonymous namespace in PFF5 so the dense-polyline
-// module can call it without duplication. Degenerate (a == b) segments
-// collapse to point-to-point distance.
+// Distance from point `p` to the closed segment a-b. Shared here so the
+// dense-polyline module can call it without duplication. Degenerate (a == b)
+// segments collapse to point-to-point distance.
 inline double PointSegmentDistance(Point p, Point a, Point b) {
   const Point ab = Sub(b, a);
   const double denom = ab.x * ab.x + ab.y * ab.y;

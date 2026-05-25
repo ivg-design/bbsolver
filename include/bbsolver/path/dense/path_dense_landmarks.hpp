@@ -1,10 +1,8 @@
 #pragma once
 
 // Arc-length sampling + landmark insertion on a densified shape_flat
-// polyline. PFF10a promotes the previously-anonymous helpers out of
-// path_frame_fit.cpp so the new Refine module (PFF10b) and the existing
-// `FitShapeFlatFrameAtFractions` can share one implementation rather than
-// duplicating the arc-length sampling logic.
+// polyline. Refinement and `FitShapeFlatFrameAtFractions` share one
+// implementation rather than duplicating the arc-length sampling logic.
 //
 // Pure leaf: no DiagnosticsWriter, no progress events, no acceptance state.
 // `BuildDenseWithFractionLandmarks` reports failure through a boolean return

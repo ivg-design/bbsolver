@@ -1,8 +1,8 @@
 // Implements bbsolver::BuildShapeFlatFeatureFractionLayout (declared in
-// path_frame_fit.hpp). PFF9 moves the canonical-layout assembly out of
+// path_frame_fit.hpp). This module moves the canonical-layout assembly out of
 // path_frame_fit.cpp's anonymous namespace; behavior is byte-faithful.
-// Uses pff_cluster (PFF9 helpers), pff_anchor (PFF8), pff_fractions (PFF2),
-// pff_geom (PFF1), and EvaluateFractionLayout (PFF3) through their headers.
+// Uses clustering, anchoring, fraction, geometry, and fraction-layout helpers
+// through their headers.
 //
 // Diagnostics decision: **none / pure layout**. Acceptance-style helper that
 // returns a PathFeatureFractionLayoutResult with status strings in `notes`

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ivg-design/bbsolver/schemas/key_bundle.schema.json",
+  "title": "bbsolver KeyBundle",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["_schema", "schema_version", "property_results"],
+  "properties": {
+    "_schema": { "const": "keys" },
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "request_id": { "type": "string" },
+    "source_request_id": { "type": "string" },
+    "solver_version": { "type": "string" },
+    "solve_time_ms": { "type": "number" },
+    "total_keys": { "type": "integer", "minimum": 0 },
+    "total_samples_input": { "type": "integer", "minimum": 0 },
+    "property_results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["property_id", "dimensions", "keys", "converged"],
+        "properties": {
+          "property_id": { "type": "string", "minLength": 1 },
+          "dimensions": { "type": "integer", "minimum": 1 },
+          "keys": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true,
+              "required": ["t_sec", "v"],
+              "properties": {
+                "t_sec": { "type": "number" },
+                "v": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "type": "number" }
+                },
+                "interp_in": { "type": "string" },
+                "interp_out": { "type": "string" },
+                "temporal_ease_in": { "type": "array" },
+                "temporal_ease_out": { "type": "array" },
+                "spatial_in": {
+                  "type": "array",
+                  "items": { "type": "number" }
+                },
+                "spatial_out": {
+                  "type": "array",
+                  "items": { "type": "number" }
+                },
+                "roving": { "type": "boolean" },
+                "hold": { "type": "boolean" }
+              }
+            }
+          },
+          "segments": { "type": "array" },
+          "max_err": { "type": "number" },
+          "max_err_screen_px": { "type": "number" },
+          "converged": { "type": "boolean" },
+          "notes": { "type": "string" },
+          "diagnostics": { "type": "array" }
+        }
+      }
+    }
+  }
+}

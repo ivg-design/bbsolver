@@ -1,8 +1,6 @@
 // Per-segment cubic Bezier fitter implementations declared in
-// path_frame_fit_cubic_span.hpp. PFF13 moves the bodies out of
-// path_frame_fit.cpp now that the linkage flip from PFF12 has stabilized.
-// Behavior is byte-faithful with the previous anonymous-namespace + early
-// pff_cubic_span:: definitions: same clamping, same parameter-set fallback
+// path_frame_fit_cubic_span.hpp. Behavior is stable with the previous
+// anonymous-namespace and pff_cubic_span definitions: same clamping, same parameter-set fallback
 // order (arc-length, uniform, centripetal), same `det <= 1e-12`
 // degeneracy guards, same `1e-9` improvement tolerance for accepting the
 // unconstrained-then-clamped variant.

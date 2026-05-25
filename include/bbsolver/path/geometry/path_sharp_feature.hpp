@@ -13,9 +13,8 @@
 // validator decides whether a sharp/locked classification deserves a status
 // note; this module never emits one itself.
 //
-// Promoted from path_frame_fit.cpp's anonymous namespace in PFF7 so the
-// per-frame feature-anchor extractor and the main fitter's BuildFlat call
-// site share one source of truth for the corner thresholds.
+// Shared by the per-frame feature-anchor extractor and the main fitter's
+// BuildFlat call site so corner thresholds have one source of truth.
 
 #include <vector>
 

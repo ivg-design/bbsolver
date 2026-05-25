@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ivg-design/bbsolver/schemas/sample_bundle.schema.json",
+  "title": "bbsolver SampleBundle",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["_schema", "schema_version", "properties"],
+  "properties": {
+    "_schema": { "const": "samples" },
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "request_id": { "type": "string" },
+    "comp": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "fps": { "type": "number" },
+        "duration_sec": { "type": "number" },
+        "width": { "type": "integer", "minimum": 0 },
+        "height": { "type": "integer", "minimum": 0 },
+        "pixel_aspect": { "type": "number" },
+        "shutter_angle_deg": { "type": "number" },
+        "shutter_phase_deg": { "type": "number" },
+        "motion_blur_enabled": { "type": "boolean" },
+        "work_area_start_sec": { "type": "number" },
+        "work_area_end_sec": { "type": "number" }
+      }
+    },
+    "properties": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["property", "samples"],
+        "properties": {
+          "property": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["id", "kind", "dimensions"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "match_name": { "type": "string" },
+              "display_name": { "type": "string" },
+              "layer_path": { "type": "string" },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "Scalar",
+                  "OneD",
+                  "TwoD",
+                  "TwoD_Spatial",
+                  "ThreeD",
+                  "ThreeD_Spatial",
+                  "Color",
+                  "Custom"
+                ]
+              },
+              "dimensions": { "type": "integer", "minimum": 1 },
+              "is_spatial": { "type": "boolean" },
+              "is_separated": { "type": "boolean" },
+              "units_label": { "type": "string" },
+              "min_value": {
+                "type": "array",
+                "items": { "type": "number" }
+              },
+              "max_value": {
+                "type": "array",
+                "items": { "type": "number" }
+              },
+              "source_key_times": {
+                "type": "array",
+                "items": { "type": "number" }
+              }
+            }
+          },
+          "t_start_sec": { "type": "number" },
+          "t_end_sec": { "type": "number" },
+          "samples_per_frame": { "type": "integer", "minimum": 1 },
+          "samples": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": true,
+              "required": ["t_sec", "v"],
+              "properties": {
+                "t_sec": { "type": "number" },
+                "v": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "type": "number" }
+                },
+                "hold": { "type": "boolean" },
+                "key_timing": { "type": "object" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "config": { "type": "object", "additionalProperties": true }
+  }
+}

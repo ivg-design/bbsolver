@@ -44,19 +44,17 @@ using namespace pff_anchor;
 // pff_landmarks carries the arc-length sampling + dense-with-fraction
 // landmark insertion helpers (SampleDenseAtArc, BuildDenseWithFractionLandmarks)
 // + supporting structs (ArcLengthPoint, SampledArcPoint) — see
-// path_dense_landmarks.hpp. PFF10a promotes them so the Refine extraction
-// (PFF10b) and the existing FitShapeFlatFrameAtFractions can share.
+// path_dense_landmarks.hpp. Geometry refinement and fixed-fraction fitting
+// share these helpers.
 using namespace pff_landmarks;
 // pff_fitter carries the Candidate struct + BuildBestCandidate forward
-// declaration — see path_frame_fit_candidate.hpp. PFF10a promotes them so
-// the per-frame Refine extractor (PFF10b) can call BuildBestCandidate from
-// a separate TU. The function body stays in this file.
+// declaration — see path_frame_fit_candidate.hpp. The function body stays in
+// this file while geometry refinement can call it from a separate TU.
 using namespace pff_fitter;
 // pff_cubic_span carries CubicSpanFit + FitDenseSpanCubic forward
-// declaration — see path_frame_fit_cubic_span.hpp. PFF12 promotes only the
-// linkage of FitDenseSpanCubic so the decimation module (PFF12) can call
-// it; the body and its peer helpers (ScoreDenseSpanCubic,
-// SolveUnconstrainedDenseSpanCubic, ...) stay in this TU.
+// declaration — see path_frame_fit_cubic_span.hpp. The body and its peer
+// helpers (ScoreDenseSpanCubic, SolveUnconstrainedDenseSpanCubic, ...) stay
+// in this TU while the decimation module can call the public linkage.
 using namespace pff_cubic_span;
 
 Point NormalizeOr(Point p, Point fallback) {
@@ -274,10 +272,8 @@ std::vector<double> BuildSegmentFitFlat(const std::vector<DensePoint>& dense,
 namespace bbsolver {
 namespace pff_fitter {
 
-// Definition (declaration is in path_frame_fit_candidate.hpp). PFF10a flips
-// this from anonymous-namespace internal linkage to external
-// `bbsolver::pff_fitter::` linkage so PFF10b's path_frame_geometry_refine.cpp
-// can call it; the body and behavior are byte-faithful.
+// Definition declared in path_frame_fit_candidate.hpp. External linkage lets
+// path_frame_geometry_refine.cpp reuse the exact same candidate builder.
 Candidate BuildBestCandidate(const std::vector<DensePoint>& dense,
                              const std::vector<int>& kept,
                              const std::vector<bool>& sharp_source_vertices,
@@ -318,8 +314,7 @@ namespace {
 
 // Re-open anon namespace for the remaining internal helpers
 // (PointBounds + Bounds*, IsLockedRefineVertex, BuildRefinedCandidate,
-// SegmentSplitScore, ...). PFF10b will pull the Refine-only pieces out
-// next.
+// SegmentSplitScore, ...).
 using namespace pff_geom;
 using namespace pff_fractions;
 using namespace pff_dense;
@@ -331,8 +326,8 @@ using namespace pff_fitter;
 }  // namespace
 
 // EvaluateFractionLayout: external linkage so path_outline_fraction_expand.cpp
-// (PFF3) can call it without duplicating the dense-polyline pipeline. Body
-// continues to call this TU's anonymous-namespace helpers (ShapeFlatToDensePolyline,
+// can call it without duplicating the dense-polyline pipeline. Body continues
+// to call this TU's anonymous-namespace helpers (ShapeFlatToDensePolyline,
 // DenseToPoints, DirectedPolylineDistance, DensePerimeter, DenseArcPositions,
 // DenseFractionAtIndex, ProjectPointToDenseFraction) — same-TU access works
 // because internal linkage names are visible to named-namespace functions in

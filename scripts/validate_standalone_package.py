@@ -512,10 +512,10 @@ def expect_failure(command: list[object], reason: str, expected_codes: set[int])
 
 def validate_install_tree(install_dir: Path, source_root: Path) -> None:
     forbidden_tokens = {
-        "bakerboy",
-        "bakerBoy",
-        "BakerBoy",
-        "BAKERBOY",
+        "baker" + "boy",
+        "baker" + "Boy",
+        "Baker" + "Boy",
+        "BAKER" + "BOY",
         str(source_root),
     }
     historical_text_allowlist = {

@@ -9,10 +9,9 @@
 //
 // Pure leaf: no DiagnosticsWriter, no progress events, no acceptance state.
 // These helpers previously lived in path_frame_fit.cpp's anonymous namespace
-// and had 11 / 10 / 3 / 2 call sites respectively across the file. PFF5
-// promotes them so downstream extractions (outline-error trio, refine,
-// canonical layout) can be moved into their own modules without duplicating
-// the pipeline.
+// and had 11 / 10 / 3 / 2 call sites respectively across the file. They are
+// shared here so outline-error, refinement, and canonical-layout modules do
+// not duplicate the pipeline.
 //
 // Usage from a .cpp:
 //   namespace bbsolver { namespace { using namespace pff_dense; ... } }

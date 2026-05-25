@@ -1,8 +1,7 @@
 // Implements the public bbsolver::FitShapeFlatFrame overloads declared in
-// path_frame_fit.hpp. PFF12 lifts both overloads (and their single-caller
-// helpers) out of path_frame_fit.cpp now that the decimation pipeline is
-// reachable through path_frame_fit_decimate.hpp and BuildBestCandidate
-// through path_frame_fit_candidate.hpp.
+// path_frame_fit.hpp. The overloads depend on the decimation pipeline exposed
+// through path_frame_fit_decimate.hpp and BuildBestCandidate through
+// path_frame_fit_candidate.hpp.
 //
 // Diagnostics decision: **none / pure layout**. Acceptance-style helper
 // that returns PathFrameFitResult with status strings in `warning`. No
