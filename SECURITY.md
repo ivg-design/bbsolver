@@ -48,7 +48,7 @@ In scope for this policy:
   with bundles parsed by the shipped IO layer.
 - The shipped CMake package config (`bbsolverConfig.cmake`, exported targets)
   and the install tree layout.
-- The shipped AE ScriptUI harness and JSON shim under
+- The shipped AE ScriptUI harness under
   [`examples/after-effects/`](examples/after-effects/) — in their published
   form (modified copies are out of scope).
 

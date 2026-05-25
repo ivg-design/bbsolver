@@ -412,35 +412,37 @@ def test_cmake_dependency_lookup_ignores_user_package_registry() -> None:
     )
 
 
-def test_after_effects_json_shim_is_packaged_and_used() -> None:
+def test_after_effects_harness_support_folder_is_packaged_and_used() -> None:
     harness = AE_EXAMPLES_ROOT / "bbsolver-test-harness.jsx"
-    shim = AE_EXAMPLES_ROOT / "bbsolver-json-shim.jsx"
+    support = AE_EXAMPLES_ROOT / "bbsolver-test-harness"
     samples_schema = PROTOCOL_ROOT / "samples.fbs"
     assert harness.is_file(), "AE ScriptUI harness must be packaged"
-    assert shim.is_file(), "AE JSON shim must be packaged with the harness"
+    assert support.is_dir(), "AE harness support folder must be packaged"
     harness_text = _read(harness)
-    shim_text = _read(shim)
     samples_text = _read(samples_schema)
-    assert '//@include "bbsolver-json-shim.jsx"' in harness_text, (
-        "AE harness must include the package-local JSON shim"
+    assert '//@include "bbsolver-test-harness/serialize_json.jsx"' in harness_text, (
+        "AE harness must include the packaged SampleBundle writer"
     )
-    assert "function writeSampleBundleJson(" in shim_text, (
-        "JSON shim must expose SampleBundle writer"
+    assert '//@include "bbsolver-test-harness/parse_keys.jsx"' in harness_text, (
+        "AE harness must include the packaged KeyBundle reader"
     )
-    assert "function readKeyBundleJson(" in shim_text, (
-        "JSON shim must expose KeyBundle reader"
+    assert (support / "serialize_json.jsx").is_file(), (
+        "AE harness support folder must include SampleBundle writer"
     )
-    assert "writeSampleBundleJson(bundle, lastSamplePath)" in harness_text, (
-        "AE harness must write SampleBundles through the validated shim"
+    assert (support / "parse_keys.jsx").is_file(), (
+        "AE harness support folder must include KeyBundle reader"
     )
-    assert "readKeyBundleJson(lastKeyPath)" in harness_text, (
-        "AE harness must read KeyBundles through the validated shim"
+    assert "writeSampleBundleJson(bundle," in harness_text, (
+        "AE harness must write SampleBundles through the packaged writer"
+    )
+    assert "readKeyBundleJson(" in harness_text, (
+        "AE harness must read KeyBundles through the packaged reader"
     )
     assert "ae/jsx/serialize_json.jsx" not in samples_text, (
         "standalone schema comments must not point to non-packaged AE paths"
     )
-    assert "bbsolver-json-shim.jsx" in samples_text, (
-        "SampleBundle schema must point to the packaged JSON shim"
+    assert "examples/after-effects/bbsolver-test-harness/" in samples_text, (
+        "SampleBundle schema must point to the packaged AE support folder"
     )
 
 
@@ -1530,7 +1532,7 @@ def test_replacement_temporal_modules_use_target_replacement_temporal_layout() -
     # The replacement-temporal subsystem migrates as its own top-level
     # area under `solver/include/bbsolver/replacement_temporal/`. It is
     # architecturally distinct from path/temporal (which is the path-
-    # level validation/progress surface) and Codexitron's fit area, so
+    # level validation/progress surface) and the fit area, so
     # it stays a peer rather than a nested folder.
     migrated = (
         "replacement_temporal_anchor_prune",
@@ -1952,7 +1954,7 @@ def main() -> int:
         test_solver_tree_contains_no_finder_metadata,
         test_solver_ctest_exports_source_dir_for_fixtures,
         test_cmake_dependency_lookup_ignores_user_package_registry,
-        test_after_effects_json_shim_is_packaged_and_used,
+        test_after_effects_harness_support_folder_is_packaged_and_used,
         test_package_config_template_is_dependency_aware,
         test_package_smoke_project_locks_exported_targets,
         test_solver_unit_tests_live_under_solver_tree,

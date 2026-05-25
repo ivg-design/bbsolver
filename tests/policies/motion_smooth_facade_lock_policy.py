@@ -2,7 +2,7 @@
 """Motion Smooth MS1-MS15 façade lock policy.
 
 This policy is the structural guard for the three façade-style splits
-delivered by Clauditron's motion-smooth lane:
+delivered by the motion-smooth refactor lane:
 
 * MS1-MS5  — `motion_smooth_shape_loop.hpp` façade re-exports four
   sub-headers (curve / adaptive / schedule / tangent-lock). The body

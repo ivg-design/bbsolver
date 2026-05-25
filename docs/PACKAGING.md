@@ -21,7 +21,7 @@ The install tree contains:
 - `include/bbsolver/*_generated.h`: generated FlatBuffers protocol headers.
 - `share/bbsolver/protocol/*.fbs`: source FlatBuffers schemas.
 - `share/bbsolver/examples/...`: JSON fixtures and host-integration examples,
-  including the AE ScriptUI harness and JSON shim.
+  including the AE ScriptUI harness and support folder.
 - `share/bbsolver/third_party/archive/...`: hash-locked dependency archives
   used by installed package fallback resolution.
 - `share/doc/bbsolver/...`: docs, changelog, contributing guide, and license.

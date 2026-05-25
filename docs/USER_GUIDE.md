@@ -15,16 +15,14 @@ and progress stream.
 
 For the included AE ScriptUI test harness:
 
-1. Select the properties or layers to bake.
+1. Select one or more animatable timeline properties to bake.
 2. Open `bbsolver-test-harness`.
 3. Start with:
    - `Optimization mode`: `Full (keys + vertices)`
    - `Tolerance`: `0.5`
    - `Screen px`: `1.0`
-   - `Jobs`: `0` for automatic parallelism
-   - Path replacement and landmark subpaths off unless you are testing path
-     fitting.
-4. Run `Sample + Solve + Apply` and inspect the result.
+   - `Solver jobs`: `0` for automatic parallelism
+4. Run `Solve and Bake` and inspect the result.
 5. If the result has too many keys, loosen `Tolerance` or `Screen px` slightly.
 6. If a path loses important corners, keep `Preserve sharp path corners`
    enabled and avoid very loose tolerances.
@@ -192,13 +190,11 @@ values into the SampleBundle before launching `bbsolver`.
 |---|---:|---|
 | `Tolerance` | `0.5` | Main property-unit accuracy bound. |
 | `Screen px` | `1.0` | Projected pixel bound for UI bakes. |
-| `Sample mode` | `auto` | `auto`, frame samples, or sub-frame sampling. Shape Path and unified spatial bakes force frame-center sampling in current v1 behavior. |
 | `Use work area` | on | Limits sampling to the comp work area. |
-| `Use segment markers` | off | Splits work by layer markers containing `bboy_segment`. |
-| `Jobs` | `0` | `0` means auto; positive values cap solver worker count. |
+| `Use segment markers` | off | Splits work by layer markers containing `bbsolver_segment`, `bbsolve`, or `bbsolver`. |
+| `Solver jobs` | `0` | `0` means auto; positive values cap solver worker count. |
 | `Show preview` | on | Shows a result summary before writeback. |
 | `Verify round trip` | off | Replays the written keys back against samples. |
-| `Verify rig gaps` | on | Checks rig gap tolerances after writeback. |
 
 ### Property And Rig Settings
 
@@ -210,7 +206,6 @@ values into the SampleBundle before launching `bbsolver`.
 | `Flatten parented tolerance` | `0.05` | Stricter tolerance for parent-flattened rig transforms. |
 | `Rig rotation tolerance` | `0.01` degrees | Tightens rotation-group tolerance because small angular errors are visible in limbs/joints. |
 | `Disable expression` | on | Disables source expressions after successful writeback. |
-| `Archive as guide layer` | off | Preserves expression source as a guide layer artifact. |
 
 ### Optimization And Smoothing Settings
 
@@ -234,12 +229,9 @@ values into the SampleBundle before launching `bbsolver`.
 
 | AE Setting | Default | Effect |
 |---|---:|---|
-| `Try Bezier-eased path fitting` | off | Enables longer shape-temporal Bezier spans for paths. It can reduce keys but costs more solver time. |
-| `Try fitted replacement path` | off | Runs the advanced refit-ladder that attempts a lower-vertex replacement topology before temporal solving. |
 | `Run second-pass vertex prune after key reduction` | off | After a successful solve, tries removing existing path vertices while keeping accepted key times and tolerance. |
 | `Cleanup pass` | `prompt` | Optional second solver pass before writeback. `Prompt` asks, `Auto` runs eligible cleanup, `Off` skips. |
 | `Preserve sharp path corners under loose tolerances` | on | Locks durable high-angle shape landmarks during replacement and vertex pruning. |
-| `Request landmark sub-paths` | off | Diagnostic mode that asks the solver to append landmark subpath outputs. |
 
 ## CLI Options
 
@@ -758,8 +750,6 @@ respect. If the arc remains too noisy, increase smoothing tolerance carefully.
 Use:
 
 - `Full`
-- `Try Bezier-eased path fitting` on only if ordinary path solve needs help
-- `Try fitted replacement path` off at first
 - cleanup pass `Prompt`
 
 If the path still has too many vertices, try:

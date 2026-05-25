@@ -1,27 +1,33 @@
-# AE ScriptUI test harness
+# AE ScriptUI Test Harness
 
-Two files for an end-to-end After Effects integration example:
+This folder contains the standalone After Effects reference harness for
+`bbsolver`.
 
-- `bbsolver-test-harness.jsx` — the ScriptUI panel. It samples one selected AE
-  property, optionally unparents/bakes a parented 2-D Position, optionally
-  bakes-and-disables expressions, runs `bbsolver solve`, optionally
-  re-validates with `bbsolver verify`, and writes the solved keys back to the
-  selected property.
-- `bbsolver-json-shim.jsx` — small, dependency-free JSON helpers the harness
-  `//@include`s. Provides `bbsolverHasJson()`, `validateSampleBundleJson()`,
-  `writeSampleBundleJson()`, `readKeyBundleJson()`, and a handful of related
-  helpers. Both files must stay in the same folder unless you edit the
-  include path.
+## Files
 
-See [`../../docs/AE_SCRIPTUI_HARNESS.md`](../../docs/AE_SCRIPTUI_HARNESS.md) for:
+- `bbsolver-test-harness.jsx` — the ScriptUI panel entry point.
+- `bbsolver-test-harness/` — required support folder included by the panel.
 
-- supported AE versions and macOS/Windows install paths,
-- the `bbsolver` binary-resolution order the harness uses,
-- the per-`ValueKind` sampling and `shape_flat` encoding,
-- the expression bake-and-disable behavior,
-- the parented-2D-Position flatten/unparent recipe,
-- per-key writeback semantics, and
-- the full JSON shim API surface.
+Install the root script and support folder side by side:
 
-For a non-AE smoke path that exercises the same JSON contract from the
-command line, see [`../json/README.md`](../json/README.md).
+```text
+ScriptUI Panels/
+  bbsolver-test-harness.jsx
+  bbsolver-test-harness/
+```
+
+macOS After Effects 2026 app-level location:
+
+```text
+/Applications/Adobe After Effects 2026/Scripts/ScriptUI Panels/
+```
+
+Windows After Effects app-level location:
+
+```text
+%ProgramFiles%\Adobe\Adobe After Effects 2026\Support Files\Scripts\ScriptUI Panels\
+```
+
+See [`../../docs/AE_SCRIPTUI_HARNESS.md`](../../docs/AE_SCRIPTUI_HARNESS.md)
+for install commands, solver binary path resolution, supported controls, and
+feature notes.

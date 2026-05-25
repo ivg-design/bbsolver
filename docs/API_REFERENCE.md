@@ -53,10 +53,10 @@ in [`../protocol/`](../protocol/) as schema references and for generated
 C++ types, but binary `.bbsm` / `.bbky` CLI IO is not part of the
 process contract.
 
-Host examples that need a minimal JSON file shim can use
-[`../examples/after-effects/bbsolver-json-shim.jsx`](../examples/after-effects/bbsolver-json-shim.jsx).
-It provides validated `writeSampleBundleJson()`, `readSampleBundleJson()`, and
-`readKeyBundleJson()` helpers for ExtendScript-style integrations.
+Host examples can use
+[`../examples/after-effects/bbsolver-test-harness/`](../examples/after-effects/bbsolver-test-harness/)
+for ExtendScript JSON writing, KeyBundle parsing, AE property lookup, sampling,
+and writeback helpers.
 
 ## `solve` Options
 

@@ -258,7 +258,7 @@ of the SDK contract.
 For a runnable AE integration example, see
 [`AE_SCRIPTUI_HARNESS.md`](AE_SCRIPTUI_HARNESS.md) and
 `examples/after-effects/bbsolver-test-harness.jsx`. The harness samples
-one selected AE property, writes a JSON `SampleBundle`, invokes
+selected AE properties, writes a JSON `SampleBundle`, invokes
 `bbsolver solve`, reads a JSON `KeyBundle`, and writes solved keys back to AE.
 
 ### 4.5 SampleBundle JSON shape

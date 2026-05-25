@@ -13,6 +13,19 @@ harness as an integration example: it samples AE properties into
 solver-ready bundles, invokes the `bbsolver` CLI, receives solved bundles,
 and writes the resulting keys back into AE.
 
+## Use Cases
+
+`bbsolver` is useful when animation data is dense, expression-driven, parented,
+or path-heavy, and the result still needs to come back as editable keyframes.
+The clips below are the first public examples; they demonstrate the kinds of
+inputs and outputs the solver is designed around.
+
+| Use case | Example |
+|---|---|
+| **Motion sketch cleanup**: dense hand-drawn Position samples become a cleaner keyed motion path. | [Watch motion sketch path optimization](docs/assets/performance/motion-sketch-path-optimization.mp4) |
+| **Rig bake + unparent**: parented/rigged Position motion is sampled in context, solved, written back, and unparented. | [Watch DUIK walkcycle solve + unparent](docs/assets/performance/duik-walkcycle-solve-unparent.mp4) |
+| **Expression-driven path optimization**: stable-topology path animation is optimized while preserving the path shape within tolerance. | [Watch stable-topology path optimization](docs/assets/performance/ik-expression-driven-path-optimization-stable-topology.mp4) |
+
 > **Integration surface.** The supported integration is the CLI process
 > boundary plus the JSON SampleBundle/KeyBundle schemas. The CMake
 > package additionally exports `bbsolver::bbsolver` (the CLI) and
@@ -264,8 +277,8 @@ embedding.
   and exit codes.
 - [Developer Guide](docs/DEVELOPER_GUIDE.md): API surface, architecture,
   extension points, diagnostics, and integration notes.
-- [AE ScriptUI Test Harness](docs/AE_SCRIPTUI_HARNESS.md): minimal After
-  Effects sampling, bundle IO, CLI solve, and writeback example.
+- [AE ScriptUI Test Harness](docs/AE_SCRIPTUI_HARNESS.md): After Effects
+  sampling, bundle IO, CLI solve, logging, and writeback example.
 - [Tuning Guide](docs/TUNING_GUIDE.md): tolerance and mode guidance.
 - [DP Algorithm](docs/DP_ALGORITHM.md): key-placement algorithm notes.
 - [Path Handling](docs/PATH_HANDLING.md): Shape Path strategy and notes.

@@ -1,7 +1,7 @@
 // bbsolver SampleBundle schema (host -> solver).
 // FlatBuffers schema reference. file_identifier = "BBSM".
-// JSON is the v1 CLI exchange format. Host-side example helpers live in
-// examples/after-effects/bbsolver-json-shim.jsx.
+// JSON is the v1 CLI exchange format. Host-side AE example helpers live in
+// examples/after-effects/bbsolver-test-harness/.
 
 namespace bbsolver;
 

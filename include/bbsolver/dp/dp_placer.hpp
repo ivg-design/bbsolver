@@ -1,6 +1,6 @@
 // bbsolver dynamic-programming key placer.
-// Owner: Claudius. Implementation lives in dp_placer.cpp (round-2).
-// Codexitron: ae_curve.hpp + bbsolver/fit/segment_fitter.hpp provide the math used by SegmentFitFn.
+// Implementation lives in dp_placer.cpp. SegmentFitFn supplies the
+// fitting/error math used for each candidate span.
 
 #pragma once
 

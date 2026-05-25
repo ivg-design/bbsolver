@@ -1,5 +1,4 @@
 // bbsolver dynamic-programming key placer.
-// Owner: Claudius.
 //
 // Implements RunDPPlacement / SolveProperty / SolveAll declared in dp_placer.hpp.
 //
@@ -393,8 +392,8 @@ PropertyKeys SolveProperty(
 // v1: serial fan-out. The expected parallelism in this product is per-segment
 // (inside SegmentFitter), not per-property — most users will solve a handful of
 // properties at a time, and parallelizing here would race the per-property
-// loggers. Codexitron may switch to TBB parallel_for here once fit_fn is proven
-// thread-safe in all configurations.
+// loggers. This loop can move to TBB parallel_for once fit_fn is proven
+// thread-safe across all configurations.
 std::vector<PropertyKeys> SolveAll(
     const std::vector<PropertySamples>& properties,
     const SolverConfig& cfg,

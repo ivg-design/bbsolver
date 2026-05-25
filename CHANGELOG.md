@@ -1,5 +1,21 @@
 # bbsolver Changelog
 
+## v1.1.0
+
+- Rebuilt the standalone After Effects ScriptUI test harness from the proven
+  internal v103 panel instead of the reduced prototype UI.
+- Renamed the panel to `bbsolver-test-harness`, set the public harness version
+  to `1.1.0`, and moved support includes under the required
+  `bbsolver-test-harness/` support folder.
+- Preserved the v103 selected-property workflow, multi-property solve/apply,
+  progress bar, elapsed timer, async macOS solver runner, preview, and writeback
+  behavior.
+- Removed public controls for layer-wide batch bake, pairwise rig-gap verify,
+  landmark sub-path emission, raw Bezier/replacement fitting toggles,
+  expression archive/delete, and guide-layer archive.
+- Added main-panel log clearing/export controls and a settings-path for the
+  exported log folder.
+
 ## v1.0.0
 
 The first standalone release of `bbsolver`. The package is a self-contained
@@ -32,7 +48,7 @@ Supported integration surface, frozen for the `1.0.x` series:
   default; see [`docs/PATH_HANDLING.md`](docs/PATH_HANDLING.md).
 - **AE ScriptUI test harness** under
   [`examples/after-effects/`](examples/after-effects/) with a
-  validating JSON shim. Demonstrates sampling, optional
+  support-folder layout. Demonstrates sampling, optional
   unparent/bake of parented 2-D Position, expression bake-and-disable,
   CLI spawn, verify, and key writeback. See
   [`docs/AE_SCRIPTUI_HARNESS.md`](docs/AE_SCRIPTUI_HARNESS.md).
