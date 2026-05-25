@@ -1,0 +1,136 @@
+{
+  "version": 2,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 20,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "dev",
+      "displayName": "Dev build with tests",
+      "description": "Fast local development build with solver tests enabled.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/dev",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "BBSOLVER_BUILD_TESTS": "ON"
+      }
+    },
+    {
+      "name": "focused-test",
+      "displayName": "Focused test loop",
+      "description": "Incremental RelWithDebInfo tree for building and running one or a few test targets.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/focused-test",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "BBSOLVER_BUILD_TESTS": "ON"
+      }
+    },
+    {
+      "name": "package-smoke",
+      "displayName": "Package smoke producer",
+      "description": "Release tree that builds the CLI plus in-tree package smoke source target.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/package-smoke",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "BBSOLVER_BUILD_TESTS": "ON"
+      }
+    },
+    {
+      "name": "release-validation",
+      "displayName": "Release-style local validation",
+      "description": "Release tree with tests enabled and dependency resolution forced through shipped archives.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/release-validation",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "BBSOLVER_BUILD_TESTS": "ON",
+        "BBSOLVER_FORCE_THIRD_PARTY_ARCHIVES": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "dev",
+      "displayName": "Build dev tree",
+      "configurePreset": "dev"
+    },
+    {
+      "name": "focused-test",
+      "displayName": "Build focused test tree",
+      "configurePreset": "focused-test"
+    },
+    {
+      "name": "package-smoke",
+      "displayName": "Build package smoke targets",
+      "configurePreset": "package-smoke",
+      "targets": [
+        "bbsolver",
+        "test_package_smoke_source"
+      ]
+    },
+    {
+      "name": "release-validation",
+      "displayName": "Build release-validation tree",
+      "configurePreset": "release-validation"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "dev",
+      "displayName": "Run dev tests",
+      "configurePreset": "dev",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 8
+      }
+    },
+    {
+      "name": "focused-test",
+      "displayName": "Run focused tests",
+      "configurePreset": "focused-test",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 8
+      }
+    },
+    {
+      "name": "package-smoke",
+      "displayName": "Run package smoke source test",
+      "configurePreset": "package-smoke",
+      "filter": {
+        "include": {
+          "name": "^test_package_smoke_source$"
+        }
+      },
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 4
+      }
+    },
+    {
+      "name": "release-validation",
+      "displayName": "Run release-validation tests",
+      "configurePreset": "release-validation",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 8
+      }
+    }
+  ]
+}

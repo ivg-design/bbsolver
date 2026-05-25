@@ -1,0 +1,68 @@
+// bbsolver KeyBundle schema (solver -> host).
+// FlatBuffers schema reference. file_identifier = "BBKY".
+
+include "samples.fbs";
+
+namespace bbsolver;
+
+table TemporalEase {
+  speed:     double;        // property units per second at the key
+  influence: double = 33.3;  // AE-clamped [0.1, 100.0]
+}
+
+table Key {
+  t_sec:                 double;
+  v:                     [double];          // length = PropertyKeys.dimensions
+  interp_in:             InterpType = Bezier;
+  interp_out:            InterpType = Bezier;
+  // AE keeps one TemporalEase per dimension for separated, otherwise 1.
+  temporal_ease_in:      [TemporalEase];
+  temporal_ease_out:     [TemporalEase];
+  // Spatial tangents in property units relative to the key value.
+  // Empty when property is not spatial.
+  spatial_in:            [double];
+  spatial_out:           [double];
+  temporal_continuous:   bool = false;
+  spatial_continuous:    bool = false;
+  temporal_auto_bezier:  bool = false;
+  spatial_auto_bezier:  bool = false;
+  roving:                bool = false;
+}
+
+table SegmentReport {
+  start_idx:           int;     // index into original samples
+  end_idx:             int;
+  max_err:             double;  // L∞ in property units
+  max_err_screen_px:   double;
+  rms_err:             double;
+  iters:               int;
+  reason:              string;  // "bezier_ok" | "linear" | "hold" | "fallback_anchor" | ...
+}
+
+table PropertyKeys {
+  property_id:         string;
+  dimensions:          int;       // expected length of every Key.v
+  keys:                [Key];
+  max_err:             double;
+  max_err_screen_px:   double;
+  segments:            [SegmentReport];
+  converged:           bool;
+  notes:               string;
+}
+
+table KeyBundle {
+  schema_version:        int = 1;
+  request_id:            string;
+  property_results:      [PropertyKeys];
+  solver_version:        string;
+  solver_build:          string;     // git SHA or version tag
+  solve_time_ms:         double;
+  total_keys:            int;
+  total_samples_input:   int;
+  // If the solver could not converge for some properties, AE should respect
+  // `converged=false` and either retry with a tighter tolerance or fall back.
+}
+
+root_type KeyBundle;
+file_identifier "BBKY";
+file_extension  "bbky";

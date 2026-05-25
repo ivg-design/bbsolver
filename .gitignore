@@ -1,0 +1,42 @@
+# Build outputs
+/build/
+/build-*/
+/cmake-build-*/
+/out/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+CTestTestfile.cmake
+DartConfiguration.tcl
+Testing/
+cmake_install.cmake
+compile_commands.json
+install_manifest.txt
+
+# Compiled artifacts
+*.a
+*.app
+*.d
+*.dSYM/
+*.dylib
+*.exe
+*.lib
+*.o
+*.obj
+*.out
+*.so
+*.so.*
+
+# Python/test cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Editor and OS metadata
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/settings.json
+*.swp
+*~

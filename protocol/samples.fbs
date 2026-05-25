@@ -1,0 +1,120 @@
+// bbsolver SampleBundle schema (host -> solver).
+// FlatBuffers schema reference. file_identifier = "BBSM".
+// JSON is the v1 CLI exchange format. Host-side example helpers live in
+// examples/after-effects/bbsolver-json-shim.jsx.
+
+namespace bbsolver;
+
+enum ValueKind : byte {
+  Scalar         = 0,   // 1D, non-spatial (e.g. opacity, rotation in 2D)
+  TwoD           = 1,   // 2D non-spatial (e.g. anchor for non-positional, scale 2D)
+  ThreeD         = 2,   // 3D non-spatial (e.g. 3D rotation triple, scale 3D)
+  TwoD_Spatial   = 3,   // ADBE Position in 2D space (spatial tangents)
+  ThreeD_Spatial = 4,   // ADBE Position in 3D space
+  Color          = 5,   // RGBA
+  Custom         = 6
+}
+
+enum InterpType : byte {
+  Hold   = 0,
+  Linear = 1,
+  Bezier = 2
+}
+
+table CompInfo {
+  fps:                  double;
+  duration_sec:         double;
+  width:                int;
+  height:               int;
+  pixel_aspect:         double = 1.0;
+  shutter_angle_deg:    double = 180;   // 0..720
+  shutter_phase_deg:    double = 0;
+  motion_blur_enabled:  bool   = false;
+  work_area_start_sec:  double;
+  work_area_end_sec:    double;
+}
+
+// Optional layer transform at start of clip — enables screen-space error metric.
+table LayerXform {
+  anchor_point: [double];   // 2 or 3 doubles
+  position:     [double];
+  scale:        [double];
+  rotation:     [double];   // [z] in 2D, [x,y,z] in 3D
+  opacity:      double = 100.0;
+}
+
+table PropertyInfo {
+  id:           string;     // unique per request, e.g. "L1/T/Position"
+  match_name:   string;     // "ADBE Position", "ADBE Vector Position", ...
+  display_name: string;
+  layer_path:   string;     // "MyComp/MyLayer/Transform/Position"
+  kind:         ValueKind = Scalar;
+  dimensions:   int     = 1; // channels per sample point; shape_flat may be large
+  is_spatial:   bool    = false;
+  is_separated: bool    = false;
+  units_label:  string;     // human-readable units (px, deg, %, etc.)
+  min_value:    [double];   // optional clamp bounds
+  max_value:    [double];
+}
+
+// One sample point. `v` has `samples_per_frame * dimensions` entries when
+// sub-frame sampling is enabled — laid out as [s0_d0..s0_dN, s1_d0..s1_dN, ...].
+// For simple frame-center sampling, length == dimensions and t_sec is the frame center.
+table Sample {
+  t_sec: double;
+  v:     [double];
+}
+
+table PropertySamples {
+  property:                 PropertyInfo;
+  t_start_sec:              double;
+  t_end_sec:                double;
+  samples_per_frame:        int     = 1;   // 1 = frame-center; 3+ enables motion-blur fidelity
+  samples:                  [Sample];
+  layer_xform_at_start:     LayerXform;    // optional
+  hash_of_expression:       string;        // sha-1 of expression text, used to invalidate cache
+}
+
+table SolverConfig {
+  tolerance:             double = 0.5;   // L∞ budget in property units
+  tolerance_screen_px:   double = 0.0;   // 0 disables screen-space metric
+  weight_pos:            double = 1.0;
+  weight_vel:            double = 0.1;
+  weight_acc:            double = 0.01;
+  weight_curv:           double = 0.0;
+  weight_screen:         double = 0.0;
+  allow_hold:            bool   = true;
+  allow_linear:          bool   = true;
+  allow_bezier:          bool   = true;
+  allow_shape_temporal_bezier: bool   = false;  // host-dependent; requires AE host to honor Shape temporal ease
+  allow_path_spatial_fit: bool   = false;  // solver-side reduced canonical path fitting before temporal solve
+  allow_path_replacement_fit: bool = false;  // solver-side fitted replacement path before temporal solve
+  path_replacement_prefer_vertices: bool = false;  // run guarded post-temporal vertex pruning after key reduction
+  path_replacement_min_vertices: int = 4;
+  path_replacement_max_vertices: int = 0;  // 0 = no hard cap
+  path_replacement_max_key_growth_ratio: double = 2.0;
+  path_replacement_min_vertex_reduction_ratio: double = 0.20;
+  // Influence (AE) is clamped [0.1, 100.0] by AE itself.
+  min_influence:         double = 0.1;
+  max_influence:         double = 100.0;
+  max_iters_per_segment: int    = 100;
+  min_segment_frames:    int    = 2;
+  max_keys_hint:         int    = 0;     // 0 = unlimited
+  parallel_jobs:         int    = 0;     // 0 = auto (TBB picks)
+  verbose:               bool   = false;
+  path_preserve_sharp_corners: bool = true;  // protect high-angle path landmarks from high-tolerance simplification
+  path_sharp_corner_angle_deg: double = 55.0;  // deflection angle used to classify locked sharp vertices
+  path_sharp_corner_tolerance: double = 0.75;  // fixed local-unit match tolerance for protected corners
+}
+
+table SampleBundle {
+  schema_version: int = 1;
+  request_id:     string;
+  comp:           CompInfo;
+  properties:     [PropertySamples];
+  config:         SolverConfig;
+}
+
+root_type SampleBundle;
+file_identifier "BBSM";
+file_extension  "bbsm";

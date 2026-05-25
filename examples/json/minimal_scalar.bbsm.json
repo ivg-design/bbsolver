@@ -1,0 +1,68 @@
+{
+  "_schema": "samples",
+  "schema_version": 1,
+  "request_id": "example-minimal-scalar-0001",
+  "comp": {
+    "fps": 24.0,
+    "duration_sec": 1.0,
+    "width": 1920,
+    "height": 1080,
+    "pixel_aspect": 1.0,
+    "work_area_start_sec": 0.0,
+    "work_area_end_sec": 1.0
+  },
+  "properties": [
+    {
+      "property": {
+        "id": "scalar.opacity",
+        "match_name": "ADBE Opacity",
+        "display_name": "Opacity",
+        "layer_path": "ExampleLayer",
+        "kind": "Scalar",
+        "dimensions": 1,
+        "is_spatial": false,
+        "is_separated": false,
+        "units_label": "percent",
+        "min_value": [0.0],
+        "max_value": [100.0]
+      },
+      "t_start_sec": 0.0,
+      "t_end_sec": 1.0,
+      "samples_per_frame": 1,
+      "samples": [
+        {"t_sec": 0.0000, "v": [0.0]},
+        {"t_sec": 0.0417, "v": [4.166666666666667]},
+        {"t_sec": 0.0833, "v": [8.333333333333334]},
+        {"t_sec": 0.1250, "v": [12.5]},
+        {"t_sec": 0.1667, "v": [16.666666666666668]},
+        {"t_sec": 0.2083, "v": [20.833333333333336]},
+        {"t_sec": 0.2500, "v": [25.0]},
+        {"t_sec": 0.2917, "v": [29.166666666666668]},
+        {"t_sec": 0.3333, "v": [33.333333333333336]},
+        {"t_sec": 0.3750, "v": [37.5]},
+        {"t_sec": 0.4167, "v": [41.666666666666664]},
+        {"t_sec": 0.4583, "v": [45.83333333333333]},
+        {"t_sec": 0.5000, "v": [50.0]},
+        {"t_sec": 0.5417, "v": [54.16666666666667]},
+        {"t_sec": 0.5833, "v": [58.33333333333334]},
+        {"t_sec": 0.6250, "v": [62.5]},
+        {"t_sec": 0.6667, "v": [66.66666666666666]},
+        {"t_sec": 0.7083, "v": [70.83333333333334]},
+        {"t_sec": 0.7500, "v": [75.0]},
+        {"t_sec": 0.7917, "v": [79.16666666666666]},
+        {"t_sec": 0.8333, "v": [83.33333333333334]},
+        {"t_sec": 0.8750, "v": [87.5]},
+        {"t_sec": 0.9167, "v": [91.66666666666666]},
+        {"t_sec": 0.9583, "v": [95.83333333333334]},
+        {"t_sec": 1.0000, "v": [100.0]}
+      ]
+    }
+  ],
+  "config": {
+    "tolerance": 0.5,
+    "allow_hold": true,
+    "allow_linear": true,
+    "allow_bezier": true,
+    "solve_optimization_mode": "full"
+  }
+}

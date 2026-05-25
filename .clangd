@@ -1,0 +1,33 @@
+# clangd configuration for opening bbsolver as a standalone workspace.
+# The monorepo root has its own .clangd that points at solver/build; this
+# package-local config is the one that should travel when solver/ is split out.
+
+CompileFlags:
+  CompilationDatabase: build
+  Add:
+    - -std=c++17
+    - -Wall
+    - -Wextra
+    - -Wno-unused-parameter
+    - -DBBSOLVER_LSP=1
+
+Diagnostics:
+  Suppress:
+    - unused-variable
+    - unused-function
+  UnusedIncludes: Strict
+  MissingIncludes: Strict
+
+InlayHints:
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
+
+Hover:
+  ShowAKA: Yes
+
+---
+If:
+  PathMatch: build/generated/.*
+Diagnostics:
+  Suppress: [.*]
