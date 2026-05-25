@@ -71,7 +71,7 @@ mode remains the clean full gate.
 
 ## Developer Sweep
 
-Use this before handing off a normal implementation slice:
+Use this before handing off a normal implementation task:
 
 ```sh
 cmake --preset dev

@@ -940,7 +940,7 @@ def test_temporal_refit_readiness_checklist_records_merge_contract() -> None:
         "incoming `599a77e` diagnostics boundary and `9940264` main dispatch policy changes were accepted as base content only",
         "worktree fast-forwarded to `774ab29` Split path replacement acceptance module",
         "incoming path_fit_pipeline and path_replacement_acceptance changes were accepted as base content only",
-        "temporal_refit.hpp stays below the Phase 3 header line target",
+        "temporal_refit.hpp stays below the public header line target",
         "local Slice 49 path-replacement-notes/main/docs/policy work is still not assumed",
         "Public `temporal_refit.hpp` exports stay limited",
         "Helper declarations stay one-to-one",
