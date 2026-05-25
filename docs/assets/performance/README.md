@@ -10,9 +10,9 @@ Current assets:
 
 README preview attachment URLs:
 
-- Motion sketch cleanup: `https://github.com/user-attachments/assets/cecca4cc-0578-474b-ae6f-c95c3fa3f359`
+- Expression bake + vertex optimization: `https://github.com/user-attachments/assets/3a7fe26c-254a-4563-af44-04e7b533b732`
 - Rig bake + unparent: `https://github.com/user-attachments/assets/370c4f05-5af7-484e-be8e-b9339c49ae47`
-- Expression-driven path optimization: `https://github.com/user-attachments/assets/3a7fe26c-254a-4563-af44-04e7b533b732`
+- Motion sketch cleanup: `https://github.com/user-attachments/assets/cecca4cc-0578-474b-ae6f-c95c3fa3f359`
 
 Recommended use:
 

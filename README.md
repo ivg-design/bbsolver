@@ -20,11 +20,12 @@ parented, or path-heavy, and the result still needs to come back as editable
 keyframes. These public examples demonstrate the kinds of inputs and outputs
 the solver is designed around.
 
-### Motion Sketch Cleanup
+### Expression Bake + Vertex Optimization
 
-Dense hand-drawn Position samples become a cleaner keyed motion path.
+Expression-driven stable-topology path animation is optimized while preserving
+the path shape within tolerance.
 
-https://github.com/user-attachments/assets/cecca4cc-0578-474b-ae6f-c95c3fa3f359
+https://github.com/user-attachments/assets/3a7fe26c-254a-4563-af44-04e7b533b732
 
 ### Rig Bake + Unparent
 
@@ -33,12 +34,11 @@ and unparented.
 
 https://github.com/user-attachments/assets/370c4f05-5af7-484e-be8e-b9339c49ae47
 
-### Expression-Driven Path Optimization
+### Motion Sketch Cleanup
 
-Stable-topology path animation is optimized while preserving the path shape
-within tolerance.
+Dense hand-drawn Position samples become a cleaner keyed motion path.
 
-https://github.com/user-attachments/assets/3a7fe26c-254a-4563-af44-04e7b533b732
+https://github.com/user-attachments/assets/cecca4cc-0578-474b-ae6f-c95c3fa3f359
 
 > **Integration surface.** The supported integration is the CLI process
 > boundary plus the JSON SampleBundle/KeyBundle schemas. The CMake
