@@ -1,11 +1,10 @@
 name: bbsolver CI
 
 on:
-  pull_request:
-  push:
-    branches: [main]
-    tags: ["v*"]
   workflow_dispatch:
+  # Automatic CI is intentionally disabled to avoid consuming GitHub-hosted
+  # runner minutes. Run this workflow manually only when remote validation is
+  # explicitly needed.
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
