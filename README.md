@@ -15,16 +15,30 @@ and writes the resulting keys back into AE.
 
 ## Use Cases
 
-`bbsolver` is useful when animation data is dense, expression-driven, parented,
-or path-heavy, and the result still needs to come back as editable keyframes.
-The clips below are the first public examples; they demonstrate the kinds of
-inputs and outputs the solver is designed around.
+`bbsolver` is useful when animation data is dense, expression-driven,
+parented, or path-heavy, and the result still needs to come back as editable
+keyframes. These public examples demonstrate the kinds of inputs and outputs
+the solver is designed around.
 
-| Use case | Example |
-|---|---|
-| **Motion sketch cleanup**: dense hand-drawn Position samples become a cleaner keyed motion path. | [Watch motion sketch path optimization](docs/assets/performance/motion-sketch-path-optimization.mp4) |
-| **Rig bake + unparent**: parented/rigged Position motion is sampled in context, solved, written back, and unparented. | [Watch DUIK walkcycle solve + unparent](docs/assets/performance/duik-walkcycle-solve-unparent.mp4) |
-| **Expression-driven path optimization**: stable-topology path animation is optimized while preserving the path shape within tolerance. | [Watch stable-topology path optimization](docs/assets/performance/ik-expression-driven-path-optimization-stable-topology.mp4) |
+### Motion Sketch Cleanup
+
+Dense hand-drawn Position samples become a cleaner keyed motion path.
+
+https://github.com/user-attachments/assets/cecca4cc-0578-474b-ae6f-c95c3fa3f359
+
+### Rig Bake + Unparent
+
+Parented/rigged Position motion is sampled in context, solved, written back,
+and unparented.
+
+https://github.com/user-attachments/assets/370c4f05-5af7-484e-be8e-b9339c49ae47
+
+### Expression-Driven Path Optimization
+
+Stable-topology path animation is optimized while preserving the path shape
+within tolerance.
+
+https://github.com/user-attachments/assets/3a7fe26c-254a-4563-af44-04e7b533b732
 
 > **Integration surface.** The supported integration is the CLI process
 > boundary plus the JSON SampleBundle/KeyBundle schemas. The CMake
