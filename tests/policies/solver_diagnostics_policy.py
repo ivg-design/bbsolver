@@ -10,7 +10,7 @@ contract that:
   (`solve_start` -> `parallel_runtime` -> `solve_mode_capabilities` ->
   `cancellation_status` -> `solve_done`), every row carrying
   `schema_version` and `request_id`, with `solve_done` carrying the
-  lifecycle metadata Phase 4 CEP consumers parse (properties,
+  lifecycle metadata downstream consumers parse (properties,
   total_keys, solve_time_ms, total_samples_input);
 - a cancelled solve produces `solve_cancelled` instead of `solve_done`,
   with `cancellation_status.cancel_file_exists` flipped to true and the

@@ -1144,7 +1144,7 @@ static void TestAcceptanceVertexPreferredRejectsGuardedKeyGrowth() {
 }
 
 static void TestAcceptanceVertexPreferredRejectsLooseToleranceNoodleTradeoff() {
-  // This is the observed build049 regression class: a loose tolerance can make
+  // Regression class: a loose tolerance can make
   // a low-vertex replacement look attractive, but 77 replacement keys must not
   // preempt the 31-key temporal result. The second pass handles vertex pruning.
   const auto v = Evaluate(77, 17, 31, 52, true, 0.0, 2.624113, true, 3.0,
@@ -2244,7 +2244,7 @@ static void TestNearMissFactorBoundary() {
   }
 }
 
-// Simulate the current build007 noodle-path cache: the 22-vertex candidate is
+// Simulate the early-cycle noodle-path cache: the 22-vertex candidate is
 // a near miss, the 24-vertex retry still falls back, and the 26-vertex retry
 // reaches the cached passing shape/key count. The production retry loop gets
 // its targets from BuildShapeFlatReplacementTargetLadder, so pin that contract

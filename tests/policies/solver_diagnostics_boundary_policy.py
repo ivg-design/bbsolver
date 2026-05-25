@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""Source-level policy for the Phase 3 diagnostics boundary.
+"""Source-level policy for the diagnostics boundary.
 
 Diagnostics are intentionally opt-in and orchestration-owned. Pure policy,
-math, formatting, and helper modules may produce notes/progress payloads, but
-they must not depend on DiagnosticsWriter or write diagnostics directly. This
-policy is standalone for D6; a later governance slice may add it to
-tools/p3_refactor_guard.py after active guard/header work settles.
+math, formatting, and helper modules may produce notes/progress payloads,
+but they must not depend on DiagnosticsWriter or write diagnostics directly.
 """
 
 from __future__ import annotations

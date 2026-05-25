@@ -5,6 +5,12 @@ This guide documents the repeatable CMake preset loops for day-to-day
 `out/` build trees so they do not disturb the conventional `build/` directory
 or the full standalone package validator.
 
+For what each test suite covers and how to interpret pass/fail output, see
+[`TEST_CATALOG.md`](TEST_CATALOG.md). For the install/`find_package` smoke
+project that the `package-smoke` preset wraps, see
+[`PACKAGING.md`](PACKAGING.md). For the final release gate, see
+[`../scripts/validate_standalone_package.py`](../scripts/validate_standalone_package.py).
+
 ## Presets
 
 List the available presets from the solver root:
@@ -110,7 +116,8 @@ ctest --preset release-validation
 ```
 
 The release-style preset is intentionally local and incremental. The final
-standalone release gate remains:
+standalone release gate remains
+[`scripts/validate_standalone_package.py`](../scripts/validate_standalone_package.py):
 
 ```sh
 python3 scripts/validate_standalone_package.py

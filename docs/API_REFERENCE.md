@@ -3,6 +3,12 @@
 Concise reference for building, invoking, and integrating the standalone
 `bbsolver` command-line solver.
 
+See also: [`QUICKSTART.md`](QUICKSTART.md) for the five-minute build →
+solve → verify path; [`SOLVER_CLI.md`](SOLVER_CLI.md) for the full CLI
+process contract (binary resolution, exit codes, progress/diagnostics
+channels); [`AE_SCRIPTUI_HARNESS.md`](AE_SCRIPTUI_HARNESS.md) for the
+reference After Effects host integration.
+
 ## Build
 
 ```sh

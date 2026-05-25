@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Source-level policy for the Phase 3 temporal-refit split."""
+"""Source-level policy for the temporal-refit module."""
 
 from __future__ import annotations
 
@@ -591,7 +591,7 @@ def test_temporal_refit_helper_modules_are_present_compact_and_hpp_only() -> Non
     legacy_headers = sorted(SOLVER_SRC.glob("temporal_refit_*.h"))
     legacy_headers.extend(PUBLIC_REFIT_ROOT.glob("temporal_refit_*.h"))
     assert not legacy_headers, (
-        "temporal_refit Phase 3 headers must use .hpp: "
+        "temporal_refit headers must use .hpp: "
         + ", ".join(path.relative_to(ROOT).as_posix() for path in legacy_headers)
     )
 

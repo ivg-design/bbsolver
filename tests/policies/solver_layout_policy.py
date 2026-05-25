@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Phase 3 solver folder-layout policy.
+"""Solver folder-layout policy.
 
-Slice 75 started the target layout migration: stable/public headers live under
+The target layout is: stable/public headers live under
 `solver/include/bbsolver/<area>/` and implementation files live under
-`solver/src/<area>/`. This policy keeps the build and clangd-ready layout from
-regressing now that the final flat `solver/src` C++ files have moved into
-area folders.
+`solver/src/<area>/`. This policy keeps the build and clangd-ready layout
+from regressing now that all C++ files have moved into area folders.
 """
 
 from __future__ import annotations
@@ -709,7 +708,7 @@ def test_no_legacy_h_headers_in_solver_layout() -> None:
         for path in sorted(root.rglob("*.h"))
     ]
     assert not findings, (
-        "Phase 3 migrated/refactored solver headers must use .hpp. Findings:\n  "
+        "Solver headers must use .hpp. Findings:\n  "
         + "\n  ".join(findings)
     )
 
@@ -721,7 +720,7 @@ def test_no_root_cxx_files_remain_in_solver_src() -> None:
         if path.is_file() and path.suffix in {".cpp", ".hpp", ".h"}
     ]
     assert not findings, (
-        "Phase 3 final layout must keep C++ source/header files out of the "
+        "The package layout must keep C++ source/header files out of the "
         "solver/src root. Use solver/src/<area>/ for implementations and "
         "solver/include/bbsolver/<area>/ for public headers. Findings:\n  "
         + "\n  ".join(findings)

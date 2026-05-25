@@ -22,16 +22,15 @@
 //   ScopedEnv guard(name, nullptr); // capture + immediately unset (== name-only ctor)
 //                                   // ~guard restores the captured value
 
-#include <_stdlib.h>
 #include <cstddef>
 #include <cstdlib>
-#include <string>
-#include <utility>
-
-#if defined(_WIN32)
-// MSVC: <stdlib.h> declares _putenv_s and _dupenv_s.
+#if __has_include(<_stdlib.h>)
+#include <_stdlib.h>
+#else
 #include <stdlib.h>
 #endif
+#include <string>
+#include <utility>
 
 namespace bbsolver {
 namespace test_support {

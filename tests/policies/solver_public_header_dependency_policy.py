@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Public-header dependency policy for the Phase 3 layout migration.
+"""Public-header dependency policy for the bbsolver layout.
 
 Public headers under `solver/include/bbsolver/` should include other public
 headers through `bbsolver/...` paths. A short grandfather list remains while
 core private headers in flat solver/src/ are still
 flat in `solver/src/`; this policy makes those exceptions explicit and blocks
-new public-to-private dependencies. Slice 85 removed `path_frame_fit.hpp`
-from the grandfather list by migrating it into `solver/include/bbsolver/path/frame_fit/`;
+new public-to-private dependencies. Past migrations removed
+`path_frame_fit.hpp` from the grandfather list by moving it into
+`solver/include/bbsolver/path/frame_fit/`;
 the metrics layout migration removes `error_metrics.hpp` by moving it into
 `solver/include/bbsolver/metrics/`.
 """

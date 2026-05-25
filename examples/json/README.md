@@ -8,6 +8,10 @@ These bundles match the JSON contract documented in
 [`../../docs/SOLVER_CLI.md`](../../docs/SOLVER_CLI.md) and
 [`../../docs/API_REFERENCE.md`](../../docs/API_REFERENCE.md).
 
+For an AE-side integration that wraps the same JSON contract in a ScriptUI
+panel, see [`../after-effects/`](../after-effects/) and the recipe in
+[`../../docs/AE_SCRIPTUI_HARNESS.md`](../../docs/AE_SCRIPTUI_HARNESS.md).
+
 ## Examples
 
 | File | Property kind | Samples | Expected reduction | Notes |

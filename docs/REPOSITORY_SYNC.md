@@ -67,7 +67,8 @@ branch protection rules.
 
 ## Standalone CI
 
-The exported repository carries `.github/workflows/ci.yml`. It runs:
+The exported repository carries
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml). It runs:
 
 - Linux fast validation with archive-backed dependency resolution
 - CTest fast unit coverage (`unit` label, excluding `slow`)
@@ -83,3 +84,13 @@ Run the full release gate locally before publishing a v1 release:
 ```sh
 python3 scripts/validate_standalone_package.py --jobs 8 --clangd-jobs 8
 ```
+
+## See also
+
+- [`VALIDATION_WORKFLOWS.md`](VALIDATION_WORKFLOWS.md) — CMake-preset workflows
+  (`dev`, `focused-test`, `package-smoke`, `release-validation`) and the
+  incremental validator flags referenced above.
+- [`../scripts/validate_standalone_package.py`](../scripts/validate_standalone_package.py)
+  — the release-gate validator the workflow invokes.
+- [`PACKAGING.md`](PACKAGING.md) — install tree, exported CMake targets, and
+  the consumer-side `find_package(bbsolver CONFIG)` smoke project.

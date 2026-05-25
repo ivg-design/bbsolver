@@ -507,8 +507,8 @@ def test_bbsolver_progress_monotone_and_ordered_when_built():
 
     Locking this now means a future parallel work-stealing change that
     accidentally emits progress out of order, or that swaps the bracket
-    sequence, fails the gate before it reaches AE. Verified against
-    build097 on `color_pulse.bbsm.json` (8 events, 0 decreases).
+    sequence, fails the gate before it reaches AE. Verified on
+    `color_pulse.bbsm.json` (8 events, 0 decreases).
     """
     if not BBSOLVER.exists():
         print(f"[SKIP] bbsolver not built at {BBSOLVER}")

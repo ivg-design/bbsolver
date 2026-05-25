@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Source-level Phase 3 policy for the path multimode refactor lane."""
+"""Source-level policy for the path multimode module."""
 
 from __future__ import annotations
 
@@ -103,7 +103,7 @@ def test_path_multimode_headers_use_hpp() -> None:
     legacy_public = sorted(PATH_MULTIMODE_PUBLIC_DIR.glob("path_multimode_*.h"))
     legacy_headers = legacy_flat + legacy_public
     assert not legacy_headers, (
-        "path_multimode Phase 3 headers must use .hpp: "
+        "path_multimode headers must use .hpp: "
         + ", ".join(path.relative_to(ROOT).as_posix() for path in legacy_headers)
     )
 

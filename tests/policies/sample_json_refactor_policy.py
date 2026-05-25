@@ -201,7 +201,7 @@ def test_sample_json_modules_stay_pure() -> None:
 def test_sample_json_headers_use_hpp() -> None:
     legacy_headers = sorted(SAMPLE_IO_INCLUDE_DIR.glob("sample*_io.h"))
     assert not legacy_headers, (
-        "sample JSON Phase 3 headers must use .hpp: "
+        "sample JSON headers must use .hpp: "
         + ", ".join(_rel(path) for path in legacy_headers)
     )
 

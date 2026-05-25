@@ -98,7 +98,9 @@ bbsolver/
 |-- tests/solver_unit/      # C++ unit tests built by CMake
 |-- tests/policies/         # Solver-owned source-level policy checks
 |-- docs/                   # User, developer, and integration documentation
+|-- cmake/                  # bbsolverConfig.cmake.in template
 |-- scripts/                # Standalone validation tooling
+|-- SECURITY.md             # Security policy
 `-- third_party/            # Hash-locked dependency archives + notices
 ```
 
@@ -123,11 +125,12 @@ build from source.
 
 ## Build
 
-From this directory:
+From the package root:
 
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
+./build/bbsolver --version
 ./build/bbsolver --help
 ```
 
