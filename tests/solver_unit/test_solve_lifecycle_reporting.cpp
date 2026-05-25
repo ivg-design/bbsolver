@@ -130,16 +130,18 @@ void TestEmitSolveStartLifecycleWritesDiagnostics() {
   options.fit_canonical_paths = true;
   options.fit_replacement_paths = true;
   const bbsolver::ProgressWriter progress(-1);
-  const bbsolver::DiagnosticsWriter diagnostics =
-      bbsolver::DiagnosticsWriter::ToFile(out);
+  {
+    const bbsolver::DiagnosticsWriter diagnostics =
+        bbsolver::DiagnosticsWriter::ToFile(out);
 
-  bbsolver::EmitSolveStartLifecycle(samples,
-                                    options,
-                                    "in.bbsm.json",
-                                    "out.bbky.json",
-                                    1,
-                                    progress,
-                                    diagnostics);
+    bbsolver::EmitSolveStartLifecycle(samples,
+                                      options,
+                                      "in.bbsm.json",
+                                      "out.bbky.json",
+                                      1,
+                                      progress,
+                                      diagnostics);
+  }
 
   const std::vector<nlohmann::json> events = ReadJsonLines(out);
   Require(events.size() == 4, "start lifecycle diagnostic row count");
@@ -179,10 +181,15 @@ void TestEmitSolveDoneLifecycleWritesDiagnosticEvent() {
   keys.total_samples_input = 41;
   keys.solve_time_ms = 88.25;
   const bbsolver::ProgressWriter progress(-1);
-  const bbsolver::DiagnosticsWriter diagnostics =
-      bbsolver::DiagnosticsWriter::ToFile(out);
+  {
+    const bbsolver::DiagnosticsWriter diagnostics =
+        bbsolver::DiagnosticsWriter::ToFile(out);
 
-  bbsolver::EmitSolveDoneLifecycle("request-done", keys, progress, diagnostics);
+    bbsolver::EmitSolveDoneLifecycle("request-done",
+                                     keys,
+                                     progress,
+                                     diagnostics);
+  }
 
   const std::vector<nlohmann::json> events = ReadJsonLines(out);
   Require(events.size() == 1, "done lifecycle diagnostic row count");
@@ -205,15 +212,17 @@ void TestEmitSolveCancelledLifecycleWritesDiagnosticEvent() {
 
   bbsolver::KeyBundle keys;
   keys.property_results.resize(2);
-  const bbsolver::DiagnosticsWriter diagnostics =
-      bbsolver::DiagnosticsWriter::ToFile(out);
+  {
+    const bbsolver::DiagnosticsWriter diagnostics =
+        bbsolver::DiagnosticsWriter::ToFile(out);
 
-  bbsolver::EmitSolveCancelledLifecycle("request-cancel",
-                                        "temporal_refit",
-                                        3,
-                                        keys,
-                                        12.5,
-                                        diagnostics);
+    bbsolver::EmitSolveCancelledLifecycle("request-cancel",
+                                          "temporal_refit",
+                                          3,
+                                          keys,
+                                          12.5,
+                                          diagnostics);
+  }
 
   const std::vector<nlohmann::json> events = ReadJsonLines(out);
   Require(events.size() == 1, "cancel lifecycle diagnostic row count");
@@ -247,17 +256,20 @@ void TestWriteCancelledSolvePartialEmitsDiagnosticAndBundle() {
   keys.property_results.resize(1);
   keys.property_results[0].property_id = "unit/cancelled";
   keys.property_results[0].converged = true;
-  const bbsolver::DiagnosticsWriter diagnostics =
-      bbsolver::DiagnosticsWriter::ToFile(diagnostics_path);
   const auto start = std::chrono::steady_clock::now();
 
-  const int rc = bbsolver::WriteCancelledSolvePartial(output,
-                                                      "request-cancel-output",
-                                                      "property_loop",
-                                                      4,
-                                                      keys,
-                                                      start,
-                                                      diagnostics);
+  int rc = 0;
+  {
+    const bbsolver::DiagnosticsWriter diagnostics =
+        bbsolver::DiagnosticsWriter::ToFile(diagnostics_path);
+    rc = bbsolver::WriteCancelledSolvePartial(output,
+                                              "request-cancel-output",
+                                              "property_loop",
+                                              4,
+                                              keys,
+                                              start,
+                                              diagnostics);
+  }
 
   Require(rc == 5, "cancelled solve partial exit code");
   const std::vector<nlohmann::json> events = ReadJsonLines(diagnostics_path);
@@ -304,16 +316,19 @@ void TestWriteCompletedSolveOutputWritesBundleAndDoneLifecycle() {
   keys.property_results[1].keys.push_back(MakeLinearScalarKey(0.0, 3.0));
   keys.property_results[1].keys.push_back(MakeLinearScalarKey(1.0, 4.0));
   const bbsolver::ProgressWriter progress(-1);
-  const bbsolver::DiagnosticsWriter diagnostics =
-      bbsolver::DiagnosticsWriter::ToFile(diagnostics_path);
   const auto start = std::chrono::steady_clock::now();
 
-  const int rc = bbsolver::WriteCompletedSolveOutput(output,
-                                                     "request-complete-output",
-                                                     keys,
-                                                     start,
-                                                     progress,
-                                                     diagnostics);
+  int rc = 0;
+  {
+    const bbsolver::DiagnosticsWriter diagnostics =
+        bbsolver::DiagnosticsWriter::ToFile(diagnostics_path);
+    rc = bbsolver::WriteCompletedSolveOutput(output,
+                                             "request-complete-output",
+                                             keys,
+                                             start,
+                                             progress,
+                                             diagnostics);
+  }
 
   Require(rc == 0, "completed solve output exit code");
   const bbsolver::KeyBundle read_back = bbsolver::ReadKeyBundleJson(output);

@@ -30,12 +30,18 @@ int EnvPositiveInt(const char* name) {
   }
   char* end = nullptr;
   errno = 0;
-  const long parsed = std::strtol(value, &end, 10);
-  if (errno != 0 || end == value || parsed <= 0) {
+  const long long parsed = std::strtoll(value, &end, 10);
+  if (end == value || parsed <= 0) {
     return 0;
   }
-  return static_cast<int>(std::min<long>(
-      parsed, static_cast<long>(std::numeric_limits<int>::max())));
+  if (errno == ERANGE) {
+    return std::numeric_limits<int>::max();
+  }
+  if (errno != 0) {
+    return 0;
+  }
+  return static_cast<int>(std::min<long long>(
+      parsed, static_cast<long long>(std::numeric_limits<int>::max())));
 }
 
 int EnvPositiveIntEither(const char* primary, const char* legacy) {

@@ -128,15 +128,17 @@ void TestDiagnosticsWriterCreatesDeeplyNestedParentUnderTempDir() {
   Require(std::filesystem::is_directory(root / "level_a" / "level_b"),
           "writer must auto-create all intermediate parent directories");
 
-  std::ifstream in(out);
-  std::string line;
-  Require(std::getline(in, line) && !line.empty(),
-          "writer must write at least one JSONL row");
-  const nlohmann::json event = nlohmann::json::parse(line);
-  Require(event["event"] == "deep_nested",
-          "emitted event must round-trip through the JSONL line");
-  Require(event["depth"] == 3,
-          "emitted event depth must round-trip through the JSONL line");
+  {
+    std::ifstream in(out);
+    std::string line;
+    Require(std::getline(in, line) && !line.empty(),
+            "writer must write at least one JSONL row");
+    const nlohmann::json event = nlohmann::json::parse(line);
+    Require(event["event"] == "deep_nested",
+            "emitted event must round-trip through the JSONL line");
+    Require(event["depth"] == 3,
+            "emitted event depth must round-trip through the JSONL line");
+  }
 
   std::filesystem::remove_all(root);
 }
@@ -157,16 +159,7 @@ void TestDiagnosticsWriterAcceptsNativePreferredPath() {
   Require(std::filesystem::exists(out),
           "writer must accept paths normalized via make_preferred()");
 
-  // Tear down by walking up to the unique base segment we created.
-  std::filesystem::path root = out;
-  while (root.parent_path().filename().string().rfind("bb_path_portability_", 0) == 0) {
-    root = root.parent_path();
-  }
-  // Now root.parent_path() is the bb_path_portability_* base; walk one
-  // more level up.
-  if (root.parent_path() != root) {
-    std::filesystem::remove_all(root.parent_path());
-  }
+  std::filesystem::remove_all(out.parent_path().parent_path());
 }
 
 void TestDiagnosticsWriterEmptyPathRejected() {
