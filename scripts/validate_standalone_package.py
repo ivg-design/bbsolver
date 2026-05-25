@@ -434,6 +434,8 @@ def validate_package_smoke(
     jobs: str,
     generator: str | None,
 ) -> None:
+    if smoke_build_dir.exists():
+        shutil.rmtree(smoke_build_dir)
     configure = [
         "cmake",
         "-S",

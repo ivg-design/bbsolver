@@ -13,6 +13,7 @@
 #include "bbsolver/progress/progress.hpp"
 
 #ifndef _WIN32
+#include <sys/types.h>
 #include <unistd.h>
 #endif
 
@@ -82,7 +83,7 @@ void TestTemporalSolveDoneProgressEvent() {
 
   ::close(fds[1]);
   char buffer[512] = {};
-  const ssize_t read_count = ::read(fds[0], buffer, sizeof(buffer) - 1);
+  const auto read_count = ::read(fds[0], buffer, sizeof(buffer) - 1);
   ::close(fds[0]);
 
   Require(!result.cancelled, "non-cancelled solve should not cancel");

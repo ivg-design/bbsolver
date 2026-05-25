@@ -1,5 +1,7 @@
 #include "bbsolver/io/sample_bundle_validation.hpp"
 
+#include "nlohmann/json_fwd.hpp"
+
 #include <nlohmann/json.hpp>
 
 #include <cmath>
