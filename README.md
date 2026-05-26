@@ -25,20 +25,20 @@ the solver is designed around.
 Expression-driven stable-topology path animation is optimized while preserving
 the path shape within tolerance.
 
-https://github.com/user-attachments/assets/3a7fe26c-254a-4563-af44-04e7b533b732
+https://github.com/user-attachments/assets/e62d6b2d-596d-49f2-9ad0-23fe7d8ec362
 
 ### Rig Bake + Unparent
 
 Parented/rigged Position motion is sampled in context, solved, written back,
 and unparented.
 
-https://github.com/user-attachments/assets/370c4f05-5af7-484e-be8e-b9339c49ae47
+https://github.com/user-attachments/assets/7e1d18fc-d231-4255-a7a0-697895b3fda1
 
 ### Motion Sketch Cleanup
 
 Dense hand-drawn Position samples become a cleaner keyed motion path.
 
-https://github.com/user-attachments/assets/cecca4cc-0578-474b-ae6f-c95c3fa3f359
+https://github.com/user-attachments/assets/4ab8c257-d922-46af-b74b-67a6179a8747
 
 ### What to Look For
 

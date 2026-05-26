@@ -1,6 +1,6 @@
 # Performance Media
 
-Drop solver performance visuals here before the README is updated.
+Solver performance visuals used by the README.
 
 Current assets:
 
@@ -8,11 +8,12 @@ Current assets:
 - `duik-walkcycle-solve-unparent.mp4`
 - `ik-expression-driven-path-optimization-stable-topology.mp4`
 
-README preview attachment URLs:
+README preview attachment URLs hosted from public issue
+[`ivg-design/bbsolver#1`](https://github.com/ivg-design/bbsolver/issues/1):
 
-- Expression bake + vertex optimization: `https://github.com/user-attachments/assets/3a7fe26c-254a-4563-af44-04e7b533b732`
-- Rig bake + unparent: `https://github.com/user-attachments/assets/370c4f05-5af7-484e-be8e-b9339c49ae47`
-- Motion sketch cleanup: `https://github.com/user-attachments/assets/cecca4cc-0578-474b-ae6f-c95c3fa3f359`
+- Expression bake + vertex optimization: `https://github.com/user-attachments/assets/e62d6b2d-596d-49f2-9ad0-23fe7d8ec362`
+- Rig bake + unparent: `https://github.com/user-attachments/assets/7e1d18fc-d231-4255-a7a0-697895b3fda1`
+- Motion sketch cleanup: `https://github.com/user-attachments/assets/4ab8c257-d922-46af-b74b-67a6179a8747`
 
 Recommended use:
 
