@@ -2,10 +2,12 @@
 #include "bbsolver/domain.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <cstddef>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <optional>
 #include <string>
 
 #include "bbsolver/metrics/error_metrics.hpp"
@@ -35,6 +37,103 @@ bool KeyVectorDimensionsMatch(const PropertyKeys& property_keys,
       property_keys.keys.begin(),
       property_keys.keys.end(),
       [&](const Key& key) { return key.v.size() == expected; });
+}
+
+bool IsVariableTopologyShapeFlat(const PropertyInfo& info) {
+  return info.units_label == "shape_flat" && info.shape_variable_topology;
+}
+
+// Per-key shape-flat invariant. Each key's v[] must encode a
+// non-negative integer vertex count at index 1 with overall length
+// equal to 2 + 6 * vertex_count (the v[0] header plus six floats per
+// vertex: in-tangent dx/dy, anchor x/y, out-tangent dx/dy). When the
+// source bbsm records shape_max_vertex_count > 0 the per-key vertex
+// count must also stay within that ceiling. Returns std::nullopt on
+// success, otherwise a JSON object describing the malformed key.
+std::optional<nlohmann::json> ValidateShapeFlatKey(const Key& key,
+                                                   std::size_t key_index,
+                                                   int max_vertex_count) {
+  auto fail = [&](const char* reason_detail,
+                  int actual_length,
+                  int expected_length,
+                  int vertex_count) {
+    nlohmann::json detail{
+        {"key_index", static_cast<std::int64_t>(key_index)},
+        {"key_t_sec", key.t_sec},
+        {"actual_length", actual_length},
+        {"expected_length", expected_length},
+        {"vertex_count", vertex_count},
+        {"detail", reason_detail},
+    };
+    if (max_vertex_count > 0) {
+      detail["max_vertex_count"] = max_vertex_count;
+    }
+    return detail;
+  };
+
+  const int actual_len = static_cast<int>(key.v.size());
+  if (actual_len < 2) {
+    return fail("v_length_below_minimum", actual_len, 2, 0);
+  }
+  const double raw_vertex_count = key.v[1];
+  if (!std::isfinite(raw_vertex_count)) {
+    return fail("vertex_count_not_finite", actual_len, -1, 0);
+  }
+  const double rounded = std::round(raw_vertex_count);
+  if (std::abs(raw_vertex_count - rounded) > 1e-9 || rounded < 0.0) {
+    return fail("vertex_count_not_nonnegative_integer", actual_len, -1,
+                static_cast<int>(rounded));
+  }
+  const int vertex_count = static_cast<int>(rounded);
+  const int expected_len = 2 + 6 * vertex_count;
+  if (actual_len != expected_len) {
+    return fail("v_length_mismatch_2_plus_6_times_vertex_count",
+                actual_len, expected_len, vertex_count);
+  }
+  if (max_vertex_count > 0 && vertex_count > max_vertex_count) {
+    return fail("vertex_count_exceeds_shape_max_vertex_count",
+                actual_len, expected_len, vertex_count);
+  }
+  return std::nullopt;
+}
+
+// Cross-check the bbsm-declared dimensions field against the
+// shape_max_vertex_count metadata. For shape_flat the contract is
+// dimensions == 2 + 6 * shape_max_vertex_count. When the max is
+// missing we derive it from dimensions only when (dimensions - 2)
+// is a non-negative multiple of 6. Returns std::nullopt when the
+// contract holds (or there is not enough info to check), otherwise
+// a JSON object describing the malformed bbsm metadata. The result
+// is purely advisory for verify, but reviewers expect the verifier
+// to flag obvious inconsistencies in the input sample bundle.
+std::optional<nlohmann::json> ValidateShapeFlatMetadata(
+    const PropertyInfo& info) {
+  if (info.units_label != "shape_flat") {
+    return std::nullopt;
+  }
+  if (info.shape_max_vertex_count > 0) {
+    const int expected = 2 + 6 * info.shape_max_vertex_count;
+    if (info.dimensions != expected) {
+      return nlohmann::json{
+          {"detail",
+           "shape_flat dimensions must equal 2 + 6 * shape_max_vertex_count"},
+          {"dimensions", info.dimensions},
+          {"shape_max_vertex_count", info.shape_max_vertex_count},
+          {"expected_dimensions", expected},
+      };
+    }
+    return std::nullopt;
+  }
+  // shape_max_vertex_count missing: dimensions must be derivable.
+  if (info.dimensions >= 2 && ((info.dimensions - 2) % 6) == 0) {
+    return std::nullopt;
+  }
+  return nlohmann::json{
+      {"detail",
+       "shape_flat dimensions without shape_max_vertex_count must satisfy "
+       "(dimensions - 2) mod 6 == 0"},
+      {"dimensions", info.dimensions},
+  };
 }
 
 void RequireDumpBundleJson(const nlohmann::json& root) {
@@ -96,7 +195,7 @@ int RunVerifyCommand(int argc, char** argv) {
     throw std::runtime_error(
         "bbsolver verify accepts SampleBundle JSON input only");
   }
-  const KeyBundle bundle = ReadKeyBundleJson(bundle_path);
+  const KeyBundle bundle = ReadKeyBundleJsonForVerify(bundle_path);
   const SampleBundle samples = ReadSampleBundleJson(sample_path);
   RequireSupportedBundleSchemaVersion("KeyBundle", bundle.schema_version);
   RequireSupportedBundleSchemaVersion("SampleBundle", samples.schema_version);
@@ -127,9 +226,49 @@ int RunVerifyCommand(int argc, char** argv) {
       continue;
     }
 
-    const int expected_dimensions =
-        std::max(sample_it->property.dimensions, 1);
-    if (!KeyVectorDimensionsMatch(property_keys, expected_dimensions)) {
+    const PropertyInfo& info = sample_it->property;
+    const int expected_dimensions = std::max(info.dimensions, 1);
+    const bool variable_topology_shape_flat = IsVariableTopologyShapeFlat(info);
+
+    if (variable_topology_shape_flat) {
+      // Variable-topology shape_flat: the strict bbsm-derived dim does
+      // not apply per-key. Validate each key against the shape_flat
+      // 2 + 6 * vertex_count rule, and flag any inconsistency in the
+      // bbsm-side metadata. property_results.dimensions on the bbky is
+      // advisory here — blob v1 demonstrates that per-key v[] length
+      // legitimately varies inside a single bundle.
+      if (const auto metadata_problem = ValidateShapeFlatMetadata(info)) {
+        all_ok = false;
+        nlohmann::json entry{
+            {"property_id", property_keys.property_id},
+            {"ok", false},
+            {"reason", "invalid_shape_flat_sample_metadata"},
+            {"key_count", property_keys.keys.size()},
+        };
+        entry.update(*metadata_problem);
+        property_results.push_back(entry);
+        continue;
+      }
+      nlohmann::json malformed_keys = nlohmann::json::array();
+      for (std::size_t idx = 0; idx < property_keys.keys.size(); ++idx) {
+        if (auto problem = ValidateShapeFlatKey(
+                property_keys.keys[idx], idx, info.shape_max_vertex_count)) {
+          malformed_keys.push_back(*problem);
+        }
+      }
+      if (!malformed_keys.empty()) {
+        all_ok = false;
+        property_results.push_back({
+            {"property_id", property_keys.property_id},
+            {"ok", false},
+            {"reason", "invalid_shape_flat_key_dimensions"},
+            {"shape_max_vertex_count", info.shape_max_vertex_count},
+            {"key_count", property_keys.keys.size()},
+            {"malformed_keys", malformed_keys},
+        });
+        continue;
+      }
+    } else if (!KeyVectorDimensionsMatch(property_keys, expected_dimensions)) {
       all_ok = false;
       property_results.push_back({
           {"property_id", property_keys.property_id},

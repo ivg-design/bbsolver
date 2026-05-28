@@ -82,7 +82,7 @@ int RequirePropertyKeyDimensions(const json& property_json) {
   return dimensions;
 }
 
-void RequireKeyJson(const json& key_json, int dimensions) {
+void RequireKeyJsonShape(const json& key_json) {
   if (!key_json.is_object()) {
     throw std::runtime_error("KeyBundle key entries must be objects");
   }
@@ -97,13 +97,19 @@ void RequireKeyJson(const json& key_json, int dimensions) {
   if (value_it->empty()) {
     throw std::runtime_error("KeyBundle key v must not be empty");
   }
+}
+
+void RequireKeyJson(const json& key_json, int dimensions) {
+  RequireKeyJsonShape(key_json);
+  const auto value_it = key_json.find("v");
   if (value_it->size() != static_cast<std::size_t>(dimensions)) {
     throw std::runtime_error(
         "KeyBundle key v length must equal property_results dimensions");
   }
 }
 
-void RequirePropertyKeysJson(const json& property_json) {
+void RequirePropertyKeysJsonImpl(const json& property_json,
+                                 bool require_uniform_dimensions) {
   if (!property_json.is_object()) {
     throw std::runtime_error(
         "KeyBundle property_results entries must be objects");
@@ -115,7 +121,20 @@ void RequirePropertyKeysJson(const json& property_json) {
     throw std::runtime_error(
         "KeyBundle property_results property_id must be a non-empty string");
   }
-  const int dimensions = RequirePropertyKeyDimensions(property_json);
+  // Relaxed path: the verifier needs to accept legacy bbky files
+  // whose property_results entry omits the top-level dimensions field
+  // (early variable-topology bakes wrote nothing here). Dimensions is
+  // still required on the strict path so solve / apply IO stays
+  // unchanged.
+  const auto dimensions_it = property_json.find("dimensions");
+  const bool has_dimensions =
+      dimensions_it != property_json.end() &&
+      !dimensions_it->is_null() &&
+      dimensions_it->is_number_integer();
+  int dimensions = 0;
+  if (require_uniform_dimensions || has_dimensions) {
+    dimensions = RequirePropertyKeyDimensions(property_json);
+  }
   const json& keys = RequireArrayField(
       property_json, "keys", "KeyBundle property_results entry");
   const bool converged = GetOr<bool>(property_json, "converged", true);
@@ -124,8 +143,20 @@ void RequirePropertyKeysJson(const json& property_json) {
         "KeyBundle converged property_results entry keys must not be empty");
   }
   for (const auto& key_json : keys) {
-    RequireKeyJson(key_json, dimensions);
+    if (require_uniform_dimensions) {
+      RequireKeyJson(key_json, dimensions);
+    } else {
+      RequireKeyJsonShape(key_json);
+    }
   }
+}
+
+void RequirePropertyKeysJson(const json& property_json) {
+  RequirePropertyKeysJsonImpl(property_json, /*require_uniform_dimensions=*/true);
+}
+
+void RequirePropertyKeysJsonForVerify(const json& property_json) {
+  RequirePropertyKeysJsonImpl(property_json, /*require_uniform_dimensions=*/false);
 }
 
 InterpType ParseInterpType(const std::string& value) {
@@ -292,7 +323,8 @@ PropertyKeys ParsePropertyKeys(const json& obj) {
 
 }  // namespace
 
-void RequireKeyBundleJsonRoot(const json& root) {
+void RequireKeyBundleJsonRootImpl(const json& root,
+                                  bool require_uniform_dimensions) {
   if (!root.is_object()) {
     throw std::runtime_error("KeyBundle JSON must be an object");
   }
@@ -309,8 +341,20 @@ void RequireKeyBundleJsonRoot(const json& root) {
   }
   RequireNonEmptyArrayField(root, "property_results", "KeyBundle");
   for (const auto& property_json : root.at("property_results")) {
-    RequirePropertyKeysJson(property_json);
+    if (require_uniform_dimensions) {
+      RequirePropertyKeysJson(property_json);
+    } else {
+      RequirePropertyKeysJsonForVerify(property_json);
+    }
   }
+}
+
+void RequireKeyBundleJsonRoot(const json& root) {
+  RequireKeyBundleJsonRootImpl(root, /*require_uniform_dimensions=*/true);
+}
+
+void RequireKeyBundleJsonRootForVerify(const json& root) {
+  RequireKeyBundleJsonRootImpl(root, /*require_uniform_dimensions=*/false);
 }
 
 KeyBundle ParseKeyBundleJson(const json& root) {

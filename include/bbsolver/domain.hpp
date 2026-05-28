@@ -76,6 +76,15 @@ struct PropertyInfo {
   std::vector<double> min_value;
   std::vector<double> max_value;
   std::vector<double> source_key_times;
+  // Variable-topology shape_flat metadata. Populated only when
+  // units_label == "shape_flat". Carried through to verify so the
+  // verifier can apply the per-key 2 + 6 * vertex_count rule
+  // instead of the strict expected_dimensions == key_dimensions
+  // check used for fixed-topology properties.
+  bool shape_variable_topology = false;
+  std::string shape_canonical_method;
+  int shape_canonical_vertex_count = 0;
+  int shape_max_vertex_count = 0;
 };
 
 struct Sample {

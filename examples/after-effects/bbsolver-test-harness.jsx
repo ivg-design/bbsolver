@@ -3957,6 +3957,31 @@
                     verifyLastLabel = label;
                 }
             }
+            // verify.jsx tightens propTolerance via
+            //   propTolerance = Math.min(settings.tolerance, flattenParentedTolerance, rigRotationTolerance)
+            // for parented-position, parented-rotation, and rotation-property
+            // rows. The historical defaults (0.05 px, 0.01°) were UI-quality
+            // gates that did NOT match the ε the solver was actually invoked
+            // with, so the OK/FAIL flag on verify cards diverged from the
+            // paper-ε criterion. Default both knobs to settings.tolerance so
+            // the per-kind Math.min is a no-op unless the user explicitly
+            // sets a tighter verify budget. Set
+            //   settings.coupleVerifyToSamplerPrecision = true
+            // to restore the old behavior. (Mirrors the solve-side
+            // coupleSolveToSamplerPrecision opt-in in _effectiveGroupTolerances.)
+            var verifyFlattenTol;
+            var verifyRigRotTol;
+            if (settings.coupleVerifyToSamplerPrecision === true) {
+                verifyFlattenTol = (typeof settings.flattenParentedTolerance === 'number')
+                    ? settings.flattenParentedTolerance : 0.05;
+                verifyRigRotTol = (typeof settings.rigRotationTolerance === 'number')
+                    ? settings.rigRotationTolerance : 0.01;
+            } else {
+                verifyFlattenTol = (typeof settings.flattenParentedTolerance === 'number')
+                    ? settings.flattenParentedTolerance : settings.tolerance;
+                verifyRigRotTol = (typeof settings.rigRotationTolerance === 'number')
+                    ? settings.rigRotationTolerance : settings.tolerance;
+            }
             try {
                 vResult = verifyRoundTrip(bundle,
                     function (propId) { return parseSepId(propId, comp); },
@@ -3964,9 +3989,9 @@
                     {
                         verifyRigGaps: false,
                         rigGapTolerance: settings.rigGapTolerance,
-                        flattenParentedTolerance: settings.flattenParentedTolerance || 0.05,
-                        rigRotationTolerance: settings.rigRotationTolerance || 0.01,
-                        useRigRotationTolerance: true,
+                        flattenParentedTolerance: verifyFlattenTol,
+                        rigRotationTolerance: verifyRigRotTol,
+                        useRigRotationTolerance: (settings.coupleVerifyToSamplerPrecision === true),
                         progressCallback: verifyProgress
                     });
             } catch (ve) { log('WARN (verify): ' + ve.message); }
@@ -4010,26 +4035,37 @@
                 pinfo.cleanup_tolerance_px > 0) {
             tolPxVal = pinfo.cleanup_tolerance_px;
         }
-        var flattenTol = (typeof settings.flattenParentedTolerance === 'number' &&
-                          settings.flattenParentedTolerance > 0)
-            ? settings.flattenParentedTolerance : 0.05;
-        var rigRotTol = (typeof settings.rigRotationTolerance === 'number' &&
-                         settings.rigRotationTolerance > 0)
-            ? settings.rigRotationTolerance : 0.01;
-        if (pinfo.flatten_parented_position === true) {
-            tolVal = Math.min(tolVal, flattenTol);
-        }
-        if (pinfo.flatten_parented_rotation === true ||
-                pinfo.parent_flatten_strict_rotation === true) {
-            tolVal = Math.min(tolVal, flattenTol);
-        }
-        if (_isRotationPropertyInfo(pinfo) ||
-                pinfo.flatten_parented_rotation === true ||
-                pinfo.parent_flatten_strict_rotation === true) {
-            // Rotation solves are scalar degrees; keep both solver tolerances on
-            // the same strict angular contract so grouping and verification agree.
-            tolVal = Math.min(tolVal, rigRotTol);
-            tolPxVal = Math.min(tolPxVal, rigRotTol);
+        // Solver tolerance respects the UI Linf field directly. The
+        // flattenParentedTolerance and rigRotationTolerance settings describe
+        // SAMPLER-side unparenting precision (used by sampler.jsx in
+        // sourcePointToComp + rotation flattening) and rig-drift VERIFY budgets
+        // (used by verify.jsx after writeback). They must remain decoupled
+        // from the solver's per-frame error budget. Earlier versions clamped
+        // tolVal via Math.min(tolVal, flattenParentedTolerance) and
+        // Math.min(tolVal, rigRotationTolerance), which silently prevented
+        // loose-tolerance solves on parented rigs and on rotation properties.
+        // For opt-in legacy behavior, callers can set
+        // settings.coupleSolveToSamplerPrecision = true to restore the clamps.
+        if (settings.coupleSolveToSamplerPrecision === true) {
+            var flattenTol = (typeof settings.flattenParentedTolerance === 'number' &&
+                              settings.flattenParentedTolerance > 0)
+                ? settings.flattenParentedTolerance : 0.05;
+            var rigRotTol = (typeof settings.rigRotationTolerance === 'number' &&
+                             settings.rigRotationTolerance > 0)
+                ? settings.rigRotationTolerance : 0.01;
+            if (pinfo.flatten_parented_position === true) {
+                tolVal = Math.min(tolVal, flattenTol);
+            }
+            if (pinfo.flatten_parented_rotation === true ||
+                    pinfo.parent_flatten_strict_rotation === true) {
+                tolVal = Math.min(tolVal, flattenTol);
+            }
+            if (_isRotationPropertyInfo(pinfo) ||
+                    pinfo.flatten_parented_rotation === true ||
+                    pinfo.parent_flatten_strict_rotation === true) {
+                tolVal = Math.min(tolVal, rigRotTol);
+                tolPxVal = Math.min(tolPxVal, rigRotTol);
+            }
         }
         return { tol: tolVal, tolPx: tolPxVal };
     }

@@ -45,10 +45,66 @@ https://github.com/user-attachments/assets/4ab8c257-d922-46af-b74b-67a6179a8747
 These clips show the integration problems `bbsolver` is built to solve:
 dense samples become sparse editable keys, expression and rig output can be
 baked into ordinary host keyframes, and path-heavy animations can be reduced
-without changing the intended shape beyond the configured tolerance. The
-benchmark/case-study corpus will add exact runtime, key-count reduction,
-max-error, memory, and job-count determinism numbers when that package is
-ready to publish.
+without changing the intended shape beyond the configured tolerance.
+
+## Benchmark whitepaper and reproducibility corpus
+
+The full technical report on `bbsolver`, with head-to-head accuracy and key-count
+comparisons against three widely-used open-source baselines, ships in this
+repository at
+[`benchmarks/01_arxiv_full_technical_report/`](benchmarks/01_arxiv_full_technical_report/).
+It includes:
+
+- the report itself
+  ([`bbsolver_arxiv_full_technical_report_v3.md`](benchmarks/01_arxiv_full_technical_report/bbsolver_arxiv_full_technical_report_v3.md))
+  and every figure it cites under `figures/`;
+- the **paper-figure reproducibility corpus** at
+  [`data/paper_corpus/`](benchmarks/01_arxiv_full_technical_report/data/paper_corpus/) —
+  raw `bbsm` / `bbky` / `verify` / `progress.log` bundles for all 11 cited
+  solves (~62 MB), indexed by [`corpus_manifest.csv`](benchmarks/01_arxiv_full_technical_report/data/paper_corpus/corpus_manifest.csv);
+- the **supplementary CSVs** at
+  [`data/supplementary/`](benchmarks/01_arxiv_full_technical_report/data/supplementary/) —
+  one CSV per quantitative table or figure in the Results section;
+- the **After Effects benchmark project** at
+  [`benchmarks/after_effects_benchmark_project/bbSolver_benchmarking.aep`](benchmarks/after_effects_benchmark_project/bbSolver_benchmarking.aep)
+  containing every rig and procedural setup cited in the paper (DUIK
+  humanoid, ant hexapod, FK noodle, v1-v6 blob lineage, CS1/CS2 path
+  fixtures). *Opening or re-running this .aep requires a valid Adobe After
+  Effects 2024+ license — Adobe AE is commercial software and we cannot
+  redistribute the application itself, only the project file the harness
+  drives. The serialized SampleBundles in `data/paper_corpus/` (next item)
+  are the AE-independent path: they capture the sampled comp state and can
+  be re-solved with just `bbsolver` on any platform.*
+- the **standalone-Python ports** of two open-source baselines under
+  [`external_runners/`](benchmarks/01_arxiv_full_technical_report/external_runners/)
+  (`joosten_reducer/` and `toolchefs_reducer/`), each with upstream
+  provenance preserved for diffability;
+- the deterministic figure-generation pipeline at
+  [`scripts/`](benchmarks/01_arxiv_full_technical_report/scripts/).
+
+The solver build that produced every `bbky.json` in the corpus is `bbsolver
+1.0.0`, tag `v1.0.0` of this repository. Each `bbky.json` records its own
+`solver_version` and `solver_build` for cross-check against any future build.
+The canonical `verify.json` files shipped under `data/paper_corpus/` were
+regenerated with `bbsolver 1.0.1` (a verifier-side bug fix for variable-topology
+`shape_flat` bundles; same solver, no numeric change). v1.0.1 is the recommended
+binary for reproducing `verify.json` from scratch — see
+[`THRESHOLD_NOTE.md`](benchmarks/01_arxiv_full_technical_report/data/paper_corpus/THRESHOLD_NOTE.md)
+for the diagnosis and §8.1 of the
+[benchmark report](benchmarks/01_arxiv_full_technical_report/bbsolver_arxiv_full_technical_report_v3.md)
+for the SHA-256 manifest of both releases.
+
+Per-row exact runtime, key-count reduction, max-error, memory, and
+job-count determinism numbers are in the supplementary CSVs and the paper
+itself; nothing is "TBD". Every numerical claim is **auditable from
+public artifacts** in this repository, and **regenerable where the
+required inputs are available**: solver-only rows (in-loop max_err, key
+counts, canonical CLI verify) can be re-derived from the public
+`bbsm` / `bbky` corpus; full AE / Illustrator host round trips require
+the corresponding licensed applications; full raw regeneration of the
+203-run production corpus requires the private original `live_runs`
+folders, while the shipped per-run and summary CSVs make the aggregate
+publicly auditable.
 
 > **Integration surface.** The supported integration is the CLI process
 > boundary plus the JSON SampleBundle/KeyBundle schemas. The CMake
@@ -59,7 +115,7 @@ ready to publish.
 > JSON only. See [`docs/DEVELOPER_GUIDE.md`](docs/DEVELOPER_GUIDE.md) §11
 > for the full public/private boundary discussion.
 
-**Current version:** `bbsolver 1.0.0`. License: [MIT](LICENSE).
+**Current version:** `bbsolver 1.0.1` (solver behaviour unchanged from `v1.0.0`; verifier-side bug fix for variable-topology `shape_flat`). License: [MIT](LICENSE).
 
 ## Repository model
 
@@ -73,6 +129,27 @@ integration subtree before the next export so the two trees stay identical.
 See [`docs/REPOSITORY_SYNC.md`](docs/REPOSITORY_SYNC.md) for the export
 workflow, [`docs/ROADMAP.md`](docs/ROADMAP.md) for near-term priorities, and
 [`docs/MAINTAINERS.md`](docs/MAINTAINERS.md) for maintainer policy.
+
+## Pre-built binaries
+
+Both `v1.0.0` and `v1.0.1` ship pre-built binaries for **macOS arm64**, **macOS
+x86_64**, **Windows arm64**, and **Windows x64** as release assets, each with
+its own `SHA256SUMS.txt`. `v1.0.1` is the recommended download for reproducing
+the paper's canonical CLI verify pass (it fixes a verifier-side strict-dim
+check that had rejected the six variable-topology `shape_flat` rows of the
+corpus). `v1.0.0` remains available unchanged for byte-level reproduction of
+the original solver outputs. Binaries are **not** Apple-notarized /
+Authenticode-signed, so Gatekeeper and SmartScreen may warn on first run —
+see §8.1 of the
+[benchmark report](benchmarks/01_arxiv_full_technical_report/bbsolver_arxiv_full_technical_report_v3.md)
+for the full chain-of-custody discussion and verify commands.
+
+```sh
+# macOS / Linux: download + integrity-check (v1.0.1 canonical)
+gh release download v1.0.1 --repo ivg-design/bbsolver \
+  --pattern 'bbsolver-v1.0.1-macos-arm64.tar.gz' --pattern 'SHA256SUMS.txt'
+shasum -a 256 -c SHA256SUMS.txt --ignore-missing
+```
 
 ## Quickstart
 

@@ -39,6 +39,19 @@ KeyBundle ReadKeyBundleJson(const std::filesystem::path& path) {
   return ParseKeyBundleJson(root);
 }
 
+KeyBundle ReadKeyBundleJsonForVerify(const std::filesystem::path& path) {
+  std::ifstream input(path);
+  if (!input) {
+    throw std::runtime_error("Failed to open KeyBundle JSON: " +
+                             path.string());
+  }
+
+  nlohmann::json root;
+  input >> root;
+  RequireKeyBundleJsonRootForVerify(root);
+  return ParseKeyBundleJson(root);
+}
+
 void WriteKeyBundleJson(const std::filesystem::path& path,
                         const KeyBundle& bundle) {
   std::ofstream output(path);

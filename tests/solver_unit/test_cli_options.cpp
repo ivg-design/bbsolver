@@ -185,7 +185,7 @@ void TestJsonSuffixAndUsage() {
           "usage must include diagnostics flag");
   Require(usage.find("bbsolver --version") != std::string::npos,
           "usage must include version command");
-  Require(std::string(bbsolver::kBbsolverVersion) == "bbsolver 1.0.0",
+  Require(std::string(bbsolver::kBbsolverVersion) == "bbsolver 1.0.1",
           "version string mismatch");
 }
 

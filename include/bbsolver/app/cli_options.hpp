@@ -7,7 +7,7 @@
 
 namespace bbsolver {
 
-inline constexpr const char* kBbsolverVersion = "bbsolver 1.0.0";
+inline constexpr const char* kBbsolverVersion = "bbsolver 1.0.1";
 
 struct SolveOptions {
   double tolerance = 0.5;

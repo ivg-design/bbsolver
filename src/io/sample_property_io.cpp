@@ -84,6 +84,18 @@ PropertyInfo ParsePropertyInfoJson(const json& obj) {
   property.min_value = GetDoubleVector(obj, "min_value");
   property.max_value = GetDoubleVector(obj, "max_value");
   property.source_key_times = GetDoubleVector(obj, "source_key_times");
+  property.shape_variable_topology =
+      GetOr<bool>(obj, "shape_variable_topology",
+                  property.shape_variable_topology);
+  property.shape_canonical_method =
+      GetOr<std::string>(obj, "shape_canonical_method",
+                         property.shape_canonical_method);
+  property.shape_canonical_vertex_count =
+      GetOr<int>(obj, "shape_canonical_vertex_count",
+                 property.shape_canonical_vertex_count);
+  property.shape_max_vertex_count =
+      GetOr<int>(obj, "shape_max_vertex_count",
+                 property.shape_max_vertex_count);
   return property;
 }
 
