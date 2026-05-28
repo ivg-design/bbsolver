@@ -1,0 +1,429 @@
+{
+  "regenerated": "2026-05-28T10:56:07Z",
+  "regenerator": "bbsolver verify (canonical CLI)",
+  "regenerator_note": "This verify.json was produced by re-running the canonical `bbsolver verify` CLI on the shipped bbky.json + bbsm.json pair. The OK/FAIL flag reflects the per-property tolerance recorded inside the bbky.json (the \u03b5 the solver was invoked with) rather than the AE harness's per-kind defaults. The max_err values are computed from the same bbky + bbsm pair by the canonical verifier; the corpus keys themselves were produced by bbsolver 1.0.0 and v1.0.1 is verifier-compatible with v1.0.0 solver output (running v1.0.1 solve against the same bbsm yields a bit-identical bbky).",
+  "overall_ok": true,
+  "request_id": "req-1779733597712",
+  "properties": [
+    {
+      "key_count": 13,
+      "max_err": 2.881542383735564,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=13; temporal_refit_output_keys=13; temporal_refit_rejected=over_budget; temporal_refit_max_err=3.982066; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L14/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.6951348087343056,
+      "worst_sample_idx": 276
+    },
+    {
+      "key_count": 11,
+      "max_err": 1.904236405739006,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=11; temporal_refit_output_keys=11; temporal_refit_rejected=no_gain; temporal_refit_max_err=1.904236; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L14/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.7335871866997586,
+      "worst_sample_idx": 245
+    },
+    {
+      "key_count": 11,
+      "max_err": 2.199641026160066,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=11; temporal_refit_output_keys=11; temporal_refit_rejected=over_budget; temporal_refit_max_err=3.885836; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L17/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.6523225956881644,
+      "worst_sample_idx": 150
+    },
+    {
+      "key_count": 11,
+      "max_err": 2.5813835995736056,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=11; temporal_refit_output_keys=11; temporal_refit_rejected=over_budget; temporal_refit_max_err=5.240795; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L17/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.9137559624221766,
+      "worst_sample_idx": 5
+    },
+    {
+      "key_count": 16,
+      "max_err": 2.4607359783153697,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=16; temporal_refit_output_keys=16; temporal_refit_rejected=no_gain; temporal_refit_max_err=3.035595; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L18/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.5817679131439839,
+      "worst_sample_idx": 167
+    },
+    {
+      "key_count": 9,
+      "max_err": 2.669894493041917,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=9; temporal_refit_output_keys=9; temporal_refit_rejected=over_budget; temporal_refit_max_err=5.151173; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L18/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.9597702263942125,
+      "worst_sample_idx": 214
+    },
+    {
+      "key_count": 12,
+      "max_err": 1.7542774571450082,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=12; temporal_refit_output_keys=12; temporal_refit_rejected=no_gain; temporal_refit_max_err=4.445411; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L19/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.48040288507787304,
+      "worst_sample_idx": 151
+    },
+    {
+      "key_count": 7,
+      "max_err": 2.5559120132247024,
+      "max_err_screen_px": 0.0,
+      "notes": "static_key_run_collapse_rejected; static_key_runs_collapsed=1; static_keys_would_remove=2; static_key_collapse_max_err=22.270329; static_key_collapse_max_err_screen_px=0.000000; temporal_refit_attempted=true; temporal_refit_input_keys=7; temporal_refit_output_keys=7; temporal_refit_rejected=no_gain; temporal_refit_max_err=2.590436; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L19/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 1.1276176980703938,
+      "worst_sample_idx": 154
+    },
+    {
+      "key_count": 11,
+      "max_err": 1.2319793213645198,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=11; temporal_refit_output_keys=11; temporal_refit_rejected=no_gain; temporal_refit_max_err=1.386407; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L20/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.44817490488387135,
+      "worst_sample_idx": 287
+    },
+    {
+      "key_count": 7,
+      "max_err": 1.1964625165196168,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=7; temporal_refit_output_keys=7; temporal_refit_rejected=no_gain; temporal_refit_max_err=1.196463; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L20/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.4944708133656204,
+      "worst_sample_idx": 253
+    },
+    {
+      "key_count": 10,
+      "max_err": 2.792132312028343,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=10; temporal_refit_output_keys=10; temporal_refit_rejected=no_gain; temporal_refit_max_err=3.552029; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L21/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.8428412259540493,
+      "worst_sample_idx": 65
+    },
+    {
+      "key_count": 7,
+      "max_err": 1.1964670730539666,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=7; temporal_refit_output_keys=7; temporal_refit_rejected=no_gain; temporal_refit_max_err=1.196467; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L21/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.49447011314284456,
+      "worst_sample_idx": 253
+    },
+    {
+      "key_count": 9,
+      "max_err": 2.467415984380523,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=9; temporal_refit_output_keys=9; temporal_refit_rejected=no_gain; temporal_refit_max_err=3.045567; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L22/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.610167374134046,
+      "worst_sample_idx": 220
+    },
+    {
+      "key_count": 7,
+      "max_err": 0.9940655252055688,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=7; temporal_refit_output_keys=7; temporal_refit_rejected=no_gain; temporal_refit_max_err=0.994066; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L22/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.41311072251488107,
+      "worst_sample_idx": 96
+    },
+    {
+      "key_count": 10,
+      "max_err": 2.7060335595995184,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=10; temporal_refit_output_keys=10; temporal_refit_rejected=over_budget; temporal_refit_max_err=4.113396; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L23/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.7015974128723176,
+      "worst_sample_idx": 167
+    },
+    {
+      "key_count": 7,
+      "max_err": 0.5049906608331831,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=7; temporal_refit_output_keys=7; temporal_refit_rejected=over_budget; temporal_refit_max_err=3.009175; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L23/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.20711597078461413,
+      "worst_sample_idx": 95
+    },
+    {
+      "key_count": 11,
+      "max_err": 2.684033947880664,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=11; temporal_refit_output_keys=11; temporal_refit_rejected=no_gain; temporal_refit_max_err=2.766502; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L24/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.567712265999326,
+      "worst_sample_idx": 137
+    },
+    {
+      "key_count": 1,
+      "max_err": 1.9999989781643,
+      "max_err_screen_px": 0.0,
+      "notes": "constant_short_circuit",
+      "ok": true,
+      "property_id": "L24/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 1.2349584932724078,
+      "worst_sample_idx": 42
+    },
+    {
+      "key_count": 11,
+      "max_err": 1.6077198763653087,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=12; temporal_refit_output_keys=11; temporal_refit_accepted=true; temporal_refit_reduction=1; temporal_refit_max_err=1.607720; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L25/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.5236566290095653,
+      "worst_sample_idx": 93
+    },
+    {
+      "key_count": 1,
+      "max_err": 1.9999989781643,
+      "max_err_screen_px": 0.0,
+      "notes": "constant_short_circuit",
+      "ok": true,
+      "property_id": "L25/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 1.2349580297842713,
+      "worst_sample_idx": 42
+    },
+    {
+      "key_count": 11,
+      "max_err": 2.1632603923753777,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=11; temporal_refit_output_keys=11; temporal_refit_rejected=over_budget; temporal_refit_max_err=4.207854; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L26/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.48589579413480405,
+      "worst_sample_idx": 80
+    },
+    {
+      "key_count": 2,
+      "max_err": 2.8248062634079387,
+      "max_err_screen_px": 0.0,
+      "notes": "",
+      "ok": true,
+      "property_id": "L26/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 1.6017877760881538,
+      "worst_sample_idx": 289
+    },
+    {
+      "key_count": 9,
+      "max_err": 2.8644683920422267,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=9; temporal_refit_output_keys=9; temporal_refit_rejected=no_gain; temporal_refit_max_err=4.362220; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L28/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.8162504245763229,
+      "worst_sample_idx": 221
+    },
+    {
+      "key_count": 1,
+      "max_err": 2.10483388052402,
+      "max_err_screen_px": 0.0,
+      "notes": "constant_short_circuit",
+      "ok": true,
+      "property_id": "L28/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 1.2484836247613278,
+      "worst_sample_idx": 47
+    },
+    {
+      "key_count": 12,
+      "max_err": 1.24242087612663,
+      "max_err_screen_px": 0.0,
+      "notes": "static_key_run_collapse_rejected; static_key_runs_collapsed=1; static_keys_would_remove=8; static_key_collapse_max_err=7.898499; static_key_collapse_max_err_screen_px=0.000000; temporal_refit_attempted=true; temporal_refit_input_keys=12; temporal_refit_output_keys=12; temporal_refit_rejected=no_gain; temporal_refit_max_err=2.385344; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L29/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.3100506947328284,
+      "worst_sample_idx": 14
+    },
+    {
+      "key_count": 3,
+      "max_err": 2.6071141733619703,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=3; temporal_refit_output_keys=3; temporal_refit_rejected=over_budget; temporal_refit_max_err=3.076071; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L29/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 1.7384992923608313,
+      "worst_sample_idx": 60
+    },
+    {
+      "key_count": 11,
+      "max_err": 1.4402192743381192,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=11; temporal_refit_output_keys=11; temporal_refit_rejected=no_gain; temporal_refit_max_err=1.982039; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L30/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.4516253890745483,
+      "worst_sample_idx": 78
+    },
+    {
+      "key_count": 7,
+      "max_err": 1.196484545292698,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=7; temporal_refit_output_keys=7; temporal_refit_rejected=no_gain; temporal_refit_max_err=1.196485; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L30/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.494470729921574,
+      "worst_sample_idx": 253
+    },
+    {
+      "key_count": 11,
+      "max_err": 1.351952624732121,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=11; temporal_refit_output_keys=11; temporal_refit_rejected=no_gain; temporal_refit_max_err=1.486450; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L31/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.3215553849462267,
+      "worst_sample_idx": 12
+    },
+    {
+      "key_count": 7,
+      "max_err": 1.1964823276526175,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=7; temporal_refit_output_keys=7; temporal_refit_rejected=no_gain; temporal_refit_max_err=1.196482; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L31/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.49447146875921644,
+      "worst_sample_idx": 253
+    },
+    {
+      "key_count": 9,
+      "max_err": 2.447787315539472,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=9; temporal_refit_output_keys=9; temporal_refit_rejected=no_gain; temporal_refit_max_err=3.704843; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L32/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.7388041155492993,
+      "worst_sample_idx": 95
+    },
+    {
+      "key_count": 7,
+      "max_err": 0.9940646661909431,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=7; temporal_refit_output_keys=7; temporal_refit_rejected=no_gain; temporal_refit_max_err=0.994065; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L32/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.4131147859066559,
+      "worst_sample_idx": 96
+    },
+    {
+      "key_count": 11,
+      "max_err": 1.4107546263136328,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=11; temporal_refit_output_keys=11; temporal_refit_rejected=over_budget; temporal_refit_max_err=3.177871; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L33/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.44879370595965795,
+      "worst_sample_idx": 282
+    },
+    {
+      "key_count": 7,
+      "max_err": 0.5049936976787102,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=7; temporal_refit_output_keys=7; temporal_refit_rejected=over_budget; temporal_refit_max_err=3.009184; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L33/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.207114824679142,
+      "worst_sample_idx": 245
+    },
+    {
+      "key_count": 13,
+      "max_err": 2.8458540882909347,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=13; temporal_refit_output_keys=13; temporal_refit_rejected=over_budget; temporal_refit_max_err=4.092576; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L37/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.7401635043784108,
+      "worst_sample_idx": 126
+    },
+    {
+      "key_count": 12,
+      "max_err": 1.883951756767221,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=12; temporal_refit_output_keys=12; temporal_refit_rejected=no_gain; temporal_refit_max_err=1.883952; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L37/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.7032444737510515,
+      "worst_sample_idx": 95
+    },
+    {
+      "key_count": 11,
+      "max_err": 2.5166362538592466,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=11; temporal_refit_output_keys=11; temporal_refit_rejected=over_budget; temporal_refit_max_err=4.549749; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L40/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.4538930630538188,
+      "worst_sample_idx": 284
+    },
+    {
+      "key_count": 12,
+      "max_err": 1.4112639859772678,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=12; temporal_refit_output_keys=12; temporal_refit_rejected=no_gain; temporal_refit_max_err=1.411264; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L40/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.4731413589021353,
+      "worst_sample_idx": 91
+    },
+    {
+      "key_count": 16,
+      "max_err": 2.189248714863993,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=16; temporal_refit_output_keys=16; temporal_refit_rejected=no_gain; temporal_refit_max_err=2.290540; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L41/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.5409009341960155,
+      "worst_sample_idx": 66
+    },
+    {
+      "key_count": 9,
+      "max_err": 2.674539782340503,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=9; temporal_refit_output_keys=9; temporal_refit_rejected=over_budget; temporal_refit_max_err=5.138684; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L41/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 0.986217552309913,
+      "worst_sample_idx": 64
+    },
+    {
+      "key_count": 12,
+      "max_err": 1.765925039747799,
+      "max_err_screen_px": 0.0,
+      "notes": "temporal_refit_attempted=true; temporal_refit_input_keys=12; temporal_refit_output_keys=12; temporal_refit_rejected=no_gain; temporal_refit_max_err=3.236294; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L42/ADBE Transform Group#5/ADBE Position#2",
+      "rms_err": 0.4378712127112287,
+      "worst_sample_idx": 104
+    },
+    {
+      "key_count": 7,
+      "max_err": 2.5835457930220747,
+      "max_err_screen_px": 0.0,
+      "notes": "static_key_run_collapse_rejected; static_key_runs_collapsed=1; static_keys_would_remove=2; static_key_collapse_max_err=14.267940; static_key_collapse_max_err_screen_px=0.000000; temporal_refit_attempted=true; temporal_refit_input_keys=7; temporal_refit_output_keys=7; temporal_refit_rejected=over_budget; temporal_refit_max_err=4.604707; temporal_refit_max_err_screen_px=0.000000; temporal_refit_validation=numeric_linf",
+      "ok": true,
+      "property_id": "L42/ADBE Transform Group#5/ADBE Rotate Z#10",
+      "rms_err": 1.3251752438765616,
+      "worst_sample_idx": 3
+    }
+  ]
+}

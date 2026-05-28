@@ -32,7 +32,7 @@ EVENT_CPP = SOLVER / "src" / "diagnostics" / "solver_diagnostic_events.cpp"
 class EventSchema:
     builder: str
     event_name: str
-    fields: tuple[str, ...]
+    fields: tuple[str,...]
 
 
 EVENT_SCHEMAS = (
@@ -209,7 +209,7 @@ def _function_body(source: str, builder: str) -> str:
     open_brace = source.find("{", match.end())
     assert open_brace >= 0, f"missing body for {builder}"
     close_brace = _matching_brace(source, open_brace)
-    return source[open_brace : close_brace + 1]
+    return source[open_brace: close_brace + 1]
 
 
 def _header_contract(header: str, builder: str) -> str:
@@ -219,10 +219,10 @@ def _header_contract(header: str, builder: str) -> str:
     assert start >= 0, f"missing event-name comment for {builder}"
     end = header.find(";", builder_index)
     assert end >= 0, f"missing declaration terminator for {builder}"
-    return header[start : end + 1]
+    return header[start: end + 1]
 
 
-def _ordered_tokens(text: str, tokens: tuple[str, ...]) -> bool:
+def _ordered_tokens(text: str, tokens: tuple[str,...]) -> bool:
     cursor = -1
     for token in tokens:
         cursor = text.find(token, cursor + 1)

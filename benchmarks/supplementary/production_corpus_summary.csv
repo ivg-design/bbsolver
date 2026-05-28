@@ -1,0 +1,2 @@
+total_runs,runs_with_timing,fraction_with_timing,runs_with_path_properties,fraction_path_runs,runs_with_topology_notes,fraction_topology_runs,median_samples_input,median_keys_output,median_reduction_ratio,mean_reduction_ratio,p10_reduction_ratio,p90_reduction_ratio,median_solve_time_ms,mean_solve_time_ms,p10_solve_time_ms,p90_solve_time_ms,max_solve_time_ms,sum_samples_input,sum_keys_output,overall_reduction_ratio
+203,203,1.0,123,0.6059,9,0.0443,430,57,5.5128,32.7871,1.9907,120.2,824.3,45046.8,2.1,68425.4,1096155.1,174350,22318,7.8121

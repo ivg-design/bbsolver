@@ -53,7 +53,7 @@ void MergeBridgePruneOutcomeStats(BridgePruneOutcomeStats* totals,
   totals->validation_failures += delta.validation_failures;
   totals->sharp_failures += delta.sharp_failures;
   totals->accepted_candidates += delta.accepted_candidates;
-  for (const std::string& failure : delta.failures) {
+  for (const std::string& failure: delta.failures) {
     if (!failure.empty() && totals->failures.size() < failure_limit) {
       totals->failures.push_back(failure);
     }

@@ -16,7 +16,7 @@ std::vector<TemporalEase> MotionSmoothEaseArray(
     double speed,
     double influence) {
   std::vector<TemporalEase> ease = DefaultEasesForProperty(property_samples);
-  for (TemporalEase& item : ease) {
+  for (TemporalEase& item: ease) {
     item.speed = speed;
     item.influence = influence;
   }

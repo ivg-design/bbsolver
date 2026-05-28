@@ -1,9 +1,9 @@
-// MS45 focused test: the MS7-extracted trajectory smoother.
+//  focused test: the -extracted trajectory smoother.
 //
 // BuildShapeMotionTrajectorySmoothValues has two behaviour bands:
 //
 //   1. Pre-LSQ scaffolding (always runs):
-//      * smoothing_passes = source_key_times.size() > 2 ? 1 : 0
+//      * smoothing_passes = source_key_times.size() > 2 ? 1: 0
 //      * smoothing_blend  = clamp(strength / (strength + 2.0), 0, 0.90)
 //      * original_values  = MotionSmoothInterpolatedVector(...) per key
 //      * max_turn_before_deg = ShapeFlatSequenceMaxTurnDeg(original_values, dims)
@@ -11,7 +11,7 @@
 //      * max_turn_after_deg = max_turn_before_deg
 //
 //   2. Main LSQ smoothing (runs iff size > 2 AND dims > 2):
-//      * displacement_limit  computed from extent + strength
+//      * displacement_limit computed from extent + strength
 //      * cubic Bezier control-point LSQ fit
 //      * smoothed_values updated with blended cubic per interior key
 //      * max_turn_after_deg recomputed from smoothed_values
@@ -48,7 +48,7 @@ bool AlmostEqual(double a, double b, double eps = 1e-9) {
 }
 
 // Shape-flat single-vertex value at (px, py) with zero tangents.
-// Same layout as MS34/MS35/MS40 fixtures. Size 8.
+// Same layout as // fixtures. Size 8.
 std::vector<double> VertexAt(double px, double py) {
   return {0.0, 1.0, px, py, 0.0, 0.0, 0.0, 0.0};
 }
@@ -61,7 +61,7 @@ bbsolver::PropertySamples MakeProperty(
   bbsolver::PropertySamples ps;
   ps.property.dimensions = raw_values.empty()
       ? 8
-      : static_cast<int>(raw_values.front().size());
+: static_cast<int>(raw_values.front().size());
   ps.t_start_sec = 0.0;
   ps.t_end_sec = 1.0;
   const std::size_t n = raw_values.size();
@@ -70,7 +70,7 @@ bbsolver::PropertySamples MakeProperty(
     bbsolver::Sample s;
     s.t_sec = n > 1
         ? static_cast<double>(i) / static_cast<double>(n - 1)
-        : 0.0;
+: 0.0;
     s.v = raw_values[i];
     ps.samples.push_back(std::move(s));
   }
@@ -82,7 +82,7 @@ bbsolver::PropertySamples MakeProperty(
 // ---------------------------------------------------------------------------
 
 void TestSmoothingPassesIsOneWhenSizeAboveTwo() {
-  // smoothing_passes = source_key_times.size() > 2 ? 1 : 0.
+  // smoothing_passes = source_key_times.size() > 2 ? 1: 0.
   const std::vector<std::vector<double>> raw = {
       VertexAt(0.0, 0.0),
       VertexAt(0.5, 0.0),

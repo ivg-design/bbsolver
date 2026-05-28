@@ -13,8 +13,8 @@
 // expansion can be extracted into focused modules without duplicating the
 // seam-wraparound logic.
 //
-// Usage from a .cpp:
-//   namespace bbsolver { namespace { using namespace pff_fractions; ... } }
+// Usage from a.cpp:
+//   namespace bbsolver { namespace { using namespace pff_fractions;... } }
 // keeps existing unqualified call sites compiling unchanged.
 
 #include <algorithm>
@@ -36,7 +36,7 @@ inline bool FractionsInStrictSeamOrder(const std::vector<double>& fractions, boo
     return false;
   }
   double previous = -std::numeric_limits<double>::infinity();
-  for (double fraction : fractions) {
+  for (double fraction: fractions) {
     if (!std::isfinite(fraction)) {
       return false;
     }
@@ -57,7 +57,7 @@ inline bool FractionsInStrictSeamOrder(const std::vector<double>& fractions, boo
 
 inline int FractionSegmentCount(const std::vector<double>& fractions, bool closed) {
   return closed ? static_cast<int>(fractions.size())
-                : std::max(0, static_cast<int>(fractions.size()) - 1);
+: std::max(0, static_cast<int>(fractions.size()) - 1);
 }
 
 inline double FractionGap(const std::vector<double>& fractions, int segment_index, bool closed) {
@@ -65,7 +65,7 @@ inline double FractionGap(const std::vector<double>& fractions, int segment_inde
     return 0.0;
   }
   const int n = static_cast<int>(fractions.size());
-  const int next = segment_index + 1 < n ? segment_index + 1 : 0;
+  const int next = segment_index + 1 < n ? segment_index + 1: 0;
   double end = fractions[static_cast<std::size_t>(next)];
   if (closed && next == 0) {
     end += 1.0;
@@ -107,7 +107,7 @@ inline bool InsertFractionValue(std::vector<double>* fractions, double fraction,
     }
     value = std::clamp(value, 0.0, 1.0);
   }
-  for (double existing : *fractions) {
+  for (double existing: *fractions) {
     if (std::abs(existing - value) <= kFractionEpsilon) {
       return false;
     }
@@ -123,7 +123,7 @@ inline void InsertSplitFraction(std::vector<double>* fractions, int segment_inde
     return;
   }
   const int n = static_cast<int>(fractions->size());
-  const int next = segment_index + 1 < n ? segment_index + 1 : 0;
+  const int next = segment_index + 1 < n ? segment_index + 1: 0;
   double end_fraction = (*fractions)[static_cast<std::size_t>(next)];
   if (closed && next == 0) {
     end_fraction += 1.0;
@@ -138,7 +138,7 @@ inline void InsertSplitFraction(std::vector<double>* fractions, int segment_inde
 
 inline double FractionDistance(double a, double b, bool closed) {
   const double direct = std::abs(a - b);
-  return closed ? std::min(direct, 1.0 - direct) : direct;
+  return closed ? std::min(direct, 1.0 - direct): direct;
 }
 
 // Validate-and-clamp a caller-supplied outline-fraction layout into the strict
@@ -152,7 +152,7 @@ inline bool NormalizeOutlineFractions(const std::vector<double>& input,
   normalized->clear();
   normalized->reserve(input.size());
   double previous = -std::numeric_limits<double>::infinity();
-  for (double f : input) {
+  for (double f: input) {
     if (!std::isfinite(f)) {
       return false;
     }

@@ -1,0 +1,7 @@
+fixture,axis,tolerance,scheduler,repetitions,unique_normalized_hashes,mean_solve_ms,note
+walk_cycle Rotation,B,0.5,serial,10,1,145362.71,One unique output hash across 10 invocations
+walk_cycle Rotation,B,0.5,multi_thread,10,1,15179.14,One unique output hash across 10 invocations (9.6x speedup vs serial)
+bouncing_ball_2d,C,1.0,serial,10,1,8.73,One unique output hash across 10 invocations
+bouncing_ball_2d,C,1.0,multi_thread,10,1,8.22,One unique output hash across 10 invocations
+L2_test_Path stable shape,A,1.0,serial,10,1,12.55,One unique output hash across 10 invocations
+L2_test_Path stable shape,A,1.0,multi_thread,10,1,11.24,One unique output hash across 10 invocations

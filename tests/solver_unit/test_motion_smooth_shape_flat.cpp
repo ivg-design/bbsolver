@@ -61,9 +61,9 @@ bbsolver::PropertySamples ShapeProperty(
   property.property.kind = bbsolver::ValueKind::Custom;
   property.property.units_label = "shape_flat";
   property.property.dimensions =
-      values.empty() ? 1 : static_cast<int>(values.front().size());
-  property.t_start_sec = times.empty() ? 0.0 : times.front();
-  property.t_end_sec = times.empty() ? 0.0 : times.back();
+      values.empty() ? 1: static_cast<int>(values.front().size());
+  property.t_start_sec = times.empty() ? 0.0: times.front();
+  property.t_end_sec = times.empty() ? 0.0: times.back();
   property.property.source_key_times = times;
   for (std::size_t i = 0; i < times.size() && i < values.size(); ++i) {
     property.samples.push_back(Sample(times[i], values[i]));

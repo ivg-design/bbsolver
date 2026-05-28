@@ -101,7 +101,7 @@ RelaxedEndpointFit FitRelaxedEndpointChord(
   double s00 = 0.0;
   double s01 = 0.0;
   double s11 = 0.0;
-  for (double u : progress) {
+  for (double u: progress) {
     const double one_minus_u = 1.0 - u;
     s00 += one_minus_u * one_minus_u;
     s01 += one_minus_u * u;
@@ -212,11 +212,11 @@ std::vector<double> SegmentProgressValues(
   for (int sample_idx = i; sample_idx <= j; ++sample_idx) {
     const double t = ps.samples[static_cast<std::size_t>(sample_idx)].t_sec;
     const double alpha =
-        (t1 > t0) ? std::clamp((t - t0) / (t1 - t0), 0.0, 1.0) : 0.0;
+        (t1 > t0) ? std::clamp((t - t0) / (t1 - t0), 0.0, 1.0): 0.0;
     progress.push_back(bezier
                            ? ShapeTemporalBezierProgress(alpha, ease_out,
                                                           ease_in, options)
-                           : alpha);
+: alpha);
   }
   return progress;
 }
@@ -263,7 +263,7 @@ RelaxedValidation ValidateRelaxedChord(
     ++count;
   }
   validation.rms_err =
-      count > 0 ? std::sqrt(sum_sq / static_cast<double>(count)) : 0.0;
+      count > 0 ? std::sqrt(sum_sq / static_cast<double>(count)): 0.0;
   validation.ok = validation.max_err <= tolerance + 1e-9;
   return validation;
 }
@@ -296,7 +296,7 @@ SegmentFitResult TryRelaxedReplacementSegment(
         metrics.fit_replacement_relaxed_wall_ms +=
             std::chrono::duration<double, std::milli>(
                 std::chrono::steady_clock::now() - attempt_start)
-                .count();
+.count();
         SegmentFitResult result =
             RelaxedResult(InterpType::Linear,
                           "replacement_shape_morph_relaxed_linear_ok",
@@ -311,7 +311,7 @@ SegmentFitResult TryRelaxedReplacementSegment(
     metrics.fit_replacement_relaxed_wall_ms +=
         std::chrono::duration<double, std::milli>(
             std::chrono::steady_clock::now() - attempt_start)
-            .count();
+.count();
   }
 
   if (config.allow_bezier && config.allow_shape_temporal_bezier) {
@@ -336,7 +336,7 @@ SegmentFitResult TryRelaxedReplacementSegment(
         metrics.fit_replacement_relaxed_wall_ms +=
             std::chrono::duration<double, std::milli>(
                 std::chrono::steady_clock::now() - default_attempt_start)
-                .count();
+.count();
         SegmentFitResult result =
             RelaxedResult(InterpType::Bezier,
                           "replacement_shape_morph_relaxed_bezier_ok",
@@ -351,7 +351,7 @@ SegmentFitResult TryRelaxedReplacementSegment(
     metrics.fit_replacement_relaxed_wall_ms +=
         std::chrono::duration<double, std::milli>(
             std::chrono::steady_clock::now() - default_attempt_start)
-            .count();
+.count();
 
     if (strict_oracle.fitted_bezier_pairs_tried > 0 &&
         std::isfinite(strict_oracle.max_fitted_bezier_error)) {
@@ -379,7 +379,7 @@ SegmentFitResult TryRelaxedReplacementSegment(
           metrics.fit_replacement_relaxed_wall_ms +=
               std::chrono::duration<double, std::milli>(
                   std::chrono::steady_clock::now() - fitted_attempt_start)
-                  .count();
+.count();
           SegmentFitResult result =
               RelaxedResult(InterpType::Bezier,
                             "replacement_shape_morph_relaxed_bezier_fit_ok",
@@ -394,7 +394,7 @@ SegmentFitResult TryRelaxedReplacementSegment(
       metrics.fit_replacement_relaxed_wall_ms +=
           std::chrono::duration<double, std::milli>(
               std::chrono::steady_clock::now() - fitted_attempt_start)
-              .count();
+.count();
     }
   }
 

@@ -18,7 +18,7 @@ bbsolver::PropertySamples MakeProperty(const std::vector<std::vector<double>>& v
   ps.property.is_spatial = spatial;
   ps.property.is_separated = separated;
   ps.property.kind = spatial ? bbsolver::ValueKind::TwoD_Spatial
-                             : bbsolver::ValueKind::Scalar;
+: bbsolver::ValueKind::Scalar;
   for (std::size_t i = 0; i < values.size(); ++i) {
     bbsolver::Sample sample;
     sample.t_sec = static_cast<double>(i);

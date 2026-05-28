@@ -71,7 +71,7 @@ double TurnAngle(const std::vector<double>& flat, int vertex_index, int vertex_c
   if (!closed && (vertex_index == 0 || vertex_index == vertex_count - 1)) {
     return std::numeric_limits<double>::infinity();
   }
-  const int prev = (vertex_index == 0) ? vertex_count - 1 : vertex_index - 1;
+  const int prev = (vertex_index == 0) ? vertex_count - 1: vertex_index - 1;
   const int next = (vertex_index + 1) % vertex_count;
   const Point p = VertexAt(flat, vertex_index);
   const Point a = VertexAt(flat, prev);
@@ -106,7 +106,7 @@ std::vector<bool> DetectLockedVertices(const PropertySamples& ps,
   }
 
   const double sharp_turn = SharpTurnRadians(cfg);
-  for (const Sample& sample : ps.samples) {
+  for (const Sample& sample: ps.samples) {
     for (int i = 0; i < vertex_count; ++i) {
       // AE straight-segment paths commonly store every redundant point with
       // zero handles. A zero-tangent point is therefore not a landmark by
@@ -210,7 +210,7 @@ KeepErrorReport ComputeKeepErrorForSample(const Sample& sample,
 KeepErrorReport ReduceKeepErrorReports(
     const std::vector<KeepErrorReport>& reports) {
   KeepErrorReport out;
-  for (const KeepErrorReport& report : reports) {
+  for (const KeepErrorReport& report: reports) {
     if (report.max_error > out.max_error) {
       out.max_error = report.max_error;
     }
@@ -272,7 +272,7 @@ double MaxOutlineErrorForKeep(const PropertySamples& ps,
 
 void EnsureMinimumKept(std::vector<bool>& keep, bool closed) {
   const int n = static_cast<int>(keep.size());
-  const int min_keep = closed ? std::min(n, 3) : std::min(n, 2);
+  const int min_keep = closed ? std::min(n, 3): std::min(n, 2);
   while (static_cast<int>(std::count(keep.begin(), keep.end(), true)) < min_keep) {
     int best_idx = -1;
     int best_gap = -1;
@@ -284,7 +284,7 @@ void EnsureMinimumKept(std::vector<bool>& keep, bool closed) {
       const int next = NextKept(keep, i, closed);
       int gap = 0;
       if (prev >= 0 && next >= 0) {
-        gap = next >= prev ? next - prev : n - prev + next;
+        gap = next >= prev ? next - prev: n - prev + next;
       } else {
         gap = n;
       }
@@ -333,7 +333,7 @@ Point CatmullIn(const std::vector<double>& flat, const std::vector<int>& kept, s
   if (n < 2 || (!closed && kept_index == 0)) {
     return {0.0, 0.0};
   }
-  const std::size_t prev_idx = kept_index == 0 ? n - 1 : kept_index - 1;
+  const std::size_t prev_idx = kept_index == 0 ? n - 1: kept_index - 1;
   const std::size_t next_idx = (kept_index + 1) % n;
   if (!closed && kept_index + 1 >= n) {
     return {0.0, 0.0};
@@ -348,7 +348,7 @@ Point CatmullOut(const std::vector<double>& flat, const std::vector<int>& kept, 
   if (n < 2 || (!closed && kept_index + 1 >= n)) {
     return {0.0, 0.0};
   }
-  const std::size_t prev_idx = kept_index == 0 ? n - 1 : kept_index - 1;
+  const std::size_t prev_idx = kept_index == 0 ? n - 1: kept_index - 1;
   const std::size_t next_idx = (kept_index + 1) % n;
   if (!closed && kept_index == 0) {
     return {0.0, 0.0};
@@ -363,7 +363,7 @@ std::vector<double> BuildFittedFlat(const std::vector<double>& source,
                                     bool closed) {
   std::vector<double> out;
   out.reserve(static_cast<std::size_t>(kPathHeaderScalars + kept.size() * kScalarsPerVertex));
-  out.push_back(closed ? 1.0 : 0.0);
+  out.push_back(closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(kept.size()));
 
   for (std::size_t out_index = 0; out_index < kept.size(); ++out_index) {
@@ -393,7 +393,7 @@ bool StableTopology(const PropertySamples& ps, DecodedShape* first_out) {
   if (!first.ok) {
     return false;
   }
-  for (const Sample& sample : ps.samples) {
+  for (const Sample& sample: ps.samples) {
     const DecodedShape decoded = DecodeHeader(sample.v);
     if (!decoded.ok || decoded.closed != first.closed || decoded.vertex_count != first.vertex_count) {
       return false;
@@ -445,7 +445,7 @@ PathFitResult FitCanonicalPathProperty(const PropertySamples& ps,
   result.samples.property.units_label = ps.property.units_label;
   result.samples.samples.clear();
   result.samples.samples.reserve(ps.samples.size());
-  for (const Sample& sample : ps.samples) {
+  for (const Sample& sample: ps.samples) {
     Sample fitted;
     fitted.t_sec = sample.t_sec;
     fitted.v = BuildFittedFlat(sample.v, result.kept_indices, first.closed);

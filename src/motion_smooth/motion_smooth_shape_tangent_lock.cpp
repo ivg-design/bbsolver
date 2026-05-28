@@ -66,7 +66,7 @@ ShapeTangentLockStats LockShapeFlatRotationalTangents(
   if (values == nullptr) {
     return total;
   }
-  for (std::vector<double>& value : *values) {
+  for (std::vector<double>& value: *values) {
     ShapeTangentLockStats stats = LockShapeFlatRotationalTangents(&value);
     total.pairs_seen += stats.pairs_seen;
     total.pairs_locked += stats.pairs_locked;

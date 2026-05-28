@@ -1,11 +1,11 @@
-// MS50 focused test: the MS3-extracted adaptive sampler.
+//  focused test: the -extracted adaptive sampler.
 //
 // BuildAdaptiveClosedLoopShapeSamples has two behaviour bands:
 //
 //   1. Early-return (when closed_values.size() < 4, dims <= 2, or
 //      vertex_count <= 0):
 //      * result.values = closed_values (verbatim)
-//      * result.params = [0, 1, ..., size-1]
+//      * result.params = [0, 1,..., size-1]
 //      * result.quality computed via ShapeMotionQuality
 //      * All strength-derived fields stay at default (target_turn_deg=0,
 //        chord_error_tolerance=0, max_keys=0, refinement_passes=0, etc.)
@@ -13,20 +13,20 @@
 //   2. Main 16-pass refinement (when all guards pass):
 //      * target_turn_deg = source_pose
 //          ? clamp((48 - strength*3) * 0.65, 18, 32)
-//          : clamp((48 - strength*3),        26, 42)
+//: clamp((48 - strength*3),        26, 42)
 //      * chord_error_tolerance = source_pose
 //          ? max(0.25, strength * 0.35)
-//          : max(0.5,  strength * 0.55)
+//: max(0.5,  strength * 0.55)
 //      * max_per_segment = source_pose
 //          ? clamp(strength*4 + 10, 16, 28)
-//          : clamp(strength*3 + 4,   8, 18)
+//: clamp(strength*3 + 4,   8, 18)
 //      * max_keys = unique_count * max_per_segment + 1
 //      * refinement_passes capped at 16
 //      * budget_hit flagged when split_count > split_budget
 //      * splits counter non-negative monotonic
 //
-// MS50 is the final motion_smooth surface to gain direct coverage;
-// after this all MS surfaces in the MS27 scoreboard are covered.
+//  is the final motion_smooth surface to gain direct coverage;
+// after this all MS surfaces in the scoreboard are covered.
 
 #include "bbsolver/motion_smooth/motion_smooth_shape_loop_adaptive.hpp"
 
@@ -51,7 +51,7 @@ bool AlmostEqual(double a, double b, double eps = 1e-9) {
 }
 
 // Shape-flat single-vertex value at (px, py) with zero tangents.
-// Same layout as MS34/MS35/MS40/MS45 fixtures. Size 8.
+// Same layout as /// fixtures. Size 8.
 std::vector<double> VertexAt(double px, double py) {
   return {0.0, 1.0, px, py, 0.0, 0.0, 0.0, 0.0};
 }

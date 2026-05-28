@@ -29,19 +29,19 @@ void PushUniqueTarget(std::vector<int>* targets, int target) {
 
 int MinShapeFlatVertexCount(const PropertySamples& samples) {
   int min_vertices = std::numeric_limits<int>::max();
-  for (const Sample& sample : samples.samples) {
+  for (const Sample& sample: samples.samples) {
     const int n = ShapeFlatVertexCount(sample.v);
     if (n <= 0) {
       return 0;
     }
     min_vertices = std::min(min_vertices, n);
   }
-  return min_vertices == std::numeric_limits<int>::max() ? 0 : min_vertices;
+  return min_vertices == std::numeric_limits<int>::max() ? 0: min_vertices;
 }
 
 int MaxShapeFlatSampleVertexCount(const PropertySamples& samples) {
   int max_vertices = 0;
-  for (const Sample& sample : samples.samples) {
+  for (const Sample& sample: samples.samples) {
     const int n = ShapeFlatVertexCount(sample.v);
     if (n <= 0) {
       return 0;
@@ -53,14 +53,14 @@ int MaxShapeFlatSampleVertexCount(const PropertySamples& samples) {
 
 int MinShapeFlatKeyVertexCount(const PropertyKeys& keys) {
   int min_vertices = std::numeric_limits<int>::max();
-  for (const Key& key : keys.keys) {
+  for (const Key& key: keys.keys) {
     const int n = ShapeFlatVertexCount(key.v);
     if (n <= 0) {
       return 0;
     }
     min_vertices = std::min(min_vertices, n);
   }
-  return min_vertices == std::numeric_limits<int>::max() ? 0 : min_vertices;
+  return min_vertices == std::numeric_limits<int>::max() ? 0: min_vertices;
 }
 
 bool UniformShapeFlatKeyTopology(const PropertyKeys& keys) {
@@ -72,7 +72,7 @@ bool UniformShapeFlatKeyTopology(const PropertyKeys& keys) {
     return false;
   }
   const bool first_closed = ShapeFlatClosed(keys.keys.front().v);
-  for (const Key& key : keys.keys) {
+  for (const Key& key: keys.keys) {
     const int vertices = ShapeFlatVertexCount(key.v);
     if (vertices != first_vertices || ShapeFlatClosed(key.v) != first_closed) {
       return false;
@@ -83,7 +83,7 @@ bool UniformShapeFlatKeyTopology(const PropertyKeys& keys) {
 
 int MaxShapeFlatKeyVertexCount(const PropertyKeys& keys) {
   int max_vertices = 0;
-  for (const Key& key : keys.keys) {
+  for (const Key& key: keys.keys) {
     const int n = ShapeFlatVertexCount(key.v);
     if (n <= 0) {
       return 0;
@@ -96,7 +96,7 @@ int MaxShapeFlatKeyVertexCount(const PropertyKeys& keys) {
 int DominantClosedShapeFlatKeyVertexCount(const PropertyKeys& keys,
                                           int min_target_vertices) {
   std::vector<std::pair<int, int>> histogram;
-  for (const Key& key : keys.keys) {
+  for (const Key& key: keys.keys) {
     const int n = ShapeFlatVertexCount(key.v);
     if (n <= min_target_vertices || !ShapeFlatClosed(key.v)) {
       continue;
@@ -112,7 +112,7 @@ int DominantClosedShapeFlatKeyVertexCount(const PropertyKeys& keys,
   }
   int best_vertices = 0;
   int best_count = 0;
-  for (const auto& item : histogram) {
+  for (const auto& item: histogram) {
     if (item.second > best_count ||
         (item.second == best_count && item.first > best_vertices)) {
       best_vertices = item.first;
@@ -130,7 +130,7 @@ bool BridgePruneShapeFlatKeyClass(PropertyKeys* candidate,
     return false;
   }
   *affected_keys = 0;
-  for (Key& key : candidate->keys) {
+  for (Key& key: candidate->keys) {
     if (ShapeFlatVertexCount(key.v) != target_vertices) {
       continue;
     }
@@ -247,7 +247,7 @@ std::vector<int> BuildReplacementTargetLadder(int auto_max_vertices,
   const bool variable_source_topology = source_max_vertices > source_min_vertices;
   int max_legal = variable_source_topology
       ? source_max_vertices - 1
-      : source_min_vertices - 1;
+: source_min_vertices - 1;
   if (config.path_replacement_max_vertices > 0) {
     max_legal = std::min(max_legal, config.path_replacement_max_vertices);
   }
@@ -286,7 +286,7 @@ std::vector<int> BuildReplacementTargetLadder(int auto_max_vertices,
 
 std::string JoinInts(const std::vector<int>& values) {
   std::string out;
-  for (int value : values) {
+  for (int value: values) {
     if (!out.empty()) {
       out += ",";
     }
@@ -297,7 +297,7 @@ std::string JoinInts(const std::vector<int>& values) {
 
 std::string JoinNotes(const std::vector<std::string>& values) {
   std::string out;
-  for (const std::string& value : values) {
+  for (const std::string& value: values) {
     if (value.empty()) {
       continue;
     }

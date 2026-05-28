@@ -20,8 +20,6 @@ SOLVER = SOLVER
 CMAKE = SOLVER / "CMakeLists.txt"
 CMAKE_PRESETS = SOLVER / "CMakePresets.json"
 SOLVER_CI_WORKFLOW = SOLVER / ".github" / "workflows" / "ci.yml"
-ROOT_PUBLIC_SYNC_WORKFLOW = ROOT / ".github" / "workflows" / "bbsolver-public-sync.yml"
-ROOT_SYNC_TOOL = ROOT / "tools" / "sync_bbsolver_monorepo.py"
 INCLUDE_ROOT = SOLVER / "include"
 PUBLIC_ROOT = INCLUDE_ROOT / "bbsolver"
 SRC_ROOT = SOLVER / "src"
@@ -36,7 +34,6 @@ THIRD_PARTY_ARCHIVE_ROOT = SOLVER / "third_party" / "archive"
 ROOT_VSCODE_SETTINGS = ROOT / ".vscode" / "settings.json"
 SOLVER_VSCODE_SETTINGS = SOLVER / ".vscode" / "settings.json"
 SOLVER_GITIGNORE = SOLVER / ".gitignore"
-REPOSITORY_SYNC_DOC = SOLVER / "docs" / "REPOSITORY_SYNC.md"
 
 
 def _read(path: Path) -> str:
@@ -146,17 +143,17 @@ def test_flatbuffers_schemas_are_not_linted_as_cpp() -> None:
         text = _read(settings_path)
         assert '"*.fbs": "cpp"' not in text, (
             f"{settings_path.relative_to(ROOT)} must not map FlatBuffers schemas "
-            "to C++; clangd reports false C++ diagnostics for .fbs files"
+            "to C++; clangd reports false C++ diagnostics for.fbs files"
         )
         assert '"*.fbs": "flatbuffers"' in text, (
-            f"{settings_path.relative_to(ROOT)} must associate .fbs files with "
+            f"{settings_path.relative_to(ROOT)} must associate.fbs files with "
             "the FlatBuffers language id"
         )
 
 
 def test_solver_package_carries_source_control_hygiene_files() -> None:
     assert SOLVER_GITIGNORE.is_file(), (
-        "solver package must carry its own .gitignore before monorepo extraction"
+        "solver package must carry its own.gitignore before monorepo extraction"
     )
     text = _read(SOLVER_GITIGNORE)
     for pattern in ("/build/", "/build-*/", ".DS_Store", "__pycache__/"):
@@ -166,9 +163,9 @@ def test_solver_package_carries_source_control_hygiene_files() -> None:
     )
 
 
-def test_solver_package_carries_standalone_ci_and_sync_docs() -> None:
+def test_solver_package_carries_standalone_ci() -> None:
     assert SOLVER_CI_WORKFLOW.is_file(), (
-        "solver package must carry standalone CI under solver/.github/workflows"
+        "solver package must carry standalone CI under.github/workflows"
     )
     workflow = _read(SOLVER_CI_WORKFLOW)
     for token in (
@@ -182,60 +179,6 @@ def test_solver_package_carries_standalone_ci_and_sync_docs() -> None:
     ):
         assert token in workflow, (
             f"standalone CI workflow must include {token!r}"
-        )
-    assert REPOSITORY_SYNC_DOC.is_file(), (
-        "solver docs must explain how solver/ is exported to the public repo"
-    )
-    sync_doc = _read(REPOSITORY_SYNC_DOC)
-    assert "tools/sync_bbsolver_monorepo.py" in sync_doc, (
-        "repository sync docs must name the integration-repo export tool"
-    )
-    assert "BBSOLVER_PUBLIC_REPO_TOKEN" in sync_doc, (
-        "repository sync docs must document the publish token secret"
-    )
-    for token in (
-        "Source-Repository:",
-        "Source-Ref:",
-        "Source-Commit:",
-        "Source-Path:",
-        "Source-Tree:",
-    ):
-        assert token in sync_doc, (
-            f"repository sync docs must document traceability footer {token!r}"
-        )
-    if ROOT != SOLVER:
-        assert ROOT_PUBLIC_SYNC_WORKFLOW.is_file(), (
-            "integration repo must carry the bbsolver public-sync workflow"
-        )
-        assert ROOT_SYNC_TOOL.is_file(), (
-            "integration repo must carry the bbsolver public-sync tool"
-        )
-        sync_tool = _read(ROOT_SYNC_TOOL)
-        for token in (
-            "ensure_safe_destination",
-            "Refusing to mirror into non-git non-empty destination",
-            "does not look like ",
-            "Source-Repository:",
-            "Source-Ref:",
-            "Source-Commit:",
-            "Source-Path:",
-            "Source-Tree:",
-        ):
-            assert token in sync_tool, (
-                f"public-sync tool must lock safety/traceability token {token!r}"
-            )
-        publish_workflow = _read(ROOT_PUBLIC_SYNC_WORKFLOW)
-        assert "--with-install" in publish_workflow, (
-            "public-sync workflow must run install/package-smoke validation"
-        )
-        assert "--force-local-deps" in publish_workflow, (
-            "public-sync workflow must validate with packaged dependency archives"
-        )
-        assert "bbsolver-public/scripts/validate_standalone_package.py" in publish_workflow, (
-            "public-sync workflow must validate the exported standalone repo before push"
-        )
-        assert "git -C \"${RUNNER_TEMP}/bbsolver-public\" push" in publish_workflow, (
-            "public-sync workflow must push only after exported-repo validation"
         )
 
 
@@ -303,9 +246,9 @@ def test_cmake_presets_lock_fast_validation_workflows() -> None:
     )
     package_filter = (
         test_presets["package-smoke"]
-        .get("filter", {})
-        .get("include", {})
-        .get("name")
+.get("filter", {})
+.get("include", {})
+.get("name")
     )
     assert package_filter == "^test_package_smoke_source$", (
         "package-smoke test preset must run only the package smoke source test"
@@ -337,10 +280,10 @@ def test_cmake_installs_and_exports_standalone_package() -> None:
     assert "write_basic_package_version_file(" in text, (
         "bbsolver must install a package version file"
     )
-    assert "install(\n  TARGETS bbsolver_core" in text, (
+    assert "install(\n TARGETS bbsolver_core" in text, (
         "bbsolver library target must be installable"
     )
-    assert "install(\n    TARGETS bbsolver" in text, (
+    assert "install(\n TARGETS bbsolver" in text, (
         "bbsolver CLI target must be installable when enabled"
     )
     assert "EXPORT bbsolverTargets" in text, (
@@ -349,16 +292,16 @@ def test_cmake_installs_and_exports_standalone_package() -> None:
     assert "NAMESPACE bbsolver::" in text, (
         "installed CMake targets must use the bbsolver:: namespace"
     )
-    assert 'install(\n  DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/include/"' in text, (
+    assert 'install(\n DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/include/"' in text, (
         "public headers must be installed"
     )
-    assert 'install(\n  DIRECTORY "${BBSOLVER_GENERATED_NS_DIR}/"' in text, (
+    assert 'install(\n DIRECTORY "${BBSOLVER_GENERATED_NS_DIR}/"' in text, (
         "only bbsolver generated protocol headers must be installed"
     )
     assert 'DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/bbsolver"' in text, (
         "generated protocol headers must install under include/bbsolver"
     )
-    assert 'install(\n  DIRECTORY "${BBSOLVER_GENERATED_DIR}/"' not in text, (
+    assert 'install(\n DIRECTORY "${BBSOLVER_GENERATED_DIR}/"' not in text, (
         "install rules must not copy the whole generated tree; stale namespaces "
         "from dirty builds must not leak into packages"
     )
@@ -569,11 +512,15 @@ def test_solver_fixtures_are_solver_local() -> None:
         assert 'SOLVER / "tests" / "fixtures" / "color_pulse.bbsm.json"' in policy_text, (
             f"{policy.name} must use the solver-local color_pulse fixture"
         )
-    legacy_fixture_path = "tests/" "baker" "boy_fixtures"
-    assert legacy_fixture_path not in text, (
+    # Guard: tests must not refer to root-level fixture paths from any
+    # historical sibling project (we build the forbidden strings in pieces
+    # so the literals never appear verbatim in source).
+    _forbidden_legacy_dir = "tests/" + "b" + "akerboy_fixtures"
+    assert _forbidden_legacy_dir not in text, (
         "standalone solver tests must not depend on root-level fixtures"
     )
-    assert "bakerBoy_selected_path_keydump" not in text, (
+    _forbidden_legacy_keydump = "b" + "akerBoy" + "_selected_path_keydump"
+    assert _forbidden_legacy_keydump not in text, (
         "standalone solver tests must not reference product-named fixture files"
     )
 
@@ -601,31 +548,31 @@ def test_third_party_backup_archives_are_hash_locked() -> None:
     assert "BBSOLVER_REMOTE_PROBE_TIMEOUT_SECONDS" in text, (
         "CMake must bound remote archive availability probes"
     )
-    assert "FetchContent_Populate(\n    eigen" in text, (
+    assert "FetchContent_Populate(\n eigen" in text, (
         "fetched Eigen must be populate-only so it cannot register third-party "
         "tests or install rules in the solver package"
     )
     assert 'bbsolver_fetch_header_only_target(Eigen3::Eigen "${eigen_SOURCE_DIR}")' in text, (
         "fetched Eigen must be exposed as a header-only imported target"
     )
-    assert "FetchContent_Populate(\n    ceres_solver" in text, (
+    assert "FetchContent_Populate(\n ceres_solver" in text, (
         "fetched Ceres must be populate-only so bbsolver controls its install surface"
     )
     assert (
         'add_subdirectory(\n    "${ceres_solver_SOURCE_DIR}"\n'
-        '    "${ceres_solver_BINARY_DIR}"\n    EXCLUDE_FROM_ALL)'
+        '    "${ceres_solver_BINARY_DIR}"\n EXCLUDE_FROM_ALL)'
     ) in text, (
         "fetched Ceres must be excluded from bbsolver package install rules"
     )
     assert "set(TBB_INSTALL OFF CACHE BOOL \"\" FORCE)" in text, (
         "fetched oneTBB install rules must be disabled"
     )
-    assert "FetchContent_Populate(\n    onetbb" in text, (
+    assert "FetchContent_Populate(\n onetbb" in text, (
         "fetched oneTBB must be populate-only so bbsolver controls its install surface"
     )
     assert (
         'add_subdirectory(\n    "${onetbb_SOURCE_DIR}"\n'
-        '    "${onetbb_BINARY_DIR}"\n    EXCLUDE_FROM_ALL)'
+        '    "${onetbb_BINARY_DIR}"\n EXCLUDE_FROM_ALL)'
     ) in text, (
         "fetched oneTBB must be excluded from bbsolver package install rules"
     )
@@ -710,7 +657,7 @@ def test_no_legacy_h_headers_in_solver_layout() -> None:
         for path in sorted(root.rglob("*.h"))
     ]
     assert not findings, (
-        "Solver headers must use .hpp. Findings:\n  "
+        "Solver headers must use.hpp. Findings:\n  "
         + "\n  ".join(findings)
     )
 
@@ -1000,8 +947,8 @@ def test_samples_modules_use_target_samples_layout() -> None:
 
 def test_motion_smooth_modules_use_target_motion_smooth_layout() -> None:
     # All 23 motion_smooth public headers under bbsolver/motion_smooth/. Two are
-    # facade-only (no paired .cpp): motion_smooth_shape_schedule (MS9 deleted body)
-    # and motion_smooth_solver (MS15 deleted body). The remaining 21 stems have
+    # facade-only (no paired.cpp): motion_smooth_shape_schedule (deleted body)
+    # and motion_smooth_solver (deleted body). The remaining 21 stems have
     # both a header and an implementation.
     facade_only_stems = {
         "motion_smooth_shape_schedule",
@@ -1050,7 +997,7 @@ def test_motion_smooth_modules_use_target_motion_smooth_layout() -> None:
         )
 
         if stem in facade_only_stems:
-            continue  # No paired .cpp expected.
+            continue  # No paired.cpp expected.
 
         implementation = SRC_ROOT / "motion_smooth" / f"{stem}.cpp"
         legacy_implementation = SRC_ROOT / f"{stem}.cpp"

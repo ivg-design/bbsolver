@@ -29,7 +29,7 @@ void RequireNear(double actual, double expected, const std::string& message) {
 bbsolver::SolveOptions Parse(std::vector<std::string> args) {
   std::vector<char*> argv;
   argv.reserve(args.size());
-  for (std::string& arg : args) {
+  for (std::string& arg: args) {
     argv.push_back(arg.data());
   }
   return bbsolver::ParseSolveOptions(
@@ -60,7 +60,7 @@ void TestParseAllOptions() {
   // from std::filesystem::temp_directory_path() rather than hardcoding
   // `/tmp/`. The parser must round-trip whatever path the operator
   // passed — the contract under test is "argv string -> options path
-  // -> .string()" equality, not the specific prefix.
+  // ->.string()" equality, not the specific prefix.
   const std::filesystem::path tmp_root =
       std::filesystem::temp_directory_path();
   const std::string diagnostics_arg =

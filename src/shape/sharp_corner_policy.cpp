@@ -25,7 +25,7 @@ double SharpCornerLockTolerance(const SolverConfig& config) {
   const double tolerance_scaled_lock =
       std::isfinite(config.tolerance)
           ? std::max(0.0, config.tolerance) * 1.5
-          : 0.0;
+: 0.0;
   if (!std::isfinite(config.path_sharp_corner_tolerance)) {
     return std::max(1.5, tolerance_scaled_lock);
   }
@@ -45,8 +45,8 @@ double ShapeFlatDeflectionAngleDeg(const std::vector<double>& flat,
   if (!closed && (vertex_index == 0 || vertex_index + 1 == n)) {
     return 180.0;
   }
-  const int prev_index = closed ? (vertex_index - 1 + n) % n : vertex_index - 1;
-  const int next_index = closed ? (vertex_index + 1) % n : vertex_index + 1;
+  const int prev_index = closed ? (vertex_index - 1 + n) % n: vertex_index - 1;
+  const int next_index = closed ? (vertex_index + 1) % n: vertex_index + 1;
   if (prev_index < 0 || next_index < 0 ||
       prev_index >= n || next_index >= n) {
     return 0.0;
@@ -92,7 +92,7 @@ std::vector<ShapeFlatPoint> ShapeFlatSharpCornerPoints(
     const SolverConfig& config) {
   std::vector<ShapeFlatPoint> out;
   const std::vector<ShapeFlatVertex> vertices = ShapeFlatVertices(flat);
-  for (int idx : ShapeFlatSharpCornerIndices(flat, config)) {
+  for (int idx: ShapeFlatSharpCornerIndices(flat, config)) {
     if (idx >= 0 && idx < static_cast<int>(vertices.size())) {
       const ShapeFlatVertex& v = vertices[static_cast<std::size_t>(idx)];
       out.push_back({v.x, v.y});
@@ -113,7 +113,7 @@ std::vector<std::vector<int>> PersistentShapeFlatSharpCornerIndicesByVertexCount
     const SolverConfig& config) {
   int max_vertices = 0;
   int total_shape_samples = 0;
-  for (const Sample& sample : original.samples) {
+  for (const Sample& sample: original.samples) {
     const int n = ShapeFlatVertexCount(sample.v);
     if (n > 0) {
       max_vertices = std::max(max_vertices, n);
@@ -135,13 +135,13 @@ std::vector<std::vector<int>> PersistentShapeFlatSharpCornerIndicesByVertexCount
         static_cast<std::size_t>(n), 0);
   }
 
-  for (const Sample& sample : original.samples) {
+  for (const Sample& sample: original.samples) {
     const int n = ShapeFlatVertexCount(sample.v);
     if (n <= 0 || n > max_vertices) {
       continue;
     }
     ++frames_by_count[static_cast<std::size_t>(n)];
-    for (int idx : ShapeFlatSharpCornerIndices(sample.v, config)) {
+    for (int idx: ShapeFlatSharpCornerIndices(sample.v, config)) {
       if (idx >= 0 && idx < n) {
         ++corner_hits_by_count[static_cast<std::size_t>(n)]
                               [static_cast<std::size_t>(idx)];
@@ -181,7 +181,7 @@ bool ShapeFlatKeyIndexIsProtectedCorner(const PropertyKeys& keys,
   if (!config.path_preserve_sharp_corners) {
     return false;
   }
-  for (const Key& key : keys.keys) {
+  for (const Key& key: keys.keys) {
     if (ShapeFlatVertexCount(key.v) != target_vertices) {
       continue;
     }
@@ -212,7 +212,7 @@ SharpCornerValidationResult ValidateSharpCornerPreservation(
   double worst_distance = 0.0;
   double worst_t = 0.0;
 
-  for (const Sample& sample : original.samples) {
+  for (const Sample& sample: original.samples) {
     const int source_vertex_count = ShapeFlatVertexCount(sample.v);
     if (source_vertex_count <= 0 ||
         source_vertex_count >= static_cast<int>(protected_by_count.size())) {
@@ -238,7 +238,7 @@ SharpCornerValidationResult ValidateSharpCornerPreservation(
     int missing = 0;
     double sample_worst_distance = 0.0;
     std::vector<bool> used(candidate_vertices.size(), false);
-    for (int source_idx : source_corner_indices) {
+    for (int source_idx: source_corner_indices) {
       if (source_idx < 0 ||
           source_idx >= static_cast<int>(source_vertices.size())) {
         continue;
@@ -287,7 +287,7 @@ SharpCornerValidationResult ValidateSharpCornerPreservation(
   result.notes =
       std::string(result.ok
                       ? "sharp_corner_preserve=ok"
-                      : "sharp_corner_preserve=rejected") +
+: "sharp_corner_preserve=rejected") +
       "; sharp_corner_angle_deg=" + std::to_string(angle_threshold) +
       "; sharp_corner_tolerance=" + std::to_string(lock_tolerance) +
       "; sharp_corner_samples_checked=" +

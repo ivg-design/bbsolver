@@ -229,7 +229,7 @@ def test_main_command_extraction_slices_record_diagnostics_decisions() -> None:
     if not GUIDELINES.exists():
         return
     text = GUIDELINES.read_text(encoding="utf-8")
-    expected: dict[str, tuple[str, ...]] = {
+    expected: dict[str, tuple[str,...]] = {
         "### Slice 28 - Solved Property Output Append": (
             "Diagnostics decision:",
             "caller-owned `ProgressWriter`",

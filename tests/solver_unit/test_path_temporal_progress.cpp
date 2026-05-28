@@ -73,7 +73,7 @@ void TestInitialInfluenceCandidatesAreDedupedAndClamped() {
   const std::vector<bbsolver::ShapeTemporalInfluencePair> candidates =
       bbsolver::BuildInitialShapeTemporalInfluenceCandidates(options);
   assert(!candidates.empty());
-  for (const bbsolver::ShapeTemporalInfluencePair& candidate : candidates) {
+  for (const bbsolver::ShapeTemporalInfluencePair& candidate: candidates) {
     assert(candidate.out_influence >= 20.0);
     assert(candidate.out_influence <= 80.0);
     assert(candidate.in_influence >= 20.0);

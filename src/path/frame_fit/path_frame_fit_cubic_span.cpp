@@ -54,7 +54,7 @@ int ForwardDenseSpan(int begin, int end, int dense_count, bool closed) {
   if (end >= begin) {
     return end - begin;
   }
-  return closed ? dense_count - begin + end : 0;
+  return closed ? dense_count - begin + end: 0;
 }
 
 Point DenseAtOffset(const std::vector<DensePoint>& dense, int begin, int offset) {
@@ -187,7 +187,7 @@ std::vector<double> InitialCubicSpanParameters(int span,
   for (int step = 1; step < span; ++step) {
     params.push_back(arc_len > 1e-9
                          ? cumulative[static_cast<std::size_t>(step)] / arc_len
-                         : static_cast<double>(step) / static_cast<double>(span));
+: static_cast<double>(step) / static_cast<double>(span));
   }
   return params;
 }
@@ -218,7 +218,7 @@ std::vector<double> CentripetalCubicSpanParameters(const std::vector<DensePoint>
   for (int step = 1; step < span; ++step) {
     params.push_back(total > 1e-9
                          ? cumulative[static_cast<std::size_t>(step)] / total
-                         : static_cast<double>(step) / static_cast<double>(span));
+: static_cast<double>(step) / static_cast<double>(span));
   }
   return params;
 }
@@ -333,7 +333,7 @@ CubicSpanFit SolveUnconstrainedDenseSpanCubic(
   parameter_sets.push_back(UniformCubicSpanParameters(span));
   parameter_sets.push_back(CentripetalCubicSpanParameters(dense, begin, span));
 
-  for (const std::vector<double>& params : parameter_sets) {
+  for (const std::vector<double>& params: parameter_sets) {
     Point p1 = p0;
     Point p2 = p3;
     if (!SolveUnconstrainedCubicControls(
@@ -346,7 +346,7 @@ CubicSpanFit SolveUnconstrainedDenseSpanCubic(
     }
   }
 
-  return std::isfinite(best.max_error) ? best : InvalidCubicSpanFit();
+  return std::isfinite(best.max_error) ? best: InvalidCubicSpanFit();
 }
 
 }  // namespace
@@ -377,10 +377,10 @@ CubicSpanFit FitDenseSpanCubic(const std::vector<DensePoint>& dense,
   const pff_geom::Point chord_dir = NormalizeOr(chord, {1.0, 0.0});
   const pff_geom::Point start_dir = force_start
       ? pff_geom::Point{0.0, 0.0}
-      : NormalizeOr(pff_geom::Sub(DenseAtOffset(dense, begin, 1), p0), chord_dir);
+: NormalizeOr(pff_geom::Sub(DenseAtOffset(dense, begin, 1), p0), chord_dir);
   const pff_geom::Point end_dir = force_end
       ? pff_geom::Point{0.0, 0.0}
-      : NormalizeOr(pff_geom::Sub(p3, DenseAtOffset(dense, begin, span - 1)), chord_dir);
+: NormalizeOr(pff_geom::Sub(p3, DenseAtOffset(dense, begin, span - 1)), chord_dir);
 
   std::vector<double> cumulative;
   const double arc_len = SegmentArcLength(dense, begin, span, &cumulative);
@@ -392,7 +392,7 @@ CubicSpanFit FitDenseSpanCubic(const std::vector<DensePoint>& dense,
   for (int step = 1; step < span; ++step) {
     const double u = arc_len > 1e-9
         ? cumulative[static_cast<std::size_t>(step)] / arc_len
-        : static_cast<double>(step) / static_cast<double>(span);
+: static_cast<double>(step) / static_cast<double>(span);
     const double omt = 1.0 - u;
     const double b_0 = omt * omt * omt;
     const double b_1 = 3.0 * omt * omt * u;
@@ -401,8 +401,8 @@ CubicSpanFit FitDenseSpanCubic(const std::vector<DensePoint>& dense,
     const pff_geom::Point base =
         pff_geom::Add(pff_geom::Mul(p0, b_0 + b_1), pff_geom::Mul(p3, b_2 + b_3));
     const pff_geom::Point residual = pff_geom::Sub(DenseAtOffset(dense, begin, step), base);
-    const pff_geom::Point c0 = force_start ? pff_geom::Point{0.0, 0.0} : pff_geom::Mul(start_dir, b_1);
-    const pff_geom::Point c1 = force_end ? pff_geom::Point{0.0, 0.0} : pff_geom::Mul(end_dir, -b_2);
+    const pff_geom::Point c0 = force_start ? pff_geom::Point{0.0, 0.0}: pff_geom::Mul(start_dir, b_1);
+    const pff_geom::Point c1 = force_end ? pff_geom::Point{0.0, 0.0}: pff_geom::Mul(end_dir, -b_2);
     a00 += pff_geom::Dot(c0, c0);
     a01 += pff_geom::Dot(c0, c1);
     a11 += pff_geom::Dot(c1, c1);
@@ -412,8 +412,8 @@ CubicSpanFit FitDenseSpanCubic(const std::vector<DensePoint>& dense,
 
   const double fallback = chord_len / 3.0;
   const double max_handle = std::max(chord_len, arc_len) * 1.5;
-  double h0 = force_start ? 0.0 : fallback;
-  double h1 = force_end ? 0.0 : fallback;
+  double h0 = force_start ? 0.0: fallback;
+  double h1 = force_end ? 0.0: fallback;
   if (!force_start && !force_end) {
     const double det = a00 * a11 - a01 * a01;
     if (std::abs(det) > 1e-12) {
@@ -446,10 +446,10 @@ CubicSpanFit FitDenseSpanCubic(const std::vector<DensePoint>& dense,
   } else if (std::isfinite(unconstrained.max_error)) {
     const pff_geom::Point clamped_p1 = force_start
         ? p0
-        : pff_geom::Add(p0, pff_geom::ClampLength(pff_geom::Sub(unconstrained.p1, p0), max_handle));
+: pff_geom::Add(p0, pff_geom::ClampLength(pff_geom::Sub(unconstrained.p1, p0), max_handle));
     const pff_geom::Point clamped_p2 = force_end
         ? p3
-        : pff_geom::Add(p3, pff_geom::ClampLength(pff_geom::Sub(unconstrained.p2, p3), max_handle));
+: pff_geom::Add(p3, pff_geom::ClampLength(pff_geom::Sub(unconstrained.p2, p3), max_handle));
     const CubicSpanFit clamped =
         ScoreDenseSpanCubic(dense, begin, span, p0, clamped_p1, clamped_p2, p3);
     if (clamped.max_error <= fit.max_error + 1e-9) {

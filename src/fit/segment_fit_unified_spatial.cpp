@@ -292,12 +292,12 @@ SegmentFitResult FitUnifiedSpatialTiming(int i,
       },
       cfg,
       comp,
-      ps.layer_xform_at_start ? &*ps.layer_xform_at_start : nullptr);
+      ps.layer_xform_at_start ? &*ps.layer_xform_at_start: nullptr);
   CopyError(result, report);
   result.feasible = Passes(report, cfg);
   result.reason =
       result.feasible ? "unified_spatial_speed_ok"
-                      : "infeasible_unified_spatial_speed";
+: "infeasible_unified_spatial_speed";
   return result;
 }
 

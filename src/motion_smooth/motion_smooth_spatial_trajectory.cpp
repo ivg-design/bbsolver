@@ -31,9 +31,9 @@ PropertyKeys MotionSmoothSpatialTrajectoryKeys(
   const double requested_strength =
       config.motion_smooth_tolerance > 0.0
           ? config.motion_smooth_tolerance
-          : (config.tolerance_screen_px > 0.0
+: (config.tolerance_screen_px > 0.0
                 ? config.tolerance_screen_px
-                : config.tolerance);
+: config.tolerance);
   const double strength = std::max(1.0, requested_strength);
   int smoothing_passes = 0;
   double max_displacement = 0.0;
@@ -54,7 +54,7 @@ PropertyKeys MotionSmoothSpatialTrajectoryKeys(
       kept.push_back(static_cast<int>(smoothed.size()) - 1);
     }
     key_times.reserve(kept.size());
-    for (int sample_idx : kept) {
+    for (int sample_idx: kept) {
       key_times.push_back(
           property_samples.samples[static_cast<std::size_t>(sample_idx)].t_sec);
     }
@@ -75,9 +75,9 @@ PropertyKeys MotionSmoothSpatialTrajectoryKeys(
       key.v = MotionSmoothInterpolatedPoint(
           property_samples, raw, key.t_sec, dims);
     }
-    key.interp_in = ki == 0 ? InterpType::Linear : InterpType::Bezier;
+    key.interp_in = ki == 0 ? InterpType::Linear: InterpType::Bezier;
     key.interp_out =
-        ki + 1 == key_times.size() ? InterpType::Linear : InterpType::Bezier;
+        ki + 1 == key_times.size() ? InterpType::Linear: InterpType::Bezier;
     key.temporal_ease_in = neutral_ease;
     key.temporal_ease_out = neutral_ease;
     key.temporal_continuous = use_ease;
@@ -131,7 +131,7 @@ PropertyKeys MotionSmoothSpatialTrajectoryKeys(
       std::string("solve_mode_motion_smooth") +
       "; motion_smooth_spatial_trajectory_filter=true" +
       "; motion_smooth_source_key_times=" +
-      std::string(using_source_key_times ? "true" : "false") +
+      std::string(using_source_key_times ? "true": "false") +
       "; source_key_count=" +
       std::to_string(property_samples.property.source_key_times.size()) +
       "; input_samples=" + std::to_string(property_samples.samples.size()) +
@@ -140,10 +140,10 @@ PropertyKeys MotionSmoothSpatialTrajectoryKeys(
       "; smoothing_strength=" + std::to_string(strength) +
       (using_source_key_times
            ? "; key_schedule=source_keys"
-           : "; key_schedule=sample_rdp; simplification_tolerance=" +
+: "; key_schedule=sample_rdp; simplification_tolerance=" +
                  std::to_string(simplify_tolerance)) +
       "; max_smoothing_displacement=" + std::to_string(max_displacement) +
-      "; motion_smooth_ease=" + (use_ease ? "on" : "off") +
+      "; motion_smooth_ease=" + (use_ease ? "on": "off") +
       "; motion_smooth_bezier=" +
       std::to_string(config.motion_smooth_bezier_x1) + "," +
       std::to_string(config.motion_smooth_bezier_y1) + "," +

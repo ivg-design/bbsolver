@@ -23,7 +23,7 @@ constexpr int kOutlierPartitionCandidateSlots = 2;
 
 std::string JoinAnchorIndices(const std::vector<int>& anchors) {
   std::string out;
-  for (int anchor : anchors) {
+  for (int anchor: anchors) {
     if (!out.empty()) {
       out += ",";
     }
@@ -34,7 +34,7 @@ std::string JoinAnchorIndices(const std::vector<int>& anchors) {
 
 std::string JoinRegionRanges(const std::vector<VertexRegion>& regions) {
   std::string out;
-  for (VertexRegion region : regions) {
+  for (VertexRegion region: regions) {
     if (!out.empty()) {
       out += ",";
     }
@@ -47,8 +47,8 @@ std::string JoinRegionRanges(const std::vector<VertexRegion>& regions) {
 std::string AddReasonCount(std::vector<std::pair<std::string, int>>& counts,
                            const std::string& reason) {
   const std::string normalized =
-      reason.empty() ? "unknown" : reason;
-  for (auto& entry : counts) {
+      reason.empty() ? "unknown": reason;
+  for (auto& entry: counts) {
     if (entry.first == normalized) {
       ++entry.second;
       return normalized;
@@ -167,7 +167,7 @@ std::string FormatGapHistogram(const std::vector<int>& anchors,
             });
 
   std::string out;
-  for (const auto& entry : counts) {
+  for (const auto& entry: counts) {
     if (!out.empty()) {
       out += ",";
     }
@@ -208,7 +208,7 @@ std::vector<int> SampleIndicesFromKeys(const PropertyKeys& keys) {
   }
   indices.reserve(keys.segments.size() + 1);
   indices.push_back(keys.segments.front().start_idx);
-  for (const SegmentReport& segment : keys.segments) {
+  for (const SegmentReport& segment: keys.segments) {
     indices.push_back(segment.end_idx);
   }
   indices.erase(std::unique(indices.begin(), indices.end()), indices.end());
@@ -263,7 +263,7 @@ std::string MaskChannelTemporalSignature(const PropertyKeys& keys) {
 
 std::string JoinMaskChannelVertices(const std::vector<int>& vertices) {
   std::string out;
-  for (int vertex : vertices) {
+  for (int vertex: vertices) {
     if (!out.empty()) {
       out += ",";
     }
@@ -275,13 +275,13 @@ std::string JoinMaskChannelVertices(const std::vector<int>& vertices) {
 std::string FormatMaskChannelSlots(
     const std::vector<MaskChannelSlotPlan>& slots) {
   std::string note;
-  for (const MaskChannelSlotPlan& slot : slots) {
+  for (const MaskChannelSlotPlan& slot: slots) {
     if (!note.empty()) {
       note += ",";
     }
     note += std::to_string(slot.vertex) + ":" +
             (slot.ok ? ("k" + std::to_string(slot.key_count))
-                     : ("failed_" + slot.status));
+: ("failed_" + slot.status));
   }
   return note;
 }
@@ -289,7 +289,7 @@ std::string FormatMaskChannelSlots(
 std::string FormatMaskChannelGroups(
     const std::vector<MaskChannelGroupPlan>& groups) {
   std::string note;
-  for (const MaskChannelGroupPlan& group : groups) {
+  for (const MaskChannelGroupPlan& group: groups) {
     if (!note.empty()) {
       note += "|";
     }
@@ -324,7 +324,7 @@ std::string VisibleChannelProbeNote(const VisibleChannelProbeResult& probe) {
       "visible_channel_probe=done"
       "; source_visible_key_baseline=" +
       std::to_string(probe.baseline_keys);
-  for (const VisibleChannelProbeCandidate& candidate : probe.candidates) {
+  for (const VisibleChannelProbeCandidate& candidate: probe.candidates) {
     const std::string prefix = "best_contiguous_" +
                                std::to_string(candidate.channel_count) +
                                "_channel_";

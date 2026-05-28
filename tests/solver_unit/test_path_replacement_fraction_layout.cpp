@@ -45,12 +45,12 @@ void TestMedianLayoutRejectsMismatchedOrUnorderedSlots() {
   Require(bbsolver::BuildMedianStableFractionLayout(
               {Record({0.0, 0.3}), Record({0.0, 0.4, 0.8})},
               3)
-              .empty(),
+.empty(),
           "mismatched target counts must be rejected");
   Require(bbsolver::BuildMedianStableFractionLayout(
               {Record({0.0, 0.3, 0.3})},
               3)
-              .empty(),
+.empty(),
           "non-increasing fraction slots must be rejected");
 }
 

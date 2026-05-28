@@ -2,9 +2,9 @@
 //
 // AE CC 2014 and later expose a native global JSON object. The harness only
 // supports those versions. If JSON is missing, we alert and abort cleanly
-// rather than carry the full Douglas Crockford json2.js polyfill (whose
+// rather than carry the full Douglas Crockford json2.js polyfill, whose
 // regex literals contain raw Unicode characters that ExtendScript's parser
-// rejects in some host configurations — see issue notes 2026-05-14).
+// rejects in some host configurations.
 
 if (typeof JSON === 'undefined' || typeof JSON.stringify !== 'function') {
     alert(

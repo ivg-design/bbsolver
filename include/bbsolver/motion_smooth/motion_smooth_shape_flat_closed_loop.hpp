@@ -9,7 +9,7 @@
 
 namespace bbsolver {
 
-// MS24 extraction: the closed-loop branch + source-pose-constraint
+// the closed-loop branch + source-pose-constraint
 // bookkeeping in the shape-flat Motion Smooth orchestrator. The
 // branch is responsible for choosing whether to adaptively resample a
 // detected closed loop, choosing the key-time schedule

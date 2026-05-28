@@ -33,14 +33,14 @@ const Sample* FindSampleAtSourceKeyTime(const PropertySamples& property_samples,
   const double eps = SourceKeySampleTimeEpsilon(property_samples);
   const Sample* best = nullptr;
   double best_distance = std::numeric_limits<double>::infinity();
-  for (const Sample& sample : property_samples.samples) {
+  for (const Sample& sample: property_samples.samples) {
     const double distance = std::abs(sample.t_sec - t_sec);
     if (distance < best_distance) {
       best = &sample;
       best_distance = distance;
     }
   }
-  return best != nullptr && best_distance <= eps ? best : nullptr;
+  return best != nullptr && best_distance <= eps ? best: nullptr;
 }
 
 PropertyKeys BuildShapeFlatSourceKeyPreservationKeys(
@@ -71,10 +71,10 @@ PropertyKeys BuildShapeFlatSourceKeyPreservationKeys(
     } else {
       key.interp_in = i == 0
           ? InterpType::Linear
-          : InterpType::Linear;
+: InterpType::Linear;
       key.interp_out = i + 1 == source_key_times.size()
           ? InterpType::Linear
-          : InterpType::Linear;
+: InterpType::Linear;
       key.temporal_ease_in = DefaultEasesForProperty(property_samples);
       key.temporal_ease_out = DefaultEasesForProperty(property_samples);
     }

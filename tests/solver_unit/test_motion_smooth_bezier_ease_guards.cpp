@@ -1,8 +1,8 @@
-// MS15 focused test: ApplyMotionSmoothBezierEase early-return guards.
+//  focused test: ApplyMotionSmoothBezierEase early-return guards.
 //
 // The existing test_motion_smooth_solver.cpp::TestBezierEaseApplication
 // exercises the happy path: 2 keys, use_ease=true, valid bezier
-// control points → keys are mutated. After MS12 promoted the ease
+// control points → keys are mutated. After promoted the ease
 // application to its own TU (motion_smooth_bezier_ease.cpp), the
 // three early-return guards (null pointer, < 2 keys,
 // !motion_smooth_use_ease) became a behavioural contract that future
@@ -106,7 +106,7 @@ void TestEaseDisabledIsNoOp() {
 }
 
 void TestInfluenceClampHonorsConfigRange() {
-  // The MS12 docs entry promises the influence values are clamped to
+  // The docs entry promises the influence values are clamped to
   // `[config.min_influence, config.max_influence]`. Drive the raw
   // computed influence well outside both endpoints and verify the
   // clamp kicks in. With x1=0.25 → raw out_influence = 25; setting

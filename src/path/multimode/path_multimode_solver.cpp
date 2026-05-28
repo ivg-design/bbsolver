@@ -73,7 +73,7 @@ PropertyKeys SolveShapeFlatMultiModeTemporal(
       std::max(1, std::min(n - 1,
                            options.max_gap_samples > 0
                                ? options.max_gap_samples
-                               : kDefaultMaxGapSamples));
+: kDefaultMaxGapSamples));
   const std::vector<VertexRegion> regions =
       BuildMotionAwareVertexRegions(reduced, vertex_count, options.max_regions);
 
@@ -84,7 +84,7 @@ PropertyKeys SolveShapeFlatMultiModeTemporal(
   std::vector<int> per_region_key_counts;
   per_region_key_counts.reserve(regions.size());
   int region_segment_checks = 0;
-  for (VertexRegion region : regions) {
+  for (VertexRegion region: regions) {
     if (options.cancel_fn && options.cancel_fn()) {
       out.notes = "cancelled";
       return out;
@@ -139,7 +139,7 @@ PropertyKeys SolveShapeFlatMultiModeTemporal(
     return recombined.keys;
   }
   const std::string recombined_note =
-      recombined.attempted ? recombined.note : std::string();
+      recombined.attempted ? recombined.note: std::string();
 
   if (CandidateKeyBudgetExceeded(static_cast<int>(anchors.size()),
                                  n,
@@ -160,7 +160,7 @@ PropertyKeys SolveShapeFlatMultiModeTemporal(
   out.converged = validation.ok;
   out.max_err = validation.max_outline_error;
   out.max_err_screen_px = validation.max_outline_error;
-  for (SegmentReport& report : out.segments) {
+  for (SegmentReport& report: out.segments) {
     report.max_err = validation.max_outline_error;
     report.max_err_screen_px = validation.max_outline_error;
     report.rms_err = validation.max_outline_error;
@@ -193,10 +193,10 @@ std::vector<PropertyKeys> EmitShapeFlatLandmarkSubpathKeys(
                                     normalized_options.max_regions);
   const int n = static_cast<int>(reduced.samples.size());
   const int max_gap =
-      std::max(1, std::min(n > 1 ? n - 1 : 1,
+      std::max(1, std::min(n > 1 ? n - 1: 1,
                            normalized_options.max_gap_samples > 0
                                ? normalized_options.max_gap_samples
-                               : kDefaultMaxGapSamples));
+: kDefaultMaxGapSamples));
   VisibleChannelProbeResult visible_probe;
   if (normalized_options.probe_visible_channels) {
     visible_probe = RunVisibleChannelProbe(reduced,

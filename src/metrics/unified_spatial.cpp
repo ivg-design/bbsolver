@@ -15,7 +15,7 @@ namespace {
 constexpr int kPathLutSteps = 256;
 
 double ComponentOrZero(const std::vector<double>& values, std::size_t idx) {
-  return idx < values.size() ? values[idx] : 0.0;
+  return idx < values.size() ? values[idx]: 0.0;
 }
 
 double CubicBezier(double u, double p0, double p1, double p2, double p3) {
@@ -101,7 +101,7 @@ double InvertArcLength(const std::vector<double>& length, double distance) {
   const std::size_t idx = static_cast<std::size_t>(it - length.begin());
   const double prev = length[idx - 1];
   const double next = length[idx];
-  const double local = (next > prev) ? (target - prev) / (next - prev) : 0.0;
+  const double local = (next > prev) ? (target - prev) / (next - prev): 0.0;
   return (static_cast<double>(idx - 1) + local) / static_cast<double>(kPathLutSteps);
 }
 
@@ -144,7 +144,7 @@ std::vector<double> EvalUnifiedSpatialBezier(double t,
     return v1;
   }
   const std::vector<double> length = BuildArcLengthLut(v0, spatial_out, v1, spatial_in);
-  const double path_length = length.empty() ? 0.0 : length.back();
+  const double path_length = length.empty() ? 0.0: length.back();
   const double distance = EvalDistanceBezier(t, t0, out_ease, t1, in_ease, path_length);
   const double u = InvertArcLength(length, distance);
   return EvalPathAtU(u, v0, spatial_out, v1, spatial_in);
@@ -155,7 +155,7 @@ double ApproxUnifiedSpatialPathLength(const std::vector<double>& v0,
                                       const std::vector<double>& v1,
                                       const std::vector<double>& spatial_in) {
   const std::vector<double> length = BuildArcLengthLut(v0, spatial_out, v1, spatial_in);
-  return length.empty() ? 0.0 : length.back();
+  return length.empty() ? 0.0: length.back();
 }
 
 }  // namespace bbsolver

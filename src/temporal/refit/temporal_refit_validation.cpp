@@ -42,7 +42,7 @@ bool ValidateRefitAgainstSource(
     const double property_ceiling =
         budget_mode == TemporalRefitOptions::BudgetMode::Relative
             ? budget_relative_ceiling
-            : StrictPropertyCeiling(config);
+: StrictPropertyCeiling(config);
     const bool property_ok = max_err <= property_ceiling + 1e-9;
 
     bool screen_ok = true;
@@ -50,7 +50,7 @@ bool ValidateRefitAgainstSource(
       const double screen_ceiling =
           budget_mode == TemporalRefitOptions::BudgetMode::Relative
               ? budget_relative_ceiling
-              : StrictScreenCeiling(config);
+: StrictScreenCeiling(config);
       screen_ok = max_err_screen_px <= screen_ceiling + 1e-9;
     }
     ok = property_ok && screen_ok;

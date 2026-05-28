@@ -1,6 +1,6 @@
-// MS9 focused test: the RDP keep-mask helper
+//  focused test: the RDP keep-mask helper
 // (ShapeMotionSourceKeyRdpKeep) was file-local to
-// motion_smooth_shape_schedule.cpp before MS6. MS6 promoted it to a
+// motion_smooth_shape_schedule.cpp before the split.  promoted it to a
 // public bbsolver:: surface (motion_smooth_shape_source_key_schedule.hpp)
 // so the schedule builder TU and any future direct callers can share
 // the same recursion. This test exercises the helper and the builder
@@ -131,7 +131,7 @@ void TestBuildShapeMotionSourceKeyScheduleAnchorPinning() {
   // The builder must pin dims 0/1 of every raw_value to the property's
   // first sample anchor, regardless of what MotionSmoothInterpolatedVector
   // returned. This is the "anchor (first two dims) is never touched"
-  // contract called out in the MS6-MS10 docs entry.
+  // contract called out in the the corresponding sub-modules docs entry.
   const int dims = 6;
   const bbsolver::PropertySamples property_samples =
       MakePropertySamples(dims, 42.0, -7.5);
@@ -154,7 +154,7 @@ void TestBuildShapeMotionSourceKeyScheduleAnchorPinning() {
           "simplification gate must stay off for <= 2 keys");
   Require(schedule.raw_values.size() == 2,
           "raw_values must mirror input size");
-  for (const std::vector<double>& value : schedule.raw_values) {
+  for (const std::vector<double>& value: schedule.raw_values) {
     Require(value.size() >= 2,
             "every raw_value must be at least 2-D for anchor pin");
     Require(std::abs(value[0] - 42.0) < 1e-12,

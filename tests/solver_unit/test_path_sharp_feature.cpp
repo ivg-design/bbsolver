@@ -23,9 +23,9 @@ std::vector<double> ShapeFlatPolygon(
     bool closed = true) {
   std::vector<double> out;
   out.reserve(2 + 6 * vertices.size());
-  out.push_back(closed ? 1.0 : 0.0);
+  out.push_back(closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const auto& v : vertices) {
+  for (const auto& v: vertices) {
     out.push_back(v.first);
     out.push_back(v.second);
     out.push_back(0.0);
@@ -130,7 +130,7 @@ void TestDetectTangentLockedRespectsHardCutoff() {
 
   const std::vector<bool> locked =
       DetectTangentLockedSourceVertices(square, decoded, opts);
-  for (bool flag : locked) {
+  for (bool flag: locked) {
     assert(flag);
   }
 }
@@ -147,8 +147,8 @@ void TestSemanticAnchorOptOutEmptyResults() {
       DetectSharpSourceVertices(square, decoded, opts);
   const std::vector<bool> locked =
       DetectTangentLockedSourceVertices(square, decoded, opts);
-  for (bool flag : sharp) { assert(!flag); }
-  for (bool flag : locked) { assert(!flag); }
+  for (bool flag: sharp) { assert(!flag); }
+  for (bool flag: locked) { assert(!flag); }
 }
 
 }  // namespace

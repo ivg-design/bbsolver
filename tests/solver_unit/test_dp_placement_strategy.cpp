@@ -51,9 +51,9 @@ bbsolver::SegmentFitFn SyntheticGraphFit(
     bbsolver::SegmentFitResult result;
     result.feasible = feasible_edges.count({i, j}) != 0;
     result.interp = bbsolver::InterpType::Linear;
-    result.max_err = result.feasible ? 0.0 : 100.0;
+    result.max_err = result.feasible ? 0.0: 100.0;
     result.max_err_screen_px = result.max_err;
-    result.reason = result.feasible ? "synthetic_ok" : "synthetic_infeasible";
+    result.reason = result.feasible ? "synthetic_ok": "synthetic_infeasible";
     return result;
   };
 }
@@ -166,14 +166,14 @@ void RequireAttributedDPProgressAggregates(int max_parallelism) {
         result.fit_segment_linear_units_evaluated = 20;
         result.fit_segment_hold_fail_fast_exits = 1;
         result.fit_segment_linear_fail_fast_exits = 1;
-        result.fit_shape_temporal_attempts = (i == 0) ? 1 : 0;
-        result.fit_shape_temporal_gate_rejections = (j == 3) ? 1 : 0;
+        result.fit_shape_temporal_attempts = (i == 0) ? 1: 0;
+        result.fit_shape_temporal_gate_rejections = (j == 3) ? 1: 0;
         result.fit_shape_temporal_outline_evaluations = (j - i) * 2;
         result.fit_segment_hold_wall_ms = 0.25;
         result.fit_segment_linear_wall_ms = 0.5 * static_cast<double>(j - i);
         result.fit_segment_hold_shape_outline_wall_ms = 0.125;
         result.fit_segment_linear_shape_outline_wall_ms = 0.25;
-        result.fit_shape_temporal_ceres_wall_ms = (i == 0) ? 0.75 : 0.0;
+        result.fit_shape_temporal_ceres_wall_ms = (i == 0) ? 0.75: 0.0;
         result.fit_shape_temporal_outline_wall_ms =
             static_cast<double>((j - i) * 2);
         result.fit_shape_temporal_total_wall_ms =

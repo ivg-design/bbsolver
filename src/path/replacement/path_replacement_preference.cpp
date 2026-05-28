@@ -48,7 +48,7 @@ ReplacementFastVertexPreferenceVerdict EvaluateReplacementFastVertexPreference(
           ? static_cast<double>(input.source_vertices_for_ratio -
                                 input.fitted_vertices) /
                 static_cast<double>(input.source_vertices_for_ratio)
-          : 0.0;
+: 0.0;
   verdict.accept =
       input.prefer_vertices &&
       input.source_sample_count >= 8 &&

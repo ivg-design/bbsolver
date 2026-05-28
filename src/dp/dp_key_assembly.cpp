@@ -18,7 +18,7 @@ std::vector<TemporalEase> NeutralEase(std::size_t dims) {
 }
 
 int TemporalChannelsForProperty(const PropertySamples& ps) {
-  return ps.property.is_separated ? std::max(1, ps.property.dimensions) : 1;
+  return ps.property.is_separated ? std::max(1, ps.property.dimensions): 1;
 }
 
 std::vector<double> NeutralSpatial(std::size_t dims, bool is_spatial) {
@@ -70,7 +70,7 @@ std::vector<double> SegmentStartValue(const PropertySamples& ps,
                                       int dims) {
   return segment.key_value_at_i.empty()
              ? SampleValueAt(ps, sample_idx, dims)
-             : segment.key_value_at_i;
+: segment.key_value_at_i;
 }
 
 std::vector<double> SegmentEndValue(const PropertySamples& ps,
@@ -79,7 +79,7 @@ std::vector<double> SegmentEndValue(const PropertySamples& ps,
                                     int dims) {
   return segment.key_value_at_j.empty()
              ? SampleValueAt(ps, sample_idx, dims)
-             : segment.key_value_at_j;
+: segment.key_value_at_j;
 }
 
 bool ValuesCompatible(const std::vector<double>& a,
@@ -135,10 +135,10 @@ PropertyKeys AssembleKeys(const PropertySamples& ps, const DPPlacement& pl) {
       key.interp_in = segment_in.interp;
       key.temporal_ease_in = segment_in.ease_in_at_j.empty()
                                  ? NeutralEase(dims)
-                                 : segment_in.ease_in_at_j;
+: segment_in.ease_in_at_j;
       key.spatial_in = (spatial && !segment_in.spatial_in_at_j.empty())
                             ? segment_in.spatial_in_at_j
-                            : NeutralSpatial(dims, spatial);
+: NeutralSpatial(dims, spatial);
     } else {
       key.temporal_ease_in = NeutralEase(temporal_dims);
       key.spatial_in = NeutralSpatial(dims, spatial);
@@ -150,10 +150,10 @@ PropertyKeys AssembleKeys(const PropertySamples& ps, const DPPlacement& pl) {
       key.interp_out = segment_out.interp;
       key.temporal_ease_out = segment_out.ease_out_at_i.empty()
                                   ? NeutralEase(dims)
-                                  : segment_out.ease_out_at_i;
+: segment_out.ease_out_at_i;
       key.spatial_out = (spatial && !segment_out.spatial_out_at_i.empty())
                              ? segment_out.spatial_out_at_i
-                             : NeutralSpatial(dims, spatial);
+: NeutralSpatial(dims, spatial);
     } else {
       key.temporal_ease_out = NeutralEase(temporal_dims);
       key.spatial_out = NeutralSpatial(dims, spatial);

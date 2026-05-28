@@ -44,7 +44,7 @@ SampledArcPoint SampleDenseAtArc(const std::vector<DensePoint>& dense,
   }
 
   double cursor = 0.0;
-  const int segments = closed ? n : std::max(0, n - 1);
+  const int segments = closed ? n: std::max(0, n - 1);
   for (int i = 0; i < segments; ++i) {
     const int next = (i + 1) % n;
     const pff_geom::Point a = dense[static_cast<std::size_t>(i)].p;
@@ -68,8 +68,8 @@ SampledArcPoint SampleDenseAtArc(const std::vector<DensePoint>& dense,
     cursor += length;
   }
 
-  sampled.arc = closed ? 0.0 : total_length;
-  sampled.dense = closed ? dense.front() : dense.back();
+  sampled.arc = closed ? 0.0: total_length;
+  sampled.dense = closed ? dense.front(): dense.back();
   return sampled;
 }
 
@@ -99,7 +99,7 @@ bool BuildDenseWithFractionLandmarks(const std::vector<DensePoint>& dense,
   for (std::size_t i = 0; i < fractions.size(); ++i) {
     const double arc = fractions[i] * total_length;
     SampledArcPoint sampled = SampleDenseAtArc(dense, closed, arc, total_length);
-    sampled.arc = closed && sampled.arc >= total_length - 1e-8 ? 0.0 : sampled.arc;
+    sampled.arc = closed && sampled.arc >= total_length - 1e-8 ? 0.0: sampled.arc;
     points.push_back({sampled.arc, sampled.dense, static_cast<int>(i)});
   }
 
@@ -113,7 +113,7 @@ bool BuildDenseWithFractionLandmarks(const std::vector<DensePoint>& dense,
   std::vector<int> request_to_index(fractions.size(), -1);
   std::vector<double> combined_arcs;
   combined_arcs.reserve(points.size());
-  for (const ArcLengthPoint& point : points) {
+  for (const ArcLengthPoint& point: points) {
     bool merged = false;
     if (!combined->empty() &&
         pff_geom::Distance(combined->back().p, point.dense.p) < 1e-8 &&
@@ -134,7 +134,7 @@ bool BuildDenseWithFractionLandmarks(const std::vector<DensePoint>& dense,
   }
 
   kept->reserve(fractions.size());
-  for (int index : request_to_index) {
+  for (int index: request_to_index) {
     if (index < 0 || (!kept->empty() && index <= kept->back())) {
       return false;
     }

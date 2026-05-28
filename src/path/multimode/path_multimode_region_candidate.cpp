@@ -58,7 +58,7 @@ RegionSolveResult SolveRegionAnchors(const PropertySamples& reduced,
   RegionSolveResult result;
   const int n = static_cast<int>(reduced.samples.size());
   if (n <= 1) {
-    result.anchors = n == 1 ? std::vector<int>{0} : std::vector<int>{};
+    result.anchors = n == 1 ? std::vector<int>{0}: std::vector<int>{};
     return result;
   }
   constexpr int kInf = std::numeric_limits<int>::max() / 4;
@@ -128,8 +128,8 @@ Key MakeLinearShapeKey(const PropertySamples& reduced,
   Key key;
   key.t_sec = reduced.samples[static_cast<std::size_t>(sample_idx)].t_sec;
   key.v = reduced.samples[static_cast<std::size_t>(sample_idx)].v;
-  key.interp_in = first ? InterpType::Bezier : InterpType::Linear;
-  key.interp_out = last ? InterpType::Bezier : InterpType::Linear;
+  key.interp_in = first ? InterpType::Bezier: InterpType::Linear;
+  key.interp_out = last ? InterpType::Bezier: InterpType::Linear;
   key.temporal_ease_in = NeutralEase();
   key.temporal_ease_out = NeutralEase();
   key.temporal_continuous = false;
@@ -166,7 +166,7 @@ PropertyKeys BuildCandidate(const PropertySamples& reduced,
                                            idx == 0,
                                            idx + 1 == anchors.size()));
   }
-  keys.segments.reserve(anchors.size() > 1 ? anchors.size() - 1 : 0);
+  keys.segments.reserve(anchors.size() > 1 ? anchors.size() - 1: 0);
   for (std::size_t idx = 0; idx + 1 < anchors.size(); ++idx) {
     SegmentReport report;
     report.start_idx = anchors[idx];

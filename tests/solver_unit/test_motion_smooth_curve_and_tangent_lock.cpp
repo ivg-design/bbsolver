@@ -1,4 +1,4 @@
-// MS19 focused regression test: MS1 tangent-lock + MS2 curve primitives.
+//  focused regression test:  tangent-lock +  curve primitives.
 //
 // These leaf-level building blocks (MotionSmoothCatmullRomValue,
 // EvaluateClosedLoopShapeAtParam, PointTurnDeg, ShapeFlatVertexPoint,
@@ -66,7 +66,7 @@ std::vector<double> SingleVertexValue(double pos_x,
 }
 
 // ---------------------------------------------------------------------------
-// MS2 — MotionSmoothCatmullRomValue
+//  — MotionSmoothCatmullRomValue
 // ---------------------------------------------------------------------------
 
 void TestCatmullRomReturnsP1AtUZero() {
@@ -96,7 +96,7 @@ void TestCatmullRomLinearOnAffinelyArrangedPoints() {
 }
 
 // ---------------------------------------------------------------------------
-// MS2 — PointTurnDeg
+//  — PointTurnDeg
 // ---------------------------------------------------------------------------
 
 void TestPointTurnDegStraightLineIsZero() {
@@ -140,7 +140,7 @@ void TestPointTurnDegDegenerateLegReturnsZero() {
 }
 
 // ---------------------------------------------------------------------------
-// MS2 — ShapeFlatVertexPoint
+//  — ShapeFlatVertexPoint
 // ---------------------------------------------------------------------------
 
 void TestShapeFlatVertexPointReadsAtCorrectOffset() {
@@ -164,7 +164,7 @@ void TestShapeFlatVertexPointReadsAtCorrectOffset() {
 }
 
 // ---------------------------------------------------------------------------
-// MS2 — EvaluateClosedLoopShapeAtParam
+//  — EvaluateClosedLoopShapeAtParam
 // ---------------------------------------------------------------------------
 
 void TestEvaluateClosedLoopReturnsFrontAtBoundaryParam() {
@@ -209,7 +209,7 @@ void TestEvaluateClosedLoopShortLoopReturnsFront() {
 // closed loop with at least 4 entries), so this corner is left
 // undocumented at the source layer and intentionally untested at the
 // regression layer — exposing it would require a behaviour change
-// that is out of scope for MS19's "preserve public behaviour" brief.
+// that is out of scope for 's "preserve public behaviour" brief.
 
 void TestEvaluateClosedLoopNegativeParamWraps() {
   // A negative param must wrap to a positive position in
@@ -236,7 +236,7 @@ void TestEvaluateClosedLoopNegativeParamWraps() {
 }
 
 // ---------------------------------------------------------------------------
-// MS1 — LockShapeFlatRotationalTangents
+//  — LockShapeFlatRotationalTangents
 // ---------------------------------------------------------------------------
 
 void TestLockTangentsNullPointerIsNoOp() {

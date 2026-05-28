@@ -233,7 +233,7 @@ PathSolvePreparationState PreparePathSolveInputs(
             state.replacement_winning_fractions,
             state.visible_outline_reference
                 ? VisibleOutlineFrameFitOptions(config)
-                : ReplacementFrameFitOptions(config));
+: ReplacementFrameFitOptions(config));
     if (refinement.applied) {
       state.property_samples = std::move(refinement.refined_samples);
       state.replacement_frame_fit_error = refinement.refined_max_error;

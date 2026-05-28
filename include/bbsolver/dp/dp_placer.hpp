@@ -19,11 +19,11 @@ namespace bbsolver {
 //
 // Convention:
 //   ease_out_at_i = temporal ease used as OUT-ease on the key placed at sample i
-//   ease_in_at_j  = temporal ease used as IN-ease  on the key placed at sample j
+//   ease_in_at_j  = temporal ease used as IN-ease on the key placed at sample j
 // Same for spatial tangents.
 struct SegmentFitResult {
-    bool        feasible          = false;
-    InterpType  interp            = InterpType::Bezier;
+    bool feasible          = false;
+    InterpType interp            = InterpType::Bezier;
 
     std::vector<TemporalEase> ease_out_at_i;  // size = dims_temporal (1 if non-separated)
     std::vector<TemporalEase> ease_in_at_j;
@@ -34,33 +34,33 @@ struct SegmentFitResult {
     std::vector<double>       key_value_at_i;
     std::vector<double>       key_value_at_j;
 
-    double      max_err           = 0.0;  // L∞ in property units
-    double      max_err_screen_px = 0.0;
-    double      rms_err           = 0.0;
-    int         iters             = 0;
-    int         fit_segment_hold_attempts = 0;
-    int         fit_segment_linear_attempts = 0;
-    int         fit_segment_hold_units_evaluated = 0;
-    int         fit_segment_linear_units_evaluated = 0;
-    int         fit_segment_hold_fail_fast_exits = 0;
-    int         fit_segment_linear_fail_fast_exits = 0;
-    int         fit_shape_temporal_attempts = 0;
-    int         fit_shape_temporal_gate_rejections = 0;
-    int         fit_shape_temporal_outline_evaluations = 0;
-    double      fit_segment_hold_wall_ms = 0.0;
-    double      fit_segment_linear_wall_ms = 0.0;
-    double      fit_segment_hold_shape_outline_wall_ms = 0.0;
-    double      fit_segment_linear_shape_outline_wall_ms = 0.0;
-    double      fit_shape_temporal_ceres_wall_ms = 0.0;
-    double      fit_shape_temporal_outline_wall_ms = 0.0;
-    double      fit_shape_temporal_total_wall_ms = 0.0;
-    int         fit_replacement_oracle_calls = 0;
-    int         fit_replacement_oracle_evaluations = 0;
-    int         fit_replacement_relaxed_attempts = 0;
-    int         fit_replacement_relaxed_validations = 0;
-    double      fit_replacement_oracle_wall_ms = 0.0;
-    double      fit_replacement_outline_wall_ms = 0.0;
-    double      fit_replacement_relaxed_wall_ms = 0.0;
+    double max_err           = 0.0;  // L∞ in property units
+    double max_err_screen_px = 0.0;
+    double rms_err           = 0.0;
+    int iters             = 0;
+    int fit_segment_hold_attempts = 0;
+    int fit_segment_linear_attempts = 0;
+    int fit_segment_hold_units_evaluated = 0;
+    int fit_segment_linear_units_evaluated = 0;
+    int fit_segment_hold_fail_fast_exits = 0;
+    int fit_segment_linear_fail_fast_exits = 0;
+    int fit_shape_temporal_attempts = 0;
+    int fit_shape_temporal_gate_rejections = 0;
+    int fit_shape_temporal_outline_evaluations = 0;
+    double fit_segment_hold_wall_ms = 0.0;
+    double fit_segment_linear_wall_ms = 0.0;
+    double fit_segment_hold_shape_outline_wall_ms = 0.0;
+    double fit_segment_linear_shape_outline_wall_ms = 0.0;
+    double fit_shape_temporal_ceres_wall_ms = 0.0;
+    double fit_shape_temporal_outline_wall_ms = 0.0;
+    double fit_shape_temporal_total_wall_ms = 0.0;
+    int fit_replacement_oracle_calls = 0;
+    int fit_replacement_oracle_evaluations = 0;
+    int fit_replacement_relaxed_attempts = 0;
+    int fit_replacement_relaxed_validations = 0;
+    double fit_replacement_oracle_wall_ms = 0.0;
+    double fit_replacement_outline_wall_ms = 0.0;
+    double fit_replacement_relaxed_wall_ms = 0.0;
     std::string reason;                    // "bezier_ok" | "linear" | "hold" | "infeasible_*"
 };
 

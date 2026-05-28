@@ -72,7 +72,7 @@ PropertyPostSolveProcessingResult ProcessSolvedPropertyPostSolve(
         {"event", "post_solve_vertex_reduction_done"},
         {"phase", std::string("Post-solve path vertex reduction ") +
                       (post_reduction.accepted ? "accepted for "
-                                               : "rejected for ") +
+: "rejected for ") +
                       ProgressPropertyLabel(original_property_samples)},
         {"progress", SolveProgressForPropertyStage(
                          request.property_idx, request.property_count, 0.90)},
@@ -99,7 +99,7 @@ PropertyPostSolveProcessingResult ProcessSolvedPropertyPostSolve(
         {"event", "static_key_run_collapse"},
         {"phase", std::string("Static key cleanup ") +
                       (static_collapse.accepted ? "accepted for "
-                                                : "rejected for ") +
+: "rejected for ") +
                       ProgressPropertyLabel(original_property_samples)},
         {"progress", SolveProgressForPropertyStage(
                          request.property_idx, request.property_count, 0.91)},
@@ -123,7 +123,7 @@ PropertyPostSolveProcessingResult ProcessSolvedPropertyPostSolve(
         {"event", "final_static_boundary_anchor"},
         {"phase", std::string("Final static boundary anchor ") +
                       (final_static_anchor.accepted ? "accepted for "
-                                                   : "rejected for ") +
+: "rejected for ") +
                       ProgressPropertyLabel(original_property_samples)},
         {"progress", SolveProgressForPropertyStage(
                          request.property_idx, request.property_count, 0.915)},
@@ -155,7 +155,7 @@ PropertyPostSolveProcessingResult ProcessSolvedPropertyPostSolve(
               refit_progress.step_total > 0
                   ? static_cast<double>(refit_progress.step_index) /
                         static_cast<double>(refit_progress.step_total)
-                  : 0.0;
+: 0.0;
           progress.Emit({
               {"event", refit_progress.stage},
               {"phase", "Temporal refit for " +
@@ -193,7 +193,7 @@ PropertyPostSolveProcessingResult ProcessSolvedPropertyPostSolve(
           {"event", "temporal_refit_done"},
           {"phase", std::string("Temporal refit ") +
                         (temporal_refit.accepted ? "accepted for "
-                                                 : "rejected for ") +
+: "rejected for ") +
                         ProgressPropertyLabel(original_property_samples)},
           {"progress", SolveProgressForPropertyStage(
                            request.property_idx, request.property_count, 0.952)},
@@ -215,7 +215,7 @@ PropertyPostSolveProcessingResult ProcessSolvedPropertyPostSolve(
       request.temporal_optimization_enabled
           ? AccuracyGateOptimizationNote(
                 original_property_samples, config, property_keys)
-          : "";
+: "";
   if (!accuracy_gate_note.empty()) {
     AppendSolverNote(property_keys, accuracy_gate_note);
     progress.Emit({

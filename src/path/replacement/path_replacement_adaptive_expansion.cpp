@@ -35,7 +35,7 @@ ReplacementAdaptiveExpansionResult TryReplacementAdaptiveFractionExpansion(
     return result;
   }
 
-  for (int seed_idx : seed_indices) {
+  for (int seed_idx: seed_indices) {
     if (seed_idx < 0 || seed_idx >= static_cast<int>(phase2_records.size())) {
       continue;
     }
@@ -49,7 +49,7 @@ ReplacementAdaptiveExpansionResult TryReplacementAdaptiveFractionExpansion(
         ExpandShapeFlatOutlineFractions(
             shape_flat_frames,
             phase2_records[static_cast<std::size_t>(seed_idx)]
-                .outline_fractions,
+.outline_fractions,
             coherence_options,
             expansion_options);
     result.evaluations += expanded.candidate_evaluations;

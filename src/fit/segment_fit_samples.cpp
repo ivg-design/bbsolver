@@ -17,7 +17,7 @@ int Dimensions(const PropertySamples& ps) {
 }
 
 int TemporalChannels(const PropertySamples& ps) {
-  return ps.property.is_separated ? Dimensions(ps) : 1;
+  return ps.property.is_separated ? Dimensions(ps): 1;
 }
 
 bool IsUnifiedSpatial(const PropertySamples& ps) {
@@ -30,7 +30,7 @@ bool IsShapeFlatPath(const PropertySamples& ps) {
 }
 
 double ComponentOrZero(const std::vector<double>& values, std::size_t idx) {
-  return idx < values.size() ? values[idx] : 0.0;
+  return idx < values.size() ? values[idx]: 0.0;
 }
 
 double SampleValue(const PropertySamples& ps, int sample_idx, int dim) {
@@ -83,8 +83,8 @@ double EndpointSpatialSpeed(const PropertySamples& ps,
                             int i,
                             int j,
                             bool out_ease) {
-  const int a = out_ease ? i : std::max(i, j - 1);
-  const int b = out_ease ? std::min(j, i + 1) : j;
+  const int a = out_ease ? i: std::max(i, j - 1);
+  const int b = out_ease ? std::min(j, i + 1): j;
   const double ta = SampleTime(ps, a);
   const double tb = SampleTime(ps, b);
   if (!(tb > ta)) {

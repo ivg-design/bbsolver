@@ -32,16 +32,16 @@ AdaptiveClosedLoopShapeSamples BuildAdaptiveClosedLoopShapeSamples(
   const double base_target_turn_deg = 48.0 - strength * 3.0;
   result.target_turn_deg = source_pose_constraints
       ? std::clamp(base_target_turn_deg * 0.65, 18.0, 32.0)
-      : std::clamp(base_target_turn_deg, 26.0, 42.0);
+: std::clamp(base_target_turn_deg, 26.0, 42.0);
   result.chord_error_tolerance = source_pose_constraints
       ? std::max(0.25, strength * 0.35)
-      : std::max(0.5, strength * 0.55);
+: std::max(0.5, strength * 0.55);
   const int max_per_segment =
       source_pose_constraints
           ? std::clamp(static_cast<int>(std::llround(strength * 4.0)) + 10,
                        16,
                        28)
-          : std::clamp(static_cast<int>(std::llround(strength * 3.0)) + 4,
+: std::clamp(static_cast<int>(std::llround(strength * 3.0)) + 4,
                        8,
                        18);
   result.max_keys = unique_count * max_per_segment + 1;
@@ -55,7 +55,7 @@ AdaptiveClosedLoopShapeSamples BuildAdaptiveClosedLoopShapeSamples(
   auto build_values = [&]() {
     std::vector<std::vector<double>> values;
     values.reserve(params.size());
-    for (double param : params) {
+    for (double param: params) {
       values.push_back(EvaluateClosedLoopShapeAtParam(
           closed_values, dims, param));
     }
@@ -67,7 +67,7 @@ AdaptiveClosedLoopShapeSamples BuildAdaptiveClosedLoopShapeSamples(
 
   for (int pass = 0; pass < 16; ++pass) {
     std::vector<std::vector<double>> values = build_values();
-    std::vector<bool> split(params.size() > 1 ? params.size() - 1 : 0, false);
+    std::vector<bool> split(params.size() > 1 ? params.size() - 1: 0, false);
 
     for (std::size_t i = 0; i + 1 < params.size(); ++i) {
       const double mid_param = (params[i] + params[i + 1]) * 0.5;
@@ -115,7 +115,7 @@ AdaptiveClosedLoopShapeSamples BuildAdaptiveClosedLoopShapeSamples(
     }
 
     int split_count = 0;
-    for (bool item : split) {
+    for (bool item: split) {
       if (item) {
         ++split_count;
       }

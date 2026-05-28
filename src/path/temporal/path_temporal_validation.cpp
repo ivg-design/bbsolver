@@ -38,7 +38,7 @@ ShapeMorphProgressBandResult EvaluateShapeFlatMorphProgressBands(
   result.max_fitted_bezier_error =
       options.fit_bezier_influence_pairs
           ? std::numeric_limits<double>::infinity()
-          : 0.0;
+: 0.0;
 
   if (original.samples.empty()) {
     result.reason = "no_source_samples";
@@ -63,9 +63,9 @@ ShapeMorphProgressBandResult EvaluateShapeFlatMorphProgressBands(
   const int influence_pair_budget =
       options.fit_bezier_influence_pairs
           ? std::max(0, options.max_bezier_influence_pairs)
-          : 0;
+: 0;
   const int evaluations_per_sample =
-      2 + (scan_progress_grid ? options.progress_steps + 1 : 0) +
+      2 + (scan_progress_grid ? options.progress_steps + 1: 0) +
       influence_pair_budget;
   const int evaluation_count = sample_count * evaluations_per_sample;
   if (options.max_evaluations > 0 && evaluation_count > options.max_evaluations) {
@@ -145,7 +145,7 @@ ShapeMorphProgressBandResult EvaluateShapeFlatMorphProgressBands(
     const ShapeFlatOutlinePolyline& source_outline =
         source_outlines[static_cast<std::size_t>(sample_idx - start_sample_idx)];
 
-    const double alpha = (t1 > t0) ? (sample.t_sec - t0) / (t1 - t0) : 0.0;
+    const double alpha = (t1 > t0) ? (sample.t_sec - t0) / (t1 - t0): 0.0;
     const int linear_step = ProgressStepForLinear(alpha, options.progress_steps);
     const int bezier_step =
         ProgressStepForDefaultBezier(alpha, options.progress_steps);
@@ -197,7 +197,7 @@ ShapeMorphProgressBandResult EvaluateShapeFlatMorphProgressBands(
       sample_band.best_u =
           linear_err <= bezier_err
               ? static_cast<double>(linear_step) / static_cast<double>(options.progress_steps)
-              : static_cast<double>(bezier_step) / static_cast<double>(options.progress_steps);
+: static_cast<double>(bezier_step) / static_cast<double>(options.progress_steps);
       result.max_best_error = std::max(result.max_best_error, sample_band.best_error);
     }
     result.samples.push_back(std::move(sample_band));
@@ -224,7 +224,7 @@ ShapeMorphProgressBandResult EvaluateShapeFlatMorphProgressBands(
       if (result.fitted_bezier_pairs_tried >= influence_pair_budget) {
         return;
       }
-      for (const ShapeTemporalInfluencePair& seen : tried) {
+      for (const ShapeTemporalInfluencePair& seen: tried) {
         if (ShapeTemporalInfluencesAlmostSame(seen.out_influence,
                                               pair.out_influence) &&
             ShapeTemporalInfluencesAlmostSame(seen.in_influence,
@@ -264,7 +264,7 @@ ShapeMorphProgressBandResult EvaluateShapeFlatMorphProgressBands(
     const int reserved_refine_pairs =
         options.bezier_influence_refinement_steps > 0
             ? std::min(8, influence_pair_budget / 2)
-            : 0;
+: 0;
     const int coarse_pair_budget =
         std::max(1, influence_pair_budget - reserved_refine_pairs);
     std::size_t next_candidate_idx = 0;
@@ -290,8 +290,8 @@ ShapeMorphProgressBandResult EvaluateShapeFlatMorphProgressBands(
          std::isfinite(best_error);
          ++refine) {
       refine_step *= 0.5;
-      for (double out_delta : std::array<double, 3>{-refine_step, 0.0, refine_step}) {
-        for (double in_delta : std::array<double, 3>{-refine_step, 0.0, refine_step}) {
+      for (double out_delta: std::array<double, 3>{-refine_step, 0.0, refine_step}) {
+        for (double in_delta: std::array<double, 3>{-refine_step, 0.0, refine_step}) {
           if (out_delta == 0.0 && in_delta == 0.0) {
             continue;
           }
@@ -314,7 +314,7 @@ ShapeMorphProgressBandResult EvaluateShapeFlatMorphProgressBands(
       result.max_best_error =
           result.max_best_error > 0.0
               ? std::min(result.max_best_error, best_error)
-              : best_error;
+: best_error;
     }
   }
 
@@ -333,16 +333,16 @@ ShapeMorphProgressBandResult EvaluateShapeFlatMorphProgressBands(
       options.compute_progress_bands
           ? (result.monotone_band_progress_possible ||
              result.ae_ease_progress_possible)
-          : result.ae_ease_progress_possible;
+: result.ae_ease_progress_possible;
   result.ok = true;
   const std::string feasibility =
       ShapeMorphProgressFeasibilityClass(result, tolerance);
   result.reason =
       (feasibility == "chord_infeasible")
           ? "infeasible_shape_morph_chord"
-          : (feasibility == "band_infeasible")
+: (feasibility == "band_infeasible")
                 ? "infeasible_shape_morph_band"
-                : "shape_morph_chord_ok";
+: "shape_morph_chord_ok";
   return result;
 }
 
@@ -350,7 +350,7 @@ std::string ShapeMorphProgressFeasibilityClass(
     const ShapeMorphProgressBandResult& result,
     double tolerance) {
   if (!result.ok) {
-    return result.reason.empty() ? "oracle_failed" : result.reason;
+    return result.reason.empty() ? "oracle_failed": result.reason;
   }
   const double tol = std::max(tolerance, 0.0);
   if (result.progress_bands_computed) {
@@ -390,7 +390,7 @@ PathTemporalValidationResult ValidatePathTemporalCandidate(
   const double t_range = original.t_end_sec - original.t_start_sec;
 
   double max_err   = 0.0;
-  int    worst_idx = 0;
+  int worst_idx = 0;
 
   const int n_samples = static_cast<int>(original.samples.size());
   for (int i = 0; i < n_samples; ++i) {
@@ -431,13 +431,13 @@ PathTemporalValidationResult ValidatePathTemporalCandidate(
   result.worst_t_sec       = worst.t_sec;
   result.worst_t_fraction  = (t_range > 1e-12)
                                  ? (worst.t_sec - t_start) / t_range
-                                 : 0.0;
+: 0.0;
   result.samples_checked   = n_samples;
   result.ok =
       max_err <= options.frame_fit_options.outline_tolerance + 1e-9;
 
   result.notes =
-      (result.ok ? "ok" : "exceeds_tolerance") +
+      (result.ok ? "ok": "exceeds_tolerance") +
       std::string("; max_outline_error=") + std::to_string(max_err) +
       "; worst_t=" + std::to_string(result.worst_t_sec) +
       "; worst_t_fraction=" + std::to_string(result.worst_t_fraction) +

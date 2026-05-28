@@ -81,7 +81,7 @@ void TestDefaultEasesNonSeparatedUsesOneEase() {
 void TestDefaultEasesSeparatedUsesDimensions() {
   const auto eases = bbsolver::DefaultEasesForProperty(Property(3, true));
   Require(eases.size() == 3, "separated property must use dimensions eases");
-  for (const bbsolver::TemporalEase& ease : eases) {
+  for (const bbsolver::TemporalEase& ease: eases) {
     Require(EaseEq(ease, bbsolver::TemporalEase{0.0, 33.3}),
             "separated default ease must be neutral");
   }

@@ -81,10 +81,10 @@ void TestTemporalSolveDoneProgressEvent() {
   const bbsolver::PropertyTemporalSolveResult result =
       bbsolver::ReportPropertyTemporalSolveResult(request);
 
-  ::close(fds[1]);
+::close(fds[1]);
   char buffer[512] = {};
-  const auto read_count = ::read(fds[0], buffer, sizeof(buffer) - 1);
-  ::close(fds[0]);
+  const auto read_count =::read(fds[0], buffer, sizeof(buffer) - 1);
+::close(fds[0]);
 
   Require(!result.cancelled, "non-cancelled solve should not cancel");
   Require(read_count > 0, "temporal result did not emit progress bytes");

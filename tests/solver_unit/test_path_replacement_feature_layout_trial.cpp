@@ -41,7 +41,7 @@ std::vector<double> ShapeFlatWithSmoothTangents(
     bool closed,
     const std::vector<Point>& vertices) {
   std::vector<double> flat;
-  flat.push_back(closed ? 1.0 : 0.0);
+  flat.push_back(closed ? 1.0: 0.0);
   flat.push_back(static_cast<double>(vertices.size()));
   for (std::size_t i = 0; i < vertices.size(); ++i) {
     Point in_tangent{0.0, 0.0};
@@ -68,7 +68,7 @@ std::vector<double> ShapeFlatWithSmoothTangents(
 
 std::vector<std::vector<double>> FeatureFrames() {
   std::vector<std::vector<double>> frames;
-  for (int wrist_step : {19, 20, 21}) {
+  for (int wrist_step: {19, 20, 21}) {
     frames.push_back(ShapeFlatWithSmoothTangents(
         false, OpenCurvedWristPolyline(wrist_step)));
   }

@@ -27,7 +27,7 @@ std::ptrdiff_t WriteProgressFd(int fd, const char* data, std::size_t size) {
   const std::size_t chunk =
       std::min<std::size_t>(size, std::numeric_limits<unsigned int>::max());
   return static_cast<std::ptrdiff_t>(
-      ::_write(fd, data, static_cast<unsigned int>(chunk)));
+::_write(fd, data, static_cast<unsigned int>(chunk)));
 #else
   return static_cast<std::ptrdiff_t>(::write(fd, data, size));
 #endif
@@ -35,7 +35,7 @@ std::ptrdiff_t WriteProgressFd(int fd, const char* data, std::size_t size) {
 
 }  // namespace
 
-ProgressWriter::ProgressWriter(int fd) : fd_(fd) {}
+ProgressWriter::ProgressWriter(int fd): fd_(fd) {}
 
 void ProgressWriter::Emit(const nlohmann::json& event) const {
   if (fd_ < 0) {

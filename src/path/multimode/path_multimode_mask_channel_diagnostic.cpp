@@ -42,7 +42,7 @@ std::string DiagnoseNonContiguousMaskChannels(
       options.max_region_segment_checks > 0
           ? std::max(1, options.max_region_segment_checks /
                             std::max(1, candidate_count))
-          : options.max_region_segment_checks;
+: options.max_region_segment_checks;
   std::vector<MaskChannelSlotPlan> slots;
   slots.reserve(static_cast<std::size_t>(candidate_count));
   int total_checks = 0;
@@ -73,7 +73,7 @@ std::string DiagnoseNonContiguousMaskChannels(
       return "cancelled";
     }
     if (!temporal.ok || temporal.keys.keys.empty()) {
-      plan.status = temporal.notes.empty() ? "unknown" : temporal.notes;
+      plan.status = temporal.notes.empty() ? "unknown": temporal.notes;
       slots.push_back(std::move(plan));
       continue;
     }
@@ -92,7 +92,7 @@ std::string DiagnoseNonContiguousMaskChannels(
   }
 
   std::vector<MaskChannelGroupPlan> groups;
-  for (const MaskChannelSlotPlan& slot : slots) {
+  for (const MaskChannelSlotPlan& slot: slots) {
     if (!slot.ok) {
       continue;
     }
@@ -122,7 +122,7 @@ std::string DiagnoseNonContiguousMaskChannels(
            std::to_string(total_checks);
   }
 
-  for (MaskChannelGroupPlan& group : groups) {
+  for (MaskChannelGroupPlan& group: groups) {
     std::sort(group.vertices.begin(), group.vertices.end());
   }
   std::sort(groups.begin(),
@@ -131,15 +131,15 @@ std::string DiagnoseNonContiguousMaskChannels(
                const MaskChannelGroupPlan& b) {
               const int a_first =
                   a.vertices.empty() ? std::numeric_limits<int>::max()
-                                     : a.vertices.front();
+: a.vertices.front();
               const int b_first =
                   b.vertices.empty() ? std::numeric_limits<int>::max()
-                                     : b.vertices.front();
+: b.vertices.front();
               return a_first < b_first;
             });
 
   int grouped_keys = 0;
-  for (const MaskChannelGroupPlan& group : groups) {
+  for (const MaskChannelGroupPlan& group: groups) {
     grouped_keys += group.key_count;
   }
   const int full_key_count = TotalEmissionKeyCount(selected.emissions);
@@ -149,9 +149,9 @@ std::string DiagnoseNonContiguousMaskChannels(
       grouped_keys < singleton_keys;
 
   return "subpath_mask_channel_diagnostic=" +
-         std::string(grouped_benefit ? "candidate" : "not_selected") +
+         std::string(grouped_benefit ? "candidate": "not_selected") +
          (grouped_benefit ? ""
-                          : "; reason=no_grouped_key_benefit") +
+: "; reason=no_grouped_key_benefit") +
          "; subpath_mask_channel_slots=" +
          FormatMaskChannelSlots(slots) +
          "; subpath_mask_channel_groups=" +

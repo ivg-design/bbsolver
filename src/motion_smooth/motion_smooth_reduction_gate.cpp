@@ -39,7 +39,7 @@ bool ShapeFlatStableLowVertexTopology(
   }
   const bool closed = ShapeFlatClosed(property_samples.samples.front().v);
   const std::size_t value_size = property_samples.samples.front().v.size();
-  for (const Sample& sample : property_samples.samples) {
+  for (const Sample& sample: property_samples.samples) {
     if (ShapeFlatVertexCount(sample.v) != first_vertex_count ||
         ShapeFlatClosed(sample.v) != closed ||
         sample.v.size() != value_size) {
@@ -56,7 +56,7 @@ std::vector<std::vector<double>> ShapeFlatKeyValues(
     const PropertyKeys& keys) {
   std::vector<std::vector<double>> values;
   values.reserve(keys.keys.size());
-  for (const Key& key : keys.keys) {
+  for (const Key& key: keys.keys) {
     values.push_back(key.v);
   }
   return values;
@@ -128,7 +128,7 @@ bool ShapeFlatHasCheapVertexReductionSignal(
   }
 
   const double duplicate_eps = std::max(config.tolerance, 1e-6);
-  for (const Key& key : source_key_candidate.keys) {
+  for (const Key& key: source_key_candidate.keys) {
     if (ShapeFlatHasDuplicateTerminalClosure(key.v, duplicate_eps)) {
       return true;
     }
@@ -172,12 +172,12 @@ ShapeMotionReductionGateResult GateShapeMotionQualityRegression(
   result.attempted = true;
   std::vector<double> baseline_times;
   baseline_times.reserve(preserved.keys.size());
-  for (const Key& key : preserved.keys) {
+  for (const Key& key: preserved.keys) {
     baseline_times.push_back(key.t_sec);
   }
   std::vector<double> candidate_times;
   candidate_times.reserve(candidate_keys.keys.size());
-  for (const Key& key : candidate_keys.keys) {
+  for (const Key& key: candidate_keys.keys) {
     candidate_times.push_back(key.t_sec);
   }
   const ShapeMotionQualityMetrics baseline_quality =
@@ -199,8 +199,8 @@ ShapeMotionReductionGateResult GateShapeMotionQualityRegression(
       0.0,
       config.motion_smooth_tolerance > 0.0
           ? config.motion_smooth_tolerance
-          : (config.tolerance_screen_px > 0.0 ? config.tolerance_screen_px
-                                              : config.tolerance));
+: (config.tolerance_screen_px > 0.0 ? config.tolerance_screen_px
+: config.tolerance));
   const double turn_slack_deg = std::max(4.0, tolerance_hint * 1.5);
   const double p95_slack_deg = std::max(3.0, tolerance_hint);
   const bool max_turn_worse =

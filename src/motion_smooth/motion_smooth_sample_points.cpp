@@ -25,13 +25,13 @@ std::vector<double> SegmentEndpointValueOrSample(
     const SegmentFitResult& fit,
     bool start_endpoint) {
   const std::vector<double>& fitted =
-      start_endpoint ? fit.key_value_at_i : fit.key_value_at_j;
+      start_endpoint ? fit.key_value_at_i: fit.key_value_at_j;
   if (!fitted.empty()) {
     return fitted;
   }
   const int sample_idx = start_endpoint
       ? 0
-      : static_cast<int>(property_samples.samples.size()) - 1;
+: static_cast<int>(property_samples.samples.size()) - 1;
   return SampleVectorOrZeros(
       property_samples,
       property_samples.samples[static_cast<std::size_t>(sample_idx)]);
@@ -41,7 +41,7 @@ std::vector<double> MotionSmoothSourceKeyTimes(
     const PropertySamples& property_samples) {
   std::vector<double> times;
   const double eps = 1e-6;
-  for (double t : property_samples.property.source_key_times) {
+  for (double t: property_samples.property.source_key_times) {
     if (!std::isfinite(t)) {
       continue;
     }
@@ -66,7 +66,7 @@ std::vector<std::vector<double>> MotionSmoothRawPoints(
     int dims) {
   std::vector<std::vector<double>> points;
   points.reserve(property_samples.samples.size());
-  for (const Sample& sample : property_samples.samples) {
+  for (const Sample& sample: property_samples.samples) {
     std::vector<double> value = SampleVectorOrZeros(property_samples, sample);
     if (static_cast<int>(value.size()) < dims) {
       value.resize(static_cast<std::size_t>(dims), 0.0);

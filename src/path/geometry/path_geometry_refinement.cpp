@@ -37,7 +37,7 @@ PathGeometryRefinementResult RefinePathGeometryAtFractions(
   // fit.applied=false (source vertex count == expected_count).
   const double refine_tolerance = std::max(options.outline_tolerance, 0.0);
 
-  for (const Sample& src : original.samples) {
+  for (const Sample& src: original.samples) {
     if (!PathTemporalShapeFlatIsValid(src.v)) {
       result.notes =
           "failed_malformed_source_at_t=" + std::to_string(src.t_sec);
@@ -55,7 +55,7 @@ PathGeometryRefinementResult RefinePathGeometryAtFractions(
     if (!fit.ok || !fit.target_met || fit.fitted_vertex_count != expected_count) {
       result.notes =
           "failed_at_t=" + std::to_string(src.t_sec) +
-          (fit.warning.empty() ? std::string{} : "; " + fit.warning);
+          (fit.warning.empty() ? std::string{}: "; " + fit.warning);
       result.ok = false;
       return result;
     }

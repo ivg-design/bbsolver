@@ -62,7 +62,7 @@ double ShapeFlatProjectedProgress(const PropertySamples& ps,
     // The path outline is anchored by vertex positions. Tangents matter for
     // curvature, but weighting them equally can let noisy fitted handles drown
     // out the stable vertex-slot motion that should drive temporal progress.
-    const double channel_weight = shape_channel < 2 ? 1.0 : 0.25;
+    const double channel_weight = shape_channel < 2 ? 1.0: 0.25;
     const double delta = ComponentOrZero(v1, static_cast<std::size_t>(d)) -
                          ComponentOrZero(v0, static_cast<std::size_t>(d));
     numerator += channel_weight *
@@ -167,7 +167,7 @@ ErrorReport ComputeShapeFlatOutlineError(
     ++count;
   }
   report.rms_err =
-      count > 0 ? std::sqrt(sum_sq / static_cast<double>(count)) : 0.0;
+      count > 0 ? std::sqrt(sum_sq / static_cast<double>(count)): 0.0;
   if (report.max_err_screen_px == 0.0) {
     report.max_err_screen_px = report.max_err;
   }
@@ -212,7 +212,7 @@ SegmentFitResult TryShapeFlatTemporalBezier(int i,
     CopyError(result, report);
     result.feasible = Passes(report, cfg);
     result.reason = result.feasible ? "shape_temporal_bezier_ok"
-                                    : result.reason;
+: result.reason;
     result.fit_shape_temporal_total_wall_ms =
         ElapsedMs(total_start, std::chrono::steady_clock::now());
     return result;
@@ -276,7 +276,7 @@ SegmentFitResult TryShapeFlatTemporalBezier(int i,
   result.feasible = Passes(report, cfg);
   result.reason =
       result.feasible ? "shape_temporal_bezier_ok"
-                      : "infeasible_shape_temporal_bezier";
+: "infeasible_shape_temporal_bezier";
   result.fit_shape_temporal_total_wall_ms =
       ElapsedMs(total_start, std::chrono::steady_clock::now());
   return result;

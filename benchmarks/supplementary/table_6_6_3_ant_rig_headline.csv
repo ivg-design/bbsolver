@@ -1,0 +1,2 @@
+eps,request_id,pos_samples_in,pos_keys_out,pos_compression_ratio,rot_samples_in,rot_keys_out,rot_compression_ratio,total_samples_in,total_keys_out,combined_compression_ratio,pos_verify_max_err_min,pos_verify_max_err_median,pos_verify_max_err_max,rot_verify_max_err_min,rot_verify_max_err_median,rot_verify_max_err_max
+1.0,req-1779759462540,5978,424,14.0991,5978,229,26.1048,11956,653,18.3093,0.216099,0.633906,0.98661,3.5e-05,0.443221,0.986332

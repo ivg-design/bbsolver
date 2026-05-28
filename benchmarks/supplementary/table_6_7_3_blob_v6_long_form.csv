@@ -1,0 +1,4 @@
+eps,request_id,samples,duration_s,keys,temporal_compression_ratio,src_floats,out_floats,volume_compression_ratio,source_v1_unique_set,output_v1_unique_set,source_topology_transitions,solver_max_err_px,ae_roundtrip_max_err_px,cli_verify_max_err_px,verify_to_solver_gap_ratio,solve_time_s
+0.5,req-1779786372293,602,10.0167,81,7.4321,89626,12156,7.373,24;25;26,24;25;26,31,0.477026,0.675744,2.754894,1.4166,40.9
+1.5,req-1779786372293,602,10.0167,43,14.0,89626,6470,13.8526,24;25;26,24;25;26,31,1.465335,1.464972,2.754894,0.9998,68.82
+3,req-1779786372293,602,10.0167,21,28.6667,89626,3156,28.3986,24;25;26,24;25;26,31,2.754894,2.591253,2.754894,0.9406,93.85

@@ -17,7 +17,7 @@ std::vector<double> ShapeFlatPolygon(
   out.reserve(2 + 6 * vertices.size());
   out.push_back(1.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const auto& vertex : vertices) {
+  for (const auto& vertex: vertices) {
     out.push_back(vertex.first);
     out.push_back(vertex.second);
     out.push_back(0.0);
@@ -68,7 +68,7 @@ void TestInfluencePairMaxErrorForIdenticalEndpoints() {
 
   const std::vector<double> square =
       ShapeFlatPolygon({{0.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}, {0.0, 1.0}});
-  for (double t : {0.0, 1.0 / 24.0, 2.0 / 24.0}) {
+  for (double t: {0.0, 1.0 / 24.0, 2.0 / 24.0}) {
     bbsolver::Sample sample;
     sample.t_sec = t;
     sample.v = square;
@@ -80,7 +80,7 @@ void TestInfluencePairMaxErrorForIdenticalEndpoints() {
 
   std::vector<bbsolver::ShapeFlatOutlinePolyline> source_outlines;
   source_outlines.reserve(samples.samples.size());
-  for (const bbsolver::Sample& sample : samples.samples) {
+  for (const bbsolver::Sample& sample: samples.samples) {
     source_outlines.push_back(
         bbsolver::BuildShapeFlatOutlinePolyline(
             sample.v,

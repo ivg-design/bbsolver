@@ -701,7 +701,7 @@ void TestBridgePruneTimingDefaultsAndJsonFields() {
 
   nlohmann::json event;
   bbsolver::AddBridgePruneTimingFields(event, totals);
-  for (const char* key : {
+  for (const char* key: {
            "bridge_prune_accepted_fit_wall_ms",
            "bridge_prune_accepted_validation_wall_ms",
            "bridge_prune_accepted_sharp_wall_ms",

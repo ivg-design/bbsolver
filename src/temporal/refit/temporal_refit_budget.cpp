@@ -16,7 +16,7 @@ bool TemporalRefitScreenGateEnabled(const SolverConfig& config) {
 
 double StrictScreenCeiling(const SolverConfig& config) {
   return config.tolerance_screen_px > 0.0 ? config.tolerance_screen_px
-                                          : config.tolerance;
+: config.tolerance;
 }
 
 double RelativeCeilingFromBaseline(double max_err,

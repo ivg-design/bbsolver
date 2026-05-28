@@ -52,7 +52,7 @@ RelaxedEndpointFit FitAnchoredEndpointChord(
   fit.endpoint_b = endpoint_a;
 
   double denom = 0.0;
-  for (double u : progress) {
+  for (double u: progress) {
     denom += u * u;
   }
   if (!(denom > 1e-12)) {

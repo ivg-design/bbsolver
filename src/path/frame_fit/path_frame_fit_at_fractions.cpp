@@ -56,7 +56,7 @@ PathFrameFitResult FitShapeFlatFrameAtFractions(
     return result;
   }
 
-  const int min_vertices = decoded.closed ? 3 : 2;
+  const int min_vertices = decoded.closed ? 3: 2;
   if (static_cast<int>(normalized_fractions.size()) < min_vertices) {
     result.warning = "insufficient outline fractions";
     return result;
@@ -94,7 +94,7 @@ PathFrameFitResult FitShapeFlatFrameAtFractions(
   const DecodedShape fitted_decoded = DecodeShapeFlat(result.fitted);
   result.fitted_vertex_count =
       fitted_decoded.ok ? fitted_decoded.vertex_count
-                        : static_cast<int>(normalized_fractions.size());
+: static_cast<int>(normalized_fractions.size());
   result.target_met =
       fitted_decoded.ok &&
       result.fitted_vertex_count == static_cast<int>(normalized_fractions.size());
@@ -103,11 +103,11 @@ PathFrameFitResult FitShapeFlatFrameAtFractions(
   result.kept_dense_indices = kept;
   result.source_vertex_indices.clear();
   result.source_vertex_indices.reserve(kept.size());
-  for (int dense_index : kept) {
+  for (int dense_index: kept) {
     result.source_vertex_indices.push_back(
         dense_index >= 0 && dense_index < static_cast<int>(combined_dense.size())
             ? combined_dense[static_cast<std::size_t>(dense_index)].source_vertex_index
-            : -1);
+: -1);
   }
 
   const double tolerance = std::max(options.outline_tolerance, 0.0);

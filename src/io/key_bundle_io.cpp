@@ -59,7 +59,7 @@ int InferredPropertyKeyDimensions(const PropertyKeys& property) {
   if (property.dimensions > 0) {
     return property.dimensions;
   }
-  for (const Key& key : property.keys) {
+  for (const Key& key: property.keys) {
     if (!key.v.empty()) {
       return static_cast<int>(key.v.size());
     }
@@ -142,7 +142,7 @@ void RequirePropertyKeysJsonImpl(const json& property_json,
     throw std::runtime_error(
         "KeyBundle converged property_results entry keys must not be empty");
   }
-  for (const auto& key_json : keys) {
+  for (const auto& key_json: keys) {
     if (require_uniform_dimensions) {
       RequireKeyJson(key_json, dimensions);
     } else {
@@ -182,7 +182,7 @@ std::vector<TemporalEase> ParseTemporalEaseArray(const json& obj,
   if (it == obj.end() || !it->is_array()) {
     return result;
   }
-  for (const auto& ease_json : *it) {
+  for (const auto& ease_json: *it) {
     TemporalEase ease;
     ease.speed = GetOr<double>(ease_json, "speed", ease.speed);
     ease.influence = GetOr<double>(ease_json, "influence", ease.influence);
@@ -200,12 +200,12 @@ json ToJson(const TemporalEase& ease) {
 
 json ToJson(const Key& key) {
   json temporal_ease_in = json::array();
-  for (const auto& ease : key.temporal_ease_in) {
+  for (const auto& ease: key.temporal_ease_in) {
     temporal_ease_in.push_back(ToJson(ease));
   }
 
   json temporal_ease_out = json::array();
-  for (const auto& ease : key.temporal_ease_out) {
+  for (const auto& ease: key.temporal_ease_out) {
     temporal_ease_out.push_back(ToJson(ease));
   }
 
@@ -240,12 +240,12 @@ json ToJson(const SegmentReport& segment) {
 
 json ToJson(const PropertyKeys& property) {
   json keys = json::array();
-  for (const auto& key : property.keys) {
+  for (const auto& key: property.keys) {
     keys.push_back(ToJson(key));
   }
 
   json segments = json::array();
-  for (const auto& segment : property.segments) {
+  for (const auto& segment: property.segments) {
     segments.push_back(ToJson(segment));
   }
 
@@ -309,12 +309,12 @@ PropertyKeys ParsePropertyKeys(const json& obj) {
   property.converged = GetOr<bool>(obj, "converged", property.converged);
   property.notes = GetOr<std::string>(obj, "notes", property.notes);
   if (const auto it = obj.find("keys"); it != obj.end() && it->is_array()) {
-    for (const auto& key_json : *it) {
+    for (const auto& key_json: *it) {
       property.keys.push_back(ParseKey(key_json));
     }
   }
   if (const auto it = obj.find("segments"); it != obj.end() && it->is_array()) {
-    for (const auto& segment_json : *it) {
+    for (const auto& segment_json: *it) {
       property.segments.push_back(ParseSegmentReport(segment_json));
     }
   }
@@ -340,7 +340,7 @@ void RequireKeyBundleJsonRootImpl(const json& root,
         "Expected KeyBundle JSON with integer schema_version");
   }
   RequireNonEmptyArrayField(root, "property_results", "KeyBundle");
-  for (const auto& property_json : root.at("property_results")) {
+  for (const auto& property_json: root.at("property_results")) {
     if (require_uniform_dimensions) {
       RequirePropertyKeysJson(property_json);
     } else {
@@ -374,12 +374,12 @@ KeyBundle ParseKeyBundleJson(const json& root) {
       GetOr<int>(root, "total_samples_input", bundle.total_samples_input);
   if (const auto it = root.find("property_results"); it != root.end() &&
       it->is_array()) {
-    for (const auto& property_json : *it) {
+    for (const auto& property_json: *it) {
       bundle.property_results.push_back(ParsePropertyKeys(property_json));
     }
   }
   if (bundle.total_keys <= 0) {
-    for (const auto& property : bundle.property_results) {
+    for (const auto& property: bundle.property_results) {
       bundle.total_keys += static_cast<int>(property.keys.size());
     }
   }
@@ -388,7 +388,7 @@ KeyBundle ParseKeyBundleJson(const json& root) {
 
 json BuildKeyBundleJson(const KeyBundle& bundle) {
   json property_results = json::array();
-  for (const auto& property : bundle.property_results) {
+  for (const auto& property: bundle.property_results) {
     property_results.push_back(ToJson(property));
   }
 

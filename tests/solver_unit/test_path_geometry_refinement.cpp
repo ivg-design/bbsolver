@@ -20,7 +20,7 @@ std::vector<double> ShapeFlatPolygon(
   out.reserve(2 + 6 * vertices.size());
   out.push_back(1.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const auto& v : vertices) {
+  for (const auto& v: vertices) {
     out.push_back(v.first);
     out.push_back(v.second);
     out.push_back(0.0);
@@ -54,11 +54,11 @@ bbsolver::PropertySamples MakeShapeFlatSamples(
   ps.property.units_label = "shape_flat";
   ps.property.dimensions = frames.empty()
       ? 0
-      : static_cast<int>(frames.front().second.size());
-  ps.t_start_sec = frames.empty() ? 0.0 : frames.front().first;
-  ps.t_end_sec = frames.empty() ? 0.0 : frames.back().first;
+: static_cast<int>(frames.front().second.size());
+  ps.t_start_sec = frames.empty() ? 0.0: frames.front().first;
+  ps.t_end_sec = frames.empty() ? 0.0: frames.back().first;
   ps.samples_per_frame = 1;
-  for (const auto& [t, v] : frames) {
+  for (const auto& [t, v]: frames) {
     bbsolver::Sample s;
     s.t_sec = t;
     s.v = v;

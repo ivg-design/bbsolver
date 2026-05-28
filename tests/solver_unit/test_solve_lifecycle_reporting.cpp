@@ -153,7 +153,7 @@ void TestEmitSolveStartLifecycleWritesDiagnostics() {
           "start lifecycle capabilities diagnostic event");
   Require(events[3]["event"] == "cancellation_status",
           "start lifecycle cancellation diagnostic event");
-  for (const nlohmann::json& event : events) {
+  for (const nlohmann::json& event: events) {
     Require(event["schema_version"] == 1, "lifecycle schema version");
     Require(event["request_id"] == "request-start", "lifecycle request id");
   }

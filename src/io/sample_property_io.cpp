@@ -109,7 +109,7 @@ PropertySamples ParsePropertySamplesJson(const json& obj) {
   property_samples.samples_per_frame =
       GetOr<int>(obj, "samples_per_frame", property_samples.samples_per_frame);
   if (const auto it = obj.find("samples"); it != obj.end() && it->is_array()) {
-    for (const auto& sample_json : *it) {
+    for (const auto& sample_json: *it) {
       property_samples.samples.push_back(ParseSampleJson(sample_json));
     }
   }

@@ -21,10 +21,10 @@ std::vector<double> Flat(
     const std::vector<std::vector<double>>& vertices,
     bool closed = true) {
   std::vector<double> out;
-  out.push_back(closed ? 1.0 : 0.0);
+  out.push_back(closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const std::vector<double>& vertex : vertices) {
-    for (double value : vertex) {
+  for (const std::vector<double>& vertex: vertices) {
+    for (double value: vertex) {
       out.push_back(value);
     }
   }
@@ -45,9 +45,9 @@ bbsolver::PropertySamples ShapeSamples(
   ps.property.kind = bbsolver::ValueKind::Custom;
   ps.property.units_label = "shape_flat";
   ps.property.dimensions =
-      values.empty() ? 1 : static_cast<int>(values.front().size());
+      values.empty() ? 1: static_cast<int>(values.front().size());
   ps.t_start_sec = 0.0;
-  ps.t_end_sec = static_cast<double>(values.empty() ? 0 : values.size() - 1);
+  ps.t_end_sec = static_cast<double>(values.empty() ? 0: values.size() - 1);
   for (std::size_t idx = 0; idx < values.size(); ++idx) {
     ps.samples.push_back(Sample(static_cast<double>(idx), values[idx]));
   }

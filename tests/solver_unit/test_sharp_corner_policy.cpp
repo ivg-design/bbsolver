@@ -50,7 +50,7 @@ bbsolver::Sample SampleWithValue(const std::vector<double>& value,
 bbsolver::PropertySamples SamplesWithValues(
     const std::vector<std::vector<double>>& values) {
   bbsolver::PropertySamples samples;
-  for (const std::vector<double>& value : values) {
+  for (const std::vector<double>& value: values) {
     samples.samples.push_back(
         SampleWithValue(value, static_cast<double>(samples.samples.size())));
   }

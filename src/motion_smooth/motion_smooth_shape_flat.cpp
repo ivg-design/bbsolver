@@ -43,9 +43,9 @@ PropertyKeys MotionSmoothShapeFlatTrajectoryKeys(
   const double requested_strength =
       config.motion_smooth_tolerance > 0.0
           ? config.motion_smooth_tolerance
-          : (config.tolerance_screen_px > 0.0
+: (config.tolerance_screen_px > 0.0
                 ? config.tolerance_screen_px
-                : config.tolerance);
+: config.tolerance);
   const double strength = std::max(1.0, requested_strength);
   const std::vector<std::vector<double>> raw =
       MotionSmoothRawPoints(property_samples, dims);
@@ -56,7 +56,7 @@ PropertyKeys MotionSmoothShapeFlatTrajectoryKeys(
   std::vector<double> source_fidelity_times;
   if (config.motion_smooth_source_fidelity) {
     source_fidelity_times.reserve(property_samples.samples.size());
-    for (const Sample& sample : property_samples.samples) {
+    for (const Sample& sample: property_samples.samples) {
       source_fidelity_times.push_back(sample.t_sec);
     }
   }
@@ -70,16 +70,16 @@ PropertyKeys MotionSmoothShapeFlatTrajectoryKeys(
           strength,
           config.motion_smooth_source_fidelity
               ? &source_fidelity_times
-              : nullptr,
+: nullptr,
           config.motion_smooth_source_fidelity
               ? &raw
-              : nullptr);
+: nullptr);
   const double loop_close_distance =
       (!smooth_result.original_values.empty())
           ? ShapeFlatControlDistance(smooth_result.original_values.front(),
                                      smooth_result.original_values.back(),
                                      vertex_count)
-          : 0.0;
+: 0.0;
   const bool closed_loop =
       smooth_result.original_values.size() >= 4 &&
       loop_close_distance <= std::max(1e-6, strength * 0.01);
@@ -89,7 +89,7 @@ PropertyKeys MotionSmoothShapeFlatTrajectoryKeys(
                          &key_times);
   double trajectory_turn_before =
       motion_quality_before.valid ? motion_quality_before.max_turn_deg
-                                  : smooth_result.max_turn_before_deg;
+: smooth_result.max_turn_before_deg;
   ClosedLoopAdaptiveResampleResult resample =
       BuildShapeFlatClosedLoopAdaptiveResample(
           smooth_result, key_times, config, vertex_count, dims, strength,
@@ -105,9 +105,9 @@ PropertyKeys MotionSmoothShapeFlatTrajectoryKeys(
   const bool adaptive_loop_resample = resample.adaptive_loop_resample;
   double trajectory_turn_after = resample.trajectory_turn_after_overridden
       ? resample.trajectory_turn_after_override
-      : smooth_result.max_turn_after_deg;
+: smooth_result.max_turn_after_deg;
   int source_pose_constraint_key_count = 0;
-  for (bool constrained : source_pose_constraint_indices) {
+  for (bool constrained: source_pose_constraint_indices) {
     if (constrained) {
       ++source_pose_constraint_key_count;
     }
@@ -116,7 +116,7 @@ PropertyKeys MotionSmoothShapeFlatTrajectoryKeys(
       config.motion_smooth_source_fidelity
           ? LockShapeFlatRotationalTangentsExcept(
                 &schedule_values, source_pose_constraint_indices)
-          : LockShapeFlatRotationalTangents(&schedule_values);
+: LockShapeFlatRotationalTangents(&schedule_values);
   const bool use_ease =
       config.motion_smooth_use_ease && config.allow_bezier;
   const ShapeMotionRoveSchedule rove_schedule =

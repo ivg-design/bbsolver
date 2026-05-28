@@ -61,7 +61,7 @@ std::vector<LandmarkRegionEmissionResult> BuildOutlierSlotCandidate(
     return emissions;
   }
   emissions.reserve(regions.size());
-  for (VertexRegion region : regions) {
+  for (VertexRegion region: regions) {
     LandmarkRegionEmissionResult emission;
     if (!LookupCachedEmission(region, boundaries, intervals, valid, &emission)) {
       if (on_demand_evaluations != nullptr) {
@@ -116,7 +116,7 @@ LandmarkPartitionResult TrySemanticSplitFromCachedRegions(
 
   std::vector<LandmarkRegionEmissionResult> split_emissions;
   split_emissions.reserve(base_regions.size());
-  for (VertexRegion region : base_regions) {
+  for (VertexRegion region: base_regions) {
     const int start = BoundaryIndex(boundaries, region.first_vertex);
     const int end = BoundaryIndex(boundaries, region.end_vertex);
     if (start < 0 || end <= start ||
@@ -160,7 +160,7 @@ LandmarkPartitionResult TrySemanticSplitFromCachedRegions(
 
   std::vector<VertexRegion> split_regions;
   split_regions.reserve(split_emissions.size());
-  for (const LandmarkRegionEmissionResult& emission : split_emissions) {
+  for (const LandmarkRegionEmissionResult& emission: split_emissions) {
     split_regions.push_back(emission.region);
   }
 
@@ -247,7 +247,7 @@ LandmarkPartitionResult TrySemanticSplitFromCandidate(
   const double split_error = MaxEmissionReconstructionError(candidate_emissions);
   std::vector<VertexRegion> split_regions;
   split_regions.reserve(candidate_emissions.size());
-  for (const LandmarkRegionEmissionResult& emission : candidate_emissions) {
+  for (const LandmarkRegionEmissionResult& emission: candidate_emissions) {
     split_regions.push_back(emission.region);
   }
   const std::string split_ranges = JoinRegionRanges(split_regions);
@@ -334,7 +334,7 @@ LandmarkPartitionResult TryOutlierPartitionFromSlots(
                                   &local_on_demand, &local_failure);
     on_demand_evaluations += local_on_demand;
     if (candidate.empty()) {
-      failure_reason = local_failure.empty() ? "candidate_failed" : local_failure;
+      failure_reason = local_failure.empty() ? "candidate_failed": local_failure;
       continue;
     }
     const int key_count = TotalEmissionKeyCount(candidate);
@@ -360,7 +360,7 @@ LandmarkPartitionResult TryOutlierPartitionFromSlots(
 
   std::vector<VertexRegion> best_regions;
   best_regions.reserve(best_emissions.size());
-  for (const LandmarkRegionEmissionResult& emission : best_emissions) {
+  for (const LandmarkRegionEmissionResult& emission: best_emissions) {
     best_regions.push_back(emission.region);
   }
   const std::string ranges = JoinRegionRanges(best_regions);

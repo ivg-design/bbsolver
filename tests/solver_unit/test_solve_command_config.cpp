@@ -15,7 +15,7 @@ namespace {
 std::vector<char*> Argv(std::vector<std::string>& args) {
   std::vector<char*> argv;
   argv.reserve(args.size());
-  for (std::string& arg : args) {
+  for (std::string& arg: args) {
     argv.push_back(arg.data());
   }
   return argv;

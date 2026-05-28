@@ -163,7 +163,7 @@ void RequirePropertySamplesJson(const json& property_json) {
       IsVariableTopologyShapeFlat(property_json.at("property"));
   RequireNonEmptyArrayField(
       property_json, "samples", "SampleBundle property entry");
-  for (const auto& sample_json : property_json.at("samples")) {
+  for (const auto& sample_json: property_json.at("samples")) {
     RequireSampleJson(
         sample_json, expected_value_count, variable_topology_shape_flat);
   }

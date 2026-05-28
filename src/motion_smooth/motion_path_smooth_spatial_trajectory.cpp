@@ -19,7 +19,7 @@ namespace bbsolver {
 namespace {
 
 double PositiveOr(double value, double fallback) {
-  return value > 0.0 && std::isfinite(value) ? value : fallback;
+  return value > 0.0 && std::isfinite(value) ? value: fallback;
 }
 
 std::vector<double> InterpolatedEmittedKeyValue(
@@ -60,7 +60,7 @@ double MaxEmittedPathError(const PropertySamples& property_samples,
                            const std::vector<Key>& keys,
                            int dims) {
   double max_err = 0.0;
-  for (const Sample& sample : property_samples.samples) {
+  for (const Sample& sample: property_samples.samples) {
     const std::vector<double> expected = MotionSmoothInterpolatedPoint(
         property_samples, smoothed, sample.t_sec, dims);
     const std::vector<double> actual =
@@ -163,7 +163,7 @@ PropertyKeys MotionPathSmoothSpatialTrajectoryKeys(
       std::isfinite(config.motion_path_bounds_tolerance) &&
               config.motion_path_bounds_tolerance > 0.0
           ? config.motion_path_bounds_tolerance
-          : 0.0;
+: 0.0;
   const std::vector<std::vector<double>> raw =
       MotionSmoothRawPoints(property_samples, dims);
   const MotionPathLocks locks =
@@ -195,10 +195,10 @@ PropertyKeys MotionPathSmoothSpatialTrajectoryKeys(
     key.t_sec = property_samples.samples[si].t_sec;
     const bool locked = IsMotionPathLockedAtIndex(locks, si);
     const bool sharp = si < locks.sharp.size() && locks.sharp[si];
-    key.v = locked ? raw[si] : fairing.points[si];
-    key.interp_in = ki == 0 ? InterpType::Linear : InterpType::Bezier;
+    key.v = locked ? raw[si]: fairing.points[si];
+    key.interp_in = ki == 0 ? InterpType::Linear: InterpType::Bezier;
     key.interp_out =
-        ki + 1 == kept.size() ? InterpType::Linear : InterpType::Bezier;
+        ki + 1 == kept.size() ? InterpType::Linear: InterpType::Bezier;
     key.temporal_ease_in = neutral_ease;
     key.temporal_ease_out = neutral_ease;
     key.temporal_continuous = use_ease && !sharp;
@@ -214,7 +214,7 @@ PropertyKeys MotionPathSmoothSpatialTrajectoryKeys(
   key_locks.keyed.reserve(kept.size());
   key_locks.sharp.reserve(kept.size());
   key_locks.bounds.reserve(kept.size());
-  for (int sample_idx : kept) {
+  for (int sample_idx: kept) {
     const std::size_t si = static_cast<std::size_t>(sample_idx);
     key_locks.keyed.push_back(si < locks.keyed.size() && locks.keyed[si]);
     key_locks.sharp.push_back(si < locks.sharp.size() && locks.sharp[si]);
@@ -241,7 +241,7 @@ PropertyKeys MotionPathSmoothSpatialTrajectoryKeys(
         << "; smoothing_alpha=" << fairing.alpha
         << "; motion_path_accuracy_tolerance=" << accuracy_tolerance
         << "; motion_path_preserve_bounds="
-        << (config.motion_path_preserve_bounds ? "true" : "false")
+        << (config.motion_path_preserve_bounds ? "true": "false")
         << "; motion_path_bounds_tolerance=" << bounds_tolerance
         << "; motion_path_bounds_points=" << CountMotionPathLocks(locks.bounds)
         << "; source_bounds_width=" << fairing.source_bounds_width
@@ -250,18 +250,18 @@ PropertyKeys MotionPathSmoothSpatialTrajectoryKeys(
         << "; smoothed_bounds_height=" << fairing.smoothed_bounds_height
         << "; bounds_max_deviation=" << fairing.bounds_max_deviation
         << "; motion_path_preserve_sharp_points="
-        << (config.motion_path_preserve_sharp_points ? "true" : "false")
+        << (config.motion_path_preserve_sharp_points ? "true": "false")
         << "; motion_path_sharp_angle_deg="
         << PositiveOr(config.motion_path_sharp_angle_deg, 75.0)
         << "; motion_path_sharp_points=" << CountMotionPathLocks(locks.sharp)
         << "; motion_path_respect_keyed_frames="
-        << (config.motion_path_respect_keyed_frames ? "true" : "false")
+        << (config.motion_path_respect_keyed_frames ? "true": "false")
         << "; motion_path_keyed_points=" << CountMotionPathLocks(locks.keyed)
         << "; raw_source_max_displacement=" << fairing.max_displacement
         << "; source_path_length=" << fairing.source_path_length
         << "; smoothed_path_length=" << fairing.smoothed_path_length
         << "; smoothed_path_max_err=" << smoothed_path_max_err
-        << "; motion_smooth_ease=" << (use_ease ? "on" : "off")
+        << "; motion_smooth_ease=" << (use_ease ? "on": "off")
         << "; source_error_not_constrained=true";
   out.notes = notes.str();
 

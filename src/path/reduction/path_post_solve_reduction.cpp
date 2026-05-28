@@ -94,7 +94,7 @@ PostSolvePathVertexReductionResult TryPostSolvePathVertexReduction(
           "; temporal_validation_error=" +
           std::to_string(validation.max_outline_error) +
           (sharp_validation.enabled ? "; " + sharp_validation.notes
-                                    : std::string{}) +
+: std::string{}) +
           targets_note;
       return true;
     }
@@ -107,7 +107,7 @@ PostSolvePathVertexReductionResult TryPostSolvePathVertexReduction(
   const double duplicate_eps = std::max(config.tolerance, 1e-6);
   bool all_duplicate_terminal = uniform_key_topology;
   if (all_duplicate_terminal) {
-    for (const Key& key : solved_keys.keys) {
+    for (const Key& key: solved_keys.keys) {
       if (!ShapeFlatHasDuplicateTerminalClosure(key.v, duplicate_eps)) {
         all_duplicate_terminal = false;
         break;
@@ -117,7 +117,7 @@ PostSolvePathVertexReductionResult TryPostSolvePathVertexReduction(
   if (all_duplicate_terminal) {
     result.attempted = true;
     PropertyKeys candidate = solved_keys;
-    for (Key& key : candidate.keys) {
+    for (Key& key: candidate.keys) {
       key.v = DropShapeFlatDuplicateTerminalClosure(key.v);
     }
     if (validate_candidate(
@@ -218,7 +218,7 @@ PostSolvePathVertexReductionResult TryPostSolvePathVertexReduction(
 
   std::vector<std::vector<double>> key_frames;
   key_frames.reserve(solved_keys.keys.size());
-  for (const Key& key : solved_keys.keys) {
+  for (const Key& key: solved_keys.keys) {
     key_frames.push_back(key.v);
   }
 
@@ -249,7 +249,7 @@ PostSolvePathVertexReductionResult TryPostSolvePathVertexReduction(
   if (bridge_prune.attempted && !bridge_prune.notes.empty()) {
     failures.push_back("bridge_prune:" + bridge_prune.notes);
   }
-  for (int target_vertices : targets) {
+  for (int target_vertices: targets) {
     const PathFeatureFractionLayoutResult layout =
         BuildShapeFlatFeatureFractionLayout(
             key_frames, target_vertices, frame_options);
@@ -257,7 +257,7 @@ PostSolvePathVertexReductionResult TryPostSolvePathVertexReduction(
       PropertyKeys candidate = solved_keys;
       double key_refit_max_err = 0.0;
       bool keys_ok = true;
-      for (Key& key : candidate.keys) {
+      for (Key& key: candidate.keys) {
         PathFrameFitResult fit =
             FitShapeFlatFrameAtFractions(
                 key.v, layout.outline_fractions, frame_options);
@@ -282,7 +282,7 @@ PostSolvePathVertexReductionResult TryPostSolvePathVertexReduction(
                            ":shared_fraction_layout:validation_failed" +
                            (last_validation_rejection.empty()
                                 ? std::string{}
-                                : ":" + last_validation_rejection));
+: ":" + last_validation_rejection));
       }
       if (!keys_ok) {
         failures.push_back("target=" + std::to_string(target_vertices) +
@@ -292,13 +292,13 @@ PostSolvePathVertexReductionResult TryPostSolvePathVertexReduction(
       failures.push_back(
           "target=" + std::to_string(target_vertices) +
           ":layout_rejected" +
-          (layout.warning.empty() ? std::string{} : ":" + layout.warning));
+          (layout.warning.empty() ? std::string{}: ":" + layout.warning));
     }
 
     PropertyKeys candidate = solved_keys;
     double key_refit_max_err = 0.0;
     bool keys_ok = true;
-    for (Key& key : candidate.keys) {
+    for (Key& key: candidate.keys) {
       PathFrameFitOptions target_options = frame_options;
       target_options.target_vertex_count = target_vertices;
       PathFrameFitResult fit = FitShapeFlatFrame(key.v, target_options);
@@ -328,7 +328,7 @@ PostSolvePathVertexReductionResult TryPostSolvePathVertexReduction(
                        ":independent_key_fit:validation_failed" +
                        (last_validation_rejection.empty()
                             ? std::string{}
-                            : ":" + last_validation_rejection));
+: ":" + last_validation_rejection));
   }
 
   result.notes =

@@ -67,7 +67,7 @@ PropertyKeys MotionSmoothEndpointKeys(const PropertySamples& property_samples,
   keys.notes =
       std::string("solve_mode_motion_smooth") +
       "; endpoint_keys=" + std::to_string(keys.keys.size()) +
-      "; motion_smooth_ease=" + (use_ease ? "on" : "off") +
+      "; motion_smooth_ease=" + (use_ease ? "on": "off") +
       "; source_error_not_evaluated=true";
   if (property_samples.samples.size() > 1) {
     SegmentReport segment;

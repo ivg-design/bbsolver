@@ -20,9 +20,9 @@ bool CancelFileExists(const std::optional<std::filesystem::path>& cancel_file) {
 }
 
 void MarkCancelledPartial(KeyBundle& keys) {
-  for (auto& property : keys.property_results) {
+  for (auto& property: keys.property_results) {
     property.converged = false;
-    property.notes = property.notes.empty() ? "cancelled" : property.notes + "; cancelled";
+    property.notes = property.notes.empty() ? "cancelled": property.notes + "; cancelled";
   }
 }
 

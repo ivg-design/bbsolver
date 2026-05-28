@@ -53,7 +53,7 @@ bbsolver::PropertySamples MakeProperty(std::vector<double> times) {
   property.property.dimensions = 2;
   property.property.is_separated = true;
   property.samples.reserve(times.size());
-  for (double t : times) {
+  for (double t: times) {
     property.samples.push_back(MakeSample(t, {t, t + 10.0}));
   }
   return property;

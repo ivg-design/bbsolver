@@ -18,7 +18,7 @@ std::vector<double> TimesForClosedLoopParams(
   }
   const int unique_count = static_cast<int>(source_key_times.size()) - 1;
   times.reserve(params.size());
-  for (double param : params) {
+  for (double param: params) {
     if (param <= 0.0) {
       times.push_back(source_key_times.front());
       continue;

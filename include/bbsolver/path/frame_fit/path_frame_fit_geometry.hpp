@@ -12,8 +12,8 @@
 // public solver surface — only translation units that opt in via
 // `#include "bbsolver/path/frame_fit/path_frame_fit_geometry.hpp"` see them.
 //
-// Usage from a .cpp:
-//   namespace bbsolver { namespace { using namespace pff_geom; ... } }
+// Usage from a.cpp:
+//   namespace bbsolver { namespace { using namespace pff_geom;... } }
 // keeps existing unqualified call sites compiling unchanged.
 
 #include <algorithm>
@@ -41,7 +41,7 @@ struct DecodedShape {
 };
 
 inline double ComponentOrZero(const std::vector<double>& values, std::size_t idx) {
-  return idx < values.size() ? values[idx] : 0.0;
+  return idx < values.size() ? values[idx]: 0.0;
 }
 
 inline DecodedShape DecodeShapeFlat(const std::vector<double>& flat) {

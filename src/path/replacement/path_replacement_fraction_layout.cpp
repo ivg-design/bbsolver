@@ -13,7 +13,7 @@ std::vector<double> BuildMedianStableFractionLayout(
   if (target_vertices <= 0 || records.empty()) {
     return {};
   }
-  for (const ReplacementFrameFitRecord& record : records) {
+  for (const ReplacementFrameFitRecord& record: records) {
     if (static_cast<int>(record.outline_fractions.size()) != target_vertices) {
       return {};
     }
@@ -24,7 +24,7 @@ std::vector<double> BuildMedianStableFractionLayout(
   values.reserve(records.size());
   for (int k = 0; k < target_vertices; ++k) {
     values.clear();
-    for (const ReplacementFrameFitRecord& record : records) {
+    for (const ReplacementFrameFitRecord& record: records) {
       const double fraction = record.outline_fractions[static_cast<std::size_t>(k)];
       if (!std::isfinite(fraction)) {
         return {};

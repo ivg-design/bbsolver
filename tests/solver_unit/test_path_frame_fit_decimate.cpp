@@ -31,7 +31,7 @@ std::vector<DensePoint> SquareDense16(std::vector<int>& source_to_dense) {
         case 2:  p = {1.0 - t, 1.0};   break;
         case 3:  p = {0.0, 1.0 - t};   break;
       }
-      const int source = (step == 0) ? edge : -1;
+      const int source = (step == 0) ? edge: -1;
       if (source >= 0) {
         source_to_dense[static_cast<std::size_t>(source)] = static_cast<int>(dense.size());
       }
@@ -60,9 +60,9 @@ void TestSimplifyClosedSquareKeepsCorners() {
   // At minimum the 4 corner dense indices (0, 4, 8, 12) survive.
   assert(kept.size() >= 4);
   // Corners must all be in `kept`.
-  for (int corner : {0, 4, 8, 12}) {
+  for (int corner: {0, 4, 8, 12}) {
     bool found = false;
-    for (int k : kept) {
+    for (int k: kept) {
       if (k == corner) {
         found = true;
         break;

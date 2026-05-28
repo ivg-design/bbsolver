@@ -16,9 +16,9 @@ std::vector<double> ShapeFlatPolygon(
     bool closed = true) {
   std::vector<double> out;
   out.reserve(2 + 6 * vertices.size());
-  out.push_back(closed ? 1.0 : 0.0);
+  out.push_back(closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const auto& v : vertices) {
+  for (const auto& v: vertices) {
     out.push_back(v.first);
     out.push_back(v.second);
     out.push_back(0.0);
@@ -64,7 +64,7 @@ void TestExtractAnchorsClosedSquareFindsFourCorners() {
     assert(anchors[i].outline_fraction > anchors[i - 1].outline_fraction);
   }
   // Each anchor carries a valid source vertex index (0..3) and zero-tangent cue.
-  for (const auto& a : anchors) {
+  for (const auto& a: anchors) {
     assert(a.source_vertex_index >= 0);
     assert(a.source_vertex_index < 4);
     assert(a.turn_radians > 0.0);
@@ -112,9 +112,9 @@ void TestSnapPullsCanonicalSlotsToNearbyAnchors() {
       SnapFractionsToFrameFeatureAnchors(canonical, square, opts, true);
   assert(snapped.size() == canonical.size());
   // Each slot should now lie on one of the corner fractions.
-  for (double s : snapped) {
+  for (double s: snapped) {
     bool matched = false;
-    for (double a : anchors_fractions) {
+    for (double a: anchors_fractions) {
       if (std::abs(s - a) <= 1e-6) {
         matched = true;
         break;

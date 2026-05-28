@@ -9,7 +9,7 @@ namespace bbsolver {
 
 // Parse a SolverConfig from a JSON object. Defaults come from the
 // default-constructed SolverConfig. Legacy camelCase aliases
-// (motionSmoothTolerance, motionSmoothUseEase, motionSmoothBezierX1, ...,
+// (motionSmoothTolerance, motionSmoothUseEase, motionSmoothBezierX1,...,
 // motionPathSmoothingTolerance, shape_temporal_bezier_gate_ratio,
 // path_spatial_fit, path_replacement_fit, shape_temporal_bezier) are honored
 // for backward compatibility; when both

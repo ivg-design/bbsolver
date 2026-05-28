@@ -45,7 +45,7 @@ void AddVisibleProbePartition(
     return;
   }
   int expected_first = 0;
-  for (VertexRegion region : regions) {
+  for (VertexRegion region: regions) {
     if (region.first_vertex != expected_first ||
         region.end_vertex <= region.first_vertex ||
         region.end_vertex > vertex_count) {
@@ -56,7 +56,7 @@ void AddVisibleProbePartition(
   if (expected_first != vertex_count) {
     return;
   }
-  for (const std::vector<VertexRegion>& existing : *partitions) {
+  for (const std::vector<VertexRegion>& existing: *partitions) {
     if (SameRegionList(existing, regions)) {
       return;
     }
@@ -113,7 +113,7 @@ VisibleChannelProbeCandidate EvaluateVisibleProbePartition(
 
   std::vector<LandmarkRegionEmissionResult> emissions;
   emissions.reserve(regions.size());
-  for (VertexRegion region : regions) {
+  for (VertexRegion region: regions) {
     if (probe_options.cancel_fn && probe_options.cancel_fn()) {
       candidate.status = "cancelled";
       return candidate;
@@ -126,7 +126,7 @@ VisibleChannelProbeCandidate EvaluateVisibleProbePartition(
         emission.keys.keys.empty()) {
       candidate.status = emission.temporal_status.empty()
                              ? "region_failed"
-                             : emission.temporal_status;
+: emission.temporal_status;
       return candidate;
     }
     emissions.push_back(std::move(emission));
@@ -164,7 +164,7 @@ VisibleChannelProbeResult RunVisibleChannelProbe(
     const std::vector<std::vector<VertexRegion>> partitions =
         VisibleProbePartitions(reduced, vertex_count, channel_count);
     best_for_channel.partition_count = static_cast<int>(partitions.size());
-    for (const std::vector<VertexRegion>& regions : partitions) {
+    for (const std::vector<VertexRegion>& regions: partitions) {
       VisibleChannelProbeCandidate candidate =
           EvaluateVisibleProbePartition(reduced,
                                         regions,

@@ -7,7 +7,7 @@
 
 namespace bbsolver {
 
-enum class ValueKind : std::uint8_t {
+enum class ValueKind: std::uint8_t {
   Scalar = 0,
   TwoD = 1,
   ThreeD = 2,
@@ -17,7 +17,7 @@ enum class ValueKind : std::uint8_t {
   Custom = 6,
 };
 
-enum class InterpType : std::uint8_t {
+enum class InterpType: std::uint8_t {
   Hold = 0,
   Linear = 1,
   Bezier = 2,

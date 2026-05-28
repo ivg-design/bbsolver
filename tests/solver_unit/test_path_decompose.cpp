@@ -46,7 +46,7 @@ bbsolver::PropertyKeys KeysFromChild(const bbsolver::PathChildSamples& child) {
   bbsolver::PropertyKeys keys;
   keys.property_id = child.samples.property.id;
   keys.converged = true;
-  for (const bbsolver::Sample& sample : child.samples.samples) {
+  for (const bbsolver::Sample& sample: child.samples.samples) {
     bbsolver::Key key;
     key.t_sec = sample.t_sec;
     key.v = sample.v;
@@ -80,7 +80,7 @@ int main() {
   assert(decomposed.vertex_count == 3);
   assert(decomposed.children.size() == 9);
 
-  for (const bbsolver::PathChildSamples& child : decomposed.children) {
+  for (const bbsolver::PathChildSamples& child: decomposed.children) {
     assert(child.samples.property.kind == bbsolver::ValueKind::TwoD_Spatial);
     assert(child.samples.property.dimensions == 2);
     assert(child.samples.property.is_spatial);
@@ -89,7 +89,7 @@ int main() {
 
   std::vector<bbsolver::PropertyKeys> child_keys;
   child_keys.reserve(decomposed.children.size());
-  for (const bbsolver::PathChildSamples& child : decomposed.children) {
+  for (const bbsolver::PathChildSamples& child: decomposed.children) {
     child_keys.push_back(KeysFromChild(child));
   }
 

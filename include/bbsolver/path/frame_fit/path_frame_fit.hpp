@@ -8,7 +8,7 @@
 namespace bbsolver {
 
 // Fit one AE shape_flat frame:
-//   [closed_flag, vertex_count, x, y, in_x, in_y, out_x, out_y, ...]
+//   [closed_flag, vertex_count, x, y, in_x, in_y, out_x, out_y,...]
 // The returned shape preserves the closed flag and keeps the source seam as
 // fitted vertex 0 for stable per-frame downstream processing.
 PathFrameFitResult FitShapeFlatFrame(const std::vector<double>& shape_flat,

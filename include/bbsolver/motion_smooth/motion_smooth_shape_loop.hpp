@@ -3,9 +3,9 @@
 #include <cstddef>
 #include <vector>
 
-// MS1-MS5 façade re-exports. Pre-MS consumers `#include
+// façade re-exports. pre-split consumers `#include
 // "motion_smooth_shape_loop.hpp"` and expect to find every symbol the
-// MS1-MS5 split moved into sibling sub-headers. The four includes
+// split moved into sibling sub-headers. The four includes
 // below are intentionally not used directly by this header but must
 // remain so transitive symbol resolution continues to work. The
 // `// IWYU pragma: keep` comments tell clangd's include-cleaner that

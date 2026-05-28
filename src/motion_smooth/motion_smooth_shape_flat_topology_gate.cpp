@@ -34,7 +34,7 @@ ValidateMotionSmoothShapeFlatTopology(const PropertySamples& property_samples) {
         "solve_mode_motion_smooth_skipped: invalid_shape_topology");
     return result;
   }
-  for (const Sample& sample : property_samples.samples) {
+  for (const Sample& sample: property_samples.samples) {
     if (ShapeFlatVertexCountFromValues(sample.v) != vertex_count ||
         static_cast<int>(sample.v.size()) != dims) {
       result.fallback_keys = ShapeFlatFrameKeyFallback(

@@ -1,31 +1,31 @@
 #!/usr/bin/env python3
-"""Motion Smooth MS1-MS15 façade lock policy.
+"""Motion Smooth façade lock policy.
 
 This policy is the structural guard for the three façade-style splits
 delivered by the motion-smooth refactor lane:
 
-* MS1-MS5  — `motion_smooth_shape_loop.hpp` façade re-exports four
+* `motion_smooth_shape_loop.hpp` façade re-exports four
   sub-headers (curve / adaptive / schedule / tangent-lock). The body
   TU `motion_smooth_shape_loop.cpp` shrank from 472 → 29 LOC.
-* MS6-MS10 — `motion_smooth_shape_schedule.hpp` façade re-exports
+* `motion_smooth_shape_schedule.hpp` façade re-exports
   three sub-headers (source_key_schedule / trajectory_smooth /
   rove_schedule). The body TU `motion_smooth_shape_schedule.cpp` was
   fully extracted and deleted.
-* MS11-MS15 — `motion_smooth_solver.hpp` façade re-exports four
+* `motion_smooth_solver.hpp` façade re-exports four
   sub-headers (sample_points / bezier_ease / endpoint_keys /
   spatial_trajectory). The body TU `motion_smooth_solver.cpp` was
   fully extracted and deleted.
 
-The MS2 cross-TU dedupe in `motion_smooth_shape_quality.cpp` (which
+The cross-TU dedupe in `motion_smooth_shape_quality.cpp` (which
 removed byte-identical duplicates of `ShapeFlatVertexPoint` and
-`PointTurnDeg` so the MS2 public promotion would not collide at link
+`PointTurnDeg` so the public promotion would not collide at link
 time) is also locked here.
 
 Each check is a pure source-text read; the policy makes no subprocess
 calls, mutates no git state, and runs in well under a second.
 
 A regression that would silently break the build at integration time
-— resurrecting a deleted .cpp file, dropping a façade re-include,
+— resurrecting a deleted.cpp file, dropping a façade re-include,
 re-introducing a duplicate definition — will trip this policy first
 so the failure surfaces at the standard quick-tier guard rather than
 during a downstream merge.
@@ -72,12 +72,12 @@ def _ms_path(filename: str) -> Path:
 # ---------------------------------------------------------------------------
 
 FACADE_INCLUDES = {
-    # MS1-MS5 façade. NOTE: motion_smooth_shape_loop_curve.hpp is
+    # façade. NOTE: motion_smooth_shape_loop_curve.hpp is
     # intentionally NOT included here. Its symbols
     # (MotionSmoothCatmullRomValue / ShapeFlatVertexPoint / PointTurnDeg /
     # EvaluateClosedLoopShapeAtParam) were file-local in the original
     # motion_smooth_shape_loop.cpp's anonymous namespace and had no
-    # pre-MS1 caller. After MS2, curve.hpp is consumed directly by
+    # pre-split caller. After, curve.hpp is consumed directly by
     # motion_smooth_shape_loop_adaptive.cpp and motion_smooth_shape_quality.cpp
     # (the dedupe site). Re-exporting it through the façade would
     # expand the public surface beyond what existed pre-refactor.
@@ -103,7 +103,7 @@ FACADE_INCLUDES = {
 # Façades that are pure re-export shims (no residual declarations).
 # motion_smooth_shape_loop.hpp is NOT in this set because it still
 # carries the lone `EvenTimesForValueCount` declaration — the one
-# public helper that did not fit any of the four MS1-MS5 cohesive cuts
+# public helper that did not fit any of the four the corresponding sub-modules cohesive cuts
 # and remained at the façade alongside the re-includes.
 PURE_SHIM_FACADES = (
     "motion_smooth_shape_schedule.hpp",
@@ -112,14 +112,14 @@ PURE_SHIM_FACADES = (
 
 
 # ---------------------------------------------------------------------------
-# Each MS sub-module .hpp must declare the symbols listed here. The check
+# Each MS sub-module.hpp must declare the symbols listed here. The check
 # is a substring scan (after stripping `//` line comments) so future
 # whitespace / formatting tweaks do not trip the policy; the symbol must
 # appear in code, not in a doc comment.
 # ---------------------------------------------------------------------------
 
 SUBMODULE_SYMBOLS = {
-    # MS1-MS5 closed-loop sampler.
+    # the corresponding sub-modules closed-loop sampler.
     "motion_smooth_shape_tangent_lock.hpp": [
         "struct ShapeTangentLockStats",
         "LockShapeFlatRotationalTangents",
@@ -140,7 +140,7 @@ SUBMODULE_SYMBOLS = {
         "TimesForClosedLoopParams",
         "TimesForClosedLoopParamsByIntervalTravel",
     ],
-    # MS6-MS10 anchor schedule.
+    # the corresponding sub-modules anchor schedule.
     "motion_smooth_shape_source_key_schedule.hpp": [
         "struct ShapeMotionSourceKeySchedule",
         "ShapeMotionSourceKeyRdpKeep",
@@ -154,7 +154,7 @@ SUBMODULE_SYMBOLS = {
         "struct ShapeMotionRoveSchedule",
         "BuildShapeMotionRoveScheduleFromValues",
     ],
-    # MS11-MS15 solver orchestrator.
+    # the corresponding sub-modules solver orchestrator.
     "motion_smooth_sample_points.hpp": [
         "IsMotionSmoothSpatialProperty",
         "SegmentEndpointValueOrSample",
@@ -171,12 +171,12 @@ SUBMODULE_SYMBOLS = {
     "motion_smooth_spatial_trajectory.hpp": [
         "MotionSmoothSpatialTrajectoryKeys",
     ],
-    # MS22-MS25 shape_flat orchestrator helpers. These are
+    # the shape-flat extraction sub-modules shape_flat orchestrator helpers. These are
     # orchestrator-internal (not re-exported via motion_smooth_shape_flat.hpp)
     # but exposed as their own headers so tests can exercise them and so
     # the orchestrator stays a thin control-flow function. They are NOT
     # added to FACADE_INCLUDES because motion_smooth_shape_flat.hpp is a
-    # single-function declaration header, not a façade in the MS1-MS15
+    # single-function declaration header, not a façade in the the corresponding sub-modules
     # sense.
     "motion_smooth_shape_flat_notes.hpp": [
         "struct MotionSmoothShapeFlatNotesInputs",
@@ -196,7 +196,7 @@ SUBMODULE_SYMBOLS = {
 }
 
 
-# .cpp files that the MS9 / MS15 extractions deleted in full and that must
+#.cpp files that the  /  extractions deleted in full and that must
 # stay deleted. Resurrecting either would cause duplicate-symbol link
 # errors against the new sibling TUs.
 DELETED_BODIES = (
@@ -205,17 +205,17 @@ DELETED_BODIES = (
 )
 
 
-# Symbols that the MS2 dedupe removed from motion_smooth_shape_quality.cpp.
+# Symbols that the dedupe removed from motion_smooth_shape_quality.cpp.
 # The canonical definitions live in motion_smooth_shape_loop_curve.cpp;
 # re-introducing them in shape_quality.cpp would re-create the link-time
-# collision MS2 fixed.
+# collision fixed.
 DEDUPED_FROM_SHAPE_QUALITY = (
     "ShapeFlatVertexPoint(",
     "PointTurnDeg(",
 )
 
 
-# Motion-smooth headers that pre-date the MS1-MS15 façade splits and are
+# Motion-smooth headers that pre-date the façade splits and are
 # neither façades (FACADE_INCLUDES keys) nor MS-extracted sub-modules
 # (SUBMODULE_SYMBOLS keys) nor sub-headers re-exported through a façade
 # (FACADE_INCLUDES values). They are legacy public headers consumed
@@ -231,10 +231,10 @@ PRE_EXISTING_MOTION_SMOOTH_HEADERS = (
 )
 
 
-# Parallel allowlist for motion_smooth .cpp bodies that pre-date the
-# MS1-MS15 extractions and are therefore not in MS_EXTRACTED_CPPS.
+# Parallel allowlist for motion_smooth.cpp bodies that pre-date the
+# the corresponding sub-modules extractions and are therefore not in MS_EXTRACTED_CPPS.
 # motion_smooth_shape_flat.cpp / motion_smooth_shape_loop.cpp are NOT
-# listed here: MS22-MS25 / MS1-MS5 extracted them, so they belong to
+# listed here: the shape-flat extraction sub-modules / the corresponding sub-modules extracted them, so they belong to
 # MS_EXTRACTED_CPPS (shrunk shape_flat orchestrator and shape_loop
 # façade body respectively). Listed here so the orphan-body check can
 # prove every motion_smooth_*.cpp on disk is accounted for.
@@ -252,7 +252,7 @@ PRE_EXISTING_MOTION_SMOOTH_BODIES = (
 # check, but tight enough that a sub-module regressing toward the
 # original monolith dimensions (motion_smooth_shape_schedule.cpp was
 # 382 LOC, motion_smooth_solver.cpp 360 LOC, motion_smooth_shape_loop.cpp
-# 472 LOC before MS1-MS25) will fire before re-monolithization is far
+# 472 LOC before the split-) will fire before re-monolithization is far
 # enough along to be hard to unwind.
 #
 # Pre-existing legacy files are out of scope: reduction_gate.cpp (350)
@@ -274,8 +274,8 @@ MONOLITH_CEILING_SUB_BODY_LOC = 300
 # MS lane was explicitly designed to prevent.
 #
 # motion_smooth_reduction_gate.cpp's existing solver_reporting.hpp
-# include pre-dates MS1 and is grandfathered via the explicit map
-# GRANDFATHERED_ORCHESTRATION_INCLUDES below. The wider lock (MS155)
+# include pre-dates and is grandfathered via the explicit map
+# GRANDFATHERED_ORCHESTRATION_INCLUDES below. The wider lock
 # scans every motion_smooth_*.{hpp,cpp} on disk and only the listed
 # (file → include) pairs are permitted; anything else trips the check.
 FORBIDDEN_ORCHESTRATION_STEM_PREFIXES = (
@@ -298,7 +298,7 @@ FORBIDDEN_ORCHESTRATION_STEM_PREFIXES = (
 # staples that would be obvious next-touch points.
 #
 # Applied uniformly to MS-extracted façade headers, sub-headers, and
-# bodies (MS165) so a sub-header that compiles only via transitive
+# bodies so a sub-header that compiles only via transitive
 # includes from its consumer is caught at policy time.
 STL_SELF_SUFFICIENCY = (
     ("std::vector", "<vector>"),
@@ -318,7 +318,7 @@ STL_SELF_SUFFICIENCY = (
 
 
 # Explicit allowlist for pre-existing orchestration dependencies that
-# pre-date MS1 and that the MS lane is not authorised to rewrite this
+# pre-date and that the MS lane is not authorised to rewrite this
 # round. Each key is a motion_smooth_*.{hpp,cpp} filename; each value
 # is the set of orchestration headers (matching one of
 # FORBIDDEN_ORCHESTRATION_STEM_PREFIXES) the file is permitted to
@@ -365,7 +365,7 @@ def test_facades_reexport_their_subheaders() -> None:
                     f"{facade_name}: missing `{include_token}`"
                 )
     assert not findings, (
-        "façade re-export contract violated. The MS1-MS15 façades must "
+        "façade re-export contract violated. The façades must "
         "re-include their sub-headers verbatim so existing consumers "
         "continue to resolve symbols through the façade. Findings:\n  "
         + "\n  ".join(findings)
@@ -373,7 +373,7 @@ def test_facades_reexport_their_subheaders() -> None:
 
 
 def test_submodule_headers_declare_expected_symbols() -> None:
-    """Each MS sub-module .hpp must declare the symbols listed in
+    """Each MS sub-module.hpp must declare the symbols listed in
     SUBMODULE_SYMBOLS. The scan is comment-aware (strips `//` lines) so
     a symbol must appear in actual code, not just docstring prose.
     """
@@ -396,9 +396,9 @@ def test_submodule_headers_declare_expected_symbols() -> None:
 
 
 def test_deleted_bodies_stay_deleted() -> None:
-    """The .cpp files that MS9 and MS15 fully extracted into sibling
+    """The.cpp files that and fully extracted into sibling
     modules must stay deleted. Resurrecting either file would cause
-    duplicate-symbol link errors against the new MS9/MS15 sibling TUs
+    duplicate-symbol link errors against the new / sibling TUs
     that now own the same symbols.
 
     A `git restore solver/src/motion_smooth_solver.cpp` would
@@ -410,7 +410,7 @@ def test_deleted_bodies_stay_deleted() -> None:
         body_path = _ms_path(body_name)
         if body_path.exists():
             findings.append(
-                f"{body_name}: must stay deleted (MS9/MS15 extracted "
+                f"{body_name}: must stay deleted (/ extracted "
                 "every definition into sibling TUs; a stub copy would "
                 "collide at link time)"
             )
@@ -421,12 +421,12 @@ def test_deleted_bodies_stay_deleted() -> None:
 
 
 def test_shape_quality_does_not_redefine_curve_helpers() -> None:
-    """The MS2 dedupe removed `ShapeFlatVertexPoint` and `PointTurnDeg`
+    """The dedupe removed `ShapeFlatVertexPoint` and `PointTurnDeg`
     function definitions from motion_smooth_shape_quality.cpp; the
     canonical definitions now live in motion_smooth_shape_loop_curve.cpp
     (public bbsolver:: surface). A regression that re-introduces either
     function definition in shape_quality.cpp would re-create the
-    duplicate-symbol link error MS2 fixed.
+    duplicate-symbol link error fixed.
 
     The scanner looks for the function-definition pattern (`Name(` at
     line start or with a return type prefix), not for call-site usage.
@@ -454,11 +454,11 @@ def test_shape_quality_does_not_redefine_curve_helpers() -> None:
         if any(marker in text for marker in definition_markers):
             findings.append(
                 f"motion_smooth_shape_quality.cpp redefines `{symbol}` "
-                "— MS2 dedupe required these to live only in "
+                "—  dedupe required these to live only in "
                 "motion_smooth_shape_loop_curve.cpp"
             )
     assert not findings, (
-        "MS2 dedupe contract violated. Findings:\n  "
+        " dedupe contract violated. Findings:\n  "
         + "\n  ".join(findings)
     )
 
@@ -466,7 +466,7 @@ def test_shape_quality_does_not_redefine_curve_helpers() -> None:
 def test_facade_headers_are_thin() -> None:
     """Each MS façade header is small. A regression that adds
     substantive declarations to a façade would re-couple consumers to
-    the façade's symbol-table directly, which is the layering MS1-MS15
+    the façade's symbol-table directly, which is the layering the corresponding sub-modules
     explicitly broke.
 
     Universal heuristic: every façade must be under 50 lines.
@@ -476,7 +476,7 @@ def test_facade_headers_are_thin() -> None:
     `#include` only, and sub-headers own every declaration.
     `motion_smooth_shape_loop.hpp` is exempt from the namespace check
     because it still carries the lone `EvenTimesForValueCount`
-    declaration that did not fit any MS1-MS5 cohesive cut.
+    declaration that did not fit any the corresponding sub-modules cohesive cut.
     """
     findings = []
     line_cap = 50
@@ -507,10 +507,10 @@ def test_facade_headers_are_thin() -> None:
 
 
 def test_motion_smooth_sources_not_excluded_from_cmake_glob() -> None:
-    """MS75 CMake source-list completeness lock.
+    """ CMake source-list completeness lock.
 
     solver/CMakeLists.txt registers bbsolver_core via
-    `file(GLOB_RECURSE ... CONFIGURE_DEPENDS "src/*.cpp")` followed by zero or
+    `file(GLOB_RECURSE... CONFIGURE_DEPENDS "src/*.cpp")` followed by zero or
     more `list(FILTER BBSOLVER_CORE_SOURCES EXCLUDE REGEX "...")`
     directives. The GLOB picks up every motion_smooth_*.cpp; the
     EXCLUDE patterns subtract entries from that list. Today only
@@ -571,7 +571,7 @@ def test_motion_smooth_sources_not_excluded_from_cmake_glob() -> None:
             continue
         for cpp_path in motion_smooth_sources:
             # CMake regex matches against the full path string. The
-            # `file(GLOB_RECURSE ...)` produces absolute paths, so we match
+            # `file(GLOB_RECURSE...)` produces absolute paths, so we match
             # against the absolute path; an EXCLUDE anchored on
             # `/main\.cpp$` would NOT match
             # `solver/src/motion_smooth_*.cpp` because of the
@@ -592,7 +592,7 @@ def test_motion_smooth_sources_not_excluded_from_cmake_glob() -> None:
 
 
 def test_motion_smooth_policy_file_registers_all_defined_checks() -> None:
-    """MS135 meta-policy integrity lock.
+    """ meta-policy integrity lock.
 
     The policy file defines policy checks as `def test_*` functions
     and dispatches them from `main()`'s `tests = [...]` runner list.
@@ -663,7 +663,7 @@ def test_motion_smooth_policy_file_registers_all_defined_checks() -> None:
             f"`def {name}` is defined but not registered in "
             "main()'s tests list — the check would never run. "
             "Add `{name},` to the tests list in main()."
-            .replace("{name}", name)
+.replace("{name}", name)
         )
     dangling_registrations = sorted(registered_names - defined_names)
     for name in dangling_registrations:
@@ -680,20 +680,20 @@ def test_motion_smooth_policy_file_registers_all_defined_checks() -> None:
 
 
 def test_motion_smooth_facades_have_exact_motion_smooth_include_count() -> None:
-    """MS130 exact-count lock for façade re-exports.
+    """ exact-count lock for façade re-exports.
 
-    MS16 `test_facades_reexport_their_subheaders` verifies that each
+     `test_facades_reexport_their_subheaders` verifies that each
     expected sub-header IS included by its façade. But it doesn't
     flag SURPLUS includes: a future refactor could add a 5th
     `#include "bbsolver/motion_smooth/motion_smooth_..."` to `motion_smooth_solver.hpp` (e.g.,
-    accidentally re-exporting a new helper) and the MS16 check
+    accidentally re-exporting a new helper) and the check
     would still pass — the original 4 are present.
 
     This check counts the `#include "bbsolver/motion_smooth/motion_smooth_*"` lines in each
     façade and asserts the count matches `len(FACADE_INCLUDES[name])`
-    exactly. Combined with MS16, that means:
-      * Every expected sub-header is present (MS16 forward check)
-      * No unexpected sub-header is present (this MS130 reverse check)
+    exactly. Combined with, that means:
+      * Every expected sub-header is present ( forward check)
+      * No unexpected sub-header is present (this reverse check)
 
     Bidirectional façade-content lock. The non-motion_smooth includes
     in `motion_smooth_shape_loop.hpp` (`<cstddef>`, `<vector>`) and in
@@ -733,9 +733,9 @@ def test_motion_smooth_facades_have_exact_motion_smooth_include_count() -> None:
 
 
 def test_motion_smooth_policy_registered_in_quick_guard() -> None:
-    """MS125 registration-lock for the motion_smooth policy.
+    """ registration-lock for the motion_smooth policy.
 
-    MS100 added a one-line entry to `tools/p3_refactor_guard.py`'s
+     added a one-line entry to `tools/p3_refactor_guard.py`'s
     quick-tier policy list:
 
         ("motion smooth facade lock policy",
@@ -778,7 +778,7 @@ def test_motion_smooth_policy_registered_in_quick_guard() -> None:
             f"tools/p3_refactor_guard.py: missing registration label "
             f"`{expected_label}` — the motion_smooth policy is no "
             "longer registered in the quick-tier policy list. "
-            "Restore the MS100 single-line addition or update this "
+            "Restore the single-line addition or update this "
             "check if the label was intentionally renamed."
         )
     if expected_target not in text:
@@ -795,41 +795,41 @@ def test_motion_smooth_policy_registered_in_quick_guard() -> None:
 
 
 def test_ms_extracted_cpps_covers_every_submodule_body() -> None:
-    """MS120 meta-policy lock: cross-list consistency between
-    SUBMODULE_SYMBOLS (the .hpp surface) and MS_EXTRACTED_CPPS (the
-    .cpp dependency-surface allowlist).
+    """ meta-policy lock: cross-list consistency between
+    SUBMODULE_SYMBOLS (the.hpp surface) and MS_EXTRACTED_CPPS (the
+.cpp dependency-surface allowlist).
 
-    Each entry in SUBMODULE_SYMBOLS is an MS-extracted .hpp; its
-    sibling .cpp is one of the 15 sub-module bodies the lane added.
+    Each entry in SUBMODULE_SYMBOLS is an MS-extracted.hpp; its
+    sibling.cpp is one of the 15 sub-module bodies the lane added.
     MS_EXTRACTED_CPPS additionally lists 2 modified orchestrator
-    .cpp files (motion_smooth_shape_loop.cpp from MS5,
-    motion_smooth_shape_flat.cpp from MS22-MS25). The union should
-    be: {<basename>.cpp for each .hpp in SUBMODULE_SYMBOLS} ∪
+.cpp files (motion_smooth_shape_loop.cpp from,
+    motion_smooth_shape_flat.cpp from the shape-flat extraction sub-modules). The union should
+    be: {<basename>.cpp for each.hpp in SUBMODULE_SYMBOLS} ∪
     {motion_smooth_shape_loop.cpp, motion_smooth_shape_flat.cpp}.
 
     Without this check, a future MS lane could:
-      * Add a new sub-module .hpp + .cpp pair
-      * Add the .hpp to SUBMODULE_SYMBOLS (locking its surface)
-      * Forget to add the .cpp to MS_EXTRACTED_CPPS
+      * Add a new sub-module.hpp +.cpp pair
+      * Add the.hpp to SUBMODULE_SYMBOLS (locking its surface)
+      * Forget to add the.cpp to MS_EXTRACTED_CPPS
 
-    Result: the new .cpp would be silently skipped by MS85
+    Result: the new.cpp would be silently skipped by 
     `test_ms_extracted_cpps_only_include_allowed_non_motion_smooth_headers`,
     so a stray `#include "temporal_refit.hpp"` in the new file would
     not be flagged. This check prevents that drift mode.
 
-    The check is bidirectional: every SUBMODULE_SYMBOLS .hpp must
-    have its sibling .cpp in MS_EXTRACTED_CPPS, AND every
-    MS_EXTRACTED_CPPS .cpp (except the 2 orchestrator exceptions)
-    must have its sibling .hpp in SUBMODULE_SYMBOLS.
+    The check is bidirectional: every SUBMODULE_SYMBOLS.hpp must
+    have its sibling.cpp in MS_EXTRACTED_CPPS, AND every
+    MS_EXTRACTED_CPPS.cpp (except the 2 orchestrator exceptions)
+    must have its sibling.hpp in SUBMODULE_SYMBOLS.
     """
     orchestrator_exceptions = frozenset({
-        # MS5 — motion_smooth_shape_loop.cpp retains only
-        # EvenTimesForValueCount; its .hpp is the MS1-MS5 façade,
+        #  — motion_smooth_shape_loop.cpp retains only
+        # EvenTimesForValueCount; its.hpp is the façade,
         # not a sub-module header in SUBMODULE_SYMBOLS.
         "motion_smooth_shape_loop.cpp",
-        # MS22-MS25 — motion_smooth_shape_flat.cpp is the
-        # orchestrator that consumes the 4 MS22-MS25 helpers; its
-        # .hpp is a single-function declaration header, not a
+        # the shape-flat extraction sub-modules — motion_smooth_shape_flat.cpp is the
+        # orchestrator that consumes the 4 the shape-flat extraction sub-modules helpers; its
+        #.hpp is a single-function declaration header, not a
         # sub-module header.
         "motion_smooth_shape_flat.cpp",
     })
@@ -838,21 +838,21 @@ def test_ms_extracted_cpps_covers_every_submodule_body() -> None:
         header[:-len(".hpp")] + ".cpp" for header in SUBMODULE_SYMBOLS
     }
 
-    # Forward direction: every SUBMODULE_SYMBOLS .hpp must have its
-    # sibling .cpp in MS_EXTRACTED_CPPS.
+    # Forward direction: every SUBMODULE_SYMBOLS.hpp must have its
+    # sibling.cpp in MS_EXTRACTED_CPPS.
     findings = []
     for cpp_name in sorted(expected_cpps_from_submodules):
         if cpp_name not in MS_EXTRACTED_CPPS:
             findings.append(
                 f"SUBMODULE_SYMBOLS lists `{cpp_name[:-4]}.hpp` but its "
                 f"sibling `{cpp_name}` is not in MS_EXTRACTED_CPPS — "
-                "the .cpp would be silently skipped by the MS85 "
+                "the.cpp would be silently skipped by the  "
                 "dependency-surface allowlist check. Add it to "
                 "MS_EXTRACTED_CPPS."
             )
 
     # Reverse direction: every MS_EXTRACTED_CPPS entry (except the 2
-    # orchestrator exceptions) must have its sibling .hpp in
+    # orchestrator exceptions) must have its sibling.hpp in
     # SUBMODULE_SYMBOLS.
     for cpp_name in sorted(MS_EXTRACTED_CPPS):
         if cpp_name in orchestrator_exceptions:
@@ -861,7 +861,7 @@ def test_ms_extracted_cpps_covers_every_submodule_body() -> None:
             findings.append(
                 f"MS_EXTRACTED_CPPS lists `{cpp_name}` but its "
                 f"sibling `{cpp_name[:-4]}.hpp` is not in "
-                "SUBMODULE_SYMBOLS — the .hpp public surface is "
+                "SUBMODULE_SYMBOLS — the.hpp public surface is "
                 "not locked. Either add the header to "
                 "SUBMODULE_SYMBOLS or, if it is an orchestrator "
                 "rather than a sub-module, add it to "
@@ -876,9 +876,9 @@ def test_ms_extracted_cpps_covers_every_submodule_body() -> None:
 
 
 def test_motion_smooth_facade_includes_carry_iwyu_keep_pragma() -> None:
-    """MS115 IWYU-keep-pragma lock.
+    """ IWYU-keep-pragma lock.
 
-    MS110-MS114 added `// IWYU pragma: keep` to each re-export include
+    the corresponding sub-modules added `// IWYU pragma: keep` to each re-export include
     in the 3 motion_smooth façade headers. Without the pragma,
     clangd's include-cleaner reports the includes as
     `unused-includes` (because the façade body uses none of the
@@ -935,9 +935,9 @@ def test_motion_smooth_facade_includes_carry_iwyu_keep_pragma() -> None:
 
 
 def test_shape_flat_facade_does_not_re_export_internal_helpers() -> None:
-    """MS70 boundary lock: motion_smooth_shape_flat.hpp is intentionally
+    """ boundary lock: motion_smooth_shape_flat.hpp is intentionally
     a single-function declaration header (only declares
-    `MotionSmoothShapeFlatTrajectoryKeys`). The MS22-MS25 helpers
+    `MotionSmoothShapeFlatTrajectoryKeys`). The the shape-flat extraction sub-modules helpers
     (notes / topology_gate / closed_loop / key_emission) are
     orchestrator-internal — they are exposed as their own headers so
     tests can call them, but they MUST NOT be re-exported via
@@ -947,8 +947,8 @@ def test_shape_flat_facade_does_not_re_export_internal_helpers() -> None:
     `motion_smooth_facade_lock_policy.py`'s SUBMODULE_SYMBOLS comment
     block ("These are NOT added to FACADE_INCLUDES because
     motion_smooth_shape_flat.hpp is a single-function declaration
-    header, not a façade in the MS1-MS15 sense") and was reinforced by
-    the MS22-MS25 docs entry. Without this check, a future refactor
+    header, not a façade in the the corresponding sub-modules sense") and was reinforced by
+    the the shape-flat extraction sub-modules docs entry. Without this check, a future refactor
     that added `#include "bbsolver/motion_smooth/motion_smooth_shape_flat_notes.hpp"` to the
     shape_flat header would silently expand the public API surface —
     every consumer of `motion_smooth_shape_flat.hpp` (main.cpp,
@@ -974,7 +974,7 @@ def test_shape_flat_facade_does_not_re_export_internal_helpers() -> None:
         if include_token in text:
             findings.append(
                 f"motion_smooth_shape_flat.hpp includes `{include_name}` "
-                "— that helper is orchestrator-internal (MS22-MS25) and "
+                "— that helper is orchestrator-internal (the shape-flat extraction sub-modules) and "
                 "must not be re-exported through the public shape_flat "
                 "header; move the include into "
                 "motion_smooth_shape_flat.cpp instead"
@@ -986,10 +986,10 @@ def test_shape_flat_facade_does_not_re_export_internal_helpers() -> None:
 
 
 def _extract_top_level_declared_symbols(text: str) -> list[str]:
-    """MS80 helper: extract every top-level declaration in a header.
+    """ helper: extract every top-level declaration in a header.
 
     A declaration is either:
-      * `struct X { ... };` at column 0 → emits "struct X"
+      * `struct X {... };` at column 0 → emits "struct X"
       * `<return_type> Func(...);` at column 0 → emits "Func"
 
     Field declarations inside struct bodies are at indented columns
@@ -1026,18 +1026,17 @@ def _extract_top_level_declared_symbols(text: str) -> list[str]:
 
 
 def test_motion_smooth_subheaders_only_declare_expected_symbols() -> None:
-    """MS80 symbol-drift detection.
+    """ symbol-drift detection.
 
-    The existing `test_submodule_headers_declare_expected_symbols`
-    (MS16) verifies every entry in SUBMODULE_SYMBOLS is *present* in
-    its header. MS80 inverts the direction: it asserts every
+    The existing `test_submodule_headers_declare_expected_symbols` verifies every entry in SUBMODULE_SYMBOLS is *present* in
+    its header.  inverts the direction: it asserts every
     *top-level declaration* in each header is *expected* by
     SUBMODULE_SYMBOLS.
 
     Without this inverse check, a future refactor could add a new
     public function to a sub-header (say, `void NewHelperX(...)` in
     `motion_smooth_shape_flat_notes.hpp`) without updating the policy.
-    The MS16 check would still pass (the expected symbols are still
+    The check would still pass (the expected symbols are still
     declared). But the architectural intent — that each MS sub-header
     has a tightly-scoped public surface enumerated by
     SUBMODULE_SYMBOLS — would silently break.
@@ -1078,7 +1077,7 @@ def test_motion_smooth_subheaders_only_declare_expected_symbols() -> None:
     )
 
 
-# MS85 allowlist scaffolding ----------------------------------------------
+#  allowlist scaffolding ----------------------------------------------
 #
 # The files this lane owns (15 new MS-extracted sub-modules + 2 modified
 # orchestrators whose bodies the MS work substantially rewrote). Each
@@ -1091,36 +1090,36 @@ def test_motion_smooth_subheaders_only_declare_expected_symbols() -> None:
 # they have legitimate pre-existing dependencies on path_bridge_refit,
 # solver_reporting, etc., that are outside MS-architectural scope.
 MS_EXTRACTED_CPPS = frozenset({
-    # MS1 — tangent lock.
+    #  — tangent lock.
     "motion_smooth_shape_tangent_lock.cpp",
-    # MS2 — Catmull-Rom curve primitives.
+    #  — Catmull-Rom curve primitives.
     "motion_smooth_shape_loop_curve.cpp",
-    # MS3 — adaptive sampler.
+    #  — adaptive sampler.
     "motion_smooth_shape_loop_adaptive.cpp",
-    # MS4 — closed-loop schedule.
+    #  — closed-loop schedule.
     "motion_smooth_shape_loop_schedule.cpp",
-    # MS5 — residual orchestrator (only EvenTimesForValueCount remains).
+    #  — residual orchestrator (only EvenTimesForValueCount remains).
     "motion_smooth_shape_loop.cpp",
-    # MS6 — source-key schedule + RDP.
+    #  — source-key schedule + RDP.
     "motion_smooth_shape_source_key_schedule.cpp",
-    # MS7 — trajectory smoother.
+    #  — trajectory smoother.
     "motion_smooth_shape_trajectory_smooth.cpp",
-    # MS8 — rove schedule.
+    #  — rove schedule.
     "motion_smooth_shape_rove_schedule.cpp",
-    # MS11 — sample/point primitives.
+    #  — sample/point primitives.
     "motion_smooth_sample_points.cpp",
-    # MS12 — Bezier ease.
+    #  — Bezier ease.
     "motion_smooth_bezier_ease.cpp",
-    # MS13 — endpoint keys.
+    #  — endpoint keys.
     "motion_smooth_endpoint_keys.cpp",
-    # MS14 — spatial trajectory.
+    #  — spatial trajectory.
     "motion_smooth_spatial_trajectory.cpp",
-    # MS22-MS25 — shape_flat orchestrator helpers.
+    # the shape-flat extraction sub-modules — shape_flat orchestrator helpers.
     "motion_smooth_shape_flat_notes.cpp",
     "motion_smooth_shape_flat_topology_gate.cpp",
     "motion_smooth_shape_flat_closed_loop.cpp",
     "motion_smooth_shape_flat_key_emission.cpp",
-    # MS22-MS25 — shape_flat orchestrator (substantially reduced).
+    # the shape-flat extraction sub-modules — shape_flat orchestrator (substantially reduced).
     "motion_smooth_shape_flat.cpp",
 })
 
@@ -1131,17 +1130,17 @@ MS_EXTRACTED_CPPS = frozenset({
 # alongside the code change.
 MS_EXTRACTED_NON_MOTION_SMOOTH_ALLOWLIST = frozenset({
     "bbsolver/domain.hpp",                    # Core types (PropertySamples, Sample, Key, etc.)
-    "bbsolver/dp/dp_placer.hpp",   # SegmentFitResult (consumed by MS11 sample_points). Slice 90: dp_placer migrated to bbsolver/dp/.
-    "bbsolver/routing/property_classification.hpp", # IsShapeFlatPath (consumed by MS11, MS13).
-    "bbsolver/samples/raw_frame_keys.hpp",       # ShapeFlatFrameKeyFallback (consumed by MS13, MS23).
-    "bbsolver/samples/sample_key_timing.hpp",    # DefaultEasesForProperty (consumed by MS12, MS13, MS14, MS25).
-    "bbsolver/samples/sample_value_helpers.hpp", # SampleVectorOrZeros (consumed by MS11, MS13).
-    "bbsolver/shape/shape_flat_topology.hpp", # ShapeFlatVertexCountFromValues (consumed by MS1, MS13, MS23).
+    "bbsolver/dp/dp_placer.hpp",   # SegmentFitResult (consumed by sample_points). Slice 90: dp_placer migrated to bbsolver/dp/.
+    "bbsolver/routing/property_classification.hpp", # IsShapeFlatPath (consumed by, ).
+    "bbsolver/samples/raw_frame_keys.hpp",       # ShapeFlatFrameKeyFallback (consumed by, ).
+    "bbsolver/samples/sample_key_timing.hpp",    # DefaultEasesForProperty (consumed by,,, ).
+    "bbsolver/samples/sample_value_helpers.hpp", # SampleVectorOrZeros (consumed by, ).
+    "bbsolver/shape/shape_flat_topology.hpp", # ShapeFlatVertexCountFromValues (consumed by,, ).
 })
 
 
 def test_ms_extracted_cpps_only_include_allowed_non_motion_smooth_headers() -> None:
-    """MS85 dependency-surface lock for MS-extracted code.
+    """ dependency-surface lock for MS-extracted code.
 
     Every `#include "..."` directive in a file listed in
     MS_EXTRACTED_CPPS must point to either:
@@ -1162,11 +1161,11 @@ def test_ms_extracted_cpps_only_include_allowed_non_motion_smooth_headers() -> N
     solver_reporting, etc., that aren't this lane's to police.
 
     This check completes the dependency-surface trifecta:
-      * MS17: no stale motion_smooth includes (every included
+      *: no stale motion_smooth includes (every included
         motion_smooth header exists on disk).
-      * MS80: no unexpected public symbols in MS sub-headers.
-      * MS85: no unexpected non-motion_smooth dependencies in
-        MS-extracted .cpp files.
+      *: no unexpected public symbols in MS sub-headers.
+      *: no unexpected non-motion_smooth dependencies in
+        MS-extracted.cpp files.
     """
     findings = []
     for cpp_name in sorted(MS_EXTRACTED_CPPS):
@@ -1219,14 +1218,14 @@ def test_ms_extracted_cpps_only_include_allowed_non_motion_smooth_headers() -> N
 
 
 def test_submodule_bodies_pair_with_their_headers() -> None:
-    """Every MS sub-module .hpp listed in SUBMODULE_SYMBOLS must have a
-    sibling .cpp at the same path. A regression that orphans a header
-    (removes the .cpp but leaves the .hpp) would silently produce
+    """Every MS sub-module.hpp listed in SUBMODULE_SYMBOLS must have a
+    sibling.cpp at the same path. A regression that orphans a header
+    (removes the.cpp but leaves the.hpp) would silently produce
     unresolved-symbol link errors at integration; surface that here.
     """
     findings = []
     for header_name in SUBMODULE_SYMBOLS:
-        body_name = header_name[:-4] + ".cpp"  # strip .hpp, add .cpp
+        body_name = header_name[:-4] + ".cpp"  # strip.hpp, add.cpp
         body_path = _ms_path(body_name)
         if not body_path.exists():
             findings.append(
@@ -1239,12 +1238,12 @@ def test_submodule_bodies_pair_with_their_headers() -> None:
 
 
 # ---------------------------------------------------------------------------
-# MS17 integration-readiness checks. The MS1-MS16 contract locked the
-# structure of the splits at the source-text layer. MS17 closes the
+#  integration-readiness checks. The the corresponding sub-modules contract locked the
+# structure of the splits at the source-text layer.  closes the
 # remaining gaps that would matter when the lane integrates upstream:
 # stale include paths, duplicate symbol declarations across motion_smooth
 # headers, header/body symbol-ownership drift, and the focused-test files
-# that were added in MS9 / MS15 to lock previously-untested surfaces.
+# that were added in  /  to lock previously-untested surfaces.
 # ---------------------------------------------------------------------------
 
 
@@ -1256,62 +1255,62 @@ def test_submodule_bodies_pair_with_their_headers() -> None:
 SCAN_INCLUDE_ROOTS = ("solver/src", "solver/include/bbsolver/motion_smooth", "solver/tests/solver_unit")
 
 
-# MS9 / MS15 focused-test files. These must remain present so the
+#  /  focused-test files. These must remain present so the
 # specific surfaces they lock (RDP keep-mask recursion, ApplyMotionSmoothBezierEase
 # early-return guards, influence clamp extremes, anchor-pin contract,
 # tolerance-clamp extremes) stay covered at the unit-test layer.
 FOCUSED_TEST_FILES = (
     ("solver/tests/solver_unit/test_motion_smooth_source_key_schedule.cpp",
-     "MS9 focused test for ShapeMotionSourceKeyRdpKeep + "
+     " focused test for ShapeMotionSourceKeyRdpKeep + "
      "BuildShapeMotionSourceKeySchedule contracts"),
     ("solver/tests/solver_unit/test_motion_smooth_bezier_ease_guards.cpp",
-     "MS15 focused test for ApplyMotionSmoothBezierEase early-return "
+     " focused test for ApplyMotionSmoothBezierEase early-return "
      "guards and min_influence/max_influence clamp extremes"),
     ("solver/tests/solver_unit/test_motion_smooth_curve_and_tangent_lock.cpp",
-     "MS19 focused test for MS1 LockShapeFlatRotationalTangents + "
-     "MS2 curve primitives (MotionSmoothCatmullRomValue, PointTurnDeg, "
+     " focused test for LockShapeFlatRotationalTangents + "
+     " curve primitives (MotionSmoothCatmullRomValue, PointTurnDeg, "
      "ShapeFlatVertexPoint, EvaluateClosedLoopShapeAtParam)"),
     ("solver/tests/solver_unit/test_motion_smooth_shape_flat_notes.cpp",
-     "MS26 focused test for MS22 BuildMotionSmoothShapeFlatNotes — "
+     " focused test for BuildMotionSmoothShapeFlatNotes — "
      "locks the public note-token contract (always-on flags, "
      "closed-loop branch tokens, source-fidelity discriminator)"),
     ("solver/tests/solver_unit/test_motion_smooth_shape_flat_topology_gate.cpp",
-     "MS32 focused test for MS23 ValidateMotionSmoothShapeFlatTopology — "
+     " focused test for ValidateMotionSmoothShapeFlatTopology — "
      "locks all five return paths (success, no_shape_motion_span, "
      "invalid_shape_topology, variable_shape_topology, "
      "no_source_key_schedule) and the populated success outputs"),
     ("solver/tests/solver_unit/test_motion_smooth_shape_flat_key_emission.cpp",
-     "MS33 focused test for MS25 EmitMotionSmoothShapeFlatKeysFromRoveSchedule — "
+     " focused test for EmitMotionSmoothShapeFlatKeysFromRoveSchedule — "
      "locks edge-Linear/interior-Bezier interp choice, "
      "temporal_continuous mirror of use_ease, times/values round-trip "
      "from rove schedule, and ApplyMotionSmoothBezierEase invocation "
      "under use_ease=true"),
     ("solver/tests/solver_unit/test_motion_smooth_rove_schedule.cpp",
-     "MS34 focused test for MS8 BuildShapeMotionRoveScheduleFromValues — "
+     " focused test for BuildShapeMotionRoveScheduleFromValues — "
      "locks the 1e-7 static-duplicate epsilon, endpoint preservation, "
      "travel-proportional retiming under apply_rove=true, and the "
      "apply_rove=false short-circuit that keeps interior times"),
     ("solver/tests/solver_unit/test_motion_smooth_shape_loop_schedule.cpp",
-     "MS35 focused test for MS4 TimesForClosedLoopParams + "
+     " focused test for TimesForClosedLoopParams + "
      "TimesForClosedLoopParamsByIntervalTravel — locks linear-interp "
      "boundary clamps, size-mismatch fallback, endpoint pinning, "
      "chord-travel interior retiming, and applied threshold semantics"),
     ("solver/tests/solver_unit/test_motion_smooth_shape_flat_closed_loop.cpp",
-     "MS40 focused test for MS24 BuildShapeFlatClosedLoopAdaptiveResample — "
+     " focused test for BuildShapeFlatClosedLoopAdaptiveResample — "
      "locks the 4-cell (closed_loop × motion_smooth_source_fidelity) "
      "behaviour matrix: trivial pass-through choosing smoothed vs "
      "original_values, all-true constraint indices under fidelity, "
      "EvenTimesForValueCount derivation under closed-loop, and "
      "source_pose_interval_schedule population under closed-loop+fidelity"),
     ("solver/tests/solver_unit/test_motion_smooth_shape_trajectory_smooth.cpp",
-     "MS45 focused test for MS7 BuildShapeMotionTrajectorySmoothValues — "
+     " focused test for BuildShapeMotionTrajectorySmoothValues — "
      "locks pre-LSQ scaffolding (smoothing_passes formula, "
      "smoothing_blend = clamp(strength/(strength+2), 0, 0.90)), "
      "early-return paths (size<=2 or dims<=2 → smoothed==original), "
      "main-path displacement_limit positivity, and source-fidelity "
      "flag round-trip from optional inputs"),
     ("solver/tests/solver_unit/test_motion_smooth_shape_loop_adaptive.cpp",
-     "MS50 focused test for MS3 BuildAdaptiveClosedLoopShapeSamples — "
+     " focused test for BuildAdaptiveClosedLoopShapeSamples — "
      "closes the last indirect-only motion_smooth surface. Locks three "
      "early-return paths (size<4, dims<=2, vertex_count<=0), the "
      "strength-derived formulas at non-source-pose and source-pose "
@@ -1439,9 +1438,9 @@ def test_motion_smooth_symbol_ownership_is_unique() -> None:
 
 
 def test_submodule_bodies_define_their_declared_symbols() -> None:
-    """For each function symbol declared in a sub-module .hpp, the
-    sibling .cpp must contain a definition. A regression that moves a
-    function definition out of its expected .cpp (e.g. into a stray
+    """For each function symbol declared in a sub-module.hpp, the
+    sibling.cpp must contain a definition. A regression that moves a
+    function definition out of its expected.cpp (e.g. into a stray
     "motion_smooth_misc.cpp") would surface as a link error downstream;
     catching it at the source-text layer keeps the failure local to
     the policy run.
@@ -1478,8 +1477,8 @@ def test_submodule_bodies_define_their_declared_symbols() -> None:
 
 
 # ---------------------------------------------------------------------------
-# MS18 merge-preflight checks. The MS16-MS17 contracts lock the structure
-# and the include graph. MS18 closes the remaining algorithmic-fidelity
+#  merge-preflight checks. The the corresponding sub-modules contracts lock the structure
+# and the include graph.  closes the remaining algorithmic-fidelity
 # gaps: tolerance / clamp constants, public note-string tokens, header
 # hygiene (#pragma once), and the self-include convention. A regression
 # in any of these would compile cleanly but silently change downstream
@@ -1497,7 +1496,7 @@ def test_submodule_bodies_define_their_declared_symbols() -> None:
 TOLERANCE_CONSTANTS = {
     "motion_smooth_shape_loop_adaptive.cpp": [
         ("48.0 - strength * 3.0",
-         "base_target_turn_deg formula (MS3 adaptive sampler)"),
+         "base_target_turn_deg formula ( adaptive sampler)"),
         ("strength * 0.55",
          "regular-mode chord_error_tolerance multiplier"),
         ("strength * 0.35",
@@ -1527,7 +1526,7 @@ TOLERANCE_CONSTANTS = {
         ("x1 * 100.0",
          "out_influence raw computation before clamp"),
     ],
-    # MS7 trajectory smoother constants (added in MS55 — the MS50
+    #  trajectory smoother constants (added in  — the 
     # report flagged these as untracked). The smoothing_blend formula
     # is the user-visible knob for how aggressively the cubic-Bezier
     # LSQ fit influences the output; its clamp ceiling at 0.90 is the
@@ -1540,7 +1539,7 @@ TOLERANCE_CONSTANTS = {
         ("strength / (strength + 2.0)",
          "smoothing_blend raw formula before clamp"),
         ("0.90",
-         "smoothing_blend clamp ceiling (also tested at MS45)"),
+         "smoothing_blend clamp ceiling (also tested at )"),
         ("strength * 24.0",
          "displacement_limit raw component (strength-driven cap)"),
         ("extent * 0.04 * strength",
@@ -1553,8 +1552,8 @@ TOLERANCE_CONSTANTS = {
          "determinant threshold guarding the LSQ solve against "
          "singular observation matrices"),
     ],
-    # MS22-MS25 shape_flat orchestrator + helpers (added in MS27 to
-    # close the policy gap left by MS22-MS26 — the helpers introduced
+    # the shape-flat extraction sub-modules shape_flat orchestrator + helpers (added in to
+    # close the policy gap left by the corresponding sub-modules — the helpers introduced
     # algorithmically significant constants that the existing per-file
     # entries above did not cover).
     "motion_smooth_shape_flat.cpp": [
@@ -1573,7 +1572,7 @@ TOLERANCE_CONSTANTS = {
          "minimum-topology gate: invalid topology iff vertex_count<=0 or dims<8 "
          "(anchor + 1 vertex with all 6 slots = 8 dims)"),
     ],
-    # MS65: lock the endpoint route's behavioural threshold. This
+    #: lock the endpoint route's behavioural threshold. This
     # 1e-9 decides whether the endpoint route emits 1 key (first
     # sample only) or 2 keys (first + last). Unlike a defensive
     # degenerate-length guard, this threshold directly shapes the
@@ -1607,7 +1606,7 @@ NOTE_STRING_TOKENS = {
          "segment.reason token for endpoint route"),
         ("endpoint_topology_mismatch",
          "shape-flat fallback note for vertex-count mismatch"),
-        # MS60: lock the empty-samples fallback note. Downstream
+        #: lock the empty-samples fallback note. Downstream
         # consumers parse this as the discriminator for "endpoint
         # route was invoked but had no samples to work with"; a rename
         # would silently break that classification.
@@ -1627,14 +1626,14 @@ NOTE_STRING_TOKENS = {
          "documents that spatial route does not constrain source error"),
         ("motion_smooth_spatial_trajectory_filter",
          "segment.reason token for spatial route"),
-        # MS60: lock the no-spatial-span fallback note. Downstream
+        #: lock the no-spatial-span fallback note. Downstream
         # consumers parse this as the discriminator for "spatial
         # route was invoked with fewer than 2 samples"; a rename
         # would silently break that classification.
         ("solve_mode_motion_smooth; no_spatial_span",
          "fallback note when property_samples.samples.size() < 2"),
     ],
-    # MS22 extraction — the shape_flat notes block. After MS22 the
+    # extraction — the shape_flat notes block. After the
     # biggest motion-smooth notes string lives in this TU; previously
     # it sat inline in motion_smooth_shape_flat.cpp. Locking the
     # always-on flags + the closed-loop/source-fidelity discriminators
@@ -1671,7 +1670,7 @@ NOTE_STRING_TOKENS = {
         ("closed_loop_resample=true",
          "closed-loop-only token appended when closed_loop branch fires"),
     ],
-    # MS23 extraction — the four fallback skip strings that
+    # extraction — the four fallback skip strings that
     # downstream consumers parse to discriminate why the motion-smooth
     # route bailed. Rename of any of these would silently break the
     # diagnostic taxonomy.
@@ -1724,7 +1723,7 @@ def test_motion_smooth_headers_have_pragma_once() -> None:
 
 def test_motion_smooth_tolerance_constants_remain_with_owning_tu() -> None:
     """Algorithmic tolerance / clamp constants must remain in their
-    owning .cpp. A regression that changes (say) `48.0 - strength * 3.0`
+    owning.cpp. A regression that changes (say) `48.0 - strength * 3.0`
     to `50.0 - strength * 3.0` in the adaptive sampler would compile
     cleanly and pass most behavioural tests numerically (the input
     space is large enough that random-input tests rarely hit the
@@ -1755,7 +1754,7 @@ def test_motion_smooth_tolerance_constants_remain_with_owning_tu() -> None:
 
 def test_motion_smooth_notes_strings_remain_with_owning_tu() -> None:
     """Public note-string tokens that downstream diagnostic consumers
-    parse must remain in their owning .cpp. A regression that renames
+    parse must remain in their owning.cpp. A regression that renames
     `solve_mode_motion_smooth` to anything else would silently break
     the panel's mode detection and any diagnostic analyzer that keys
     off the token.
@@ -1794,7 +1793,7 @@ def test_motion_smooth_cpp_files_self_include_their_header() -> None:
     2. Makes the implementation-vs-interface pairing explicit and
        grep-discoverable.
 
-    A regression that lets a .cpp open with a different include first
+    A regression that lets a.cpp open with a different include first
     (e.g. a project header before the self-include) would silently
     weaken the header's self-containment invariant.
     """
@@ -1821,11 +1820,11 @@ def test_motion_smooth_cpp_files_self_include_their_header() -> None:
 
 
 def test_focused_test_files_remain_present() -> None:
-    """The MS9 and MS15 focused-test files must remain on disk. These
+    """The and focused-test files must remain on disk. These
     test files lock specific motion_smooth surfaces (RDP keep-mask
-    recursion + builder anchor-pin/tolerance clamps from MS9;
+    recursion + builder anchor-pin/tolerance clamps from;
     ApplyMotionSmoothBezierEase early-return guards + influence-clamp
-    extremes from MS15) that the higher-level integration tests don't
+    extremes from ) that the higher-level integration tests don't
     cover.
 
     A regression that deleted either file would silently drop the
@@ -1848,20 +1847,20 @@ def test_focused_test_files_remain_present() -> None:
                 "test file is present but cannot be run as a binary"
             )
     assert not findings, (
-        "MS9/MS15 focused-test presence contract violated. Findings:\n  "
+        "/ focused-test presence contract violated. Findings:\n  "
         + "\n  ".join(findings)
     )
 
 
 def test_no_orphan_motion_smooth_headers() -> None:
-    """MS140 orphan-header lock: every `motion_smooth_*.hpp` on disk in
+    """ orphan-header lock: every `motion_smooth_*.hpp` on disk in
     `solver/src/` must be accounted for by exactly one classification
     bucket in this policy:
 
       * FACADE_INCLUDES keys           — MS façade headers
       * FACADE_INCLUDES values         — sub-headers re-exported by a façade
       * SUBMODULE_SYMBOLS keys         — MS-extracted sub-module headers
-      * PRE_EXISTING_MOTION_SMOOTH_HEADERS — legacy headers pre-dating MS1
+      * PRE_EXISTING_MOTION_SMOOTH_HEADERS — legacy headers pre-dating 
 
     A new motion_smooth header that lands without being added to one of
     those buckets is an orphan: the policy does not enforce its symbol
@@ -1905,12 +1904,12 @@ def test_no_orphan_motion_smooth_headers() -> None:
 
 
 def test_no_orphan_motion_smooth_bodies() -> None:
-    """MS141 orphan-body lock: parallel to `test_no_orphan_motion_smooth_headers`,
+    """ orphan-body lock: parallel to `test_no_orphan_motion_smooth_headers`,
     every `motion_smooth_*.cpp` on disk in `solver/src/` must be
     accounted for by exactly one classification bucket:
 
-      * MS_EXTRACTED_CPPS                  — MS1-MS25 extracted bodies
-      * PRE_EXISTING_MOTION_SMOOTH_BODIES  — legacy bodies pre-dating MS1
+      * MS_EXTRACTED_CPPS                  — the corresponding sub-modules extracted bodies
+      * PRE_EXISTING_MOTION_SMOOTH_BODIES  — legacy bodies pre-dating 
 
     Three additional data-integrity asserts run on the allowlist itself:
       1. Every PRE_EXISTING_MOTION_SMOOTH_BODIES entry exists on disk
@@ -1977,12 +1976,12 @@ def test_no_orphan_motion_smooth_bodies() -> None:
 
 
 def test_ms_extracted_non_motion_smooth_allowlist_has_no_stale_entries() -> None:
-    """MS145 reverse-leg lock on MS_EXTRACTED_NON_MOTION_SMOOTH_ALLOWLIST:
+    """ reverse-leg lock on MS_EXTRACTED_NON_MOTION_SMOOTH_ALLOWLIST:
     every header listed there must actually be `#include`d (quoted form)
     by at least one MS-extracted body (MS_EXTRACTED_CPPS) or sub-header
     (SUBMODULE_SYMBOLS keys).
 
-    MS156 introduces a parallel forward leg on sub-headers, so the
+     introduces a parallel forward leg on sub-headers, so the
     reverse-leg here must scan both bodies and sub-headers; otherwise
     an allowlist entry used only by a sub-header would be incorrectly
     flagged as stale.
@@ -2026,7 +2025,7 @@ def test_ms_extracted_non_motion_smooth_allowlist_has_no_stale_entries() -> None
 
 
 def test_focused_test_files_reference_motion_smooth_surface() -> None:
-    """MS146 surface-coverage lock: every entry in FOCUSED_TEST_FILES
+    """ surface-coverage lock: every entry in FOCUSED_TEST_FILES
     must `#include` at least one `motion_smooth_*.hpp` header.
 
     The presence check (`test_focused_test_files_remain_present`) only
@@ -2066,7 +2065,7 @@ def test_focused_test_files_reference_motion_smooth_surface() -> None:
 
 
 def test_pure_shim_facades_are_facade_includes_keys() -> None:
-    """MS147 policy-data consistency: every entry in PURE_SHIM_FACADES
+    """ policy-data consistency: every entry in PURE_SHIM_FACADES
     must be a key in FACADE_INCLUDES.
 
     PURE_SHIM_FACADES is consumed by `test_facade_headers_are_thin` to
@@ -2086,9 +2085,9 @@ def test_pure_shim_facades_are_facade_includes_keys() -> None:
 
 
 def test_ms_extracted_headers_only_include_allowed_non_motion_smooth_headers() -> None:
-    """MS156 dependency-surface lock for MS-extracted sub-headers.
+    """ dependency-surface lock for MS-extracted sub-headers.
 
-    Parallel to MS85's `.cpp` check: every quoted `#include "..."`
+    Parallel to 's `.cpp` check: every quoted `#include "..."`
     directive in a sub-header listed in SUBMODULE_SYMBOLS must point
     to either:
 
@@ -2103,10 +2102,10 @@ def test_ms_extracted_headers_only_include_allowed_non_motion_smooth_headers() -
     MS_EXTRACTED_NON_MOTION_SMOOTH_ALLOWLIST, so this check passes
     cleanly and locks the surface.
 
-    Façade headers (FACADE_INCLUDES keys) are out of scope; MS151
+    Façade headers (FACADE_INCLUDES keys) are out of scope; 
     enforces a stricter motion_smooth-only quoted-include rule on
     them. Pre-existing legacy headers (PRE_EXISTING_MOTION_SMOOTH_HEADERS)
-    are also out of scope for the same reason MS85 excludes them.
+    are also out of scope for the same reason excludes them.
     """
     findings = []
     for header_name in sorted(SUBMODULE_SYMBOLS.keys()):
@@ -2158,7 +2157,7 @@ def test_ms_extracted_headers_only_include_allowed_non_motion_smooth_headers() -
 
 
 def test_motion_smooth_files_have_no_unapproved_orchestration_dependencies() -> None:
-    """MS155 architectural-boundary lock (wider than MS150's MS-extracted
+    """ architectural-boundary lock (wider than 's MS-extracted
     scope): every `motion_smooth_*.{hpp,cpp}` on disk in solver/src/
     may `#include` (quoted form) headers matching
     FORBIDDEN_ORCHESTRATION_STEM_PREFIXES only if the (file, include)
@@ -2245,7 +2244,7 @@ def test_motion_smooth_files_have_no_unapproved_orchestration_dependencies() -> 
 
 
 def test_motion_smooth_facade_quoted_includes_are_motion_smooth_only() -> None:
-    """MS151 façade-purity lock: every quoted-form `#include "..."`
+    """ façade-purity lock: every quoted-form `#include "..."`
     directive inside a façade header (FACADE_INCLUDES keys) must
     reference another `motion_smooth_*.hpp` file.
 
@@ -2290,10 +2289,10 @@ def test_motion_smooth_facade_quoted_includes_are_motion_smooth_only() -> None:
 
 
 def test_ms_extracted_files_are_stl_self_sufficient() -> None:
-    """MS165 direct-include / self-sufficient lock for every MS-extracted
+    """ direct-include / self-sufficient lock for every MS-extracted
     motion_smooth file (façade headers, sub-headers, and bodies).
 
-    Wider than MS161 (which originally covered only SUBMODULE_SYMBOLS
+    Wider than  (which originally covered only SUBMODULE_SYMBOLS
     sub-headers). Scope is now the union of FACADE_INCLUDES keys,
     SUBMODULE_SYMBOLS keys, and MS_EXTRACTED_CPPS. The principle:
     every TU should include what it uses directly. A sub-header that
@@ -2343,15 +2342,15 @@ def test_ms_extracted_files_are_stl_self_sufficient() -> None:
 
 
 def test_ms_extracted_non_motion_smooth_allowlist_entries_exist() -> None:
-    """MS166 allowlist-existence lock: every entry in
+    """ allowlist-existence lock: every entry in
     MS_EXTRACTED_NON_MOTION_SMOOTH_ALLOWLIST must exist as a file
     under either solver/src/ or the namespaced solver/include/ root.
 
-    The forward leg (MS85) permits an MS file to `#include` a header
-    in this allowlist; the reverse leg (MS145) asserts each allowlist
+    The forward leg permits an MS file to `#include` a header
+    in this allowlist; the reverse leg asserts each allowlist
     entry is actually `#include`d by some MS file. Neither check
     verifies the file referenced by the allowlist entry exists on
-    disk. If `dp_placer.hpp` were renamed in a Codex lane and the
+    disk. If `dp_placer.hpp` were renamed during a refactor and the
     allowlist not updated, MS files including it would fail to
     compile but the allowlist policy would still PASS — the data is
     pointing at nothing. This check catches that rot.
@@ -2382,7 +2381,7 @@ def test_ms_extracted_non_motion_smooth_allowlist_entries_exist() -> None:
 
 
 def test_ms_extracted_subheaders_directly_include_cross_ms_symbol_owners() -> None:
-    """MS167 cross-MS direct-include lock.
+    """ cross-MS direct-include lock.
 
     SUBMODULE_SYMBOLS maps each sub-header to the symbols it owns
     (declares as the canonical site). If sub-header A references a
@@ -2400,8 +2399,8 @@ def test_ms_extracted_subheaders_directly_include_cross_ms_symbol_owners() -> No
 
     Currently 10 cross-MS references exist across 3 sub-headers
     (shape_flat_notes, shape_flat_closed_loop, shape_flat_key_emission
-    consume the upstream MS6-MS10 schedule + MS3 adaptive types) and
-    every one has its direct include. MS167 locks that clean state.
+    consume the upstream the corresponding sub-modules schedule +  adaptive types) and
+    every one has its direct include.  locks that clean state.
     """
     owner_map: dict[str, str] = {}
     for header, symbols in SUBMODULE_SYMBOLS.items():
@@ -2436,7 +2435,7 @@ def test_ms_extracted_subheaders_directly_include_cross_ms_symbol_owners() -> No
 
 
 def test_ms_extracted_sub_modules_do_not_back_edge_their_facade() -> None:
-    """MS168 façade back-edge lock.
+    """ façade back-edge lock.
 
     For each sub-header / sub-body pair where the sub-header is
     re-exported by a façade in FACADE_INCLUDES, neither the
@@ -2448,7 +2447,7 @@ def test_ms_extracted_sub_modules_do_not_back_edge_their_facade() -> None:
 
     Façade bodies themselves (e.g. motion_smooth_shape_loop.cpp, the
     29-LOC residual body of the shape_loop façade) DO include their
-    own façade via the MS18 self-include convention — those are the
+    own façade via the self-include convention — those are the
     façade's TU, not back-edges, and they are not in scope here
     because the orchestrators are not in SUBMODULE_SYMBOLS.
     """
@@ -2494,7 +2493,7 @@ def test_ms_extracted_sub_modules_do_not_back_edge_their_facade() -> None:
 
 
 def test_ms_extracted_files_remain_below_monolith_ceiling() -> None:
-    """MS169 anti-monolith guardrail: every MS-extracted motion_smooth
+    """ anti-monolith guardrail: every MS-extracted motion_smooth
     file must remain below a category-specific LOC ceiling.
 
       * façade headers (FACADE_INCLUDES keys)
@@ -2571,7 +2570,7 @@ def test_ms_extracted_files_remain_below_monolith_ceiling() -> None:
 
 def main() -> int:
     tests = [
-        # MS16 structural checks.
+        #  structural checks.
         test_facades_reexport_their_subheaders,
         test_submodule_headers_declare_expected_symbols,
         test_deleted_bodies_stay_deleted,
@@ -2587,12 +2586,12 @@ def main() -> int:
         test_motion_smooth_subheaders_only_declare_expected_symbols,
         test_ms_extracted_cpps_only_include_allowed_non_motion_smooth_headers,
         test_submodule_bodies_pair_with_their_headers,
-        # MS17 integration-readiness checks.
+        #  integration-readiness checks.
         test_no_stale_motion_smooth_includes,
         test_motion_smooth_symbol_ownership_is_unique,
         test_submodule_bodies_define_their_declared_symbols,
         test_focused_test_files_remain_present,
-        # MS18 merge-preflight checks.
+        #  merge-preflight checks.
         test_motion_smooth_headers_have_pragma_once,
         test_motion_smooth_tolerance_constants_remain_with_owning_tu,
         test_motion_smooth_notes_strings_remain_with_owning_tu,

@@ -94,9 +94,9 @@ std::vector<double> BuildZeroTangentShapeFlat(bool closed,
   std::vector<double> out;
   out.reserve(static_cast<std::size_t>(
       kPathHeaderScalars + static_cast<int>(vertices.size()) * kScalarsPerVertex));
-  out.push_back(closed ? 1.0 : 0.0);
+  out.push_back(closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (Point p : vertices) {
+  for (Point p: vertices) {
     out.push_back(p.x);
     out.push_back(p.y);
     out.push_back(0.0);
@@ -169,7 +169,7 @@ VisibleShapeFlatOutlineResult ExtractVisibleShapeFlatOutline(
 
   std::vector<std::vector<double>> split_params(
       static_cast<std::size_t>(edge_count));
-  for (auto& params : split_params) {
+  for (auto& params: split_params) {
     params.push_back(0.0);
     params.push_back(1.0);
   }
@@ -282,7 +282,7 @@ VisibleShapeFlatOutlineResult ExtractVisibleShapeFlatOutline(
   std::vector<std::vector<int>> outgoing(nodes.size());
   for (std::size_t edge_idx = 0; edge_idx < boundary_edges.size(); ++edge_idx) {
     outgoing[static_cast<std::size_t>(boundary_edges[edge_idx].from)]
-        .push_back(static_cast<int>(edge_idx));
+.push_back(static_cast<int>(edge_idx));
   }
 
   std::vector<bool> used(boundary_edges.size(), false);
@@ -314,7 +314,7 @@ VisibleShapeFlatOutlineResult ExtractVisibleShapeFlatOutline(
           outgoing[static_cast<std::size_t>(edge.to)];
       int best_next = -1;
       double best_turn = std::numeric_limits<double>::infinity();
-      for (int candidate_idx : candidates) {
+      for (int candidate_idx: candidates) {
         if (used[static_cast<std::size_t>(candidate_idx)]) {
           continue;
         }

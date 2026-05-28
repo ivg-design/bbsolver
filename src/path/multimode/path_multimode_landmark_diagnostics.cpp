@@ -154,7 +154,7 @@ SegmentMergeAttemptDiagnostic ClassifySegmentMergeAttempt(
   const LandmarkSubpathReconstructionResult validation =
       EvaluateLandmarkSubpathCandidate(window, candidate, tolerance);
   diagnostic.reason =
-      validation.ok ? "merge_feasible" : "exact_validation_failed";
+      validation.ok ? "merge_feasible": "exact_validation_failed";
   return diagnostic;
 }
 
@@ -243,7 +243,7 @@ std::string DiagnoseDenseSubpathRuns(const PropertySamples& region_samples,
         ++local_checks;
         if (fit.feasible) {
           ++feasible;
-          AddReasonCount(reasons, fit.reason.empty() ? "feasible" : fit.reason);
+          AddReasonCount(reasons, fit.reason.empty() ? "feasible": fit.reason);
         } else {
           AddReasonCount(reasons, fit.reason);
         }

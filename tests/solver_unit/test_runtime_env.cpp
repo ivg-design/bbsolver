@@ -37,7 +37,7 @@ void TestEnvFlagEnabledUnsetIsFalse() {
 void TestEnvFlagEnabledRecognizesTrueLiterals() {
   ScopedEnv guard(kFlagName);
   const char* truthy[] = {"1", "true", "TRUE", "yes", "YES"};
-  for (const char* literal : truthy) {
+  for (const char* literal: truthy) {
     guard.Set(literal);
     Require(bbsolver::EnvFlagEnabled(kFlagName),
             std::string("literal '") + literal + "' must read as enabled");
@@ -47,7 +47,7 @@ void TestEnvFlagEnabledRecognizesTrueLiterals() {
 void TestEnvFlagEnabledRejectsOtherStrings() {
   ScopedEnv guard(kFlagName);
   const char* falsy[] = {"0", "false", "no", "", "True", "Yes", "off"};
-  for (const char* literal : falsy) {
+  for (const char* literal: falsy) {
     guard.Set(literal);
     Require(!bbsolver::EnvFlagEnabled(kFlagName),
             std::string("literal '") + literal +

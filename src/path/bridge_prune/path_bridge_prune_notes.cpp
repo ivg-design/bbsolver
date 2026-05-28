@@ -51,7 +51,7 @@ std::string BuildBridgePruneAcceptedNote(
              std::to_string(protected_corner_skips) +
          BridgePruneTelemetryNotes(fit_failures, validation_failures,
                                    sharp_failures, accepted_candidates) +
-         (preserve_sharp_corners ? "; sharp_corner_preserve=on" :
+         (preserve_sharp_corners ? "; sharp_corner_preserve=on":
                                    std::string{}) +
          "; bridge_prune_steps=" + JoinNotes(accepted_steps);
 }
@@ -76,9 +76,9 @@ std::string BuildBridgePruneRejectedNote(
              std::to_string(protected_corner_skips) +
          BridgePruneTelemetryNotes(fit_failures, validation_failures,
                                    sharp_failures, accepted_candidates) +
-         (preserve_sharp_corners ? "; sharp_corner_preserve=on" :
+         (preserve_sharp_corners ? "; sharp_corner_preserve=on":
                                    std::string{}) +
-         (failures.empty() ? std::string{} :
+         (failures.empty() ? std::string{}:
                              "; failures=" + JoinNotes(failures));
 }
 

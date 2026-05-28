@@ -26,13 +26,13 @@ ClosedLoopAdaptiveResampleResult BuildShapeFlatClosedLoopAdaptiveResample(
   result.schedule_times = key_times;
   result.schedule_values = config.motion_smooth_source_fidelity
       ? smooth_result.original_values
-      : smooth_result.smoothed_values;
+: smooth_result.smoothed_values;
 
   if (closed_loop) {
     const std::vector<std::vector<double>>& loop_values =
         config.motion_smooth_source_fidelity
             ? smooth_result.original_values
-            : smooth_result.smoothed_values;
+: smooth_result.smoothed_values;
     result.adaptive_loop = BuildAdaptiveClosedLoopShapeSamples(
         loop_values,
         dims,
@@ -79,7 +79,7 @@ ClosedLoopAdaptiveResampleResult BuildShapeFlatClosedLoopAdaptiveResample(
     }
     result.trajectory_turn_after_override = result.adaptive_loop.quality.valid
         ? result.adaptive_loop.quality.max_turn_deg
-        : ShapeFlatClosedDuplicateMaxTurnDeg(result.schedule_values, dims);
+: ShapeFlatClosedDuplicateMaxTurnDeg(result.schedule_values, dims);
     result.trajectory_turn_after_overridden = true;
   } else if (config.motion_smooth_source_fidelity) {
     result.source_pose_constraint_indices.assign(

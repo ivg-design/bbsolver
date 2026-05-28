@@ -72,7 +72,7 @@ SegmentFitResult FitSegment(int i,
         [v0](double) { return v0; },
         cfg,
         comp,
-        ps.layer_xform_at_start ? &*ps.layer_xform_at_start : nullptr,
+        ps.layer_xform_at_start ? &*ps.layer_xform_at_start: nullptr,
         AcceptancePropertyCeiling(cfg),
         AcceptanceScreenCeiling(cfg),
         true);
@@ -108,7 +108,7 @@ SegmentFitResult FitSegment(int i,
         },
         cfg,
         comp,
-        ps.layer_xform_at_start ? &*ps.layer_xform_at_start : nullptr,
+        ps.layer_xform_at_start ? &*ps.layer_xform_at_start: nullptr,
         LinearFailFastPropertyCeiling(ps, cfg),
         LinearFailFastScreenCeiling(ps, cfg),
         true);
@@ -133,7 +133,7 @@ SegmentFitResult FitSegment(int i,
     if (cfg.allow_shape_temporal_bezier && IsShapeFlatPath(ps)) {
       if (ShapeTemporalBezierGateRatio(cfg) >= 0.0) {
         if (!have_linear_miss || !ShapeTemporalBezierGateAllows(linear_miss, cfg)) {
-          SegmentFitResult gated = have_linear_miss ? linear_miss : infeasible;
+          SegmentFitResult gated = have_linear_miss ? linear_miss: infeasible;
           attribution.fit_shape_temporal_gate_rejections += 1;
           gated.feasible = false;
           gated.reason = "infeasible_shape_temporal_bezier_gate";

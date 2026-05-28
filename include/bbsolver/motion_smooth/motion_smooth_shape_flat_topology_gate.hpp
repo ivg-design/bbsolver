@@ -6,7 +6,7 @@
 
 namespace bbsolver {
 
-// MS23 extraction: the entry-stage validation of the shape-flat
+// the entry-stage validation of the shape-flat
 // Motion Smooth route. Returns one of four shapes:
 //
 //   ok=true   → vertex_count/dims/key_times populated; caller proceeds

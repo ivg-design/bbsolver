@@ -418,7 +418,7 @@ def install_solver(build_dir: Path, install_dir: Path, build_type: str) -> None:
 
 
 def seed_stale_generated_namespace(build_dir: Path) -> None:
-    stale_dir = build_dir / "generated" / "bakerboy"
+    stale_dir = build_dir / "generated" / "(alternative)"
     stale_dir.mkdir(parents=True, exist_ok=True)
     (stale_dir / "stale_generated.h").write_text(
         "// This sentinel must not be installed by the bbsolver package.\n",

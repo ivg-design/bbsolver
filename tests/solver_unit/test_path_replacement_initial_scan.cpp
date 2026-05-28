@@ -18,7 +18,7 @@ void Require(bool condition, const char* message) {
 
 std::vector<double> ShapeFlat(bool closed, int vertex_count) {
   std::vector<double> flat;
-  flat.push_back(closed ? 1.0 : 0.0);
+  flat.push_back(closed ? 1.0: 0.0);
   flat.push_back(static_cast<double>(vertex_count));
   for (int i = 0; i < vertex_count; ++i) {
     flat.push_back(static_cast<double>(i) * 10.0);
@@ -37,7 +37,7 @@ bbsolver::PropertySamples Samples(std::vector<std::vector<double>> frames) {
   samples.property.kind = bbsolver::ValueKind::Custom;
   samples.property.units_label = "shape_flat";
   samples.property.dimensions =
-      frames.empty() ? 2 : static_cast<int>(frames.front().size());
+      frames.empty() ? 2: static_cast<int>(frames.front().size());
   samples.samples_per_frame = 1;
   for (std::size_t i = 0; i < frames.size(); ++i) {
     bbsolver::Sample sample;

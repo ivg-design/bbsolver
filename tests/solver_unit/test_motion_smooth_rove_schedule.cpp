@@ -1,4 +1,4 @@
-// MS34 focused test: the MS8-extracted rove schedule helper.
+//  focused test: the -extracted rove schedule helper.
 //
 // BuildShapeMotionRoveScheduleFromValues builds the time-and-value
 // schedule that drives the final motion-smooth shape_flat output. Its
@@ -15,10 +15,10 @@
 //     travel from start, clamped against `min_step` to keep the
 //     sequence monotonic.
 //
-// MS18 policy locks the `1e-7` literal in this TU's source; this test
+//  policy locks the `1e-7` literal in this TU's source; this test
 // locks the behaviour empirically — a future regression that changed
 // `static_eps` to `1e-9` or `1e-5` would compile cleanly and likely
-// pass MS18's grep, but would fail one of the static-duplicate or
+// pass 's grep, but would fail one of the static-duplicate or
 // retiming sub-tests here.
 
 #include "bbsolver/motion_smooth/motion_smooth_shape_rove_schedule.hpp"

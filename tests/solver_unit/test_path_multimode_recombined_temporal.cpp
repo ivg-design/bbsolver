@@ -29,7 +29,7 @@ std::vector<double> ShapeFlatRelaxedRegionalTiming(double left_x,
   std::vector<double> out;
   out.push_back(1.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const auto& vertex : vertices) {
+  for (const auto& vertex: vertices) {
     out.push_back(vertex.first);
     out.push_back(vertex.second);
     out.push_back(0.0);

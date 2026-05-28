@@ -46,7 +46,7 @@ inline std::vector<double> FallbackSampleVector(const PropertySamples& ps,
 
 inline std::vector<TemporalEase> FallbackDefaultEases(
     const PropertySamples& ps) {
-  const int count = ps.property.is_separated ? FallbackDimensions(ps) : 1;
+  const int count = ps.property.is_separated ? FallbackDimensions(ps): 1;
   return std::vector<TemporalEase>(
       static_cast<std::size_t>(std::max(count, 1)), TemporalEase{0.0, 33.3});
 }
@@ -65,7 +65,7 @@ inline int ChooseFallbackSplit(const PropertySamples& ps, int i, int j) {
   for (int k = i + 1; k < j; ++k) {
     const double tk = ps.samples[static_cast<std::size_t>(k)].t_sec;
     const double u =
-        (t1 > t0) ? std::clamp((tk - t0) / (t1 - t0), 0.0, 1.0) : 0.0;
+        (t1 > t0) ? std::clamp((tk - t0) / (t1 - t0), 0.0, 1.0): 0.0;
     const std::vector<double> vk = FallbackSampleVector(ps, k);
     double err = 0.0;
     for (int d = 0; d < FallbackDimensions(ps); ++d) {

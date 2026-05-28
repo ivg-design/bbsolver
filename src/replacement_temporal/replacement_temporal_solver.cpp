@@ -46,7 +46,7 @@ PropertyKeys MaybeUseMultiModeCandidate(
 
   PropertyKeys multimode = precomputed_multimode != nullptr
                                ? *precomputed_multimode
-                               : SolveMultiModeCandidate(original,
+: SolveMultiModeCandidate(original,
                                                          reduced,
                                                          options);
   if (multimode.notes == "cancelled") {
@@ -63,21 +63,21 @@ PropertyKeys MaybeUseMultiModeCandidate(
         "replacement_multimode_accepted=true; previous_keys=" +
         std::to_string(static_cast<int>(current.keys.size())) +
         "; previous_converged=" +
-        std::string(current.converged ? "true" : "false");
+        std::string(current.converged ? "true": "false");
     multimode.notes =
         multimode.notes.empty() ? previous_note
-                                : multimode.notes + "; " + previous_note;
+: multimode.notes + "; " + previous_note;
     return multimode;
   }
 
   PropertyKeys out = current;
   const std::string note =
       "replacement_multimode_accepted=false; multimode_converged=" +
-      std::string(multimode.converged ? "true" : "false") +
+      std::string(multimode.converged ? "true": "false") +
       "; multimode_keys=" +
       std::to_string(static_cast<int>(multimode.keys.size())) +
       "; multimode_note=" + multimode.notes;
-  out.notes = out.notes.empty() ? note : out.notes + "; " + note;
+  out.notes = out.notes.empty() ? note: out.notes + "; " + note;
   return out;
 }
 
@@ -174,7 +174,7 @@ PropertyKeys SolveReplacementShapeFlatTemporal(
       multimode_precheck.notes =
           multimode_precheck.notes.empty()
               ? note
-              : multimode_precheck.notes + "; " + note;
+: multimode_precheck.notes + "; " + note;
       return rt::MaybeUseForwardLongestSpanCandidate(original,
                                                      reduced,
                                                      multimode_precheck,
@@ -219,13 +219,13 @@ PropertyKeys SolveReplacementShapeFlatTemporal(
       "; replacement_temporal_oracle_subdivisions=" +
       std::to_string(normalized_options.band_options.frame_fit_options.max_subdivisions_per_segment) +
       "; replacement_temporal_fit_bezier_pairs=" +
-      std::string(normalized_options.band_options.fit_bezier_influence_pairs ? "true" : "false") +
+      std::string(normalized_options.band_options.fit_bezier_influence_pairs ? "true": "false") +
       "; replacement_temporal_max_bezier_pairs=" +
       std::to_string(normalized_options.band_options.max_bezier_influence_pairs) +
       "; replacement_temporal_relaxed_endpoints=" +
-      std::string(normalized_options.allow_relaxed_endpoint_fit ? "true" : "false") +
+      std::string(normalized_options.allow_relaxed_endpoint_fit ? "true": "false") +
       "; replacement_temporal_multimode=" +
-      std::string(normalized_options.allow_multimode_anchor_union ? "true" : "false") +
+      std::string(normalized_options.allow_multimode_anchor_union ? "true": "false") +
       "; replacement_temporal_multimode_gap=" +
       std::to_string(normalized_options.multimode_max_gap_samples);
   rt::AppendNote(out, note);
@@ -245,7 +245,7 @@ PropertyKeys SolveReplacementShapeFlatTemporal(
                                    normalized_options,
                                    have_multimode_precheck
                                        ? &multimode_precheck
-                                       : nullptr);
+: nullptr);
   return rt::MaybeUseForwardLongestSpanCandidate(original,
                                              reduced,
                                              out,

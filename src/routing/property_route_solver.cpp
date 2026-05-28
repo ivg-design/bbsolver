@@ -97,7 +97,7 @@ PropertyKeys SolvePropertyRoute(const PropertyRouteSolveRequest& request) {
                 "replacement_temporal_solve_progress",
                 request.canonical_path_applied
                     ? "Solving canonical fitted path temporal placement"
-                    : "Solving replacement temporal placement",
+: "Solving replacement temporal placement",
                 request.property_idx,
                 request.property_count,
                 0.40,

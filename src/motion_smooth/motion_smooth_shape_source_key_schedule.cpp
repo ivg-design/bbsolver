@@ -62,7 +62,7 @@ ShapeMotionSourceKeySchedule BuildShapeMotionSourceKeySchedule(
   schedule.raw_count = static_cast<int>(source_key_times.size());
   schedule.raw_times = source_key_times;
   schedule.raw_values.reserve(source_key_times.size());
-  for (double source_key_time : source_key_times) {
+  for (double source_key_time: source_key_times) {
     std::vector<double> value = MotionSmoothInterpolatedVector(
         property_samples, raw, source_key_time, dims);
     if (static_cast<int>(value.size()) >= 2) {
@@ -92,7 +92,7 @@ ShapeMotionSourceKeySchedule BuildShapeMotionSourceKeySchedule(
                               &keep);
 
   int kept_count = 0;
-  for (bool item : keep) {
+  for (bool item: keep) {
     if (item) {
       ++kept_count;
     }

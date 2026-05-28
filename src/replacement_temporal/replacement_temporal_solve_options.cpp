@@ -23,7 +23,7 @@ ReplacementTemporalSolverOptions ReplacementTemporalOptions(
   replacement_options.band_options.frame_fit_options.max_subdivisions_per_segment = 8;
   replacement_options.band_options.progress_steps = 16;
   replacement_options.band_options.max_window_samples =
-      max_gap_samples > 0 ? max_gap_samples + 1 : 16;
+      max_gap_samples > 0 ? max_gap_samples + 1: 16;
   replacement_options.band_options.max_evaluations =
       replacement_options.band_options.max_window_samples *
       (replacement_options.band_options.progress_steps + 3);

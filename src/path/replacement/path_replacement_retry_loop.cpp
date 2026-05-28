@@ -76,7 +76,7 @@ ReplacementRetryLoopResult TryReplacementRetryLoop(
           request.config->path_replacement_min_vertices,
           request.config->path_replacement_max_vertices);
   int retry = 0;
-  for (int retry_target : retry_targets) {
+  for (int retry_target: retry_targets) {
     if (result.accepted) {
       break;
     }
@@ -134,7 +134,7 @@ ReplacementRetryLoopResult TryReplacementRetryLoop(
     const int retry_max_gap =
         IsShapeFlatPath(retry_samples)
             ? std::max(6, std::min(8, PathChildMaxGap(*request.comp)))
-            : 0;
+: 0;
     const SolverConfig retry_temporal_config =
         ReplacementTemporalConfig(*request.config, retry_frame_fit_error);
     PropertyKeys retry_keys =
@@ -148,7 +148,7 @@ ReplacementRetryLoopResult TryReplacementRetryLoop(
                       retry_temporal_config,
                       retry_max_gap,
                       *request.options))
-            : SolvePlainProperty(
+: SolvePlainProperty(
                   retry_samples,
                   retry_temporal_config,
                   *request.comp,

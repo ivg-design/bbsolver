@@ -13,7 +13,7 @@ namespace bbsolver {
 namespace {
 
 double ComponentOrZero(const std::vector<double>& values, std::size_t idx) {
-  return idx < values.size() ? values[idx] : 0.0;
+  return idx < values.size() ? values[idx]: 0.0;
 }
 
 TemporalEase EaseForDim(const std::vector<TemporalEase>& eases, int dim) {
@@ -99,7 +99,7 @@ ErrorReport ValidateKeys(const PropertySamples& ps,
       [&keys](double t) { return EvalKeysAt(keys, t); },
       cfg,
       comp,
-      ps.layer_xform_at_start ? &*ps.layer_xform_at_start : nullptr);
+      ps.layer_xform_at_start ? &*ps.layer_xform_at_start: nullptr);
 }
 
 }  // namespace bbsolver

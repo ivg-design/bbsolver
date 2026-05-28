@@ -23,7 +23,7 @@ ShapeMotionTrajectorySmoothResult BuildShapeMotionTrajectorySmoothValues(
     const std::vector<double>* fidelity_times,
     const std::vector<std::vector<double>>* fidelity_values) {
   ShapeMotionTrajectorySmoothResult result;
-  result.smoothing_passes = source_key_times.size() > 2 ? 1 : 0;
+  result.smoothing_passes = source_key_times.size() > 2 ? 1: 0;
   result.smoothing_blend = std::clamp(
       strength / (strength + 2.0), 0.0, 0.90);
   result.original_values.reserve(source_key_times.size());
@@ -63,7 +63,7 @@ ShapeMotionTrajectorySmoothResult BuildShapeMotionTrajectorySmoothValues(
   result.source_fidelity_enabled = use_source_fidelity;
   result.source_fidelity_samples = use_source_fidelity
       ? static_cast<int>(fidelity_times->size())
-      : 0;
+: 0;
   std::vector<double> normalized_times(source_key_times.size(), 0.0);
   for (std::size_t i = 0; i < source_key_times.size(); ++i) {
     normalized_times[i] =
@@ -81,18 +81,18 @@ ShapeMotionTrajectorySmoothResult BuildShapeMotionTrajectorySmoothValues(
     double r2 = 0.0;
     const std::size_t observation_count = use_source_fidelity
         ? fidelity_times->size()
-        : result.original_values.size();
+: result.original_values.size();
     for (std::size_t i = 0; i < observation_count; ++i) {
       const double obs_t = use_source_fidelity
           ? (*fidelity_times)[i]
-          : source_key_times[i];
+: source_key_times[i];
       const double u = std::clamp((obs_t - start_t) / duration, 0.0, 1.0);
       if (u <= 1e-9 || u >= 1.0 - 1e-9) {
         continue;
       }
       const std::vector<double>& obs_value = use_source_fidelity
           ? (*fidelity_values)[i]
-          : result.original_values[i];
+: result.original_values[i];
       const double omt = 1.0 - u;
       const double a1 = 3.0 * omt * omt * u;
       const double a2 = 3.0 * omt * u * u;

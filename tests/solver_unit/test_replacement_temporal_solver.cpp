@@ -40,7 +40,7 @@ std::vector<double> ShapeFlatRect(double x, double y, double w, double h) {
   std::vector<double> out;
   out.push_back(1.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const auto& vertex : vertices) {
+  for (const auto& vertex: vertices) {
     out.push_back(vertex.first);
     out.push_back(vertex.second);
     out.push_back(0.0);
@@ -61,7 +61,7 @@ std::vector<double> ShapeFlatQuad(double left_x, double right_x) {
   std::vector<double> out;
   out.push_back(1.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const auto& vertex : vertices) {
+  for (const auto& vertex: vertices) {
     out.push_back(vertex.first);
     out.push_back(vertex.second);
     out.push_back(0.0);
@@ -136,7 +136,7 @@ bbsolver::PropertySamples MakeBumpFixture() {
   ps.t_end_sec = 8.0 / 24.0;
   ps.samples_per_frame = 1;
   for (int idx = 0; idx <= 8; ++idx) {
-    const double y = (idx == 0 || idx == 8) ? 0.0 : 5.0;
+    const double y = (idx == 0 || idx == 8) ? 0.0: 5.0;
     ps.samples.push_back({static_cast<double>(idx) / 24.0,
                           ShapeFlatRect(static_cast<double>(idx), y, 10.0, 10.0)});
   }
@@ -465,7 +465,7 @@ DominantFixtureSolveResult SolveDominant52Windows(
             std::string::npos ||
         keys.notes.find("replacement_multimode_precheck=true") !=
             std::string::npos;
-    for (const bbsolver::SegmentReport& segment : keys.segments) {
+    for (const bbsolver::SegmentReport& segment: keys.segments) {
       result.saw_bezier =
           result.saw_bezier ||
           segment.reason == "replacement_shape_morph_bezier_ok" ||
@@ -548,12 +548,12 @@ void PrintDominantResult(const char* label,
             << " max_err_screen_px=" << result.max_err_screen_px
             << " stage4_max_err=" << result.stage4_max_err
             << " strict8_max_err=" << result.strict8_max_err
-            << " stage4_ok=" << (result.stage4_ok ? "true" : "false")
-            << " strict8_ok=" << (result.strict8_ok ? "true" : "false")
+            << " stage4_ok=" << (result.stage4_ok ? "true": "false")
+            << " strict8_ok=" << (result.strict8_ok ? "true": "false")
             << " forward_accepted="
-            << (result.forward_accepted ? "true" : "false")
-            << " saw_bezier=" << (result.saw_bezier ? "true" : "false")
-            << " saw_multimode=" << (result.saw_multimode ? "true" : "false")
+            << (result.forward_accepted ? "true": "false")
+            << " saw_bezier=" << (result.saw_bezier ? "true": "false")
+            << " saw_multimode=" << (result.saw_multimode ? "true": "false")
             << "\n";
 }
 
@@ -619,11 +619,11 @@ void TestRelaxedHelperProgressAndEaseValues() {
   assert(fallback.front().speed == 0.0);
   assert(fallback.front().influence == 33.3);
   assert(bbsolver::replacement_temporal::ShapeEaseForInfluence(-10.0)
-             .front()
-             .influence == 0.1);
+.front()
+.influence == 0.1);
   assert(bbsolver::replacement_temporal::ShapeEaseForInfluence(200.0)
-             .front()
-             .influence == 100.0);
+.front()
+.influence == 100.0);
 
   const bbsolver::TemporalEase neutral = fallback.front();
   const std::vector<double> linear_progress =
@@ -692,7 +692,7 @@ void TestMultiModeAnchorUnionBeatsSingleSharedProgress() {
   assert(keys.notes.find("region_ranges=0-2,2-4") != std::string::npos);
   assert(keys.notes.find("replacement_multimode_accepted=true") != std::string::npos);
   assert(keys.segments.size() == 3);
-  for (const bbsolver::SegmentReport& segment : keys.segments) {
+  for (const bbsolver::SegmentReport& segment: keys.segments) {
     assert(segment.reason == "replacement_shape_multimode_linear_union");
   }
 }
@@ -779,7 +779,7 @@ void TestWrapperRejectsInfeasibleLongChord() {
   assert(keys.keys.size() > 2);
   assert(!keys.segments.empty());
   assert(keys.notes.find("replacement_shape_temporal_solver") != std::string::npos);
-  for (const bbsolver::SegmentReport& segment : keys.segments) {
+  for (const bbsolver::SegmentReport& segment: keys.segments) {
     assert(!(segment.start_idx == 0 && segment.end_idx == 8));
     assert(segment.reason == "replacement_shape_morph_linear_ok" ||
            segment.reason == "replacement_shape_morph_bezier_ok" ||

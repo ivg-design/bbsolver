@@ -95,7 +95,7 @@ def _strip_line_comments(text: str) -> str:
 
 
 def test_main_cpp_remains_dispatch_only_size() -> None:
-    """main.cpp must stay near its post-Slice-67 size."""
+    """main.cpp must stay near its post-refactor size."""
     assert MAIN_CPP.exists(), (
         f"{MAIN_CPP} not found; has the source layout changed?"
     )

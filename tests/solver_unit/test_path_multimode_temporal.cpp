@@ -116,7 +116,7 @@ void TestLandmarkInfluencePairsAndSearchGate() {
   Require(!pairs.empty() && pairs.size() <= 12,
           "landmark influence search must cap candidate pairs");
   bool found_strict = false;
-  for (const auto& pair : pairs) {
+  for (const auto& pair: pairs) {
     if (AlmostEqual(pair.out_influence, 72.0) &&
         AlmostEqual(pair.in_influence, 18.0)) {
       found_strict = true;

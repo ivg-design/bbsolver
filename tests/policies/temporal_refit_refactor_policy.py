@@ -591,7 +591,7 @@ def test_temporal_refit_helper_modules_are_present_compact_and_hpp_only() -> Non
     legacy_headers = sorted(SOLVER_SRC.glob("temporal_refit_*.h"))
     legacy_headers.extend(PUBLIC_REFIT_ROOT.glob("temporal_refit_*.h"))
     assert not legacy_headers, (
-        "temporal_refit headers must use .hpp: "
+        "temporal_refit headers must use.hpp: "
         + ", ".join(path.relative_to(ROOT).as_posix() for path in legacy_headers)
     )
 
@@ -929,7 +929,7 @@ def test_temporal_refit_readiness_checklist_records_merge_contract() -> None:
         "fetched origin advanced from `7cbd52d` solved property completion to `cb975e5` solve command module during this dirty worktree lane",
         "path_frame_fit_types.hpp is forbidden from temporal helpers/facade",
         "fetched origin shows `d2f92cd` path frame fit type header as off-limits base content not applied in this dirty worktree",
-        "Codex motion-smooth integration WIP is not assumed by this dirty TR stack",
+        "motion-smooth integration work in progress is not assumed by this dirty TR stack",
         "motion_smooth module includes are forbidden from temporal helpers/facade",
         "fetched origin shows `7468b56` motion-smooth module split integration as off-limits base content not applied in this dirty worktree",
         "no incoming temporal_refit paths are visible against `7468b56`",

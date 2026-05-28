@@ -1,8 +1,8 @@
-// MS26 focused test: the MS22-extracted shape-flat notes helper.
+//  focused test: the -extracted shape-flat notes helper.
 //
 // The orchestrator's notes string is the canonical surface that
 // downstream consumers (panel, diagnostics analyzers, JSON parsers)
-// parse for Motion Smooth shape-flat output. The MS22 extraction
+// parse for Motion Smooth shape-flat output. The extraction
 // (motion_smooth_shape_flat_notes.{hpp,cpp}) made it testable as its
 // own function. This file exercises three contracts the helper must
 // honour:

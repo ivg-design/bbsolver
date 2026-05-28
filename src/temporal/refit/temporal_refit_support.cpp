@@ -30,7 +30,7 @@ bool TemporalRefitCancelled(const TemporalRefitOptions& options) {
 std::string BuildTemporalRefitNotes(const TemporalRefitResult& result) {
   std::string out =
       "temporal_refit_attempted=" +
-      std::string(result.attempted ? "true" : "false") +
+      std::string(result.attempted ? "true": "false") +
       "; temporal_refit_input_keys=" +
       std::to_string(result.input_key_count) +
       "; temporal_refit_output_keys=" +

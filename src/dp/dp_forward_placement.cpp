@@ -81,7 +81,7 @@ DPPlacement RunForwardLongestSpanPlacement(
 
   int max_gap = (max_gap_samples > 0)
                     ? std::min(max_gap_samples, sample_count - 1)
-                    : AutoMaxGap(comp, sample_count);
+: AutoMaxGap(comp, sample_count);
   const bool unified_spatial_large =
       ps.property.is_spatial && !ps.property.is_separated && sample_count > 360;
   if (max_gap_samples <= 0 && unified_spatial_large) {
@@ -111,7 +111,7 @@ DPPlacement RunForwardLongestSpanPlacement(
         max_gap_samples <= 0 && !unified_spatial_large;
     const int j_hi = widen_final_anchor
         ? sample_count - 1
-        : std::min(sample_count - 1, current + max_gap);
+: std::min(sample_count - 1, current + max_gap);
     int accepted_j = -1;
     SegmentFitResult accepted_segment;
 

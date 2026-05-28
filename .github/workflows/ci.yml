@@ -52,6 +52,15 @@ jobs:
           cmake --build build-package-smoke --parallel 4
           ./build-package-smoke/bbsolver_package_smoke
 
+      - name: Paper-corpus smoke (re-solve one published bundle)
+        # Cheap (~5 s) end-to-end check that v1.0.1 solve against the noodle
+        # ε=1.0 bbsm reproduces the published total_keys + per-property
+        # max_err. Confirms the reproducibility chain from a fresh clone.
+        run: >
+          python3
+          benchmarks/scripts/smoke_reproduce_one_row.py
+          --bbsolver build/bbsolver
+
       - name: Incremental standalone validator
         run: >
           python3 scripts/validate_standalone_package.py

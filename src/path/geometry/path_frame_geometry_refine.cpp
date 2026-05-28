@@ -39,7 +39,7 @@ struct PointBounds {
 
 PointBounds BoundsForDense(const std::vector<DensePoint>& dense) {
   PointBounds bounds;
-  for (const DensePoint& point : dense) {
+  for (const DensePoint& point: dense) {
     if (!bounds.valid) {
       bounds.min = point.p;
       bounds.max = point.p;
@@ -55,7 +55,7 @@ PointBounds BoundsForDense(const std::vector<DensePoint>& dense) {
 }
 
 double BoundsDiagonal(const PointBounds& bounds) {
-  return bounds.valid ? pff_geom::Distance(bounds.min, bounds.max) : 0.0;
+  return bounds.valid ? pff_geom::Distance(bounds.min, bounds.max): 0.0;
 }
 
 // Refine-only "sharp" test on a dense index. Inlines the
@@ -133,7 +133,7 @@ PathFrameGeometryRefineResult RefineShapeFlatFrameGeometry(
   std::vector<int> source_to_dense;
   const std::vector<DensePoint> source_dense =
       pff_dense::ShapeFlatToDensePolyline(shape_flat, fit_options, &source_to_dense);
-  const int min_vertices = source_decoded.closed ? 3 : 2;
+  const int min_vertices = source_decoded.closed ? 3: 2;
   if (static_cast<int>(source_dense.size()) <= min_vertices) {
     result.warning = "shape_flat frame has insufficient outline samples";
     result.fit.warning = result.warning;
@@ -195,10 +195,10 @@ PathFrameGeometryRefineResult RefineShapeFlatFrameGeometry(
   const double diag = std::max(BoundsDiagonal(bounds), 1.0);
   double step = refine_options.initial_step_px > 0.0
                     ? refine_options.initial_step_px
-                    : std::max(fit_options.outline_tolerance * 2.0, diag * 0.025);
+: std::max(fit_options.outline_tolerance * 2.0, diag * 0.025);
   const double max_move = refine_options.max_vertex_move_px > 0.0
                               ? refine_options.max_vertex_move_px
-                              : std::max(fit_options.outline_tolerance * 6.0, diag * 0.12);
+: std::max(fit_options.outline_tolerance * 6.0, diag * 0.12);
   const double min_improvement = std::max(0.0, refine_options.min_error_improvement);
   const double min_step = std::max(1e-4, fit_options.outline_tolerance * 0.01);
   const std::vector<Point> directions = {
@@ -224,7 +224,7 @@ PathFrameGeometryRefineResult RefineShapeFlatFrameGeometry(
       pff_fitter::Candidate best_for_vertex = best;
       Point best_point = current;
 
-      for (Point direction : directions) {
+      for (Point direction: directions) {
         Point proposed = Add(current, Mul(direction, step));
         proposed = Add(start_positions[vertex_index],
                        ClampLength(Sub(proposed, start_positions[vertex_index]), max_move));
@@ -271,7 +271,7 @@ PathFrameGeometryRefineResult RefineShapeFlatFrameGeometry(
   result.fit.closed = source_decoded.closed;
   result.fit.source_vertex_count = source_decoded.vertex_count;
   result.fit.fitted_vertex_count = final_decoded.ok ? final_decoded.vertex_count
-                                                    : fit_decoded.vertex_count;
+: fit_decoded.vertex_count;
   result.fit.target_vertex_count = fit_decoded.vertex_count;
   result.fit.target_met =
       result.fit.fitted_vertex_count == fit_decoded.vertex_count;
@@ -279,11 +279,11 @@ PathFrameGeometryRefineResult RefineShapeFlatFrameGeometry(
   result.fit.kept_dense_indices = kept;
   result.fit.source_vertex_indices.clear();
   result.fit.source_vertex_indices.reserve(kept.size());
-  for (int dense_index : kept) {
+  for (int dense_index: kept) {
     result.fit.source_vertex_indices.push_back(
         dense_index >= 0 && dense_index < static_cast<int>(working_dense.size())
             ? working_dense[static_cast<std::size_t>(dense_index)].source_vertex_index
-            : -1);
+: -1);
   }
 
   result.improved =

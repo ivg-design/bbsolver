@@ -40,7 +40,7 @@ RecombinedRegionTemporalResult TryRecombinedRegionTemporalCandidate(
       options.max_region_segment_checks > 0
           ? std::max(1, options.max_region_segment_checks /
                             std::max(1, static_cast<int>(regions.size())))
-          : std::max(128, n * std::max(1, max_gap) * 2);
+: std::max(128, n * std::max(1, max_gap) * 2);
   const double tolerance = std::max(options.region_tolerance, 0.0);
   const ShapeMorphProgressBandOptions band_options =
       LandmarkBandOptions(tolerance, max_gap);
@@ -54,7 +54,7 @@ RecombinedRegionTemporalResult TryRecombinedRegionTemporalCandidate(
   anchor_set.insert(n - 1);
 
   int region_idx = 0;
-  for (VertexRegion region : regions) {
+  for (VertexRegion region: regions) {
     if (options.cancel_fn && options.cancel_fn()) {
       result.note = "cancelled";
       return result;
@@ -81,7 +81,7 @@ RecombinedRegionTemporalResult TryRecombinedRegionTemporalCandidate(
       result.note =
           "recombined_region_temporal=not_selected; reason=region_temporal_failed_" +
           std::to_string(region_idx) +
-          "; status=" + (temporal.notes.empty() ? "unknown" : temporal.notes) +
+          "; status=" + (temporal.notes.empty() ? "unknown": temporal.notes) +
           "; recombined_region_temporal_segment_checks=" +
           std::to_string(result.temporal_segment_checks);
       return result;
@@ -192,7 +192,7 @@ RecombinedRegionTemporalResult TryRecombinedRegionTemporalCandidate(
   candidate.converged = true;
   candidate.max_err = validation.max_outline_error;
   candidate.max_err_screen_px = validation.max_outline_error;
-  for (SegmentReport& report : candidate.segments) {
+  for (SegmentReport& report: candidate.segments) {
     report.max_err = validation.max_outline_error;
     report.max_err_screen_px = validation.max_outline_error;
     report.rms_err = validation.max_outline_error;

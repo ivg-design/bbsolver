@@ -65,7 +65,7 @@ T SolveTemporalParamT(const T& t,
   for (int iter = 0; iter < 10; ++iter) {
     const T x = CubicBezierT(u, T(t0), out_time, in_time, T(t1));
     const T dx = CubicBezierDerivativeT(u, T(t0), out_time, in_time, T(t1));
-    const T safe_dx = dx + (dx < T(0.0) ? T(-1e-9) : T(1e-9));
+    const T safe_dx = dx + (dx < T(0.0) ? T(-1e-9): T(1e-9));
     u = u - (x - t) / safe_dx;
     if (u < T(0.0)) {
       u = T(0.0);

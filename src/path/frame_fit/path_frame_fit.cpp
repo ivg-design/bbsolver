@@ -23,7 +23,7 @@ namespace {
 
 // pff_geom carries the shared 2D geometry primitives (Point, Add/Sub/Mul,
 // Distance, FlatPoint, DecodeShapeFlat, Cubic, PointSegmentDistance, kPi,
-// kPathHeaderScalars, ...) used across the path_frame_fit family. Bringing
+// kPathHeaderScalars,...) used across the path_frame_fit family. Bringing
 // them into the anonymous namespace lets the existing unqualified call sites
 // keep compiling unchanged.
 using namespace pff_geom;
@@ -53,7 +53,7 @@ using namespace pff_landmarks;
 using namespace pff_fitter;
 // pff_cubic_span carries CubicSpanFit + FitDenseSpanCubic forward
 // declaration — see path_frame_fit_cubic_span.hpp. The body and its peer
-// helpers (ScoreDenseSpanCubic, SolveUnconstrainedDenseSpanCubic, ...) stay
+// helpers (ScoreDenseSpanCubic, SolveUnconstrainedDenseSpanCubic,...) stay
 // in this TU while the decimation module can call the public linkage.
 using namespace pff_cubic_span;
 
@@ -122,7 +122,7 @@ using namespace pff_cubic_span;
 std::vector<Point> KeptPoints(const std::vector<DensePoint>& dense, const std::vector<int>& kept) {
   std::vector<Point> points;
   points.reserve(kept.size());
-  for (int index : kept) {
+  for (int index: kept) {
     points.push_back(dense[static_cast<std::size_t>(index)].p);
   }
   return points;
@@ -145,7 +145,7 @@ Point CatmullIn(const std::vector<Point>& vertices, std::size_t vertex_index, bo
   if (!closed && vertex_index + 1 >= n) {
     return {0.0, 0.0};
   }
-  const std::size_t prev_index = vertex_index == 0 ? n - 1 : vertex_index - 1;
+  const std::size_t prev_index = vertex_index == 0 ? n - 1: vertex_index - 1;
   const std::size_t next_index = (vertex_index + 1) % n;
   return Mul(Sub(vertices[prev_index], vertices[next_index]), 1.0 / 6.0);
 }
@@ -158,7 +158,7 @@ Point CatmullOut(const std::vector<Point>& vertices, std::size_t vertex_index, b
   if (!closed && vertex_index == 0) {
     return {0.0, 0.0};
   }
-  const std::size_t prev_index = vertex_index == 0 ? n - 1 : vertex_index - 1;
+  const std::size_t prev_index = vertex_index == 0 ? n - 1: vertex_index - 1;
   const std::size_t next_index = (vertex_index + 1) % n;
   return Mul(Sub(vertices[next_index], vertices[prev_index]), 1.0 / 6.0);
 }
@@ -171,7 +171,7 @@ std::vector<double> BuildFlat(const std::vector<DensePoint>& dense,
   const std::vector<Point> vertices = KeptPoints(dense, kept);
   std::vector<double> out;
   out.reserve(static_cast<std::size_t>(kPathHeaderScalars + kept.size() * kScalarsPerVertex));
-  out.push_back(closed ? 1.0 : 0.0);
+  out.push_back(closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(kept.size()));
   for (std::size_t i = 0; i < kept.size(); ++i) {
     Point in_tangent{0.0, 0.0};
@@ -202,7 +202,7 @@ int ForwardDenseSpan(int begin, int end, int dense_count, bool closed) {
   if (end >= begin) {
     return end - begin;
   }
-  return closed ? dense_count - begin + end : 0;
+  return closed ? dense_count - begin + end: 0;
 }
 
 Point DenseAtOffset(const std::vector<DensePoint>& dense, int begin, int offset) {
@@ -237,7 +237,7 @@ std::vector<double> BuildSegmentFitFlat(const std::vector<DensePoint>& dense,
   std::vector<Point> out_tangents(vertices.size(), {0.0, 0.0});
 
   const int segment_count = closed ? static_cast<int>(kept.size())
-                                   : std::max(0, static_cast<int>(kept.size()) - 1);
+: std::max(0, static_cast<int>(kept.size()) - 1);
   for (int segment = 0; segment < segment_count; ++segment) {
     const int start_vertex = segment;
     const int end_vertex = (segment + 1) % static_cast<int>(kept.size());
@@ -253,7 +253,7 @@ std::vector<double> BuildSegmentFitFlat(const std::vector<DensePoint>& dense,
 
   std::vector<double> out;
   out.reserve(static_cast<std::size_t>(kPathHeaderScalars + kept.size() * kScalarsPerVertex));
-  out.push_back(closed ? 1.0 : 0.0);
+  out.push_back(closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(kept.size()));
   for (std::size_t i = 0; i < vertices.size(); ++i) {
     out.push_back(vertices[i].x);
@@ -314,7 +314,7 @@ namespace {
 
 // Re-open anon namespace for the remaining internal helpers
 // (PointBounds + Bounds*, IsLockedRefineVertex, BuildRefinedCandidate,
-// SegmentSplitScore, ...).
+// SegmentSplitScore,...).
 using namespace pff_geom;
 using namespace pff_fractions;
 using namespace pff_dense;
@@ -349,12 +349,12 @@ FractionLayoutEvaluation EvaluateFractionLayout(
   double max_error = 0.0;
   double worst_fraction = 0.0;
   bool has_worst_fraction = false;
-  for (const std::vector<double>& frame : shape_flat_frames) {
+  for (const std::vector<double>& frame: shape_flat_frames) {
     PathFrameFitResult fit = FitShapeFlatFrameAtFractions(frame, fractions, fit_options);
     if (!fit.ok || !fit.target_met ||
         fit.fitted_vertex_count != static_cast<int>(fractions.size())) {
       evaluation.warning = fit.warning.empty() ? "outline fractions could not be replayed"
-                                               : fit.warning;
+: fit.warning;
       return evaluation;
     }
     if (fit.source_vertex_count <= static_cast<int>(fractions.size())) {

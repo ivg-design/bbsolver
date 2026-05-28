@@ -12,7 +12,7 @@ namespace {
 
 std::string JoinCounts(const std::vector<int>& counts) {
   std::string out;
-  for (int count : counts) {
+  for (int count: counts) {
     if (!out.empty()) {
       out += ",";
     }

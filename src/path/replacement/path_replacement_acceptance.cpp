@@ -9,19 +9,19 @@
 namespace bbsolver {
 
 ReplacementAcceptanceVerdict EvaluateReplacementAcceptance(
-    int    candidate_keys,
+    int candidate_keys,
     double candidate_max_err,
-    bool   candidate_converged,
-    int    candidate_fitted_vertices,
-    int    original_keys,
+    bool candidate_converged,
+    int candidate_fitted_vertices,
+    int original_keys,
     double original_max_err,
-    int    original_source_vertices,
-    bool   original_converged,
+    int original_source_vertices,
+    bool original_converged,
     double tolerance,
-    bool   prefer_vertices,
+    bool prefer_vertices,
     double max_key_growth_ratio,
     double min_vertex_reduction_ratio,
-    int    original_sample_count) {
+    int original_sample_count) {
   ReplacementAcceptanceVerdict verdict;
 
   const bool original_is_valid =
@@ -39,10 +39,10 @@ ReplacementAcceptanceVerdict EvaluateReplacementAcceptance(
       verdict.decision_note =
           std::string(verdict.use_candidate
                           ? "path_replacement_accepted; original_not_valid"
-                          : "path_replacement_fallback_original_not_valid_key_gate") +
+: "path_replacement_fallback_original_not_valid_key_gate") +
           "; candidate_keys=" + std::to_string(candidate_keys) +
           "; original_keys=" + std::to_string(original_keys) +
-          "; original_converged=" + std::string(original_converged ? "true" : "false") +
+          "; original_converged=" + std::string(original_converged ? "true": "false") +
           "; original_max_err=" + std::to_string(original_max_err);
       return verdict;
     }
@@ -54,10 +54,10 @@ ReplacementAcceptanceVerdict EvaluateReplacementAcceptance(
     verdict.decision_note =
         std::string(verdict.use_candidate
                         ? "path_replacement_candidate_selected_both_invalid"
-                        : "path_replacement_fallback_both_invalid") +
-        "; candidate_converged=" + std::string(candidate_converged ? "true" : "false") +
+: "path_replacement_fallback_both_invalid") +
+        "; candidate_converged=" + std::string(candidate_converged ? "true": "false") +
         "; candidate_err=" + std::to_string(candidate_max_err) +
-        "; original_converged=" + std::string(original_converged ? "true" : "false") +
+        "; original_converged=" + std::string(original_converged ? "true": "false") +
         "; original_err=" + std::to_string(original_max_err);
     return verdict;
   }
@@ -66,7 +66,7 @@ ReplacementAcceptanceVerdict EvaluateReplacementAcceptance(
     verdict.use_candidate = false;
     verdict.decision_note =
         "path_replacement_fallback_candidate_invalid"
-        "; candidate_converged=" + std::string(candidate_converged ? "true" : "false") +
+        "; candidate_converged=" + std::string(candidate_converged ? "true": "false") +
         "; candidate_err=" + std::to_string(candidate_max_err) +
         "; original_fallback_keys=" + std::to_string(original_keys);
     return verdict;
@@ -153,11 +153,11 @@ ReplacementValidationSummary SummarizeReplacementCandidateValidation(
   summary.candidate_converged =
       validation.samples_checked > 0
           ? (validation.ok && sharp_validation.ok)
-          : (candidate_keys.converged && sharp_validation.ok);
+: (candidate_keys.converged && sharp_validation.ok);
   summary.candidate_max_err =
       validation.samples_checked > 0
           ? validation.max_outline_error
-          : candidate_keys.max_err;
+: candidate_keys.max_err;
   return summary;
 }
 

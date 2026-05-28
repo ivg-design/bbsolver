@@ -30,7 +30,7 @@ std::vector<int> RegionBoundaryPoints(const std::vector<VertexRegion>& regions,
   std::vector<int> base_boundaries;
   base_boundaries.reserve(regions.size() + 1);
   base_boundaries.push_back(0);
-  for (VertexRegion region : regions) {
+  for (VertexRegion region: regions) {
     base_boundaries.push_back(region.first_vertex);
     base_boundaries.push_back(region.end_vertex);
   }
@@ -56,7 +56,7 @@ std::vector<int> RegionBoundaryPoints(const std::vector<VertexRegion>& regions,
   }
 
   std::vector<int> boundaries = base_boundaries;
-  for (int boundary : base_boundaries) {
+  for (int boundary: base_boundaries) {
     if (boundary <= 0 || boundary >= vertex_count) {
       continue;
     }
@@ -92,7 +92,7 @@ bool RegionsCoverFullRange(
     const std::vector<LandmarkRegionEmissionResult>& emissions,
     int vertex_count) {
   int expected_first = 0;
-  for (const LandmarkRegionEmissionResult& emission : emissions) {
+  for (const LandmarkRegionEmissionResult& emission: emissions) {
     if (emission.region.first_vertex != expected_first ||
         emission.region.end_vertex <= emission.region.first_vertex) {
       return false;
@@ -105,7 +105,7 @@ bool RegionsCoverFullRange(
 int TotalEmissionKeyCount(
     const std::vector<LandmarkRegionEmissionResult>& emissions) {
   int count = 0;
-  for (const LandmarkRegionEmissionResult& emission : emissions) {
+  for (const LandmarkRegionEmissionResult& emission: emissions) {
     count += static_cast<int>(emission.keys.keys.size());
   }
   return count;
@@ -114,7 +114,7 @@ int TotalEmissionKeyCount(
 double MaxEmissionReconstructionError(
     const std::vector<LandmarkRegionEmissionResult>& emissions) {
   double max_error = 0.0;
-  for (const LandmarkRegionEmissionResult& emission : emissions) {
+  for (const LandmarkRegionEmissionResult& emission: emissions) {
     max_error = std::max(max_error, emission.reconstruction.max_outline_error);
   }
   return max_error;
@@ -168,7 +168,7 @@ LandmarkPartitionResult BuildKeyCountLandmarkPartition(
   const int max_regions = std::max(
       1, std::min(interval_count, options.max_regions > 0
                                       ? options.max_regions
-                                      : kDefaultMaxRegions));
+: kDefaultMaxRegions));
 
   std::vector<std::vector<LandmarkRegionEmissionResult>> intervals(
       static_cast<std::size_t>(boundary_count),
@@ -271,7 +271,7 @@ LandmarkPartitionResult BuildKeyCountLandmarkPartition(
 
   std::vector<VertexRegion> selected_regions;
   selected_regions.reserve(selected.size());
-  for (const LandmarkRegionEmissionResult& emission : selected) {
+  for (const LandmarkRegionEmissionResult& emission: selected) {
     selected_regions.push_back(emission.region);
   }
 

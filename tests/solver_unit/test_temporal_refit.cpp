@@ -38,7 +38,7 @@ bbsolver::PropertySamples MakeSource(const std::vector<double>& values) {
   source.property.dimensions = 1;
   source.t_start_sec = 0.0;
   source.t_end_sec =
-      values.empty() ? 0.0 : static_cast<double>(values.size() - 1);
+      values.empty() ? 0.0: static_cast<double>(values.size() - 1);
   for (std::size_t i = 0; i < values.size(); ++i) {
     bbsolver::Sample sample;
     sample.t_sec = static_cast<double>(i);
@@ -245,7 +245,7 @@ std::vector<double> ShapeFlat(const std::vector<std::pair<double, double>>& vert
   flat.reserve(2 + vertices.size() * 6);
   flat.push_back(1.0);
   flat.push_back(static_cast<double>(vertices.size()));
-  for (const auto& vertex : vertices) {
+  for (const auto& vertex: vertices) {
     flat.push_back(vertex.first);
     flat.push_back(vertex.second);
     flat.push_back(0.0);

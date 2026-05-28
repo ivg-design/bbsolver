@@ -42,7 +42,7 @@ RawHeader DecodeHeader(const std::vector<double>& flat) {
 
 int MaxShapeFlatVertexCount(const PropertySamples& ps) {
   int max_vertices = 0;
-  for (const Sample& sample : ps.samples) {
+  for (const Sample& sample: ps.samples) {
     const RawHeader h = DecodeHeader(sample.v);
     if (!h.ok) {
       return 0;
@@ -94,7 +94,7 @@ PathCorrespondenceResult BuildStableRegimes(const PropertySamples& ps) {
   // before any regimes are emitted.
   std::vector<RawHeader> headers;
   headers.reserve(ps.samples.size());
-  for (const Sample& s : ps.samples) {
+  for (const Sample& s: ps.samples) {
     const RawHeader h = DecodeHeader(s.v);
     if (!h.ok) {
       result.notes = "malformed shape_flat header at t=" + std::to_string(s.t_sec);
@@ -173,7 +173,7 @@ int EstimateLinearKeyCount(const PropertySamples& ps, double tolerance) {
     return n;
   }
   const std::size_t dims = ps.samples.front().v.size();
-  for (const Sample& sample : ps.samples) {
+  for (const Sample& sample: ps.samples) {
     if (sample.v.size() != dims) {
       return n;
     }
@@ -201,7 +201,7 @@ int EstimateLinearKeyCount(const PropertySamples& ps, double tolerance) {
         const double tm = ps.samples[static_cast<std::size_t>(mid)].t_sec;
         const double u = std::abs(dt) > 1e-12
                              ? (tm - ta) / dt
-                             : static_cast<double>(mid - seg_start) /
+: static_cast<double>(mid - seg_start) /
                                    static_cast<double>(candidate_end - seg_start);
         const std::vector<double>& vm = ps.samples[static_cast<std::size_t>(mid)].v;
         for (std::size_t d = 0; d < dims; ++d) {
@@ -253,7 +253,7 @@ ReplacementCandidateAssessment AssessReplacementCandidate(
       out.estimated_original_keys > 0
           ? static_cast<double>(out.estimated_candidate_keys) /
                 static_cast<double>(out.estimated_original_keys)
-          : std::numeric_limits<double>::infinity();
+: std::numeric_limits<double>::infinity();
 
   const bool one_key_per_sample =
       out.estimated_candidate_keys >= std::max(2, n_samples - 1);

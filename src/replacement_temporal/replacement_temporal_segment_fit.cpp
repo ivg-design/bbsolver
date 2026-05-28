@@ -71,7 +71,7 @@ SegmentFitResult FitReplacementSegment(
     result.interp = InterpType::Linear;
     result.reason = oracle.reason.empty()
                         ? "replacement_temporal_oracle_failed"
-                        : oracle.reason;
+: oracle.reason;
     return result;
   }
 
@@ -96,15 +96,15 @@ SegmentFitResult FitReplacementSegment(
     result.feasible = true;
     result.interp = InterpType::Bezier;
     result.max_err = use_fitted ? oracle.max_fitted_bezier_error
-                                : oracle.max_default_bezier_error;
+: oracle.max_default_bezier_error;
     result.max_err_screen_px = result.max_err;
     result.rms_err = result.max_err;
     result.ease_out_at_i = ShapeEaseForInfluence(
-        use_fitted ? oracle.fitted_bezier_out_influence : 33.3);
+        use_fitted ? oracle.fitted_bezier_out_influence: 33.3);
     result.ease_in_at_j = ShapeEaseForInfluence(
-        use_fitted ? oracle.fitted_bezier_in_influence : 33.3);
+        use_fitted ? oracle.fitted_bezier_in_influence: 33.3);
     result.reason = use_fitted ? "replacement_shape_morph_bezier_fit_ok"
-                               : "replacement_shape_morph_bezier_ok";
+: "replacement_shape_morph_bezier_ok";
     return result;
   }
 
@@ -123,7 +123,7 @@ SegmentFitResult FitReplacementSegment(
   result.interp = InterpType::Linear;
   result.reason = oracle.monotone_progress_possible
                       ? "infeasible_shape_morph_timing"
-                      : "infeasible_shape_morph_chord";
+: "infeasible_shape_morph_chord";
   return result;
 }
 

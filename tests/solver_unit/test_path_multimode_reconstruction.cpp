@@ -43,7 +43,7 @@ bbsolver::PropertySamples MakeSamples(bool nonlinear_middle) {
   samples.samples.push_back({0.0, ShapeFlatTwoVertex(0.0, 0.0, 10.0, 0.0)});
   samples.samples.push_back(
       {1.0 / 24.0,
-       ShapeFlatTwoVertex(1.0, nonlinear_middle ? 4.0 : 2.0, 12.0, 4.0)});
+       ShapeFlatTwoVertex(1.0, nonlinear_middle ? 4.0: 2.0, 12.0, 4.0)});
   samples.samples.push_back({2.0 / 24.0,
                              ShapeFlatTwoVertex(2.0, 4.0, 14.0, 8.0)});
   return samples;

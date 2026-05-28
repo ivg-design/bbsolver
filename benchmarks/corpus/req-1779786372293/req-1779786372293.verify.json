@@ -1,0 +1,39 @@
+{
+  "regenerated": "2026-05-28T10:56:15Z",
+  "regenerator": "bbsolver verify (canonical CLI)",
+  "regenerator_note": "This verify.json was produced by re-running the canonical `bbsolver verify` CLI on the shipped bbky.json + bbsm.json pair. The OK/FAIL flag reflects the per-property tolerance recorded inside the bbky.json (the \u03b5 the solver was invoked with) rather than the AE harness's per-kind defaults. The max_err values are computed from the same bbky + bbsm pair by the canonical verifier; the corpus keys themselves were produced by bbsolver 1.0.0 and v1.0.1 is verifier-compatible with v1.0.0 solver output (running v1.0.1 solve against the same bbsm yields a bit-identical bbky).",
+  "overall_ok": true,
+  "request_id": "req-1779786372293",
+  "properties": [
+    {
+      "key_count": 81,
+      "max_err": 0.477026262377921,
+      "max_err_screen_px": 0.477026262377921,
+      "notes": "post_solve_vertex_reduction_skipped: mixed_key_topology; source_vertices=26; post_temporal_bridge_prune=disabled; aggressive_reducer=disabled; path_replacement_fit skipped: no replacement target passed; replacement_targets_tried=25; replacement_target_failures=target_25: path_replacement_fit skipped: phase2_target_not_met; target_vertices=25; t=0.000000; fitted_vertices=32; shape_flat frame target vertex count not met; unchanged; target_vertices=25; feature_layout_warning=; best_attempt_err=none",
+      "ok": true,
+      "property_id": "L3/ADBE Root Vectors Group#2/ADBE Vector Group#1/ADBE Vectors Group#2/ADBE Vector Shape - Group#1/ADBE Vector Shape#2",
+      "rms_err": 0.27959303501310223,
+      "worst_sample_idx": 98
+    },
+    {
+      "key_count": 43,
+      "max_err": 1.4653347958718066,
+      "max_err_screen_px": 1.4653347958718066,
+      "notes": "post_solve_vertex_reduction_skipped: mixed_key_topology; source_vertices=26; post_temporal_bridge_prune=disabled; aggressive_reducer=disabled; path_replacement_fit skipped: no replacement target passed; replacement_targets_tried=25; replacement_target_failures=target_25: path_replacement_fit skipped: phase2_target_not_met; target_vertices=25; t=0.066667; fitted_vertices=26; shape_flat frame target vertex count not met; unchanged; target_vertices=25; feature_layout_warning=; best_attempt_err=none",
+      "ok": true,
+      "property_id": "L2/ADBE Root Vectors Group#2/ADBE Vector Group#2/ADBE Vectors Group#2/ADBE Vector Shape - Group#1/ADBE Vector Shape#2",
+      "rms_err": 0.7865284289213897,
+      "worst_sample_idx": 266
+    },
+    {
+      "key_count": 21,
+      "max_err": 2.7548942015410742,
+      "max_err_screen_px": 2.7548942015410742,
+      "notes": "path_replacement_fallback_candidate_invalid; candidate_converged=false; candidate_err=3.112339; original_fallback_keys=21; temporal_validation_error=3.112339; source_outline_validation: exceeds_tolerance; max_outline_error=3.112339; worst_t=0.783333; worst_t_fraction=0.078203; samples_checked=602; source_outline_reference=source; sharp_corner_reference=source; sharp_corner_preserve=rejected; sharp_corner_angle_deg=90.000000; sharp_corner_tolerance=4.500000; sharp_corner_samples_checked=602; source_sharp_landmarks=1300; candidate_sharp_corners=425; missing_sharp_corners=3; worst_sharp_corner_distance=7.000091; worst_sharp_corner_t=4.250000; replacement_rejected; temporal_fallback_used; original_temporal_keys=21; post_solve_vertex_reduction_skipped: mixed_key_topology; source_vertices=26; post_temporal_bridge_prune=disabled; aggressive_reducer=disabled; path_replacement_fit; source_vertices=24-26; auto_frame_vertices=6-24; target_vertices=24; fitted_vertices=24; fraction_coherence=fallback_tolerance; fraction_seeds_tried=4; adaptive_fraction_evaluations=0; best_attempt_err=1.004874; median_fraction_layout=rejected; estimated_candidate_keys=352; estimated_original_keys=602; frames=602; frame_outline_error=1.499684; replacement_targets_tried=24; replacement_target_winner=24; replacement_target_failures=; replacement_temporal_max_gap_samples=8; replacement_temporal_tolerance=3.000000; replacement_frame_outline_error=1.499684; replacement_shape_temporal_bezier=true; replacement_retry=skipped_key_gate; replacement_candidate_keys=129; original_temporal_keys=21",
+      "ok": true,
+      "property_id": "L1/ADBE Root Vectors Group#2/ADBE Vector Group#1/ADBE Vectors Group#2/ADBE Vector Shape - Group#1/ADBE Vector Shape#2",
+      "rms_err": 1.5607765621112168,
+      "worst_sample_idx": 188
+    }
+  ]
+}

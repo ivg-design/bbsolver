@@ -37,9 +37,9 @@ void PushUnique(std::vector<Point>& points, Point p) {
 
 std::vector<double> ShapeFlat(bool closed, const std::vector<Point>& vertices) {
   std::vector<double> flat;
-  flat.push_back(closed ? 1.0 : 0.0);
+  flat.push_back(closed ? 1.0: 0.0);
   flat.push_back(static_cast<double>(vertices.size()));
-  for (const Point& vertex : vertices) {
+  for (const Point& vertex: vertices) {
     flat.push_back(vertex.x);
     flat.push_back(vertex.y);
     flat.push_back(0.0);

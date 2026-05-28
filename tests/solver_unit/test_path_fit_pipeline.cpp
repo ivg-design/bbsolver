@@ -38,7 +38,7 @@ namespace {
 // zero so each vertex is a corner. The header (flat[0], flat[1]) is exact.
 std::vector<double> MakeFlat(bool closed, int vertex_count) {
   std::vector<double> v;
-  v.push_back(closed ? 1.0 : 0.0);
+  v.push_back(closed ? 1.0: 0.0);
   v.push_back(static_cast<double>(vertex_count));
   for (int i = 0; i < vertex_count; ++i) {
     // x, y, in_x, in_y, out_x, out_y
@@ -62,7 +62,7 @@ bbsolver::PropertySamples MakeSamples(bool closed,
   ps.property.units_label = "shape_flat";
   ps.property.dimensions  = vertex_counts.empty()
                                 ? 2
-                                : 2 + 6 * vertex_counts[0];  // nominal, will be updated
+: 2 + 6 * vertex_counts[0];  // nominal, will be updated
   ps.samples_per_frame    = 1;
   ps.t_start_sec          = 0.0;
   ps.t_end_sec            = static_cast<double>(vertex_counts.size() - 1) / 24.0;
@@ -163,15 +163,15 @@ static void TestTopologyChanges() {
   }
 
   // All closed flags preserved.
-  for (const bbsolver::StablePathRegime& r : result.regimes) {
+  for (const bbsolver::StablePathRegime& r: result.regimes) {
     assert(r.closed);
-    for (const bbsolver::Sample& s : r.samples.samples) {
+    for (const bbsolver::Sample& s: r.samples.samples) {
       assert(static_cast<int>(std::llround(s.v[0])) == 1);
     }
   }
 
   // No regime is the original high-dimensional stream.
-  for (const bbsolver::StablePathRegime& r : result.regimes) {
+  for (const bbsolver::StablePathRegime& r: result.regimes) {
     assert(r.dimensions < 314);
   }
 }
@@ -213,7 +213,7 @@ static void TestOpenPath() {
   assert(result.regimes[2].vertex_count == 5);
   assert(result.regimes[2].samples.samples.size() == 1);
 
-  for (const bbsolver::StablePathRegime& r : result.regimes) {
+  for (const bbsolver::StablePathRegime& r: result.regimes) {
     assert(!r.closed);
   }
 }
@@ -306,7 +306,7 @@ static void TestPropertyMetadataPreserved() {
 
   assert(result.ok);
   assert(result.regimes.size() == 2);
-  for (const bbsolver::StablePathRegime& r : result.regimes) {
+  for (const bbsolver::StablePathRegime& r: result.regimes) {
     assert(r.samples.property.id           == "L3/ADBE Mask Shape");
     assert(r.samples.property.display_name == "Mask Path");
     assert(r.samples.property.layer_path   == "Comp/Layer/Mask Path");
@@ -341,7 +341,7 @@ static void TestDecomposeIntegration() {
   assert(decomposed.vertex_count == 4);
   // 3 children per vertex (vert, in, out) each 2D.
   assert(decomposed.children.size() == 3 * 4);
-  for (const bbsolver::PathChildSamples& child : decomposed.children) {
+  for (const bbsolver::PathChildSamples& child: decomposed.children) {
     assert(child.samples.property.dimensions == 2);
     assert(child.samples.samples.size() == 3);
   }
@@ -458,9 +458,9 @@ static std::vector<double> MakeRedundantRectFlat(bool closed) {
   }
 
   std::vector<double> flat;
-  flat.push_back(closed ? 1.0 : 0.0);
+  flat.push_back(closed ? 1.0: 0.0);
   flat.push_back(static_cast<double>(pts.size()));
-  for (const auto& [x, y] : pts) {
+  for (const auto& [x, y]: pts) {
     flat.push_back(x);
     flat.push_back(y);
     flat.push_back(0.0);  // zero tangents -> corner detected -> locked
@@ -507,7 +507,7 @@ static std::vector<double> MakeRedundantSquareFlat(double x,
   flat.reserve(2 + 6 * pts.size());
   flat.push_back(1.0);
   flat.push_back(static_cast<double>(pts.size()));
-  for (const auto& [px, py] : pts) {
+  for (const auto& [px, py]: pts) {
     flat.push_back(px);
     flat.push_back(py);
     flat.push_back(0.0);
@@ -538,14 +538,14 @@ static bbsolver::PropertySamples MakeShapeFlatSamples(
   ps.property.kind = bbsolver::ValueKind::Custom;
   ps.property.units_label = "shape_flat";
   ps.property.dimensions =
-      frames.empty() ? 0 : static_cast<int>(frames.front().second.size());
+      frames.empty() ? 0: static_cast<int>(frames.front().second.size());
   ps.samples_per_frame = 1;
   if (!frames.empty()) {
     ps.t_start_sec = frames.front().first;
     ps.t_end_sec = frames.back().first;
   }
 
-  for (const auto& [t_sec, flat] : frames) {
+  for (const auto& [t_sec, flat]: frames) {
     bbsolver::Sample sample;
     sample.t_sec = t_sec;
     sample.v = flat;
@@ -629,9 +629,9 @@ static Stage2TemporalFixture MakeCoherentStage2Fixture() {
 
 static void TestFitterOutputDimensionContract() {
   // Cross-verification: FitShapeFlatFrame produces a fitted vector that
-  // BuildSingleStableRegime correctly interprets via flat[1] (not .size()).
+  // BuildSingleStableRegime correctly interprets via flat[1] (not.size()).
   // This guards against the main.cpp intermediate PropertySamples having the
-  // wrong .dimensions field before BuildStableRegimes corrects it.
+  // wrong.dimensions field before BuildStableRegimes corrects it.
   const std::vector<double> source_flat = MakeRedundantRectFlat(true);
   const int source_vertex_count = static_cast<int>(std::llround(source_flat[1]));
   assert(source_vertex_count == 52);
@@ -651,7 +651,7 @@ static void TestFitterOutputDimensionContract() {
   // Assemble a PropertySamples from three identical fitted frames, simulating
   // what main.cpp's FitReplacementPathProperty does. Intentionally leave
   // property.dimensions at the original high-dim value to test that
-  // BuildSingleStableRegime corrects it from flat[1], not from .dimensions.
+  // BuildSingleStableRegime corrects it from flat[1], not from.dimensions.
   bbsolver::PropertySamples ps;
   ps.property.kind        = bbsolver::ValueKind::Custom;
   ps.property.units_label = "shape_flat";
@@ -725,7 +725,7 @@ static void TestFitterVariableOutputFeedsToPipelineFallback() {
   for (int frame = 0; frame < 3; ++frame) {
     bbsolver::Sample s;
     s.t_sec = static_cast<double>(frame) / 24.0;
-    s.v     = (frame == 1) ? large_flat : small_flat;  // topology spike
+    s.v     = (frame == 1) ? large_flat: small_flat;  // topology spike
     ps.samples.push_back(std::move(s));
   }
 
@@ -754,7 +754,7 @@ static bbsolver::PropertySamples MakeLinearMotionSamples(int n_frames,
   for (int t = 0; t < n_frames; ++t) {
     bbsolver::Sample s;
     s.t_sec = static_cast<double>(t) / 24.0;
-    s.v.push_back(closed ? 1.0 : 0.0);
+    s.v.push_back(closed ? 1.0: 0.0);
     s.v.push_back(static_cast<double>(vertex_count));
     for (int i = 0; i < vertex_count; ++i) {
       // x = base_x + t * 0.3, y = base_y + t * 0.2 (smooth linear motion)
@@ -786,11 +786,11 @@ static bbsolver::PropertySamples MakeIncoherentMotionSamples(int n_frames,
   for (int t = 0; t < n_frames; ++t) {
     bbsolver::Sample s;
     s.t_sec = static_cast<double>(t) / 24.0;
-    s.v.push_back(closed ? 1.0 : 0.0);
+    s.v.push_back(closed ? 1.0: 0.0);
     s.v.push_back(static_cast<double>(vertex_count));
     for (int i = 0; i < vertex_count; ++i) {
       // Alternating sign creates high second-order difference (acceleration).
-      const double sign = ((t + i) % 2 == 0) ? 1.0 : -1.0;
+      const double sign = ((t + i) % 2 == 0) ? 1.0: -1.0;
       s.v.push_back(static_cast<double>(i) * 10.0 + sign * incoherence_mag);
       s.v.push_back(static_cast<double>(i) * 5.0  + sign * incoherence_mag);
       s.v.push_back(0.0);
@@ -1052,10 +1052,10 @@ static void TestAssessReplacementCandidateReportsReason() {
 
 // Convenience wrapper that fills in default valid-original parameters.
 static bbsolver::ReplacementAcceptanceVerdict Evaluate(
-    int  candidate_keys,
-    int  candidate_fitted_vertices,
-    int  original_keys,
-    int  original_source_vertices,
+    int candidate_keys,
+    int candidate_fitted_vertices,
+    int original_keys,
+    int original_source_vertices,
     bool original_converged = true,
     double original_max_err = 0.0,
     double candidate_max_err = 0.0,
@@ -1774,7 +1774,7 @@ static void TestMultiSeedSelectsLaterSeedWhenFirstFails() {
   ps.property.dimensions  = static_cast<int>(base_flat.size());
 
   double seed_b_max_err = 0.0;
-  for (const FrameFlat& ff : frames) {
+  for (const FrameFlat& ff: frames) {
     bbsolver::PathFrameFitResult fit =
         bbsolver::FitShapeFlatFrameAtFractions(ff.flat, seed_b, opts);
     assert(fit.ok && fit.applied);
@@ -1951,10 +1951,10 @@ static void TestAcceptanceUsesOutlineValidationNotInternalConvergence() {
   // The pipeline logic: outline validation overrides internal convergence.
   const bool outline_converged = validation.samples_checked > 0
       ? validation.ok               // TRUE from outline
-      : candidate_keys.converged;   // FALSE from internal
+: candidate_keys.converged;   // FALSE from internal
   const double outline_err = validation.samples_checked > 0
       ? validation.max_outline_error  // small
-      : candidate_keys.max_err;       // 999.0
+: candidate_keys.max_err;       // 999.0
 
   assert(outline_converged);        // Sourced from validation, not internal
   assert(outline_err <= tolerance); // Sourced from outline, not 999.0
@@ -2049,7 +2049,7 @@ static void TestRefineGeometryHandlesFrameAlreadyAtTargetVertexCount() {
   assert(result.applied);
   assert(result.frames_refined == 2);
   assert(result.refined_samples.property.dimensions == 2 + 6 * 4);
-  for (const bbsolver::Sample& s : result.refined_samples.samples) {
+  for (const bbsolver::Sample& s: result.refined_samples.samples) {
     assert(static_cast<int>(std::llround(s.v[1])) == 4);
     assert(static_cast<int>(s.v.size()) == 2 + 6 * 4);
   }
@@ -2076,7 +2076,7 @@ static void TestRawFrameKeysProduceZeroOutlineErrorAtSampleTimes() {
   bbsolver::PropertyKeys raw_keys;
   raw_keys.property_id = "unit/raw_keys/candidate";
   raw_keys.converged = true;
-  for (const bbsolver::Sample& s : source.samples) {
+  for (const bbsolver::Sample& s: source.samples) {
     raw_keys.keys.push_back(LinearShapeKey(s.t_sec, s.v));
   }
 
@@ -2251,10 +2251,10 @@ static void TestNearMissFactorBoundary() {
 // here as well as the acceptance verdicts at each rung before the first pass.
 static void TestNearMissBuild007LadderAndAcceptance() {
   constexpr double tolerance = 0.5;
-  constexpr int    source_samples = 135;  // = raw fallback key count
-  constexpr int    source_min_vertices = 28;
-  constexpr int    initial_target_vertices = 22;
-  constexpr int    candidate_keys = 94;
+  constexpr int source_samples = 135;  // = raw fallback key count
+  constexpr int source_min_vertices = 28;
+  constexpr int initial_target_vertices = 22;
+  constexpr int candidate_keys = 94;
 
   bbsolver::PathReplacementTargetLadderOptions ladder_options;
   ladder_options.min_target_vertices = initial_target_vertices;
@@ -2283,7 +2283,7 @@ static void TestNearMissBuild007LadderAndAcceptance() {
       {26, 0.289, true},
   };
 
-  for (const Build007Attempt& attempt : attempts) {
+  for (const Build007Attempt& attempt: attempts) {
     assert(std::find(ladder.begin(), ladder.end(), attempt.target_vertices) !=
            ladder.end());
     const auto verdict = bbsolver::EvaluateReplacementAcceptance(
@@ -2333,10 +2333,10 @@ static void TestNearMissBuild007LadderAndAcceptance() {
 // keys. The raw fallback key count equals the source sample count.
 static void TestRawFallbackIsLastResortWhenAllRetriesFail() {
   constexpr double tolerance = 0.5;
-  constexpr int    source_samples = 135;
+  constexpr int source_samples = 135;
 
   // All retry attempts: simulate a sparse ladder (24, 26, 27), all failing.
-  for (int retry_verts : {24, 26, 27}) {
+  for (int retry_verts: {24, 26, 27}) {
     const auto retry_verdict = bbsolver::EvaluateReplacementAcceptance(
         /*candidate_keys=*/source_samples,  // worst case: one key per sample
         /*candidate_max_err=*/0.55,          // still above tolerance
@@ -2365,7 +2365,7 @@ static void TestRawFallbackIsLastResortWhenAllRetriesFail() {
   bbsolver::PropertyKeys raw_keys;
   raw_keys.property_id = "unit/near_miss/raw";
   raw_keys.converged = true;
-  for (const bbsolver::Sample& s : source.samples) {
+  for (const bbsolver::Sample& s: source.samples) {
     raw_keys.keys.push_back(LinearShapeKey(s.t_sec, s.v));
   }
   assert(raw_keys.keys.size() == source.samples.size());

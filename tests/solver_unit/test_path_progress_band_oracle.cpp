@@ -19,7 +19,7 @@ std::vector<double> ShapeFlatRect(double x, double y, double w, double h) {
   std::vector<double> out;
   out.push_back(1.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const auto& vertex : vertices) {
+  for (const auto& vertex: vertices) {
     out.push_back(vertex.first);
     out.push_back(vertex.second);
     out.push_back(0.0);
@@ -41,7 +41,7 @@ bbsolver::PropertySamples MakeMorphChordFixture() {
   ps.samples_per_frame = 1;
 
   for (int idx = 0; idx <= 8; ++idx) {
-    const double y = (idx == 0 || idx == 8) ? 0.0 : 5.0;
+    const double y = (idx == 0 || idx == 8) ? 0.0: 5.0;
     ps.samples.push_back({static_cast<double>(idx) / 24.0,
                           ShapeFlatRect(static_cast<double>(idx), y, 10.0, 10.0)});
   }

@@ -23,7 +23,7 @@ bbsolver::PropertySamples ShapeFlatSamples(
   samples.property.id = "shape";
   samples.property.kind = bbsolver::ValueKind::Custom;
   samples.property.units_label = "shape_flat";
-  samples.property.dimensions = values.empty() ? 1 : static_cast<int>(values[0].size());
+  samples.property.dimensions = values.empty() ? 1: static_cast<int>(values[0].size());
   for (std::size_t i = 0; i < values.size(); ++i) {
     bbsolver::Sample sample;
     sample.t_sec = static_cast<double>(i);

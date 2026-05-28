@@ -46,7 +46,7 @@ int EnvPositiveInt(const char* name) {
 
 int EnvPositiveIntEither(const char* primary, const char* legacy) {
   const int value = EnvPositiveInt(primary);
-  return value > 0 ? value : EnvPositiveInt(legacy);
+  return value > 0 ? value: EnvPositiveInt(legacy);
 }
 
 bool TbbRuntimeAvailable() {
@@ -59,7 +59,7 @@ bool TbbRuntimeAvailable() {
 
 int DetectedParallelJobs() {
   const unsigned int detected = std::thread::hardware_concurrency();
-  const int jobs = detected == 0 ? 1 : static_cast<int>(detected);
+  const int jobs = detected == 0 ? 1: static_cast<int>(detected);
   return std::clamp(jobs, 1, kParallelJobsHardCap);
 }
 
@@ -80,8 +80,8 @@ int ResolveParallelJobs(int requested_jobs) {
 std::string ParallelRuntimePhase(int requested_jobs, int resolved_jobs) {
   std::string phase = "Parallel runtime: ";
   phase += std::to_string(resolved_jobs);
-  phase += resolved_jobs == 1 ? " job" : " jobs";
-  phase += requested_jobs == 0 ? " (auto" : " (requested";
+  phase += resolved_jobs == 1 ? " job": " jobs";
+  phase += requested_jobs == 0 ? " (auto": " (requested";
   if (TbbRuntimeAvailable()) {
     phase += ", TBB";
     if (requested_jobs > resolved_jobs && requested_jobs > 0) {

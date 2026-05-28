@@ -1,0 +1,4 @@
+eps,input_id,samples,keys,volume_compression_ratio,source_v1_unique_set,output_v1_unique_set,source_change_points,solve_time_s,cli_flags
+1.0,L2_test_Path__20260514-191818,124,44,2.7339,29;31;34;36;38;40;52,29;31;34;36;38;40;52,8.0,2.99,--solve-mode full;--decompose-paths;--fit-canonical-paths;--fit-replacement-paths;--emit-landmark-subpaths
+2.0,L2_test_Path__20260514-191818,124,36,3.3415,29;31;34;36;38;40;52,29;31;34;36;38;40;52,8.0,3.02,--solve-mode full;--decompose-paths;--fit-canonical-paths;--fit-replacement-paths;--emit-landmark-subpaths
+3.0,L2_test_Path__20260514-191818,124,33,3.6452,29;31;34;36;38;40;52,29;31;34;36;38;40;52,8.0,3.11,--solve-mode full;--decompose-paths;--fit-canonical-paths;--fit-replacement-paths;--emit-landmark-subpaths

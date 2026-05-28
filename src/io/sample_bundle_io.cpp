@@ -68,7 +68,7 @@ void RequireSampleBundleJsonRoot(const json& root) {
   }
   RequireObjectField(root, "comp", "SampleBundle");
   RequireNonEmptyArrayField(root, "properties", "SampleBundle");
-  for (const auto& property_json : root.at("properties")) {
+  for (const auto& property_json: root.at("properties")) {
     RequirePropertySamplesJson(property_json);
   }
 }
@@ -82,7 +82,7 @@ SampleBundle ParseSampleBundleJson(const json& root) {
   bundle.comp = ParseCompInfoJson(root.at("comp"));
   if (const auto it = root.find("properties");
       it != root.end() && it->is_array()) {
-    for (const auto& property_json : *it) {
+    for (const auto& property_json: *it) {
       bundle.properties.push_back(ParsePropertySamplesJson(property_json));
     }
   }

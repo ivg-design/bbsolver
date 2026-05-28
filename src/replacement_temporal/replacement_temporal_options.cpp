@@ -53,10 +53,10 @@ ReplacementTemporalSolverOptions NormalizeReplacementTemporalOptions(
   const int required_evaluations =
       options.band_options.max_window_samples *
       (2 +
-       (scan_progress_grid ? options.band_options.progress_steps + 1 : 0) +
+       (scan_progress_grid ? options.band_options.progress_steps + 1: 0) +
        (options.band_options.fit_bezier_influence_pairs
             ? options.band_options.max_bezier_influence_pairs
-            : 0));
+: 0));
   if (options.band_options.max_evaluations <= 0) {
     options.band_options.max_evaluations = required_evaluations;
   } else {

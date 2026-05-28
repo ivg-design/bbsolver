@@ -17,7 +17,7 @@ ReplacementInitialFrameScan ScanReplacementInitialFrames(
   scan.source_min_vertices = std::numeric_limits<int>::max();
   scan.auto_min_vertices = std::numeric_limits<int>::max();
 
-  for (const Sample& sample : property_samples.samples) {
+  for (const Sample& sample: property_samples.samples) {
     const int source_vertices = ShapeFlatVertexCount(sample.v);
     if (source_vertices <= 0) {
       scan.ok = false;
@@ -37,7 +37,7 @@ ReplacementInitialFrameScan ScanReplacementInitialFrames(
     }
 
     const int auto_vertices =
-        frame_fit.applied ? frame_fit.fitted_vertex_count : source_vertices;
+        frame_fit.applied ? frame_fit.fitted_vertex_count: source_vertices;
     scan.source_min_vertices =
         std::min(scan.source_min_vertices, source_vertices);
     scan.source_max_vertices =

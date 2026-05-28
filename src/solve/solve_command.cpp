@@ -59,7 +59,7 @@ int RunSolve(int argc, char** argv) {
   const DiagnosticsWriter diagnostics =
       options.diagnostics_file.has_value()
           ? DiagnosticsWriter::ToFile(*options.diagnostics_file)
-          : DiagnosticsWriter();
+: DiagnosticsWriter();
   const SolveParallelRuntimeScope parallel_runtime_scope(
       resolved_parallel_jobs);
   EmitSolveStartLifecycle(samples,
@@ -186,7 +186,7 @@ int RunSolve(int argc, char** argv) {
           property_keys = std::move(smoothness_gate.preserved_keys);
           property_keys.notes = candidate_note.empty()
               ? smoothness_gate.note
-              : candidate_note + "; " + smoothness_gate.note;
+: candidate_note + "; " + smoothness_gate.note;
         } else {
           AppendSolverNote(property_keys, smoothness_gate.note);
         }
@@ -195,7 +195,7 @@ int RunSolve(int argc, char** argv) {
     const auto prop_end = std::chrono::steady_clock::now();
     const double prop_ms =
         std::chrono::duration<double, std::milli>(prop_end - prop_start)
-            .count();
+.count();
     PropertyTemporalSolveResultRequest temporal_result_request;
     temporal_result_request.property_samples = &property_samples;
     temporal_result_request.property_keys = &property_keys;

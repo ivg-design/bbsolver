@@ -18,7 +18,7 @@ constexpr double kPi = 3.14159265358979323846;
 constexpr double kMaxFairingAlpha = 0.72;
 
 double PositiveOr(double value, double fallback) {
-  return value > 0.0 && std::isfinite(value) ? value : fallback;
+  return value > 0.0 && std::isfinite(value) ? value: fallback;
 }
 
 double TurnAngleDeg(const std::vector<double>& prev,
@@ -149,7 +149,7 @@ MotionPathLocks BuildMotionPathLocks(
   locks.keyed.front() = true;
   locks.keyed.back() = true;
   if (config.motion_path_respect_keyed_frames) {
-    for (double t : MotionSmoothSourceKeyTimes(property_samples)) {
+    for (double t: MotionSmoothSourceKeyTimes(property_samples)) {
       const int sample_idx = NearestSampleIndexAtTime(property_samples, t);
       if (sample_idx >= 0) {
         locks.keyed[static_cast<std::size_t>(sample_idx)] = true;
@@ -191,12 +191,12 @@ MotionPathFairingResult FairMotionPathPoints(
   const MotionPathBounds source_bounds = ComputeMotionPathBounds(raw, dims);
   result.source_bounds_width = MotionPathBoundsSpan(source_bounds, 0);
   result.source_bounds_height =
-      dims > 1 ? MotionPathBoundsSpan(source_bounds, 1) : 0.0;
+      dims > 1 ? MotionPathBoundsSpan(source_bounds, 1): 0.0;
   result.bounds_preserved = preserve_bounds;
   result.bounds_tolerance =
       std::isfinite(bounds_tolerance) && bounds_tolerance > 0.0
           ? bounds_tolerance
-          : 0.0;
+: 0.0;
   result.source_path_length = MotionPathLength(raw, dims);
   if (raw.size() <= 2) {
     result.points = raw;
@@ -205,7 +205,7 @@ MotionPathFairingResult FairMotionPathPoints(
         ComputeMotionPathBounds(result.points, dims);
     result.smoothed_bounds_width = MotionPathBoundsSpan(smoothed_bounds, 0);
     result.smoothed_bounds_height =
-        dims > 1 ? MotionPathBoundsSpan(smoothed_bounds, 1) : 0.0;
+        dims > 1 ? MotionPathBoundsSpan(smoothed_bounds, 1): 0.0;
     result.bounds_max_deviation =
         MotionPathBoundsSideDeviation(source_bounds, smoothed_bounds, dims);
     return result;
@@ -259,7 +259,7 @@ MotionPathFairingResult FairMotionPathPoints(
       ComputeMotionPathBounds(smoothed, dims);
   result.smoothed_bounds_width = MotionPathBoundsSpan(smoothed_bounds, 0);
   result.smoothed_bounds_height =
-      dims > 1 ? MotionPathBoundsSpan(smoothed_bounds, 1) : 0.0;
+      dims > 1 ? MotionPathBoundsSpan(smoothed_bounds, 1): 0.0;
   result.bounds_max_deviation =
       MotionPathBoundsSideDeviation(source_bounds, smoothed_bounds, dims);
   result.points = std::move(smoothed);
@@ -321,7 +321,7 @@ std::vector<int> MotionPathKeptIndices(
 
 int CountMotionPathLocks(const std::vector<bool>& locked) {
   int count = 0;
-  for (bool item : locked) {
+  for (bool item: locked) {
     if (item) {
       ++count;
     }

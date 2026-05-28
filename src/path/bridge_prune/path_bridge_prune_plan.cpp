@@ -47,7 +47,7 @@ int ShiftBridgePruneRemovedIndex(
     int original_removed_index,
     const std::vector<int>& removed_original_indices) {
   int shifted_removed_index = original_removed_index;
-  for (int removed_original_index : removed_original_indices) {
+  for (int removed_original_index: removed_original_indices) {
     if (removed_original_index < original_removed_index) {
       --shifted_removed_index;
     }
@@ -70,7 +70,7 @@ std::string BridgePruneAcceptedStepNote(int source_vertices,
          std::to_string(result_vertices) + "@idx" +
          std::to_string(removed_index) + "/keys" +
          std::to_string(affected_keys) +
-         (batch ? "/batch" : std::string{});
+         (batch ? "/batch": std::string{});
 }
 
 }  // namespace bbsolver

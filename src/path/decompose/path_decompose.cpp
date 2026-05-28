@@ -26,7 +26,7 @@ bool IsShapeFlatPath(const PropertySamples& ps) {
 }
 
 double ComponentOrZero(const std::vector<double>& values, std::size_t idx) {
-  return idx < values.size() ? values[idx] : 0.0;
+  return idx < values.size() ? values[idx]: 0.0;
 }
 
 DecodedPathSample DecodePathHeader(const std::vector<double>& flat) {
@@ -88,7 +88,7 @@ PropertySamples MakeChild(const PropertySamples& ps,
   child.samples.reserve(ps.samples.size());
 
   const std::size_t offset = ChannelOffset(vertex_index, channel);
-  for (const Sample& sample : ps.samples) {
+  for (const Sample& sample: ps.samples) {
     Sample child_sample;
     child_sample.t_sec = sample.t_sec;
     child_sample.v = {
@@ -105,7 +105,7 @@ const PropertyKeys* FirstNonEmpty(const std::vector<PropertyKeys>& child_keys) {
       child_keys.begin(),
       child_keys.end(),
       [](const PropertyKeys& child) { return !child.keys.empty(); });
-  return it == child_keys.end() ? nullptr : &*it;
+  return it == child_keys.end() ? nullptr: &*it;
 }
 
 }  // namespace
@@ -141,7 +141,7 @@ PathDecomposeResult DecomposePathBundle(const PropertySamples& ps) {
   result.closed = first.closed;
   result.vertex_count = first.vertex_count;
 
-  for (const Sample& sample : ps.samples) {
+  for (const Sample& sample: ps.samples) {
     const DecodedPathSample decoded = DecodePathHeader(sample.v);
     if (!decoded.ok ||
         decoded.vertex_count != first.vertex_count ||
@@ -154,7 +154,7 @@ PathDecomposeResult DecomposePathBundle(const PropertySamples& ps) {
   result.stable_topology = true;
   result.children.reserve(static_cast<std::size_t>(first.vertex_count * 3));
   for (int vertex_index = 0; vertex_index < first.vertex_count; ++vertex_index) {
-    for (PathChannel channel : {PathChannel::Vert, PathChannel::InTangent, PathChannel::OutTangent}) {
+    for (PathChannel channel: {PathChannel::Vert, PathChannel::InTangent, PathChannel::OutTangent}) {
       PathChildSamples child;
       child.samples = MakeChild(ps, vertex_index, channel);
       child.vertex_index = vertex_index;
@@ -167,10 +167,10 @@ PathDecomposeResult DecomposePathBundle(const PropertySamples& ps) {
 
 std::vector<PropertySamples> DecomposePathBundle(const SampleBundle& bundle) {
   std::vector<PropertySamples> out;
-  for (const PropertySamples& ps : bundle.properties) {
+  for (const PropertySamples& ps: bundle.properties) {
     PathDecomposeResult decomposed = DecomposePathBundle(ps);
     if (decomposed.stable_topology) {
-      for (PathChildSamples& child : decomposed.children) {
+      for (PathChildSamples& child: decomposed.children) {
         out.push_back(std::move(child.samples));
       }
     }
@@ -203,7 +203,7 @@ PropertyKeys ReassemblePathKeys(const PropertyInfo& parent_info,
     return out;
   }
 
-  for (const PropertyKeys& child : child_keys) {
+  for (const PropertyKeys& child: child_keys) {
     out.converged = out.converged && child.converged && !child.keys.empty();
     out.max_err = std::max(out.max_err, child.max_err);
     out.max_err_screen_px = std::max(out.max_err_screen_px, child.max_err_screen_px);
@@ -211,10 +211,10 @@ PropertyKeys ReassemblePathKeys(const PropertyInfo& parent_info,
 
   const std::size_t vertex_count = child_keys.size() / 3;
   out.keys.reserve(anchor_keys.size());
-  for (const Key& anchor : anchor_keys) {
+  for (const Key& anchor: anchor_keys) {
     Key flat_key = anchor;
     flat_key.v.assign(kPathHeaderScalars + vertex_count * kScalarsPerVertex, 0.0);
-    flat_key.v[0] = closed ? 1.0 : 0.0;
+    flat_key.v[0] = closed ? 1.0: 0.0;
     flat_key.v[1] = static_cast<double>(vertex_count);
 
     for (std::size_t vertex_index = 0; vertex_index < vertex_count; ++vertex_index) {

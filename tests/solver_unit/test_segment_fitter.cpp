@@ -32,7 +32,7 @@ bbsolver::PropertySamples MakeProperty(const std::vector<std::vector<double>>& v
   ps.property.is_separated = separated;
   if (spatial) {
     ps.property.kind = dimensions == 3 ? bbsolver::ValueKind::ThreeD_Spatial
-                                       : bbsolver::ValueKind::TwoD_Spatial;
+: bbsolver::ValueKind::TwoD_Spatial;
   } else if (dimensions == 2) {
     ps.property.kind = bbsolver::ValueKind::TwoD;
   } else if (dimensions == 3) {
@@ -41,7 +41,7 @@ bbsolver::PropertySamples MakeProperty(const std::vector<std::vector<double>>& v
     ps.property.kind = bbsolver::ValueKind::Scalar;
   }
   ps.t_start_sec = 0.0;
-  ps.t_end_sec = (values.empty() || fps <= 0.0) ? 0.0 : (static_cast<double>(values.size() - 1) / fps);
+  ps.t_end_sec = (values.empty() || fps <= 0.0) ? 0.0: (static_cast<double>(values.size() - 1) / fps);
   ps.samples_per_frame = 1;
   for (std::size_t i = 0; i < values.size(); ++i) {
     bbsolver::Sample sample;
@@ -85,7 +85,7 @@ std::vector<double> ShapeFlatRect(double x, double y, double w, double h) {
   flat.reserve(2 + points.size() * 6);
   flat.push_back(1.0);
   flat.push_back(static_cast<double>(points.size()));
-  for (const auto& point : points) {
+  for (const auto& point: points) {
     flat.push_back(point.first);
     flat.push_back(point.second);
     flat.push_back(0.0);
@@ -256,7 +256,7 @@ int main() {
     const bbsolver::PropertyKeys keys =
         bbsolver::SolveProperty(ps, cfg, Comp(24.0), bbsolver::FitSegment);
     assert(keys.converged);
-    for (const bbsolver::Key& key : keys.keys) {
+    for (const bbsolver::Key& key: keys.keys) {
       assert(key.temporal_ease_in.size() == 1);
       assert(key.temporal_ease_out.size() == 1);
     }

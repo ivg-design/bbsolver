@@ -13,7 +13,7 @@ namespace {
 std::string BestAttemptErrorText(double best_attempt_error) {
   return best_attempt_error < std::numeric_limits<double>::infinity()
              ? std::to_string(best_attempt_error)
-             : "none";
+: "none";
 }
 
 std::string BuildFeatureAnchorSuffix(
@@ -24,7 +24,7 @@ std::string BuildFeatureAnchorSuffix(
   }
   return "; feature_fraction_layout=" +
          std::string(feature_layout_trial.applied ? "applied_feature_layout"
-                                                 : "rejected") +
+: "rejected") +
          "; feature_anchors=" +
          std::to_string(feature_layout_trial.feature_anchor_count) +
          "; feature_targets_tried=" +
@@ -32,10 +32,10 @@ std::string BuildFeatureAnchorSuffix(
          (feature_layout_trial.target_vertices > 0
               ? "; feature_target_vertices=" +
                     std::to_string(feature_layout_trial.target_vertices)
-              : std::string{}) +
+: std::string{}) +
          (feature_layout_trial.warning.empty()
               ? std::string{}
-              : "; feature_layout_warning=" + feature_layout_trial.warning);
+: "; feature_layout_warning=" + feature_layout_trial.warning);
 }
 
 std::string BuildMedianLayoutSuffix(
@@ -45,14 +45,14 @@ std::string BuildMedianLayoutSuffix(
   }
   return "; median_fraction_layout=" +
          std::string(input.median_fraction_layout_applied ? "applied"
-                                                         : "rejected");
+: "rejected");
 }
 
 std::string BuildPhase2Suffix(
     const ReplacementFractionCoherenceNoteInput& input) {
   return input.phase2_ok
              ? std::string{}
-             : "; phase2_target_fit=rejected; phase2_target_warning=" +
+: "; phase2_target_fit=rejected; phase2_target_warning=" +
                    input.phase2_warning;
 }
 
@@ -83,9 +83,9 @@ std::string BuildReplacementFractionCoherenceNote(
   }
   if (input.fraction_coherence_applied) {
     return (feature_layout_trial.applied ? "applied_feature_layout"
-                                         : input.median_fraction_layout_applied
+: input.median_fraction_layout_applied
                                                ? "applied_median_layout"
-                                               : "applied") +
+: "applied") +
            std::string("; fraction_seeds_tried=") +
            std::to_string(input.fraction_seed_count) +
            "; best_seed_phase2_idx=" +
@@ -112,7 +112,7 @@ std::string BuildReplacementSuccessNote(
   return "path_replacement_fit; source_vertices=" +
          (input.source_min_vertices == input.source_max_vertices
               ? std::to_string(input.source_min_vertices)
-              : std::to_string(input.source_min_vertices) + "-" +
+: std::to_string(input.source_min_vertices) + "-" +
                     std::to_string(input.source_max_vertices)) +
          "; auto_frame_vertices=" + std::to_string(input.auto_min_vertices) +
          "-" + std::to_string(input.auto_max_vertices) +
@@ -147,13 +147,13 @@ std::string BuildReplacementFastVertexPreferenceNote(
          "; source_outline_validation: " + input.source_validation_notes +
          "; source_outline_reference=" +
          std::string(input.visible_outline_reference ? "visible_outline"
-                                                     : "source") +
+: "source") +
          "; sharp_corner_reference=" +
          std::string(input.visible_outline_reference ? "visible_outline"
-                                                     : "source") +
+: "source") +
          (input.sharp_validation_enabled
               ? "; " + input.sharp_validation_notes
-              : std::string{}) +
+: std::string{}) +
          "; path_replacement_accepted_fast_vertex_preference"
          "; baseline_temporal_skipped=true"
          "; post_solve_vertex_reduction_skipped=already_stable_replacement"
@@ -176,7 +176,7 @@ std::string BuildReplacementFastVertexPreferenceNote(
 std::string BuildReplacementSourceValidationNote(
     const ReplacementSourceValidationNoteInput& input) {
   const std::string reference =
-      input.visible_outline_reference ? "visible_outline" : "source";
+      input.visible_outline_reference ? "visible_outline": "source";
   if (input.validation_samples_checked > 0) {
     return "temporal_validation_error=" +
            std::to_string(input.validation_max_outline_error) +
@@ -185,7 +185,7 @@ std::string BuildReplacementSourceValidationNote(
            "; sharp_corner_reference=" + reference +
            (input.sharp_validation_enabled
                 ? "; " + input.sharp_validation_notes
-                : std::string{});
+: std::string{});
   }
   if (!input.sharp_validation_enabled) {
     return {};
@@ -283,10 +283,10 @@ std::string BuildReplacementRetryResultNote(
          std::to_string(input.retry_temporal_validation_error) +
          "; retry_sharp_corner_reference=" +
          std::string(input.visible_outline_reference ? "visible_outline"
-                                                     : "source") +
+: "source") +
          (input.sharp_validation_enabled
               ? "; " + input.sharp_validation_notes
-              : std::string{});
+: std::string{});
 }
 
 std::string BuildReplacementRetryAcceptedNote(

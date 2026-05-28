@@ -23,7 +23,7 @@ void TestLadderStaysBelowSourceMin() {
   const std::vector<int> ladder =
       bbsolver::BuildShapeFlatReplacementTargetLadder(22, 28, opts);
   assert(!ladder.empty());
-  for (int target : ladder) {
+  for (int target: ladder) {
     assert(target < 28);  // strict reduction over source_min
     assert(target >= 22);  // never below initial
   }
@@ -100,7 +100,7 @@ void TestRetryTargetLadderUsesConfigBoundsAndWiderBudget() {
   assert(ladder.front() == 14);
   assert(ladder.back() == 24);
   assert(ladder.size() <= 10);
-  for (int target : ladder) {
+  for (int target: ladder) {
     assert(target >= 14);
     assert(target <= 24);
     assert(target < 30);

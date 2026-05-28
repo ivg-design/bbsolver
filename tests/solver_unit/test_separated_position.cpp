@@ -24,7 +24,7 @@ bbsolver::PropertySamples MakeSeparatedDim(const std::string& suffix,
   ps.property.is_separated = true;
   ps.property.units_label = "px";
   ps.t_start_sec = 0.0;
-  ps.t_end_sec = values.empty() ? 0.0 : static_cast<double>(values.size() - 1) / comp.fps;
+  ps.t_end_sec = values.empty() ? 0.0: static_cast<double>(values.size() - 1) / comp.fps;
   ps.samples_per_frame = 1;
   ps.samples.reserve(values.size());
   for (std::size_t i = 0; i < values.size(); ++i) {
@@ -68,7 +68,7 @@ int main() {
   const bbsolver::SampleBundle bundle = MakeSeparatedPositionBundle();
   assert(bundle.properties.size() == 3);
 
-  for (const bbsolver::PropertySamples& ps : bundle.properties) {
+  for (const bbsolver::PropertySamples& ps: bundle.properties) {
     assert(ps.property.is_separated);
     assert(ps.property.dimensions == 1);
     assert(!ps.property.is_spatial);
@@ -78,7 +78,7 @@ int main() {
     assert(keys.converged);
     assert(keys.keys.size() <= 6);
     assert(keys.max_err <= bundle.config.tolerance);
-    for (const bbsolver::Key& key : keys.keys) {
+    for (const bbsolver::Key& key: keys.keys) {
       assert(key.v.size() == 1);
       assert(key.temporal_ease_in.size() == 1);
       assert(key.temporal_ease_out.size() == 1);

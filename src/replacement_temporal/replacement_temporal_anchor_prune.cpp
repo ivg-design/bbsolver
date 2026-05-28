@@ -207,7 +207,7 @@ ExactAnchorFallbackLinearPruneResult TryLinearPruneExactAnchorFallback(
                                      n - 1,
                                      result.max_gap_samples,
                                      result.long_gap_samples);
-      for (int end : candidate_ends) {
+      for (int end: candidate_ends) {
         if (result.checks >= max_checks) {
           result.budget_exceeded = true;
           result.reason = "budget_exceeded";
@@ -238,7 +238,7 @@ ExactAnchorFallbackLinearPruneResult TryLinearPruneExactAnchorFallback(
     current_anchor_value =
         segments.back().key_value_at_j.empty()
             ? ValueAt(reduced, chosen_end)
-            : segments.back().key_value_at_j;
+: segments.back().key_value_at_j;
     cursor = chosen_end;
     if (cursor >= n - 1 || anchors.size() == 2 ||
         (cursor % progress_stride) == 0) {
@@ -344,7 +344,7 @@ void PromoteValidatedAnchorFallback(
                                 std::to_string(prune.static_spans_collapsed) +
                                 "; static_samples_skipped=" +
                                 std::to_string(prune.static_samples_skipped)
-                          : std::string{}));
+: std::string{}));
       return;
     }
     AppendNote(keys,
@@ -357,7 +357,7 @@ void PromoteValidatedAnchorFallback(
                    "; prune_long_gap_samples=" +
                    std::to_string(prune.long_gap_samples) +
                    "; prune_budget_exceeded=" +
-                   std::string(prune.budget_exceeded ? "true" : "false"));
+                   std::string(prune.budget_exceeded ? "true": "false"));
   } else {
     AppendNote(keys,
                "exact_anchor_fallback_linear_prune_accepted=false; "

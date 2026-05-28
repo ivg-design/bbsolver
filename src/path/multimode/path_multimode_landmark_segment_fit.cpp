@@ -141,7 +141,7 @@ RelaxedValidation ValidateRelaxedRegionChord(
   validation.rms_err = samples_checked > 0
                            ? std::sqrt(sum_sq /
                                        static_cast<double>(samples_checked))
-                           : 0.0;
+: 0.0;
   return validation;
 }
 
@@ -272,7 +272,7 @@ SegmentFitResult TryRelaxedLandmarkRegionSegment(
       RelaxedValidation best_validation;
       best_validation.max_err = std::numeric_limits<double>::infinity();
       bool found_relaxed_bezier = false;
-      for (const LandmarkInfluencePair& pair : pairs) {
+      for (const LandmarkInfluencePair& pair: pairs) {
         if ((std::abs(pair.out_influence - 33.3) <= 1e-6 &&
              std::abs(pair.in_influence - 33.3) <= 1e-6) ||
             (has_strict_pair && SameInfluencePair(pair, strict_pair))) {
@@ -332,7 +332,7 @@ SegmentFitResult FitLandmarkRegionShapeSegment(
   if (!oracle.ok) {
     result.reason = oracle.reason.empty()
                         ? "landmark_subpath_temporal_oracle_failed"
-                        : oracle.reason;
+: oracle.reason;
     return result;
   }
 
@@ -357,15 +357,15 @@ SegmentFitResult FitLandmarkRegionShapeSegment(
     result.feasible = true;
     result.interp = InterpType::Bezier;
     result.max_err = use_fitted ? oracle.max_fitted_bezier_error
-                                : oracle.max_default_bezier_error;
+: oracle.max_default_bezier_error;
     result.max_err_screen_px = result.max_err;
     result.rms_err = result.max_err;
     result.ease_out_at_i =
-        ShapeEase(use_fitted ? oracle.fitted_bezier_out_influence : 33.3);
+        ShapeEase(use_fitted ? oracle.fitted_bezier_out_influence: 33.3);
     result.ease_in_at_j =
-        ShapeEase(use_fitted ? oracle.fitted_bezier_in_influence : 33.3);
+        ShapeEase(use_fitted ? oracle.fitted_bezier_in_influence: 33.3);
     result.reason = use_fitted ? "landmark_subpath_temporal_bezier_fit_ok"
-                               : "landmark_subpath_temporal_bezier_ok";
+: "landmark_subpath_temporal_bezier_ok";
     return result;
   }
 
@@ -380,7 +380,7 @@ SegmentFitResult FitLandmarkRegionShapeSegment(
 
   result.reason = oracle.monotone_progress_possible
                       ? "landmark_subpath_temporal_infeasible_timing"
-                      : "landmark_subpath_temporal_infeasible_chord";
+: "landmark_subpath_temporal_infeasible_chord";
   return result;
 }
 

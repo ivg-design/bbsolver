@@ -12,7 +12,7 @@ std::vector<double> ShapeFlat(bool closed,
                               const std::vector<std::vector<double>>& vertices,
                               const std::vector<bool>& zero_tangent) {
   std::vector<double> out;
-  out.push_back(closed ? 1.0 : 0.0);
+  out.push_back(closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(vertices.size()));
   for (std::size_t i = 0; i < vertices.size(); ++i) {
     out.push_back(vertices[i][0]);
@@ -56,7 +56,7 @@ bbsolver::PropertySamples MakeRedundantRectangle(bool all_zero_tangents = false,
 
   for (int frame = 0; frame < frame_count; ++frame) {
     std::vector<std::vector<double>> vertices = base;
-    for (std::vector<double>& vertex : vertices) {
+    for (std::vector<double>& vertex: vertices) {
       vertex[0] += frame * 10.0;
       vertex[1] += frame * 5.0;
     }
@@ -90,7 +90,7 @@ void AssertSamePathFitResult(const bbsolver::PathFitResult& a,
 }
 
 double ComponentOrZero(const std::vector<double>& values, std::size_t idx) {
-  return idx < values.size() ? values[idx] : 0.0;
+  return idx < values.size() ? values[idx]: 0.0;
 }
 
 }  // namespace
@@ -117,7 +117,7 @@ int main() {
   assert(result.kept_indices[2] == 4);
   assert(result.kept_indices[3] == 6);
 
-  for (const bbsolver::Sample& sample : result.samples.samples) {
+  for (const bbsolver::Sample& sample: result.samples.samples) {
     assert(sample.v.size() == 26);
     assert(std::llround(sample.v[0]) == 1);
     assert(std::llround(sample.v[1]) == 4);

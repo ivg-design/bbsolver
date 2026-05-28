@@ -53,7 +53,7 @@ TryAcceptReplacementFastVertexPreference(
   const int replacement_source_vertices_for_ratio =
       request.replacement_original_max_vertices > 0
           ? request.replacement_original_max_vertices
-          : MaxShapeFlatSampleVertexCount(*request.original_property_samples);
+: MaxShapeFlatSampleVertexCount(*request.original_property_samples);
   const ReplacementFastVertexPreferenceInput fast_vertex_input =
       BuildReplacementFastVertexPreferenceInput(
           request.config->path_replacement_prefer_vertices,

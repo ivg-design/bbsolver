@@ -1,0 +1,4 @@
+eps,request_id,samples,keys,temporal_compression_ratio,src_floats,out_floats,volume_compression_ratio,output_v1_uniform,source_v1_max,solver_max_err_px,ae_roundtrip_max_err_px,cli_verify_max_err_px,solve_time_s
+0.5,req-1779740361822,242,115,2.1043,74590,19550,3.8153,28,52,0.48764,0.588593,0.487640,12.81
+1.0,req-1779737483003,242,83,2.9157,74590,11122,6.7065,22,52,0.974036,1.159738,0.974036,13.0
+3.0,req-1779740577991,242,55,4.4,74590,5720,13.0402,17,52,2.951551,2.969653,2.951551,9.42

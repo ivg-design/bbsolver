@@ -14,7 +14,7 @@ namespace bbsolver {
 struct SolveParallelRuntimeScope::Impl {
 #ifdef BBSOLVER_HAVE_TBB
   explicit Impl(int resolved_parallel_jobs)
-      : control(tbb::global_control::max_allowed_parallelism,
+: control(tbb::global_control::max_allowed_parallelism,
                 static_cast<std::size_t>(
                     std::max(1, resolved_parallel_jobs))) {}
 

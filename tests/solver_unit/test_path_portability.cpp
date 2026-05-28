@@ -56,42 +56,42 @@ std::filesystem::path UniqueTempBase(const char* tag) {
 
 void TestHasJsonSuffixAcceptsForwardSlashPath() {
   Require(bbsolver::HasJsonSuffix("out.bbky.json"),
-          "bare filename with .json suffix must be accepted");
+          "bare filename with.json suffix must be accepted");
   Require(bbsolver::HasJsonSuffix("nested/dir/out.bbky.json"),
-          "forward-slash nested path with .json must be accepted");
+          "forward-slash nested path with.json must be accepted");
 }
 
 void TestHasJsonSuffixAcceptsBackslashPath() {
   // std::filesystem::path interprets backslashes as separators on
   // Windows but treats them as literal characters on POSIX. The suffix
-  // check must accept the .json terminator regardless: on Windows the
+  // check must accept the.json terminator regardless: on Windows the
   // filename component is "out.bbky.json"; on POSIX the whole literal
   // is the filename ("dir\\out.bbky.json") which still ends in
   // ".json". Either way HasJsonSuffix returns true.
   Require(bbsolver::HasJsonSuffix("dir\\out.bbky.json"),
-          "backslash-only path with .json must be accepted on both platforms");
+          "backslash-only path with.json must be accepted on both platforms");
   Require(bbsolver::HasJsonSuffix("C:\\Users\\bake\\out.bbky.json"),
-          "Windows-rooted backslash path with .json must be accepted");
+          "Windows-rooted backslash path with.json must be accepted");
 }
 
 void TestHasJsonSuffixAcceptsMixedSeparatorsAndNativePreferred() {
   // Mixed-separator path (post-make_preferred or hand-written by a CLI
   // user on Windows). On Windows the path normalizes; on POSIX the
-  // filename still ends in .json.
+  // filename still ends in.json.
   Require(bbsolver::HasJsonSuffix("C:/Users\\bake/out.bbky.json"),
-          "mixed-separator path with .json must be accepted");
+          "mixed-separator path with.json must be accepted");
 
   std::filesystem::path normalized = "nested/dir/out.bbky.json";
   normalized.make_preferred();
   Require(bbsolver::HasJsonSuffix(normalized),
-          "path normalized via make_preferred() must still match .json suffix");
+          "path normalized via make_preferred() must still match.json suffix");
 }
 
 void TestHasJsonSuffixRejectsNonJsonAndCaseSensitive() {
   Require(!bbsolver::HasJsonSuffix("out.bbky"),
           "non-json suffix must be rejected");
   Require(!bbsolver::HasJsonSuffix("out.JSON"),
-          "uppercase .JSON must be rejected (case-sensitive contract)");
+          "uppercase.JSON must be rejected (case-sensitive contract)");
   Require(!bbsolver::HasJsonSuffix("out.json.bak"),
           "suffix check must look only at the final component");
   Require(!bbsolver::HasJsonSuffix(""),
@@ -101,7 +101,7 @@ void TestHasJsonSuffixRejectsNonJsonAndCaseSensitive() {
   // observable behavior rather than inventing a stricter "must have a
   // stem" guarantee — W9 is portability hardening, not a contract change.
   Require(bbsolver::HasJsonSuffix(".json"),
-          "lone .json (length 5) currently matches the suffix contract");
+          "lone.json (length 5) currently matches the suffix contract");
 }
 
 void TestDiagnosticsWriterCreatesDeeplyNestedParentUnderTempDir() {

@@ -1,0 +1,4 @@
+bbsolver verify  2026-05-28 10:56
+98 properties, 98 OK, 0 FAILED
+overall: PASS
+worst: L40/ADBE Transform Group#5/ADBE Rotate Z#10  max_err=0.9863

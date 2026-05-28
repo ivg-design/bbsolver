@@ -1,4 +1,4 @@
-// MS35 focused test: the MS4-extracted closed-loop schedule helpers.
+//  focused test: the -extracted closed-loop schedule helpers.
 //
 // Two pure functions live in motion_smooth_shape_loop_schedule:
 //
@@ -43,7 +43,7 @@ bool AlmostEqual(double a, double b, double eps = 1e-9) {
 // Shape-flat single-vertex value with position (px, py) and zero
 // tangents. ShapeFlatControlDistance reduces to Euclidean position
 // distance for zero-tangent values, making chord-travel arithmetic
-// trivially assertable. Layout matches MS34's fixtures.
+// trivially assertable. Layout matches 's fixtures.
 std::vector<double> VertexAt(double px, double py) {
   return {0.0, 1.0, px, py, 0.0, 0.0, 0.0, 0.0};
 }

@@ -81,7 +81,7 @@ std::vector<std::pair<double, ShapeFlatPoint>> ShapeFlatBridgeSourcePoints(
   out.reserve(points.size());
   for (std::size_t idx_point = 0; idx_point < points.size(); ++idx_point) {
     out.push_back({
-        total > 1e-12 ? arc_lengths[idx_point] / total : 0.0,
+        total > 1e-12 ? arc_lengths[idx_point] / total: 0.0,
         points[idx_point],
     });
   }
@@ -97,7 +97,7 @@ bool SolveTwoHandleAxis(
   double a11 = 0.0;
   double b0 = 0.0;
   double b1 = 0.0;
-  for (const std::array<double, 3>& row : rows) {
+  for (const std::array<double, 3>& row: rows) {
     a00 += row[0] * row[0];
     a01 += row[0] * row[1];
     a11 += row[1] * row[1];
@@ -146,7 +146,7 @@ std::vector<double> BridgeRefitRemoveShapeFlatVertex(
 
   bool degenerate_bridge = true;
   const ShapeFlatPoint degenerate_reference = source_points.front().second;
-  for (const auto& entry : source_points) {
+  for (const auto& entry: source_points) {
     if (ShapeFlatDistance(entry.second, degenerate_reference) > 1e-7) {
       degenerate_bridge = false;
       break;
@@ -163,7 +163,7 @@ std::vector<double> BridgeRefitRemoveShapeFlatVertex(
 
   rows_x.reserve(source_points.size());
   rows_y.reserve(source_points.size());
-  for (const auto& entry : source_points) {
+  for (const auto& entry: source_points) {
     const double q = entry.first;
     if (q <= 1e-6 || q >= 1.0 - 1e-6) {
       continue;

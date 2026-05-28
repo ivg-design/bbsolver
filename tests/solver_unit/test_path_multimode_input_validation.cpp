@@ -40,9 +40,9 @@ bbsolver::PropertySamples ShapeSamples(
   ps.property.kind = bbsolver::ValueKind::Custom;
   ps.property.units_label = "shape_flat";
   ps.property.dimensions =
-      values.empty() ? 0 : static_cast<int>(values.front().size());
+      values.empty() ? 0: static_cast<int>(values.front().size());
   ps.t_start_sec = 0.0;
-  ps.t_end_sec = static_cast<double>(values.empty() ? 0 : values.size() - 1);
+  ps.t_end_sec = static_cast<double>(values.empty() ? 0: values.size() - 1);
   ps.samples_per_frame = 1;
   for (std::size_t idx = 0; idx < values.size(); ++idx) {
     ps.samples.push_back({static_cast<double>(idx), std::move(values[idx])});
@@ -77,14 +77,14 @@ void TestMultiModeFailureNotes() {
   original.property.units_label = "other";
   Require(bbsolver::path_multimode::ValidateShapeFlatMultiModeInputs(
               original, reduced)
-              .note == "shape_multimode_requires_shape_flat",
+.note == "shape_multimode_requires_shape_flat",
           "non-shape inputs must preserve requires-shape note");
 
   original = ShapeSamples({});
   reduced = ShapeSamples({ShapeFlat(2)});
   Require(bbsolver::path_multimode::ValidateShapeFlatMultiModeInputs(
               original, reduced)
-              .note == "shape_multimode_no_samples",
+.note == "shape_multimode_no_samples",
           "empty inputs must preserve no-samples note");
 
   original = ShapeSamples({ShapeFlat(2), ShapeFlat(2)});
@@ -92,21 +92,21 @@ void TestMultiModeFailureNotes() {
   reduced.samples.back().t_sec += 2e-9;
   Require(bbsolver::path_multimode::ValidateShapeFlatMultiModeInputs(
               original, reduced)
-              .note == "shape_multimode_sample_time_mismatch",
+.note == "shape_multimode_sample_time_mismatch",
           "sample-time mismatch must preserve mismatch note");
 
   original = ShapeSamples({{1.0, 2.0}});
   reduced = original;
   Require(bbsolver::path_multimode::ValidateShapeFlatMultiModeInputs(
               original, reduced)
-              .note == "shape_multimode_malformed_topology",
+.note == "shape_multimode_malformed_topology",
           "malformed first frame must preserve malformed-topology note");
 
   original = ShapeSamples({ShapeFlat(2), ShapeFlat(3)});
   reduced = original;
   Require(bbsolver::path_multimode::ValidateShapeFlatMultiModeInputs(
               original, reduced)
-              .note == "shape_multimode_unstable_topology",
+.note == "shape_multimode_unstable_topology",
           "changing topology must preserve unstable-topology note");
 }
 

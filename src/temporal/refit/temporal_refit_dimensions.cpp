@@ -27,7 +27,7 @@ bool AllTemporalRefitCandidateKeysMatchDimensions(
   if (keys.keys.empty()) {
     return false;
   }
-  for (const Key& key : keys.keys) {
+  for (const Key& key: keys.keys) {
     if (!TemporalRefitValuesMatchDimensions(key.v, source)) {
       return false;
     }

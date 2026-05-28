@@ -12,9 +12,9 @@ namespace {
 std::vector<double> ShapeFlat(bool closed,
                               const std::vector<std::vector<double>>& vertices) {
   std::vector<double> out;
-  out.push_back(closed ? 1.0 : 0.0);
+  out.push_back(closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const std::vector<double>& vertex : vertices) {
+  for (const std::vector<double>& vertex: vertices) {
     out.push_back(vertex[0]);
     out.push_back(vertex[1]);
     out.push_back(0.0);
@@ -30,7 +30,7 @@ std::vector<std::vector<double>> Translated(
     double dx,
     double dy) {
   std::vector<std::vector<double>> out = vertices;
-  for (std::vector<double>& vertex : out) {
+  for (std::vector<double>& vertex: out) {
     vertex[0] += dx;
     vertex[1] += dy;
   }

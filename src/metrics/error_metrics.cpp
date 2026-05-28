@@ -46,7 +46,7 @@ struct ErrorUnitReport {
 };
 
 double ComponentOrZero(const std::vector<double>& values, std::size_t idx) {
-  return idx < values.size() ? values[idx] : 0.0;
+  return idx < values.size() ? values[idx]: 0.0;
 }
 
 bool IsShapeFlatPath(const PropertySamples& ps) {
@@ -121,7 +121,7 @@ std::vector<Point> ShapeFlatToDensePolyline(const std::vector<double>& flat) {
     return points;
   }
 
-  const int seg_count = decoded.closed ? decoded.vertex_count : std::max(0, decoded.vertex_count - 1);
+  const int seg_count = decoded.closed ? decoded.vertex_count: std::max(0, decoded.vertex_count - 1);
   if (seg_count <= 0) {
     points.push_back(FlatPoint(flat, 0, 0));
     return points;
@@ -167,13 +167,13 @@ double DirectedPolylineDistance(const std::vector<Point>& a_points,
     return std::numeric_limits<double>::infinity();
   }
   const int seg_count = closed ? static_cast<int>(b_points.size())
-                               : std::max(0, static_cast<int>(b_points.size()) - 1);
+: std::max(0, static_cast<int>(b_points.size()) - 1);
   if (seg_count <= 0) {
     return Distance(a_points.front(), b_points.front());
   }
 
   double max_err = 0.0;
-  for (Point p : a_points) {
+  for (Point p: a_points) {
     double best = std::numeric_limits<double>::infinity();
     for (int i = 0; i < seg_count; ++i) {
       best = std::min(best, PointSegmentDistance(p, b_points[static_cast<std::size_t>(i)],
@@ -231,8 +231,8 @@ std::pair<double, double> ProjectToScreen(const std::vector<double>& value,
   const double anchor_y = ComponentOrZero(layer_xform.anchor_point, 1);
   const double pos_x = ComponentOrZero(layer_xform.position, 0);
   const double pos_y = ComponentOrZero(layer_xform.position, 1);
-  const double scale_x = layer_xform.scale.empty() ? 1.0 : ComponentOrZero(layer_xform.scale, 0) / 100.0;
-  const double scale_y = layer_xform.scale.size() < 2 ? scale_x : ComponentOrZero(layer_xform.scale, 1) / 100.0;
+  const double scale_x = layer_xform.scale.empty() ? 1.0: ComponentOrZero(layer_xform.scale, 0) / 100.0;
+  const double scale_y = layer_xform.scale.size() < 2 ? scale_x: ComponentOrZero(layer_xform.scale, 1) / 100.0;
   return {
       pos_x + (ComponentOrZero(value, 0) - anchor_x) * scale_x,
       pos_y + (ComponentOrZero(value, 1) - anchor_y) * scale_y,
@@ -278,7 +278,7 @@ ErrorUnitReport ComputeErrorUnit(
 
   ErrorUnitReport unit;
   unit.sample_idx = sample_idx;
-  unit.units_evaluated = collect_attribution ? 1 : 0;
+  unit.units_evaluated = collect_attribution ? 1: 0;
   if (is_shape_flat) {
     if (IsExactValidShapeFlatMatch(expected, actual)) {
       unit.sample_max = 0.0;
@@ -396,13 +396,13 @@ ErrorReport ComputeError(
                             collect_attribution);
                       });
 #endif
-    for (const ErrorUnitReport& unit : units) {
+    for (const ErrorUnitReport& unit: units) {
       AccumulateErrorUnit(report, squared_sum, component_count, unit);
     }
     report.rms_err = component_count > 0
                          ? std::sqrt(squared_sum /
                                      static_cast<double>(component_count))
-                         : 0.0;
+: 0.0;
     return report;
   }
 
@@ -430,14 +430,14 @@ ErrorReport ComputeError(
         report.rms_err = component_count > 0
                              ? std::sqrt(squared_sum /
                                          static_cast<double>(component_count))
-                             : 0.0;
+: 0.0;
         report.fail_fast_exit = true;
         return report;
       }
     }
   }
 
-  report.rms_err = component_count > 0 ? std::sqrt(squared_sum / static_cast<double>(component_count)) : 0.0;
+  report.rms_err = component_count > 0 ? std::sqrt(squared_sum / static_cast<double>(component_count)): 0.0;
   return report;
 }
 

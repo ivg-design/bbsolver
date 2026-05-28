@@ -113,7 +113,7 @@ nlohmann::json ReplacementRetryDoneProgressEvent(
   return {
       {"event", "replacement_retry_done"},
       {"phase", std::string("Replacement retry ") +
-                    (accepted ? "accepted" : "rejected") + " for " +
+                    (accepted ? "accepted": "rejected") + " for " +
                     ProgressPropertyLabel(original)},
       {"progress", SolveProgressForPropertyStage(
                        property_idx, property_count, 0.86)},
@@ -171,7 +171,7 @@ nlohmann::json ReplacementValidationDoneProgressEvent(
   return {
       {"event", "path_validation_done"},
       {"phase", std::string("Replacement outline ") +
-                    (ok ? "validated for " : "rejected for ") +
+                    (ok ? "validated for ": "rejected for ") +
                     ProgressPropertyLabel(candidate)},
       {"progress", SolveProgressForPropertyStage(
                        property_idx, property_count, 0.80)},

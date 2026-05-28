@@ -39,7 +39,7 @@ PropertyTemporalPreludeState PreparePropertyTemporalPrelude(
     const double final_static_boundary_t =
         request.original_property_samples
             ->samples[static_cast<std::size_t>(final_static_boundary_sample)]
-            .t_sec;
+.t_sec;
     const int source_trimmed =
         TrimSamplesAfterTime(state.temporal_source_samples,
                              final_static_boundary_t);
@@ -67,15 +67,15 @@ PropertyTemporalPreludeState PreparePropertyTemporalPrelude(
       near_optimal_fast_path.applied
           ? "Preserving source shape keys for " +
                 ProgressPropertyLabel(state.temporal_property_samples)
-          : state.motion_smooth_enabled
+: state.motion_smooth_enabled
           ? (SolveModeIsMotionPathSmooth(config)
                  ? "Smoothing motion path for "
-                 : "Normalizing smooth motion for ") +
+: "Normalizing smooth motion for ") +
                 ProgressPropertyLabel(state.temporal_property_samples)
-          : (!state.temporal_optimization_enabled
+: (!state.temporal_optimization_enabled
                  ? "Preparing vertex-only keys for " +
                        ProgressPropertyLabel(state.temporal_property_samples)
-                 : "Solving temporal keys for " +
+: "Solving temporal keys for " +
                        ProgressPropertyLabel(state.temporal_property_samples));
   progress.Emit({
       {"event", "property_start"},
@@ -112,7 +112,7 @@ PropertyTemporalPreludeState PreparePropertyTemporalPrelude(
     const std::string gap_note =
         std::string(request.canonical_path_applied
                         ? "canonical_fit_temporal_max_gap_samples="
-                        : "replacement_temporal_max_gap_samples=") +
+: "replacement_temporal_max_gap_samples=") +
         std::to_string(state.replacement_temporal_max_gap);
     AppendJoinedNote(path_fit_note, gap_note);
   }
@@ -122,15 +122,15 @@ PropertyTemporalPreludeState PreparePropertyTemporalPrelude(
     const std::string budget_note =
         std::string(request.canonical_path_applied
                         ? "canonical_fit_temporal_tolerance="
-                        : "replacement_temporal_tolerance=") +
+: "replacement_temporal_tolerance=") +
         std::to_string(state.temporal_config.tolerance) +
         (request.canonical_path_applied
              ? "; canonical_fit_frame_outline_error="
-             : "; replacement_frame_outline_error=") +
+: "; replacement_frame_outline_error=") +
         std::to_string(request.replacement_frame_fit_error) +
         (request.canonical_path_applied
              ? "; canonical_fit_shape_temporal_bezier=true"
-             : "; replacement_shape_temporal_bezier=true");
+: "; replacement_shape_temporal_bezier=true");
     AppendJoinedNote(path_fit_note, budget_note);
   }
 

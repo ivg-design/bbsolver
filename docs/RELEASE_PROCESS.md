@@ -1,22 +1,18 @@
 # Release Process
 
-This maintainer checklist covers the public `bbsolver` release flow after a
-source repository has synced `solver/` into the standalone repository root.
+This maintainer checklist covers the public `bbsolver` release flow.
 
 ## Preconditions
 
-- The standalone repository exists and its `main` branch points at the intended
-  public commit.
-- `bbsolver --version`, `CMakeLists.txt`, `README.md`, and `CHANGELOG.md` agree
-  on the release version.
-- The source-to-public sync commit includes traceability footers:
-  `Source-Repository`, `Source-Ref`, `Source-Commit`, `Source-Path`, and
-  `Source-Tree`.
-- Public CI is green on `main`, or hosted Actions are intentionally disabled
-  and the local release gate plus local binary packaging steps below have been
-  recorded in the release notes.
-- If hosted Actions are enabled, a manual `workflow_dispatch` run has completed
-  the `release-validation` job on the same commit that will be tagged.
+- The repository's `main` branch points at the intended release commit.
+- `bbsolver --version`, `CMakeLists.txt`, `README.md`, and `CHANGELOG.md`
+  agree on the release version.
+- Public CI is green on `main`, or hosted Actions are intentionally
+  disabled and the local release gate plus local binary packaging steps
+  below have been recorded in the release notes.
+- If hosted Actions are enabled, a manual `workflow_dispatch` run has
+  completed the `release-validation` job on the same commit that will be
+  tagged.
 
 ## Version Bump
 
@@ -159,24 +155,4 @@ Release notes should include:
 - a short capability summary;
 - supported platforms and build requirements;
 - the stable CLI/JSON/CMake integration surfaces;
-- the validation evidence for the tagged commit;
-- source sync metadata from the public sync commit.
-
-## Source-to-Public Sync
-
-The integration repository can publish `solver/` through its
-`.github/workflows/bbsolver-public-sync.yml` workflow or through the local
-`tools/sync_bbsolver_monorepo.py` command documented in
-[`REPOSITORY_SYNC.md`](REPOSITORY_SYNC.md).
-
-The GitHub workflow requires Actions to be enabled on the integration
-repository and a `BBSOLVER_PUBLIC_REPO_TOKEN` secret with permission to push to
-the standalone repository. If the integration repository cannot run Actions,
-use the local sync command and then rely on the standalone repository CI before
-tagging.
-
-Use the narrowest token that can push to the standalone repository. For GitHub
-fine-grained personal access tokens, grant repository `Contents: Read and
-write` for `ivg-design/bbsolver`. Rotate the token when maintainers change,
-after suspected exposure, or on the same cadence as the project's other
-release credentials.
+- the validation evidence for the tagged commit.

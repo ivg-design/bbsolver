@@ -44,7 +44,7 @@ std::vector<TemporalEase> ParseTemporalEaseArray(const json& obj,
   if (it == obj.end() || !it->is_array()) {
     return result;
   }
-  for (const auto& ease_json : *it) {
+  for (const auto& ease_json: *it) {
     TemporalEase ease;
     ease.speed = GetOr<double>(ease_json, "speed", ease.speed);
     ease.influence = GetOr<double>(ease_json, "influence", ease.influence);

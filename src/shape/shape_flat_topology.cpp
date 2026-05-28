@@ -50,7 +50,7 @@ double ShapeFlatComponent(const std::vector<double>& flat,
   const std::size_t idx =
       ShapeFlatVertexOffset(vertex_index) +
       static_cast<std::size_t>(component_offset);
-  return idx < flat.size() ? flat[idx] : 0.0;
+  return idx < flat.size() ? flat[idx]: 0.0;
 }
 
 std::vector<ShapeFlatVertex> ShapeFlatVertices(
@@ -80,9 +80,9 @@ std::vector<double> ShapeFlatFromVertices(
     bool closed) {
   std::vector<double> out;
   out.reserve(2 + vertices.size() * 6);
-  out.push_back(closed ? 1.0 : 0.0);
+  out.push_back(closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const ShapeFlatVertex& vertex : vertices) {
+  for (const ShapeFlatVertex& vertex: vertices) {
     out.push_back(vertex.x);
     out.push_back(vertex.y);
     out.push_back(vertex.in_x);

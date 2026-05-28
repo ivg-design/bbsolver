@@ -1,0 +1,4 @@
+bbsolver verify  2026-05-28 10:56
+3 properties, 3 OK, 0 FAILED
+overall: PASS
+worst: L1/ADBE Root Vectors Group#2/ADBE Vector Group#1/ADBE Vectors Group#2/ADBE Vector Shape - Group#1/ADBE Vector Shape#2  max_err=2.9541

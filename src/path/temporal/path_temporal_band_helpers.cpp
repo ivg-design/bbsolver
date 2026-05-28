@@ -84,7 +84,7 @@ double EvaluateShapeTemporalInfluencePairMaxError(
       original.samples[static_cast<std::size_t>(end_sample_idx)].t_sec;
   for (int sample_idx = start_sample_idx; sample_idx <= end_sample_idx; ++sample_idx) {
     const Sample& sample = original.samples[static_cast<std::size_t>(sample_idx)];
-    const double alpha = (t1 > t0) ? (sample.t_sec - t0) / (t1 - t0) : 0.0;
+    const double alpha = (t1 > t0) ? (sample.t_sec - t0) / (t1 - t0): 0.0;
     const double u = ShapeTemporalBezierProgress(alpha,
                                                  pair.out_influence,
                                                  pair.in_influence,

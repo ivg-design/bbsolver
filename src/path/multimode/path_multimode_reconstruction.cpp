@@ -32,7 +32,7 @@ LandmarkSubpathReconstructionResult EvaluateLandmarkSubpathReconstruction(
 
   std::vector<std::vector<double>> anchor_shapes;
   anchor_shapes.reserve(anchors.size());
-  for (int anchor : anchors) {
+  for (int anchor: anchors) {
     if (anchor < 0 || anchor >= static_cast<int>(reduced.samples.size())) {
       return result;
     }
@@ -215,11 +215,11 @@ std::vector<double> EvaluateTemporalShapeAtSample(
       const TemporalEase ease_out =
           start_key.temporal_ease_out.empty()
               ? TemporalEase{0.0, 33.3}
-              : start_key.temporal_ease_out.front();
+: start_key.temporal_ease_out.front();
       const TemporalEase ease_in =
           end_key.temporal_ease_in.empty()
               ? TemporalEase{0.0, 33.3}
-              : end_key.temporal_ease_in.front();
+: end_key.temporal_ease_in.front();
       progress =
           ShapeTemporalBezierProgress(alpha, ease_out, ease_in, band_options);
     }

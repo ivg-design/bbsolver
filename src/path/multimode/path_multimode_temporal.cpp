@@ -30,7 +30,7 @@ void AddLandmarkInfluencePair(std::vector<LandmarkInfluencePair>& out,
   LandmarkInfluencePair pair;
   pair.out_influence = ClampInfluence(out_influence, options);
   pair.in_influence = ClampInfluence(in_influence, options);
-  for (const LandmarkInfluencePair& existing : out) {
+  for (const LandmarkInfluencePair& existing: out) {
     if (SameInfluencePair(existing, pair)) {
       return;
     }
@@ -105,11 +105,11 @@ std::vector<double> SegmentProgressValues(
     const double t = ps.samples[static_cast<std::size_t>(sample_idx)].t_sec;
     const double alpha = (t1 > t0)
                              ? std::clamp((t - t0) / (t1 - t0), 0.0, 1.0)
-                             : 0.0;
+: 0.0;
     progress.push_back(bezier
                            ? ShapeTemporalBezierProgress(alpha, ease_out,
                                                           ease_in, options)
-                           : alpha);
+: alpha);
   }
   return progress;
 }

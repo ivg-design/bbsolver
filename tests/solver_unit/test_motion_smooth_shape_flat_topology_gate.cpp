@@ -1,4 +1,4 @@
-// MS32 focused test: the MS23-extracted topology gate.
+//  focused test: the -extracted topology gate.
 //
 // ValidateMotionSmoothShapeFlatTopology has five return paths that the
 // shape-flat orchestrator dispatches on:
@@ -9,7 +9,7 @@
 //   4. variable_shape_topology       → per-sample topology mismatch
 //   5. no_source_key_schedule        → MotionSmoothSourceKeyTimes returns < 2
 //
-// The MS27 policy locks the four fallback note strings via raw-text
+// The policy locks the four fallback note strings via raw-text
 // scan; this file complements that by exercising the actual branches
 // at runtime with synthetic PropertySamples and verifying each
 // produces the expected note plus an ok=false flag.

@@ -29,7 +29,7 @@ std::vector<double> ShapeFlatQuad(double left_x,
   std::vector<double> out;
   out.push_back(1.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const auto& vertex : vertices) {
+  for (const auto& vertex: vertices) {
     out.push_back(vertex.first);
     out.push_back(vertex.second);
     out.push_back(0.0);
@@ -73,7 +73,7 @@ bbsolver::PropertySamples MakeZigZagFixture() {
   ps.samples_per_frame = 1;
 
   for (int idx = 0; idx <= 4; ++idx) {
-    const double y = (idx % 2 == 0) ? 0.0 : 20.0;
+    const double y = (idx % 2 == 0) ? 0.0: 20.0;
     ps.samples.push_back({static_cast<double>(idx) / 24.0,
                           ShapeFlatQuad(0.0, 20.0, y, y + 10.0)});
   }
@@ -90,7 +90,7 @@ std::vector<double> ShapeFlatSingleOutlierQuad(double outlier_y) {
   std::vector<double> out;
   out.push_back(1.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const auto& vertex : vertices) {
+  for (const auto& vertex: vertices) {
     out.push_back(vertex.first);
     out.push_back(vertex.second);
     out.push_back(0.0);
@@ -112,7 +112,7 @@ bbsolver::PropertySamples MakeSingleOutlierVertexFixture() {
   ps.samples_per_frame = 1;
 
   for (int idx = 0; idx <= 4; ++idx) {
-    const double y = (idx % 2 == 0) ? 0.0 : 40.0;
+    const double y = (idx % 2 == 0) ? 0.0: 40.0;
     ps.samples.push_back({static_cast<double>(idx) / 24.0,
                           ShapeFlatSingleOutlierQuad(y)});
   }
@@ -137,7 +137,7 @@ std::vector<double> ShapeFlatInterleavedMaskedChannels(double progress_a,
   out.push_back(1.0);
   out.push_back(static_cast<double>(starts.size()));
   for (int vertex = 0; vertex < static_cast<int>(starts.size()); ++vertex) {
-    const double progress = (vertex % 2 == 0) ? progress_a : progress_b;
+    const double progress = (vertex % 2 == 0) ? progress_a: progress_b;
     out.push_back(starts[static_cast<std::size_t>(vertex)].first +
                   deltas[static_cast<std::size_t>(vertex)].first * progress);
     out.push_back(starts[static_cast<std::size_t>(vertex)].second +
@@ -182,7 +182,7 @@ std::vector<double> ShapeFlatRelaxedRegionalTiming(double left_x,
   std::vector<double> out;
   out.push_back(1.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const auto& vertex : vertices) {
+  for (const auto& vertex: vertices) {
     out.push_back(vertex.first);
     out.push_back(vertex.second);
     out.push_back(0.0);
@@ -267,7 +267,7 @@ double ShapeFlatComponent(const std::vector<double>& flat,
                           int component) {
   const std::size_t idx =
       static_cast<std::size_t>(2 + vertex * 6 + component);
-  return idx < flat.size() ? flat[idx] : 0.0;
+  return idx < flat.size() ? flat[idx]: 0.0;
 }
 
 bool MaskedSegmentFeasible(const bbsolver::PropertySamples& ps,
@@ -294,7 +294,7 @@ bool MaskedSegmentFeasible(const bbsolver::PropertySamples& ps,
   if (!(t1 > t0)) {
     return false;
   }
-  for (const ProgressCandidate& candidate : candidates) {
+  for (const ProgressCandidate& candidate: candidates) {
     bool ok = true;
     for (int sample_idx = i; sample_idx <= j && ok; ++sample_idx) {
       const double t = ps.samples[static_cast<std::size_t>(sample_idx)].t_sec;
@@ -302,10 +302,10 @@ bool MaskedSegmentFeasible(const bbsolver::PropertySamples& ps,
       const double progress =
           candidate.linear
               ? alpha
-              : TemporalBezierProgress(alpha,
+: TemporalBezierProgress(alpha,
                                        candidate.out_influence,
                                        candidate.in_influence);
-      for (int slot : slots) {
+      for (int slot: slots) {
         for (int component = 0; component < 2; ++component) {
           const double a = ShapeFlatComponent(
               ps.samples[static_cast<std::size_t>(i)].v, slot, component);
@@ -525,7 +525,7 @@ void TestAcceptedIndependentModeFixture() {
   assert(keys.notes.find("region_ranges=0-2,2-4") != std::string::npos);
   assert(keys.notes.find("region_segment_checks=") != std::string::npos);
   assert(keys.notes.find("validation_work_units=") != std::string::npos);
-  for (const bbsolver::SegmentReport& segment : keys.segments) {
+  for (const bbsolver::SegmentReport& segment: keys.segments) {
     assert(segment.reason == "replacement_shape_multimode_linear_union");
   }
 }
@@ -629,7 +629,7 @@ void TestLandmarkSubpathEmitterGroupsSortedSubpaths() {
     assert(keys.keys.front().v[12] == 0.0);
     assert(keys.keys.front().v[13] == 0.0);
     assert(keys.segments.size() + 1 == keys.keys.size());
-    for (const bbsolver::SegmentReport& segment : keys.segments) {
+    for (const bbsolver::SegmentReport& segment: keys.segments) {
       assert(segment.reason == "landmark_subpath");
       assert(segment.end_idx > segment.start_idx);
     }
@@ -725,7 +725,7 @@ void TestPartialVisibleShapeChannelsAreProbeOnly() {
       bbsolver::EmitShapeFlatLandmarkSubpathKeys(fixture, options);
 
   assert(subpaths.size() == 2);
-  for (const bbsolver::PropertyKeys& keys : subpaths) {
+  for (const bbsolver::PropertyKeys& keys: subpaths) {
     const std::string& notes = keys.notes;
     assert(notes.find("shape_channel_subpath;") == 0);
     assert(notes.find("visible_channel=true") != std::string::npos);
@@ -935,7 +935,7 @@ void TestLandmarkSubpathSemanticSplitCanUseIndependentTimingChannels() {
 
   assert(subpaths.size() == 2);
   int total_keys = 0;
-  for (const bbsolver::PropertyKeys& keys : subpaths) {
+  for (const bbsolver::PropertyKeys& keys: subpaths) {
     assert(keys.converged);
     total_keys += static_cast<int>(keys.keys.size());
     assert(keys.notes.find("subpath_representation=semantic_split") !=

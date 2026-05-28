@@ -1,0 +1,4 @@
+bbsolver verify  2026-05-28 10:56
+42 properties, 42 OK, 0 FAILED
+overall: PASS
+worst: L29/ADBE Transform Group#5/ADBE Position#2  max_err=0.0495

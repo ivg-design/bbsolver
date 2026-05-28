@@ -1,0 +1,4 @@
+eps,request_id,pos_samples_in,pos_keys_out,pos_compression_ratio,rot_samples_in,rot_keys_out,rot_compression_ratio,total_samples_in,total_keys_out,combined_compression_ratio,pos_verify_max_err_min,pos_verify_max_err_median,pos_verify_max_err_max,rot_verify_max_err_min,rot_verify_max_err_median,rot_verify_max_err_max
+0.05,req-1779727765498,6342,682,9.2991,6342,563,11.2647,12684,1245,10.188,0.025555,0.041499,0.051899,0.001707,0.007623,0.009861
+1.0,req-1779735092073,6342,309,20.5243,6342,231,27.4545,12684,540,23.4889,0.521053,0.727458,0.97828,0.363805,0.710372,0.978408
+3.0,req-1779733597712,6342,240,26.425,6342,142,44.662,12684,382,33.2042,1.231067,2.201168,2.880981,0.504991,1.904236,2.824806

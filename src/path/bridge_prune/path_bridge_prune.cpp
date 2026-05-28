@@ -35,7 +35,7 @@ PostSolvePathVertexReductionResult TryPostTemporalBridgePrune(
   result.keys = solved_keys;
   const int initial_max_vertices = MaxShapeFlatKeyVertexCount(solved_keys);
   const int reported_source_vertices =
-      source_vertices_override > 0 ? source_vertices_override : initial_max_vertices;
+      source_vertices_override > 0 ? source_vertices_override: initial_max_vertices;
   result.source_vertices = reported_source_vertices;
   result.fitted_vertices = initial_max_vertices;
 

@@ -1,4 +1,4 @@
-// MS40 focused test: the MS24-extracted closed-loop resample helper.
+//  focused test: the -extracted closed-loop resample helper.
 //
 // BuildShapeFlatClosedLoopAdaptiveResample has four behaviour bands
 // depending on the (closed_loop, motion_smooth_source_fidelity)
@@ -19,7 +19,7 @@
 //
 // Both `closed_loop=false` branches are pure pass-through and easy to
 // assert. The `closed_loop=true` branches invoke
-// BuildAdaptiveClosedLoopShapeSamples (MS3) — they're harder to bind
+// BuildAdaptiveClosedLoopShapeSamples — they're harder to bind
 // to exact outputs, so the tests there assert structural invariants
 // (resample flag set, schedule sized, override populated) without
 // pinning exact numerical values.
@@ -50,7 +50,7 @@ bool AlmostEqual(double a, double b, double eps = 1e-9) {
 }
 
 // Shape-flat single-vertex value with position (px, py) and zero
-// tangents — same layout as MS34/MS35 fixtures. Total size 8.
+// tangents — same layout as / fixtures. Total size 8.
 std::vector<double> VertexAt(double px, double py) {
   return {0.0, 1.0, px, py, 0.0, 0.0, 0.0, 0.0};
 }
@@ -138,7 +138,7 @@ void TestClosedLoopFalseFidelityOnPassesOriginalsThrough() {
   Require(r.source_pose_constraint_indices.size() ==
               smooth.original_values.size(),
           "fidelity=on: constraint indices must size to schedule_values");
-  for (bool flag : r.source_pose_constraint_indices) {
+  for (bool flag: r.source_pose_constraint_indices) {
     Require(flag,
             "closed_loop=false, fidelity=on: every constraint index must be true");
   }
@@ -172,7 +172,7 @@ void TestClosedLoopTrueFidelityOffInvokesAdaptiveResample() {
   Require(r.schedule_times.size() == r.schedule_values.size(),
           "schedule_times and schedule_values must have matching size");
   // EvenTimesForValueCount on [0.0, 1.0] with size N produces times
-  // [0.0, 1/(N-1), 2/(N-1), ..., 1.0]. First and last must be the
+  // [0.0, 1/(N-1), 2/(N-1),..., 1.0]. First and last must be the
   // original anchors regardless of N.
   Require(AlmostEqual(r.schedule_times.front(), 0.0),
           "EvenTimesForValueCount must pin the start anchor");
@@ -204,7 +204,7 @@ void TestClosedLoopTrueFidelityOnPopulatesIntervalSchedule() {
   // positions (params at integer values) always survive into the
   // adaptive_loop.params array.
   bool any_true = false;
-  for (bool flag : r.source_pose_constraint_indices) {
+  for (bool flag: r.source_pose_constraint_indices) {
     if (flag) { any_true = true; break; }
   }
   Require(any_true,

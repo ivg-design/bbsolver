@@ -7,7 +7,7 @@
 
 namespace bbsolver {
 
-// MS25 extraction: build the output `Key` vector from the rove
+// build the output `Key` vector from the rove
 // schedule and (when ease is requested) apply the Motion Smooth
 // Bezier ease curve. First/last keys always pin to `InterpType::Linear`
 // on their outer edge regardless of `use_ease`; interior edges follow

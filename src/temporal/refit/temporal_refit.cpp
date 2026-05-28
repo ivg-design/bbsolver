@@ -101,7 +101,7 @@ TemporalRefitResult TryTemporalRefitKeyReduction(
               event.stage = "temporal_refit_progress";
               options.progress_fn(event);
             })
-          : PlacementProgressFn{};
+: PlacementProgressFn{};
 
   PropertyKeys candidate =
       SolveProperty(resampled, config, comp, FitSegment, options.cancel_fn,

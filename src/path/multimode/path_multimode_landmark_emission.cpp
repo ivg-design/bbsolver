@@ -32,7 +32,7 @@ std::string LandmarkSubpathNote(
     int source_vertex_count,
     bool visible_shape_channel) {
   const std::string prefix =
-      visible_shape_channel ? "shape_channel_subpath" : "landmark_subpath";
+      visible_shape_channel ? "shape_channel_subpath": "landmark_subpath";
   std::string note =
       prefix + "; subpath_index=" + std::to_string(subpath_index) +
          "; subpath_count=" + std::to_string(subpath_count) +
@@ -50,7 +50,7 @@ std::string LandmarkSubpathNote(
          std::to_string(temporal_segment_checks) +
          "; anchors=" + JoinAnchorIndices(anchors) +
          "; subpath_reconstruction_ok=" +
-         std::string(reconstruction.ok ? "true" : "false") +
+         std::string(reconstruction.ok ? "true": "false") +
          "; subpath_reconstruction_max_outline_error=" +
          std::to_string(reconstruction.max_outline_error) +
          "; subpath_reconstruction_worst_sample=" +
@@ -109,7 +109,7 @@ LandmarkRegionEmissionResult EvaluateLandmarkRegionEmission(
   if (region_result.budget_exceeded || region_result.anchors.empty()) {
     result.temporal_status = region_result.budget_exceeded
                                  ? "region_budget_exceeded"
-                                 : "region_anchor_failed";
+: "region_anchor_failed";
     return result;
   }
 
@@ -141,7 +141,7 @@ LandmarkRegionEmissionResult EvaluateLandmarkRegionEmission(
   if (!refinement.ok && !temporal.ok) {
     result.temporal_status = temporal.notes.empty()
                                  ? "region_refinement_failed"
-                                 : "fallback_" + temporal.notes;
+: "fallback_" + temporal.notes;
     return result;
   }
   if (options.cancel_fn && options.cancel_fn()) {
@@ -165,7 +165,7 @@ LandmarkRegionEmissionResult EvaluateLandmarkRegionEmission(
     result.reconstruction = refinement.reconstruction;
     result.temporal_status = temporal.notes.empty()
                                  ? "fallback"
-                                 : "fallback_" + temporal.notes;
+: "fallback_" + temporal.notes;
     result.keys.keys.reserve(refinement.anchors.size());
     for (std::size_t anchor_idx = 0;
          anchor_idx < refinement.anchors.size();
@@ -185,7 +185,7 @@ LandmarkRegionEmissionResult EvaluateLandmarkRegionEmission(
     }
     result.keys.segments.reserve(result.keys.keys.size() > 1
                                      ? result.keys.keys.size() - 1
-                                     : 0);
+: 0);
     for (std::size_t anchor_idx = 0;
          anchor_idx + 1 < refinement.anchors.size();
          ++anchor_idx) {

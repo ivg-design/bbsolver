@@ -32,7 +32,7 @@ double TurnAngleAtSourceVertex(const std::vector<double>& flat,
   if (!decoded.closed && (vertex_index == 0 || vertex_index == decoded.vertex_count - 1)) {
     return std::numeric_limits<double>::infinity();
   }
-  const int prev = vertex_index == 0 ? decoded.vertex_count - 1 : vertex_index - 1;
+  const int prev = vertex_index == 0 ? decoded.vertex_count - 1: vertex_index - 1;
   const int next = (vertex_index + 1) % decoded.vertex_count;
   const pff_geom::Point p = pff_geom::FlatPoint(flat, vertex_index, 0);
   const pff_geom::Point a = pff_geom::FlatPoint(flat, prev, 0);

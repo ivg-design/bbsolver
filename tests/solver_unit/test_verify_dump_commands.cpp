@@ -30,7 +30,7 @@ void Require(bool condition, const std::string& message) {
 class StreamCapture {
  public:
   explicit StreamCapture(std::ostream& stream)
-      : stream_(stream) {
+: stream_(stream) {
     old_ = stream.rdbuf(buffer_.rdbuf());
   }
 
@@ -51,7 +51,7 @@ class StreamCapture {
 std::vector<char*> Argv(std::vector<std::string>& args) {
   std::vector<char*> argv;
   argv.reserve(args.size());
-  for (std::string& arg : args) {
+  for (std::string& arg: args) {
     argv.push_back(arg.data());
   }
   return argv;
@@ -215,7 +215,7 @@ void TestVerifyCommandReportsKeyValueDimensionMismatch() {
   bbsolver::KeyBundle bundle = bbsolver::ReadKeyBundleJson(keys);
   bbsolver::PropertyKeys& property = bundle.property_results.front();
   property.dimensions = 2;
-  for (bbsolver::Key& key : property.keys) {
+  for (bbsolver::Key& key: property.keys) {
     key.v = {key.v.front(), key.v.front() + 1.0};
   }
   bbsolver::WriteKeyBundleJson(keys, bundle);
@@ -742,7 +742,7 @@ void WriteShapeFlatSampleBundle(const std::filesystem::path& path,
                                 int dimensions_override = -1) {
   const int dimensions = (dimensions_override >= 0)
       ? dimensions_override
-      : (2 + 6 * max_vertex_count);
+: (2 + 6 * max_vertex_count);
   const int sample_len = 2 + 6 * sample_vertex_count;
   std::ostringstream sample_v0;
   std::ostringstream sample_v1;
@@ -786,7 +786,7 @@ void WriteShapeFlatSampleBundle(const std::filesystem::path& path,
         "min_value": [],
         "max_value": [],
         "shape_variable_topology": )JSON"
-      << (variable_topology ? "true" : "false")
+      << (variable_topology ? "true": "false")
       << R"JSON(,
         "shape_canonical_method": "shape_flat_raw_variable",
         "shape_canonical_vertex_count": 0,
@@ -843,7 +843,7 @@ void WriteShapeFlatKeyBundle(const std::filesystem::path& path,
   // first key's length, which for VT is advisory rather than invariant.
   property.dimensions = (dimensions_override >= 0)
       ? dimensions_override
-      : (keys.empty() ? 0 : static_cast<int>(keys.front().v.size()));
+: (keys.empty() ? 0: static_cast<int>(keys.front().v.size()));
   property.converged = true;
   property.keys = std::move(keys);
 
@@ -862,7 +862,7 @@ void WriteShapeFlatKeyBundle(const std::filesystem::path& path,
 void RequireVerifierAcceptedStructure(const nlohmann::json& output) {
   Require(output.at("verified_properties").get<int>() >= 1,
           "verifier must reach the sample-aware path for VT shape_flat");
-  for (const auto& entry : output.at("property_results")) {
+  for (const auto& entry: output.at("property_results")) {
     if (entry.contains("reason")) {
       const std::string reason = entry.at("reason").get<std::string>();
       Require(reason != "key_value_dimension_mismatch",
@@ -1075,7 +1075,7 @@ void TestVerifyCommandScalarMismatchStaysStrict() {
 
   bbsolver::KeyBundle bundle = bbsolver::ReadKeyBundleJson(keys);
   bundle.property_results.front().dimensions = 2;
-  for (bbsolver::Key& key : bundle.property_results.front().keys) {
+  for (bbsolver::Key& key: bundle.property_results.front().keys) {
     key.v = {key.v.front(), key.v.front() + 1.0};
   }
   bbsolver::WriteKeyBundleJson(keys, bundle);

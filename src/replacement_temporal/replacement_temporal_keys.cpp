@@ -17,7 +17,7 @@ std::vector<TemporalEase> NeutralShapeEase() {
 }
 
 void AppendNote(PropertyKeys& keys, const std::string& note) {
-  keys.notes = keys.notes.empty() ? note : keys.notes + "; " + note;
+  keys.notes = keys.notes.empty() ? note: keys.notes + "; " + note;
 }
 
 bool IsShapeFlatPath(const PropertySamples& ps) {
@@ -103,7 +103,7 @@ Key MakeReplacementKey(const PropertySamples& reduced,
     const SegmentFitResult& prev = placement.segments[key_idx - 1];
     key.interp_in = prev.interp;
     key.temporal_ease_in =
-        prev.ease_in_at_j.empty() ? NeutralShapeEase() : prev.ease_in_at_j;
+        prev.ease_in_at_j.empty() ? NeutralShapeEase(): prev.ease_in_at_j;
   } else {
     key.interp_in = InterpType::Bezier;
   }
@@ -112,7 +112,7 @@ Key MakeReplacementKey(const PropertySamples& reduced,
     const SegmentFitResult& next = placement.segments[key_idx];
     key.interp_out = next.interp;
     key.temporal_ease_out =
-        next.ease_out_at_i.empty() ? NeutralShapeEase() : next.ease_out_at_i;
+        next.ease_out_at_i.empty() ? NeutralShapeEase(): next.ease_out_at_i;
   } else {
     key.interp_out = InterpType::Bezier;
   }
@@ -168,7 +168,7 @@ bool IsAllSamplesAnchorFallback(const PropertyKeys& keys,
       return false;
     }
   }
-  for (const SegmentReport& segment : keys.segments) {
+  for (const SegmentReport& segment: keys.segments) {
     if (segment.reason != "fallback_linear_anchor") {
       return false;
     }
@@ -184,7 +184,7 @@ void MarkAnchorFallbackAsHoldForExport(PropertyKeys& keys) {
     keys.keys[idx].interp_out = InterpType::Hold;
     keys.keys[idx + 1].interp_in = InterpType::Hold;
   }
-  for (SegmentReport& segment : keys.segments) {
+  for (SegmentReport& segment: keys.segments) {
     if (segment.reason == "fallback_linear_anchor") {
       segment.reason = "fallback_hold_anchor";
     }
@@ -219,7 +219,7 @@ Key MakePruneKey(const PropertySamples& reduced,
         segments[static_cast<std::size_t>(key_idx - 1)];
     key.interp_in = prev.interp;
     key.temporal_ease_in =
-        prev.ease_in_at_j.empty() ? NeutralShapeEase() : prev.ease_in_at_j;
+        prev.ease_in_at_j.empty() ? NeutralShapeEase(): prev.ease_in_at_j;
   } else {
     key.interp_in = InterpType::Bezier;
   }
@@ -227,7 +227,7 @@ Key MakePruneKey(const PropertySamples& reduced,
     const SegmentFitResult& next = segments[static_cast<std::size_t>(key_idx)];
     key.interp_out = next.interp;
     key.temporal_ease_out =
-        next.ease_out_at_i.empty() ? NeutralShapeEase() : next.ease_out_at_i;
+        next.ease_out_at_i.empty() ? NeutralShapeEase(): next.ease_out_at_i;
   } else {
     key.interp_out = InterpType::Bezier;
   }
@@ -264,7 +264,7 @@ PropertyKeys AssembleLinearPruneKeys(
     report.iters = segment.iters;
     report.reason =
         segment.reason.empty() ? "exact_anchor_fallback_linear_prune"
-                               : segment.reason;
+: segment.reason;
     out.segments.push_back(std::move(report));
   }
   return out;

@@ -35,7 +35,7 @@ MotionPathBounds ComputeMotionPathBounds(
   const std::size_t dim_count = static_cast<std::size_t>(std::max(dims, 1));
   bounds.min.assign(dim_count, std::numeric_limits<double>::infinity());
   bounds.max.assign(dim_count, -std::numeric_limits<double>::infinity());
-  for (const std::vector<double>& point : points) {
+  for (const std::vector<double>& point: points) {
     for (int d = 0; d < dims; ++d) {
       const std::size_t sd = static_cast<std::size_t>(d);
       const double value = MotionSmoothComponentOrZero(point, sd);
@@ -118,7 +118,7 @@ void ApplyMotionPathBoundsConstraint(
   const double tolerance =
       std::isfinite(bounds_tolerance) && bounds_tolerance > 0.0
           ? bounds_tolerance
-          : 0.0;
+: 0.0;
   for (int d = 0; d < dims; ++d) {
     const std::size_t sd = static_cast<std::size_t>(d);
     double smooth_min = std::numeric_limits<double>::infinity();
@@ -154,7 +154,7 @@ void ApplyMotionPathBoundsConstraint(
     }
     if (smooth_span <= kBoundsEpsilon) {
       const double source_normalizer =
-          source_span > kBoundsEpsilon ? source_span : 1.0;
+          source_span > kBoundsEpsilon ? source_span: 1.0;
       for (std::size_t i = 0; i < smoothed->size(); ++i) {
         if (IsHardLockedAtIndex(locks, i)) {
           continue;
@@ -163,10 +163,10 @@ void ApplyMotionPathBoundsConstraint(
         if (sd < point.size()) {
           const double raw_value =
               i < raw.size() ? MotionSmoothComponentOrZero(raw[i], sd)
-                             : source_min;
+: source_min;
           const double u = source_span > kBoundsEpsilon
                                ? (raw_value - source_min) / source_normalizer
-                               : 0.0;
+: 0.0;
           point[sd] = target_min + std::clamp(u, 0.0, 1.0) *
                                        (target_max - target_min);
         }

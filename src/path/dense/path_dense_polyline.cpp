@@ -87,7 +87,7 @@ std::vector<DensePoint> ShapeFlatToDensePolyline(const std::vector<double>& flat
   }
 
   const int seg_count =
-      decoded.closed ? decoded.vertex_count : std::max(0, decoded.vertex_count - 1);
+      decoded.closed ? decoded.vertex_count: std::max(0, decoded.vertex_count - 1);
   if (seg_count <= 0) {
     points.push_back({pff_geom::FlatPoint(flat, 0, 0), 0});
     if (source_to_dense != nullptr) {
@@ -115,7 +115,7 @@ std::vector<DensePoint> ShapeFlatToDensePolyline(const std::vector<double>& flat
         continue;
       }
       const bool is_endpoint = step == divs;
-      const int source_index = is_endpoint ? next : -1;
+      const int source_index = is_endpoint ? next: -1;
       PushDensePoint(
           points,
           {pff_geom::Cubic(p0, p1, p2, p3, static_cast<double>(step) / divs), source_index});
@@ -131,7 +131,7 @@ std::vector<DensePoint> ShapeFlatToDensePolyline(const std::vector<double>& flat
 std::vector<pff_geom::Point> DenseToPoints(const std::vector<DensePoint>& dense) {
   std::vector<pff_geom::Point> points;
   points.reserve(dense.size());
-  for (const DensePoint& point : dense) {
+  for (const DensePoint& point: dense) {
     points.push_back(point.p);
   }
   return points;
@@ -145,7 +145,7 @@ std::vector<ShapeFlatOutlinePoint> DenseToOutlinePoints(
     const std::vector<DensePoint>& dense) {
   std::vector<ShapeFlatOutlinePoint> points;
   points.reserve(dense.size());
-  for (const DensePoint& point : dense) {
+  for (const DensePoint& point: dense) {
     points.push_back(ToOutlinePoint(point.p));
   }
   return points;
@@ -182,13 +182,13 @@ double DirectedOutlinePolylineDistance(
     return std::numeric_limits<double>::infinity();
   }
   const int seg_count = closed ? static_cast<int>(b_points.size())
-                               : std::max(0, static_cast<int>(b_points.size()) - 1);
+: std::max(0, static_cast<int>(b_points.size()) - 1);
   if (seg_count <= 0) {
     return Distance(a_points.front(), b_points.front());
   }
 
   double max_err = 0.0;
-  for (const ShapeFlatOutlinePoint p : a_points) {
+  for (const ShapeFlatOutlinePoint p: a_points) {
     double best = std::numeric_limits<double>::infinity();
     for (int i = 0; i < seg_count; ++i) {
       best = std::min(best, PointSegmentDistance(
@@ -215,7 +215,7 @@ double DirectedPolylineDistance(const std::vector<pff_geom::Point>& a_points,
     return std::numeric_limits<double>::infinity();
   }
   const int seg_count = closed ? static_cast<int>(b_points.size())
-                               : std::max(0, static_cast<int>(b_points.size()) - 1);
+: std::max(0, static_cast<int>(b_points.size()) - 1);
   if (seg_count <= 0) {
     return pff_geom::Distance(a_points.front(), b_points.front());
   }
@@ -244,7 +244,7 @@ double DirectedPolylineDistance(const std::vector<pff_geom::Point>& a_points,
 
 double DensePerimeter(const std::vector<DensePoint>& dense, bool closed) {
   const int n = static_cast<int>(dense.size());
-  const int segments = closed ? n : std::max(0, n - 1);
+  const int segments = closed ? n: std::max(0, n - 1);
   double total = 0.0;
   for (int i = 0; i < segments; ++i) {
     total += pff_geom::Distance(dense[static_cast<std::size_t>(i)].p,
@@ -287,7 +287,7 @@ double ProjectPointToDenseFraction(const std::vector<DensePoint>& dense,
                                    pff_geom::Point p,
                                    double total_length) {
   const int n = static_cast<int>(dense.size());
-  const int segments = closed ? n : std::max(0, n - 1);
+  const int segments = closed ? n: std::max(0, n - 1);
   double best_distance = std::numeric_limits<double>::infinity();
   double best_arc = 0.0;
   for (int i = 0; i < segments; ++i) {

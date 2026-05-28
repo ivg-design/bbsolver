@@ -33,6 +33,28 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 
+# Local-only paper drafting workspace (manuscript, PDF, audit notes, build assets).
+# Everything under paper/ stays out of the repo until the paper is finalised.
+/paper/
+
+# Local agent state directory
+/.maestri/
+
+# bbsolver run artifacts (recreated on every harness run; not source of truth)
+/artifacts/
+
+# Local release-packaging output (artifacts ship to GitHub release, not the repo)
+/dist/
+/dist-*/
+
+# AE Auto-Save side-files; ignore in addition to the canonical bbSolver_benchmarking.aep
+benchmarks/after_effects_benchmark_project/Adobe After Effects Auto-Save/
+benchmarks/after_effects_benchmark_project/bbSolver_benchmarking_*.aep
+
+# Cache files inside the benchmark corpus that shouldn't be tracked
+benchmarks/**/__pycache__/
+benchmarks/**/.DS_Store
+
 # Editor and OS metadata
 .DS_Store
 .idea/

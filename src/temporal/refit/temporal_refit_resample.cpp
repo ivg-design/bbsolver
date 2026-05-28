@@ -24,7 +24,7 @@ PropertySamples ResampleAcceptedAtSourceTimes(
   }
   out.samples.reserve(source_template.samples.size());
 
-  for (const Sample& source_sample : source_template.samples) {
+  for (const Sample& source_sample: source_template.samples) {
     Sample sample;
     sample.t_sec = source_sample.t_sec;
     sample.v = EvalKeysAt(accepted_keys.keys, source_sample.t_sec);

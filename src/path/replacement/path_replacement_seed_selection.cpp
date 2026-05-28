@@ -15,10 +15,10 @@ std::vector<int> SelectReplacementPhase2SeedIndices(
       return;
     }
     if (static_cast<int>(records[static_cast<std::size_t>(idx)]
-                             .outline_fractions.size()) != target_vertices) {
+.outline_fractions.size()) != target_vertices) {
       return;
     }
-    for (int existing : seed_indices) {
+    for (int existing: seed_indices) {
       if (existing == idx) {
         return;
       }
@@ -28,7 +28,7 @@ std::vector<int> SelectReplacementPhase2SeedIndices(
 
   for (int i = 0; i < static_cast<int>(records.size()); ++i) {
     if (static_cast<int>(records[static_cast<std::size_t>(i)]
-                             .outline_fractions.size()) == target_vertices) {
+.outline_fractions.size()) == target_vertices) {
       push_unique(i);
       break;
     }

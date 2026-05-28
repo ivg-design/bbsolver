@@ -13,7 +13,7 @@
 
 namespace bbsolver {
 
-// MS22 extraction: the notes string composed by the shape-flat Motion
+// the notes string composed by the shape-flat Motion
 // Smooth orchestrator carries every diagnostic counter downstream
 // consumers (panel, diagnostics analyzers, JSON parsers) parse. The
 // composition was ~110 LOC of pure data → string concatenation inside
@@ -22,7 +22,7 @@ namespace bbsolver {
 // format testable as its own surface.
 //
 // Inputs are passed by const-reference to the existing result bundles
-// produced by the MS1-MS15 sub-modules plus the scalar counters that
+// produced by the sub-modules plus the scalar counters that
 // the orchestrator computes locally. The result struct is the literal
 // notes string with no normalization — semicolon-delimited tokens in
 // the exact order the original code emitted them.

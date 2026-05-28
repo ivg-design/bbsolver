@@ -27,7 +27,7 @@ ShapeFlatInputValidation ValidateShapeFlatMultiModeInputs(
     out.note = "shape_multimode_malformed_topology";
     return out;
   }
-  for (const Sample& sample : reduced.samples) {
+  for (const Sample& sample: reduced.samples) {
     if (!SameShapeFlatTopology(reduced.samples.front().v, sample.v)) {
       out.note = "shape_multimode_unstable_topology";
       return out;
@@ -50,7 +50,7 @@ ShapeFlatInputValidation ValidateShapeFlatLandmarkInput(
   if (vertex_count <= 0) {
     return out;
   }
-  for (const Sample& sample : reduced.samples) {
+  for (const Sample& sample: reduced.samples) {
     if (!SameShapeFlatTopology(reduced.samples.front().v, sample.v)) {
       return out;
     }

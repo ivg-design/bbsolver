@@ -90,7 +90,7 @@ ReplacementPhase2FitResult FitReplacementPhase2Records(
   if (progress_fn) {
     progress_fn("path_replacement_target_phase2_done",
                 result.ok ? "Replacement target frame fit complete"
-                          : "Replacement target frame fit rejected",
+: "Replacement target frame fit rejected",
                 0.25,
                 static_cast<int>(result.records.size()),
                 phase2_frame_total);

@@ -15,7 +15,7 @@ namespace bbsolver {
 
 struct DiagnosticsWriter::State {
   explicit State(std::filesystem::path output_path)
-      : path(std::move(output_path)),
+: path(std::move(output_path)),
         stream(path, std::ios::out | std::ios::trunc) {}
 
   std::filesystem::path path;
@@ -24,7 +24,7 @@ struct DiagnosticsWriter::State {
 };
 
 DiagnosticsWriter::DiagnosticsWriter(std::shared_ptr<State> state)
-    : state_(std::move(state)) {}
+: state_(std::move(state)) {}
 
 DiagnosticsWriter DiagnosticsWriter::ToFile(
     const std::filesystem::path& path) {

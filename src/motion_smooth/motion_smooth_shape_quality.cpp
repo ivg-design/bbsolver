@@ -139,7 +139,7 @@ double ShapeFlatSequenceExtent(
   double max_x = -std::numeric_limits<double>::infinity();
   double max_y = -std::numeric_limits<double>::infinity();
   bool any = false;
-  for (const std::vector<double>& value : values) {
+  for (const std::vector<double>& value: values) {
     const int expected_size = 2 + vertex_count * 6;
     if (static_cast<int>(value.size()) < expected_size) {
       continue;
@@ -165,7 +165,7 @@ double ShapeFlatSequenceExtent(
 
 
 
-// MS2 dedupe: bbsolver::ShapeFlatVertexPoint and bbsolver::PointTurnDeg
+//  dedupe: bbsolver::ShapeFlatVertexPoint and bbsolver::PointTurnDeg
 // were defined here AND in motion_smooth_shape_loop.cpp's anonymous
 // namespace with identical bodies. The canonical definitions now live
 // in motion_smooth_shape_loop_curve.hpp/.cpp (public bbsolver surface)
@@ -188,7 +188,7 @@ int EffectiveShapeMotionVertexCount(
   if (!closed) {
     return vertex_count;
   }
-  for (const std::vector<double>& value : values) {
+  for (const std::vector<double>& value: values) {
     if (static_cast<int>(value.size()) < 2 + vertex_count * 6) {
       return vertex_count;
     }
@@ -210,7 +210,7 @@ ShapeMotionQualityMetrics ShapeMotionQuality(
     return metrics;
   }
   const int expected_size = 2 + vertex_count * 6;
-  for (const std::vector<double>& value : values) {
+  for (const std::vector<double>& value: values) {
     if (static_cast<int>(value.size()) < expected_size) {
       return metrics;
     }
@@ -226,7 +226,7 @@ ShapeMotionQualityMetrics ShapeMotionQuality(
   for (int vertex = 0; vertex < metrics.effective_vertex_count; ++vertex) {
     std::vector<std::pair<double, double>> pts;
     pts.reserve(values.size());
-    for (const std::vector<double>& value : values) {
+    for (const std::vector<double>& value: values) {
       pts.push_back(ShapeFlatVertexPoint(value, vertex));
     }
     double travel = 0.0;
@@ -278,7 +278,7 @@ ShapeMotionQualityMetrics ShapeMotionQuality(
         turns[static_cast<std::size_t>(
             std::floor(0.95 * static_cast<double>(turns.size() - 1)))];
     double sum = 0.0;
-    for (double angle : turns) {
+    for (double angle: turns) {
       sum += angle;
     }
     metrics.avg_turn_deg = sum / static_cast<double>(turns.size());

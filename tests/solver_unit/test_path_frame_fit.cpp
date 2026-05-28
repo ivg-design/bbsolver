@@ -28,9 +28,9 @@ void PushUnique(std::vector<Point>& points, Point p) {
 
 std::vector<double> ShapeFlat(bool closed, const std::vector<Point>& vertices) {
   std::vector<double> out;
-  out.push_back(closed ? 1.0 : 0.0);
+  out.push_back(closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(vertices.size()));
-  for (const Point& vertex : vertices) {
+  for (const Point& vertex: vertices) {
     out.push_back(vertex.x);
     out.push_back(vertex.y);
     out.push_back(0.0);
@@ -44,7 +44,7 @@ std::vector<double> ShapeFlat(bool closed, const std::vector<Point>& vertices) {
 std::vector<double> ShapeFlatWithSmoothTangents(bool closed,
                                                 const std::vector<Point>& vertices) {
   std::vector<double> out;
-  out.push_back(closed ? 1.0 : 0.0);
+  out.push_back(closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(vertices.size()));
   for (std::size_t i = 0; i < vertices.size(); ++i) {
     Point in_tangent{0.0, 0.0};
@@ -120,7 +120,7 @@ bool FractionsInSeamOrder(const std::vector<double>& fractions, bool closed) {
     return false;
   }
   double previous = -1.0;
-  for (double fraction : fractions) {
+  for (double fraction: fractions) {
     if (!std::isfinite(fraction)) {
       return false;
     }
@@ -245,7 +245,7 @@ std::vector<Point> OpenZeroTangentVPolyline() {
     const double x = 20.0 * static_cast<double>(i);
     const double y = i <= 5
         ? 7.0 * static_cast<double>(i)
-        : 7.0 * static_cast<double>(10 - i);
+: 7.0 * static_cast<double>(10 - i);
     points.push_back({x, y});
   }
   return points;
@@ -322,7 +322,7 @@ std::vector<double> UniformOpenFractions(int count) {
 std::vector<double> MergeFeatureFractions(
     std::vector<double> fractions,
     const std::vector<bbsolver::PathFeatureAnchor>& anchors) {
-  for (const bbsolver::PathFeatureAnchor& anchor : anchors) {
+  for (const bbsolver::PathFeatureAnchor& anchor: anchors) {
     const auto existing = std::find_if(
         fractions.begin(), fractions.end(), [&](double fraction) {
           return std::abs(fraction - anchor.outline_fraction) <= 1e-6;
@@ -630,7 +630,7 @@ int main() {
     const std::vector<double> seed = UniformClosedFractions(6);
 
     double initial_max_error = 0.0;
-    for (const std::vector<double>& frame : frames) {
+    for (const std::vector<double>& frame: frames) {
       const bbsolver::PathFrameFitResult fit =
           bbsolver::FitShapeFlatFrameAtFractions(frame, seed, options);
       assert(fit.ok);
@@ -657,7 +657,7 @@ int main() {
     assert(expanded.outline_fractions.size() == static_cast<std::size_t>(expanded.final_fraction_count));
     assert(FractionsInSeamOrder(expanded.outline_fractions, true));
 
-    for (const std::vector<double>& frame : frames) {
+    for (const std::vector<double>& frame: frames) {
       const bbsolver::PathFrameFitResult replay =
           bbsolver::FitShapeFlatFrameAtFractions(frame, expanded.outline_fractions, options);
       assert(replay.ok);
@@ -836,7 +836,7 @@ int main() {
     const std::vector<int> wrist_steps = {19, 20, 21};
     std::vector<std::vector<double>> frames;
     std::vector<double> anchor_fractions;
-    for (int wrist_step : wrist_steps) {
+    for (int wrist_step: wrist_steps) {
       const std::vector<double> frame =
           ShapeFlatWithSmoothTangents(false, OpenCurvedWristPolyline(wrist_step));
       const std::vector<bbsolver::PathFeatureAnchor> anchors =
@@ -862,7 +862,7 @@ int main() {
     const auto minmax_anchor =
         std::minmax_element(anchor_fractions.begin(), anchor_fractions.end());
     int clustered_wrist_slots = 0;
-    for (double fraction : layout.outline_fractions) {
+    for (double fraction: layout.outline_fractions) {
       if (fraction >= *minmax_anchor.first - 1e-9 &&
           fraction <= *minmax_anchor.second + 1e-9) {
         ++clustered_wrist_slots;
@@ -901,7 +901,7 @@ int main() {
     const std::vector<int> transient_steps = {4, 9, 14, 27, 33, 38};
     std::vector<std::vector<double>> frames;
     std::vector<double> persistent_fractions;
-    for (int transient_step : transient_steps) {
+    for (int transient_step: transient_steps) {
       const std::vector<double> frame = ShapeFlatWithSmoothTangents(
           false,
           OpenCurvedWristPolylineWithBumps(
@@ -910,7 +910,7 @@ int main() {
           bbsolver::ExtractShapeFlatFeatureAnchors(frame, options);
       bool saw_persistent = false;
       bool saw_transient = false;
-      for (const bbsolver::PathFeatureAnchor& anchor : anchors) {
+      for (const bbsolver::PathFeatureAnchor& anchor: anchors) {
         if (anchor.source_vertex_index == persistent_wrist_step) {
           saw_persistent = true;
           persistent_fractions.push_back(anchor.outline_fraction);
@@ -937,7 +937,7 @@ int main() {
     const auto persistent_minmax =
         std::minmax_element(persistent_fractions.begin(), persistent_fractions.end());
     int persistent_slots = 0;
-    for (double fraction : layout.outline_fractions) {
+    for (double fraction: layout.outline_fractions) {
       if (fraction >= *persistent_minmax.first - 1e-9 &&
           fraction <= *persistent_minmax.second + 1e-9) {
         ++persistent_slots;
@@ -945,7 +945,7 @@ int main() {
     }
     assert(persistent_slots == 1);
 
-    for (const std::vector<double>& frame : frames) {
+    for (const std::vector<double>& frame: frames) {
       const bbsolver::PathFrameFitResult fit =
           bbsolver::FitShapeFlatFrameAtFractions(
               frame, layout.outline_fractions, options);
@@ -981,7 +981,7 @@ int main() {
     const std::vector<bbsolver::PathFeatureAnchor> corner_anchors =
         bbsolver::ExtractShapeFlatFeatureAnchors(frames[1], options);
     bool saw_zero_tangent_corner = false;
-    for (const bbsolver::PathFeatureAnchor& anchor : corner_anchors) {
+    for (const bbsolver::PathFeatureAnchor& anchor: corner_anchors) {
       if (anchor.source_vertex_index == 5 && anchor.zero_tangent_cue) {
         saw_zero_tangent_corner = true;
       }
@@ -1058,7 +1058,7 @@ int main() {
     }
 
     // Confirm the wrist is detectable in every frame.
-    for (const std::vector<double>& frame : frames) {
+    for (const std::vector<double>& frame: frames) {
       const std::vector<bbsolver::PathFeatureAnchor> anchors =
           bbsolver::ExtractShapeFlatFeatureAnchors(frame, options);
       assert(!anchors.empty());
@@ -1074,7 +1074,7 @@ int main() {
     assert(NearDouble(layout.outline_fractions.back(), 1.0));
 
     // Error-guided fill must achieve tolerance on every frame.
-    for (const std::vector<double>& frame : frames) {
+    for (const std::vector<double>& frame: frames) {
       const bbsolver::PathFrameFitResult fit =
           bbsolver::FitShapeFlatFrameAtFractions(
               frame, layout.outline_fractions, options);
@@ -1127,14 +1127,14 @@ int main() {
     // At least 2 of the 9 fractions must fall in the tight high-curvature half
     // (arc-fraction > ~0.82 which is roughly where x=300 falls on the path).
     int tight_slots = 0;
-    for (double f : layout.outline_fractions) {
+    for (double f: layout.outline_fractions) {
       if (f > 0.78) {
         ++tight_slots;
       }
     }
     assert(tight_slots >= 2);
 
-    for (const std::vector<double>& frame : frames) {
+    for (const std::vector<double>& frame: frames) {
       const bbsolver::PathFrameFitResult fit =
           bbsolver::FitShapeFlatFrameAtFractions(
               frame, layout.outline_fractions, options);
@@ -1214,7 +1214,7 @@ int main() {
             /*source_min_vertices=*/28);
     const std::vector<int> expected = {22, 24, 26, 27};
     assert(ladder == expected);
-    for (int target : ladder) {
+    for (int target: ladder) {
       assert(target < 28);
     }
   }
@@ -1297,7 +1297,7 @@ int main() {
     const std::vector<double> source =
         ShapeFlatWithSmoothTangents(false, OpenCurvedWristPolyline());
     std::vector<Point> shifted_points = OpenCurvedWristPolyline();
-    for (Point& point : shifted_points) {
+    for (Point& point: shifted_points) {
       point.y += 2.0;
     }
     const std::vector<double> fitted =

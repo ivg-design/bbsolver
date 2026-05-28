@@ -1,0 +1,19 @@
+{
+  "regenerated": "2026-05-28T10:56:08Z",
+  "regenerator": "bbsolver verify (canonical CLI)",
+  "regenerator_note": "This verify.json was produced by re-running the canonical `bbsolver verify` CLI on the shipped bbky.json + bbsm.json pair. The OK/FAIL flag reflects the per-property tolerance recorded inside the bbky.json (the \u03b5 the solver was invoked with) rather than the AE harness's per-kind defaults. The max_err values are computed from the same bbky + bbsm pair by the canonical verifier; the corpus keys themselves were produced by bbsolver 1.0.0 and v1.0.1 is verifier-compatible with v1.0.0 solver output (running v1.0.1 solve against the same bbsm yields a bit-identical bbky).",
+  "overall_ok": true,
+  "request_id": "req-1779737483003",
+  "properties": [
+    {
+      "key_count": 83,
+      "max_err": 0.974036034679246,
+      "max_err_screen_px": 0.974036034679246,
+      "notes": "final_static_suffix_trim_for_solve=true; final_static_boundary_sample=240; final_static_boundary_frame=240; final_static_source_samples_trimmed=1; final_static_solver_samples_trimmed=1; post_solve_vertex_reduction_accepted; mode=post_temporal_bridge_prune; source_vertices=52; fitted_vertices=22; keys=83; pruned_vertices=30; bridge_prune_passes=30; bridge_prune_rounds=2; bridge_prune_batch_vertices=29; attempts=100; temporal_validation_error=0.974036; protected_corner_skips=18; bridge_prune_fit_failures=0; bridge_prune_validation_failures=24; bridge_prune_sharp_failures=0; bridge_prune_accepted_candidates=76; sharp_corner_preserve=on; bridge_prune_steps=52->51@idx1/keys71 | 51->50@idx1/keys71/batch | 50->49@idx2/keys71/batch | 49->48@idx2/keys71/batch | 48->47@idx3/keys71/batch | 47->46@idx3/keys71/batch | 46->45@idx3/keys71/batch | 45->44@idx3/keys71/batch | 44->43@idx3/keys71/batch | 43->42@idx3/keys71/batch | 42->41@idx3/keys71/batch | 41->40@idx4/keys71/batch | 40->39@idx6/keys73/batch | 39->38@idx6/keys73/batch | 38->37@idx6/keys74/batch | 37->36@idx8/keys74/batch | 36->35@idx9/keys75/batch | 35->34@idx10/keys75/batch | 34->33@idx10/keys76/batch | 33->32@idx10/keys76/batch | 32->31@idx10/keys77/batch | 31->30@idx12/keys77/batch | 30->29@idx13/keys78/batch | 29->28@idx14/keys79/batch | 28->27@idx15/keys83/batch | 27->26@idx15/keys83/batch | 26->25@idx18/keys83/batch | 25->24@idx19/keys83/batch | 24->23@idx19/keys83/batch | 23->22@idx21/keys83/batch; path_spatial_fit skipped: topology unstable",
+      "ok": true,
+      "property_id": "L5/ADBE Root Vectors Group#2/ADBE Vector Group#2/ADBE Vectors Group#2/ADBE Vector Shape - Group#1/ADBE Vector Shape#2",
+      "rms_err": 0.7469773737874381,
+      "worst_sample_idx": 52
+    }
+  ]
+}

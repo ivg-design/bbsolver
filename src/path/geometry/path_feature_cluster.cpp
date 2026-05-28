@@ -32,7 +32,7 @@ double ClusterFractionCenter(const std::vector<double>& fractions, bool closed) 
 
   double x = 0.0;
   double y = 0.0;
-  for (double fraction : fractions) {
+  for (double fraction: fractions) {
     const double angle = 2.0 * pff_geom::kPi * fraction;
     x += std::cos(angle);
     y += std::sin(angle);
@@ -63,7 +63,7 @@ std::vector<FeatureClusterRecord> ClusterFeatureObservations(
   if (observations.empty()) {
     return {};
   }
-  for (FeatureObservation& obs : observations) {
+  for (FeatureObservation& obs: observations) {
     if (closed) {
       obs.fraction = obs.fraction - std::floor(obs.fraction);
       if (obs.fraction >= 1.0 - pff_fractions::kFractionEpsilon ||
@@ -80,7 +80,7 @@ std::vector<FeatureClusterRecord> ClusterFeatureObservations(
   });
 
   std::vector<std::vector<FeatureObservation>> clusters;
-  for (const FeatureObservation& obs : observations) {
+  for (const FeatureObservation& obs: observations) {
     if (clusters.empty() || obs.fraction - clusters.back().back().fraction > radius) {
       clusters.push_back({obs});
     } else {
@@ -99,14 +99,14 @@ std::vector<FeatureClusterRecord> ClusterFeatureObservations(
 
   std::vector<FeatureClusterRecord> records;
   records.reserve(clusters.size());
-  for (const std::vector<FeatureObservation>& cluster : clusters) {
+  for (const std::vector<FeatureObservation>& cluster: clusters) {
     std::vector<double> fractions;
     std::vector<int> frame_indices;
     FeatureClusterRecord record;
     record.observation_count = static_cast<int>(cluster.size());
     fractions.reserve(cluster.size());
     frame_indices.reserve(cluster.size());
-    for (const FeatureObservation& obs : cluster) {
+    for (const FeatureObservation& obs: cluster) {
       fractions.push_back(obs.fraction);
       if (obs.frame_index >= 0) {
         frame_indices.push_back(obs.frame_index);

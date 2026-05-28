@@ -113,7 +113,7 @@ SegmentFitResult FitForwardLongestSpanLinearSegment(
       result.reason = "malformed_forward_longest_span_source";
       return result;
     }
-    const double u = t1 > t0 ? (source_sample.t_sec - t0) / (t1 - t0) : 0.0;
+    const double u = t1 > t0 ? (source_sample.t_sec - t0) / (t1 - t0): 0.0;
     const std::vector<double> candidate =
         LerpShapeFlatChord(start_value, end_value, std::clamp(u, 0.0, 1.0));
     const double error = ShapeFlatFrameOutlineError(
@@ -125,7 +125,7 @@ SegmentFitResult FitForwardLongestSpanLinearSegment(
       result.max_err = max_error;
       result.max_err_screen_px = max_error;
       result.rms_err =
-          checked > 0 ? std::sqrt(rms_accum / static_cast<double>(checked)) : 0.0;
+          checked > 0 ? std::sqrt(rms_accum / static_cast<double>(checked)): 0.0;
       return result;
     }
   }
@@ -134,7 +134,7 @@ SegmentFitResult FitForwardLongestSpanLinearSegment(
   result.max_err = max_error;
   result.max_err_screen_px = max_error;
   result.rms_err =
-      checked > 0 ? std::sqrt(rms_accum / static_cast<double>(checked)) : 0.0;
+      checked > 0 ? std::sqrt(rms_accum / static_cast<double>(checked)): 0.0;
   result.iters = checked;
   result.reason = "replacement_shape_morph_forward_longest_span_linear_ok";
   return result;
@@ -268,19 +268,19 @@ PropertyKeys MaybeUseForwardLongestSpanCandidate(
         "replacement_forward_longest_span_accepted=true; previous_keys=" +
         std::to_string(static_cast<int>(current.keys.size())) +
         "; previous_converged=" +
-        std::string(current.converged ? "true" : "false");
-    forward.notes = forward.notes.empty() ? note : forward.notes + "; " + note;
+        std::string(current.converged ? "true": "false");
+    forward.notes = forward.notes.empty() ? note: forward.notes + "; " + note;
     return forward;
   }
 
   PropertyKeys out = current;
   const std::string note =
       "replacement_forward_longest_span_accepted=false; forward_converged=" +
-      std::string(forward.converged ? "true" : "false") +
+      std::string(forward.converged ? "true": "false") +
       "; forward_keys=" +
       std::to_string(static_cast<int>(forward.keys.size())) +
       "; forward_note=" + forward.notes;
-  out.notes = out.notes.empty() ? note : out.notes + "; " + note;
+  out.notes = out.notes.empty() ? note: out.notes + "; " + note;
   return out;
 }
 

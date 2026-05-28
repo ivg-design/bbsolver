@@ -60,7 +60,7 @@ PathFeatureFractionLayoutResult BuildShapeFlatFeatureFractionLayout(
     return result;
   }
   result.closed = first_decoded.closed;
-  const int min_vertices = result.closed ? 3 : 2;
+  const int min_vertices = result.closed ? 3: 2;
   if (target_count < min_vertices) {
     result.warning = "target_count below shape minimum";
     return result;
@@ -81,7 +81,7 @@ PathFeatureFractionLayoutResult BuildShapeFlatFeatureFractionLayout(
     const std::vector<PathFeatureAnchor> anchors =
         ExtractShapeFlatFeatureAnchors(frame, options);
     feature_observations.reserve(feature_observations.size() + anchors.size());
-    for (const PathFeatureAnchor& anchor : anchors) {
+    for (const PathFeatureAnchor& anchor: anchors) {
       feature_observations.push_back({
           anchor.outline_fraction,
           static_cast<int>(frame_index),
@@ -111,7 +111,7 @@ PathFeatureFractionLayoutResult BuildShapeFlatFeatureFractionLayout(
   selected_features.reserve(static_cast<std::size_t>(feature_slot_capacity));
   std::vector<FeatureClusterRecord> required_features;
   std::vector<FeatureClusterRecord> optional_features;
-  for (const FeatureClusterRecord& cluster : feature_clusters) {
+  for (const FeatureClusterRecord& cluster: feature_clusters) {
     const bool single_frame_layout = result.frame_count == 1;
     const bool strong_zero_tangent = cluster.zero_tangent_count > 0;
     const bool persistent =
@@ -133,7 +133,7 @@ PathFeatureFractionLayoutResult BuildShapeFlatFeatureFractionLayout(
   });
 
   int dropped_required_features = 0;
-  for (const FeatureClusterRecord& cluster : required_features) {
+  for (const FeatureClusterRecord& cluster: required_features) {
     if (static_cast<int>(selected_features.size()) < feature_slot_capacity) {
       selected_features.push_back(cluster);
     } else {
@@ -164,11 +164,11 @@ PathFeatureFractionLayoutResult BuildShapeFlatFeatureFractionLayout(
   });
   std::vector<double> feature_fractions;
   feature_fractions.reserve(selected_features.size());
-  for (const FeatureClusterRecord& cluster : selected_features) {
+  for (const FeatureClusterRecord& cluster: selected_features) {
     feature_fractions.push_back(cluster.fraction);
   }
 
-  for (double feature_fraction : feature_fractions) {
+  for (double feature_fraction: feature_fractions) {
     InsertFractionValue(&layout, feature_fraction, result.closed);
   }
   if (static_cast<int>(layout.size()) > target_count) {
@@ -236,7 +236,7 @@ PathFeatureFractionLayoutResult BuildShapeFlatFeatureFractionLayout(
   if (!current_eval.ok) {
     result.warning = current_eval.warning.empty()
                          ? "initial feature layout unreplayable"
-                         : current_eval.warning;
+: current_eval.warning;
     return result;
   }
 
@@ -282,7 +282,7 @@ PathFeatureFractionLayoutResult BuildShapeFlatFeatureFractionLayout(
         try_candidate(std::move(candidate));
       }
     }
-    for (int seg : FractionSegmentsByDescendingGap(
+    for (int seg: FractionSegmentsByDescendingGap(
              layout, result.closed, /*max_segments=*/4)) {
       std::vector<double> candidate = layout;
       InsertSplitFraction(&candidate, seg, result.closed);

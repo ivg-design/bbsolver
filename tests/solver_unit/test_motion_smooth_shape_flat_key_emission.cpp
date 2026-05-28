@@ -1,4 +1,4 @@
-// MS33 focused test: the MS25-extracted key-emission helper.
+//  focused test: the -extracted key-emission helper.
 //
 // EmitMotionSmoothShapeFlatKeysFromRoveSchedule materializes the
 // PropertyKeys::keys vector from a ShapeMotionRoveSchedule. The
@@ -15,7 +15,7 @@
 //   * Times and values round-trip from the rove schedule into the
 //     emitted Key vector unchanged.
 //
-// MS15 already locks the early-return guards of
+//  already locks the early-return guards of
 // ApplyMotionSmoothBezierEase in isolation; this file locks the
 // integration — that the helper actually invokes the ease curve when
 // `use_ease=true` (verified by observing the ease arrays mutate).
@@ -162,7 +162,7 @@ void TestEmitMultiKeyWithEaseUsesBezierInterior() {
           "interior key interp_out must be Bezier under use_ease=true");
   Require(keys.back().interp_in == bbsolver::InterpType::Bezier,
           "last key interp_in (interior side) must be Bezier under use_ease=true");
-  for (const bbsolver::Key& key : keys) {
+  for (const bbsolver::Key& key: keys) {
     Require(key.temporal_continuous,
             "use_ease=true: temporal_continuous must be true on every key");
   }

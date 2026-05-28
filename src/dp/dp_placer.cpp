@@ -5,7 +5,7 @@
 // Strategy (per docs/solver/DP_ALGORITHM.md):
 //
 //   dp[j] = min number of SEGMENTS to cover samples [0..j], where a single segment
-//           (i -> j) is feasible iff fit_fn(i, j, ...) returns SegmentFitResult.feasible.
+//           (i -> j) is feasible iff fit_fn(i, j,...) returns SegmentFitResult.feasible.
 //   prev[j] = i for the arg-min.
 //   Backtrack from j = N-1 to reconstruct the anchor set.
 //   Assemble Key list by stitching the in/out ease & tangents of adjacent segments
@@ -118,7 +118,7 @@ DPPlacement RunDPPlacement(
 
   int G = (max_gap_samples > 0)
               ? std::min(max_gap_samples, N - 1)
-              : AutoMaxGap(comp, N);
+: AutoMaxGap(comp, N);
   const bool unified_spatial_large =
       ps.property.is_spatial && !ps.property.is_separated && N > 360;
   if (max_gap_samples <= 0 && unified_spatial_large) {
@@ -135,7 +135,7 @@ DPPlacement RunDPPlacement(
   std::vector<std::vector<double>> dp_anchor_value(static_cast<std::size_t>(N));
   // For each j, store the winning (i, SegmentFitResult).
   std::vector<std::pair<int, SegmentFitResult>> winner(N);
-  for (auto& w : winner) w.first = -1;
+  for (auto& w: winner) w.first = -1;
 
   dp[0] = 0;
   dp_max_err[0] = 0.0;
@@ -157,7 +157,7 @@ DPPlacement RunDPPlacement(
     // exceeds the auto max-gap cap.
     const bool widen_final_anchor =
         max_gap_samples <= 0 && j == N - 1 && !unified_spatial_large;
-    const int i_lo = widen_final_anchor ? 0 : std::max(0, j - G);
+    const int i_lo = widen_final_anchor ? 0: std::max(0, j - G);
     const int candidate_count = j - i_lo;
     std::vector<CandidateFit> candidates(static_cast<std::size_t>(candidate_count));
     std::atomic<bool> cancelled{false};
@@ -205,7 +205,7 @@ DPPlacement RunDPPlacement(
     }
     int unreachable_candidates_this_anchor = 0;
     int incompatible_candidates_this_anchor = 0;
-    for (auto& candidate : candidates) {
+    for (auto& candidate: candidates) {
       if (!candidate.tried) {
         ++unreachable_candidates_this_anchor;
         continue;
@@ -336,7 +336,7 @@ DPPlacement RunDPPlacement(
   out.sample_indices = std::move(anchors);
   out.segments = std::move(segs);
   out.converged = true;
-  for (const auto& s : out.segments) {
+  for (const auto& s: out.segments) {
     if (s.max_err > out.max_err) out.max_err = s.max_err;
     if (s.max_err_screen_px > out.max_err_screen_px)
       out.max_err_screen_px = s.max_err_screen_px;
@@ -401,7 +401,7 @@ std::vector<PropertyKeys> SolveAll(
     const std::function<SegmentFitFn(const PropertySamples&)>& fit_factory) {
   std::vector<PropertyKeys> results;
   results.reserve(properties.size());
-  for (const auto& ps : properties) {
+  for (const auto& ps: properties) {
     SegmentFitFn fit_fn = fit_factory(ps);
     results.push_back(SolveProperty(ps, cfg, comp, std::move(fit_fn)));
   }

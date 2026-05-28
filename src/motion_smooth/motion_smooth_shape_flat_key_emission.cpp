@@ -27,12 +27,12 @@ std::vector<Key> EmitMotionSmoothShapeFlatKeysFromRoveSchedule(
     key.v = rove_schedule.values[ki];
     key.interp_in = ki == 0
         ? InterpType::Linear
-        : (use_ease ? InterpType::Bezier
-                    : InterpType::Linear);
+: (use_ease ? InterpType::Bezier
+: InterpType::Linear);
     key.interp_out = ki + 1 == rove_schedule.times.size()
         ? InterpType::Linear
-        : (use_ease ? InterpType::Bezier
-                    : InterpType::Linear);
+: (use_ease ? InterpType::Bezier
+: InterpType::Linear);
     key.temporal_ease_in = neutral_ease;
     key.temporal_ease_out = neutral_ease;
     key.temporal_continuous = use_ease;

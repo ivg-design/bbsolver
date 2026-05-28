@@ -66,7 +66,7 @@ std::vector<double> FractionsForKeptDenseIndices(const std::vector<DensePoint>& 
   if (!(total_length > 1e-9)) {
     return fractions;
   }
-  for (int dense_index : kept) {
+  for (int dense_index: kept) {
     if (dense_index < 0 || dense_index >= static_cast<int>(dense.size())) {
       return {};
     }
@@ -107,7 +107,7 @@ std::vector<double> SplitCubicSegment(const std::vector<double>& flat,
 
   std::vector<double> out;
   out.reserve(static_cast<std::size_t>(kPathHeaderScalars + (decoded.vertex_count + 1) * kScalarsPerVertex));
-  out.push_back(decoded.closed ? 1.0 : 0.0);
+  out.push_back(decoded.closed ? 1.0: 0.0);
   out.push_back(static_cast<double>(decoded.vertex_count + 1));
 
   for (int i = 0; i < decoded.vertex_count; ++i) {
@@ -151,7 +151,7 @@ std::vector<double> GrowFlatBySplittingSegments(std::vector<double> flat,
     if (!decoded.ok || target_vertex_count <= decoded.vertex_count) {
       return flat;
     }
-    const int segment_count = decoded.closed ? decoded.vertex_count : decoded.vertex_count - 1;
+    const int segment_count = decoded.closed ? decoded.vertex_count: decoded.vertex_count - 1;
     if (segment_count <= 0) {
       return flat;
     }
@@ -209,7 +209,7 @@ PathFrameFitResult FitShapeFlatFrame(const std::vector<double>& shape_flat,
   result.target_met =
       result.target_vertex_count == 0 || result.target_vertex_count == decoded.vertex_count;
 
-  const int min_vertices = decoded.closed ? 3 : 2;
+  const int min_vertices = decoded.closed ? 3: 2;
   if (decoded.vertex_count <= min_vertices) {
     result.warning = "shape_flat frame already minimal";
     return result;
@@ -279,7 +279,7 @@ PathFrameFitResult FitShapeFlatFrame(const std::vector<double>& shape_flat,
   result.fitted = std::move(candidate.flat);
   result.max_outline_error = candidate.error;
   const DecodedShape fitted_decoded = DecodeShapeFlat(result.fitted);
-  result.fitted_vertex_count = fitted_decoded.ok ? fitted_decoded.vertex_count : static_cast<int>(kept.size());
+  result.fitted_vertex_count = fitted_decoded.ok ? fitted_decoded.vertex_count: static_cast<int>(kept.size());
   result.kept_dense_indices.clear();
   result.source_vertex_indices.clear();
   result.outline_fractions.clear();
@@ -312,7 +312,7 @@ PathFrameFitResult FitShapeFlatFrame(const std::vector<double>& shape_flat,
       result.outline_fractions.push_back(
           dense_index >= 0
               ? DenseFractionAtIndex(dense, arcs, decoded.closed, dense_index, total_length)
-              : ProjectPointToDenseFraction(dense, arcs, decoded.closed, vertex, total_length));
+: ProjectPointToDenseFraction(dense, arcs, decoded.closed, vertex, total_length));
     }
   }
 
@@ -325,7 +325,7 @@ PathFrameFitResult FitShapeFlatFrame(const std::vector<double>& shape_flat,
   }
   if (result.fitted_vertex_count >= result.source_vertex_count) {
     result.warning = result.warning.empty() ? "shape_flat frame unchanged"
-                                            : result.warning + "; unchanged";
+: result.warning + "; unchanged";
     return result;
   }
 

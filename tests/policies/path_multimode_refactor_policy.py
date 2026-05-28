@@ -97,13 +97,13 @@ def test_pure_multimode_helpers_do_not_emit_runtime_diagnostics() -> None:
 
 
 def test_path_multimode_headers_use_hpp() -> None:
-    # Check both the post-Slice-86 public-header location and the legacy
+    # Check both the post-refactor public-header location and the legacy
     # flat layout (the legacy check ensures no stale `.h` re-appears).
     legacy_flat = sorted(SOLVER_SRC.glob("path_multimode_*.h"))
     legacy_public = sorted(PATH_MULTIMODE_PUBLIC_DIR.glob("path_multimode_*.h"))
     legacy_headers = legacy_flat + legacy_public
     assert not legacy_headers, (
-        "path_multimode headers must use .hpp: "
+        "path_multimode headers must use.hpp: "
         + ", ".join(path.relative_to(ROOT).as_posix() for path in legacy_headers)
     )
 

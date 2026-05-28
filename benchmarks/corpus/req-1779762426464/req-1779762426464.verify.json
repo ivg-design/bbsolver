@@ -1,0 +1,39 @@
+{
+  "regenerated": "2026-05-28T10:56:13Z",
+  "regenerator": "bbsolver verify (canonical CLI)",
+  "regenerator_note": "This verify.json was produced by re-running the canonical `bbsolver verify` CLI on the shipped bbky.json + bbsm.json pair. The OK/FAIL flag reflects the per-property tolerance recorded inside the bbky.json (the \u03b5 the solver was invoked with) rather than the AE harness's per-kind defaults. The max_err values are computed from the same bbky + bbsm pair by the canonical verifier; the corpus keys themselves were produced by bbsolver 1.0.0 and v1.0.1 is verifier-compatible with v1.0.0 solver output (running v1.0.1 solve against the same bbsm yields a bit-identical bbky).",
+  "overall_ok": true,
+  "request_id": "req-1779762426464",
+  "properties": [
+    {
+      "key_count": 152,
+      "max_err": 0.19760375072949143,
+      "max_err_screen_px": 0.19760375072949143,
+      "notes": "post_solve_vertex_reduction_skipped: mixed_key_topology; source_vertices=32; post_temporal_bridge_prune=disabled; aggressive_reducer=disabled; path_spatial_fit skipped: topology unstable",
+      "ok": true,
+      "property_id": "L3/ADBE Root Vectors Group#2/ADBE Vector Group#1/ADBE Vectors Group#2/ADBE Vector Shape - Group#1/ADBE Vector Shape#2",
+      "rms_err": 0.050384405388415494,
+      "worst_sample_idx": 307
+    },
+    {
+      "key_count": 150,
+      "max_err": 1.4485152203199065,
+      "max_err_screen_px": 1.4485152203199065,
+      "notes": "post_solve_vertex_reduction_skipped: mixed_key_topology; source_vertices=32; post_temporal_bridge_prune=disabled; aggressive_reducer=disabled; path_spatial_fit skipped: topology unstable",
+      "ok": true,
+      "property_id": "L2/ADBE Root Vectors Group#2/ADBE Vector Group#1/ADBE Vectors Group#2/ADBE Vector Shape - Group#1/ADBE Vector Shape#2",
+      "rms_err": 0.3238952945161085,
+      "worst_sample_idx": 14
+    },
+    {
+      "key_count": 130,
+      "max_err": 2.9541374675069494,
+      "max_err_screen_px": 2.9541374675069494,
+      "notes": "post_solve_vertex_reduction_skipped: mixed_key_topology; source_vertices=32; post_temporal_bridge_prune=disabled; aggressive_reducer=disabled; path_spatial_fit skipped: topology unstable",
+      "ok": true,
+      "property_id": "L1/ADBE Root Vectors Group#2/ADBE Vector Group#1/ADBE Vectors Group#2/ADBE Vector Shape - Group#1/ADBE Vector Shape#2",
+      "rms_err": 1.3698529615371582,
+      "worst_sample_idx": 243
+    }
+  ]
+}

@@ -73,7 +73,7 @@ void MotionSmoothRdpKeep(const std::vector<std::vector<double>>& points,
 
 double MotionSmoothComponentOrZero(const std::vector<double>& values,
                                    std::size_t idx) {
-  return idx < values.size() ? values[idx] : 0.0;
+  return idx < values.size() ? values[idx]: 0.0;
 }
 
 double MotionPointDistanceSq(const std::vector<double>& a,
@@ -103,7 +103,7 @@ std::vector<std::vector<double>> MotionSmoothFilteredPoints(
     double* max_displacement_out) {
   std::vector<std::vector<double>> points;
   points.reserve(property_samples.samples.size());
-  for (const Sample& sample : property_samples.samples) {
+  for (const Sample& sample: property_samples.samples) {
     points.push_back(SampleVectorOrZeros(property_samples, sample));
   }
   if (points.size() <= 2) {

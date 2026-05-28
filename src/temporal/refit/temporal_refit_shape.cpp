@@ -36,7 +36,7 @@ bool IsValidTemporalRefitShapeFlatValue(const std::vector<double>& value) {
       static_cast<int>(value.size()) != 2 + 6 * vertex_count) {
     return false;
   }
-  for (double channel : value) {
+  for (double channel: value) {
     if (!std::isfinite(channel)) {
       return false;
     }
@@ -62,7 +62,7 @@ bool AllTemporalRefitSourceSamplesAreValidShapeFlat(
   if (source.samples.empty()) {
     return false;
   }
-  for (const Sample& sample : source.samples) {
+  for (const Sample& sample: source.samples) {
     if (!IsValidTemporalRefitShapeFlatValue(sample.v)) {
       return false;
     }
@@ -77,7 +77,7 @@ bool AllTemporalRefitShapeFlatKeysHaveStableTopology(
     return false;
   }
   const std::vector<double>& reference = keys.keys.front().v;
-  for (const Key& key : keys.keys) {
+  for (const Key& key: keys.keys) {
     if (!TemporalRefitShapeFlatTopologyMatches(reference, key.v)) {
       return false;
     }
@@ -98,7 +98,7 @@ PropertySamples ResampleShapeFlatAcceptedAtSourceTimes(
   out.samples.reserve(source_template.samples.size());
   const std::vector<double>& reference = accepted_keys.keys.front().v;
 
-  for (const Sample& source_sample : source_template.samples) {
+  for (const Sample& source_sample: source_template.samples) {
     Sample sample;
     sample.t_sec = source_sample.t_sec;
     sample.v = EvalKeysAt(accepted_keys.keys, source_sample.t_sec);
@@ -128,7 +128,7 @@ bool ValidateShapeRefitAgainstSource(
     path_options.frame_fit_options.outline_tolerance =
         budget_mode == TemporalRefitOptions::BudgetMode::Relative
             ? std::max(0.0, budget_relative_ceiling)
-            : ShapeStrictPropertyCeiling(config);
+: ShapeStrictPropertyCeiling(config);
     const PathTemporalValidationResult validation =
         ValidatePathTemporalCandidate(source, candidate, path_options);
     if (validation.samples_checked > 0) {

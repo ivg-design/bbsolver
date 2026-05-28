@@ -20,7 +20,7 @@ bbsolver::PropertySamples MakeProperty(int dimensions,
   ps.property.is_spatial = spatial;
   ps.property.is_separated = separated;
   ps.property.kind = spatial ? bbsolver::ValueKind::TwoD_Spatial
-                             : bbsolver::ValueKind::Scalar;
+: bbsolver::ValueKind::Scalar;
   return ps;
 }
 

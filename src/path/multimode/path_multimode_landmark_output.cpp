@@ -81,7 +81,7 @@ std::vector<PropertyKeys> BuildLandmarkSubpathOutputKeys(
                                      emission.reconstruction,
                                      vertex_count,
                                      normalized_options
-                                         .emit_visible_shape_channels) +
+.emit_visible_shape_channels) +
                  "; subpath_partition=key_count_dp" +
                  "; subpath_partition_base_ranges=" + partition.base_ranges +
                  "; subpath_partition_chosen_ranges=" +
@@ -98,10 +98,10 @@ std::vector<PropertyKeys> BuildLandmarkSubpathOutputKeys(
                               normalized_options.diagnose_outlier_slots ||
                               normalized_options.diagnose_mask_channels)
                                  ? "deep"
-                                 : "fast") +
+: "fast") +
                  "; subpath_fast_summary=" +
                  std::string(normalized_options.fast_summary_only ? "true"
-                                                                  : "false");
+: "false");
     const std::string visible_probe_note =
         VisibleChannelProbeNote(visible_probe);
     if (!visible_probe_note.empty()) {

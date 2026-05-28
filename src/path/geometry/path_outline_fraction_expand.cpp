@@ -74,7 +74,7 @@ PathFractionExpansionResult ExpandShapeFlatOutlineFractions(
   result.closed = first_decoded.closed;
 
   int min_source_vertices = first_decoded.vertex_count;
-  for (const std::vector<double>& frame : shape_flat_frames) {
+  for (const std::vector<double>& frame: shape_flat_frames) {
     const DecodedShape decoded = DecodeShapeFlat(frame);
     if (!decoded.ok) {
       result.warning = "malformed shape_flat frame";
@@ -93,7 +93,7 @@ PathFractionExpansionResult ExpandShapeFlatOutlineFractions(
     return result;
   }
 
-  const int min_fractions = result.closed ? 3 : 2;
+  const int min_fractions = result.closed ? 3: 2;
   if (static_cast<int>(current.size()) < min_fractions) {
     result.warning = "insufficient outline fractions";
     return result;
@@ -171,7 +171,7 @@ PathFractionExpansionResult ExpandShapeFlatOutlineFractions(
         }
       }
     }
-    for (int segment_index : segments) {
+    for (int segment_index: segments) {
       std::vector<double> candidate = current;
       InsertSplitFraction(&candidate, segment_index, result.closed);
       if (!FractionsInStrictSeamOrder(candidate, result.closed)) {
@@ -199,7 +199,7 @@ PathFractionExpansionResult ExpandShapeFlatOutlineFractions(
     const bool acceptable =
         min_improvement > 0.0
             ? best_eval.max_error <= current_eval.max_error - min_improvement
-            : best_eval.max_error <= current_eval.max_error + 1e-9;
+: best_eval.max_error <= current_eval.max_error + 1e-9;
     if (!acceptable) {
       result.warning = "fraction expansion found no improving candidate";
       break;

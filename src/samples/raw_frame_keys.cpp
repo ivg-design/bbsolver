@@ -25,7 +25,7 @@ PropertyKeys ShapeFlatFrameKeyFallback(const PropertySamples& property_samples,
   int preserved_timing_count = 0;
 
   keys.keys.reserve(property_samples.samples.size());
-  for (const Sample& sample : property_samples.samples) {
+  for (const Sample& sample: property_samples.samples) {
     if (sample.v.size() < 2) {
       ++skipped_malformed;
       continue;
@@ -91,7 +91,7 @@ PropertyKeys RawFrameKeyFallback(const PropertySamples& property_samples,
   keys.max_err_screen_px = 0.0;
   keys.keys.reserve(property_samples.samples.size());
   int preserved_timing_count = 0;
-  for (const Sample& sample : property_samples.samples) {
+  for (const Sample& sample: property_samples.samples) {
     Key key;
     key.t_sec = sample.t_sec;
     key.v = SampleVectorOrZeros(property_samples, sample);

@@ -29,7 +29,7 @@ VisibleOutlinePrepassResult TryVisibleOutlinePrepass(
   extract_options.outline_tolerance = EffectivePathTolerance(config);
   int source_min = std::numeric_limits<int>::max();
   int source_max = 0;
-  for (const Sample& sample : original.samples) {
+  for (const Sample& sample: original.samples) {
     const int source_vertices = ShapeFlatVertexCount(sample.v);
     if (source_vertices <= 0) {
       result.notes =
@@ -80,10 +80,10 @@ VisibleOutlinePrepassResult TryVisibleOutlinePrepass(
     if (applied != nullptr) {
       *applied = visible.applied;
     }
-    return visible.applied ? std::move(visible.outline) : sample.v;
+    return visible.applied ? std::move(visible.outline): sample.v;
   };
 
-  for (std::size_t sample_index : probe_indices) {
+  for (std::size_t sample_index: probe_indices) {
     const Sample& sample = original.samples[sample_index];
     bool applied = false;
     std::string warning;
@@ -104,7 +104,7 @@ VisibleOutlinePrepassResult TryVisibleOutlinePrepass(
     result.notes =
         "visible_outline_prepass_skipped: " +
         (last_warning.empty() ? std::string("no_self_intersections")
-                              : last_warning);
+: last_warning);
     return result;
   }
 
@@ -155,7 +155,7 @@ VisibleOutlinePrepassResult TryVisibleOutlinePrepass(
   const int compact_target_vertices =
       extracted_outline_min == std::numeric_limits<int>::max()
           ? 0
-          : extracted_outline_min;
+: extracted_outline_min;
   for (std::size_t i = 0; i < visible_sources.size(); ++i) {
     std::vector<double> visible_source = std::move(visible_sources[i]);
     const int before_vertices = ShapeFlatVertexCount(visible_source);
@@ -190,7 +190,7 @@ VisibleOutlinePrepassResult TryVisibleOutlinePrepass(
     uniform_target_vertices = outline_max;
     int uniform_min = std::numeric_limits<int>::max();
     int uniform_max = 0;
-    for (std::vector<double>& visible_source : compacted_sources) {
+    for (std::vector<double>& visible_source: compacted_sources) {
       const int before_vertices = ShapeFlatVertexCount(visible_source);
       if (uniform_target_vertices >= 3 &&
           before_vertices != uniform_target_vertices) {
@@ -222,16 +222,16 @@ VisibleOutlinePrepassResult TryVisibleOutlinePrepass(
         "visible_outline_prepass_skipped: unstable_visible_outline_topology"
         "; source_vertices=" + std::to_string(source_min) +
         (source_min == source_max ? std::string{}
-                                  : "-" + std::to_string(source_max)) +
+: "-" + std::to_string(source_max)) +
         "; outline_vertices=" + std::to_string(outline_min) +
         "-" + std::to_string(outline_max) +
         (extracted_outline_min == std::numeric_limits<int>::max()
              ? std::string{}
-             : "; extracted_outline_vertices=" +
+: "; extracted_outline_vertices=" +
                    std::to_string(extracted_outline_min) +
                    (extracted_outline_min == extracted_outline_max
                         ? std::string{}
-                        : "-" + std::to_string(extracted_outline_max))) +
+: "-" + std::to_string(extracted_outline_max))) +
         "; compacted_visible_outline_frames=" +
         std::to_string(compacted_frames) +
         "; compact_visible_outline_max_error=" +
@@ -243,7 +243,7 @@ VisibleOutlinePrepassResult TryVisibleOutlinePrepass(
                    std::to_string(uniformed_frames) +
                    "; uniform_visible_outline_max_error=" +
                    std::to_string(uniform_max_error)
-             : std::string{});
+: std::string{});
     return result;
   }
 
@@ -262,10 +262,10 @@ VisibleOutlinePrepassResult TryVisibleOutlinePrepass(
         "visible_outline_prepass_skipped: no_vertex_benefit"
         "; source_vertices=" + std::to_string(source_min) +
         (source_min == source_max ? std::string{}
-                                  : "-" + std::to_string(source_max)) +
+: "-" + std::to_string(source_max)) +
         "; outline_vertices=" + std::to_string(outline_min) +
         (outline_min == outline_max ? std::string{}
-                                    : "-" + std::to_string(outline_max));
+: "-" + std::to_string(outline_max));
     return result;
   }
   preprocessed.property.dimensions = max_dimensions;
@@ -275,7 +275,7 @@ VisibleOutlinePrepassResult TryVisibleOutlinePrepass(
   result.source_min_vertices = source_min;
   result.source_max_vertices = source_max;
   result.outline_min_vertices = outline_min == std::numeric_limits<int>::max()
-                                    ? 0 : outline_min;
+                                    ? 0: outline_min;
   result.outline_max_vertices = outline_max;
   result.fitted_vertices = result.outline_min_vertices;
   result.max_outline_error = 0.0;
@@ -283,18 +283,18 @@ VisibleOutlinePrepassResult TryVisibleOutlinePrepass(
       "visible_outline_prepass; source_vertices=" +
       std::to_string(source_min) +
       (source_min == source_max ? std::string{}
-                                : "-" + std::to_string(source_max)) +
+: "-" + std::to_string(source_max)) +
       "; outline_vertices=" + std::to_string(result.outline_min_vertices) +
       (result.outline_min_vertices == result.outline_max_vertices
            ? std::string{}
-           : "-" + std::to_string(result.outline_max_vertices)) +
+: "-" + std::to_string(result.outline_max_vertices)) +
       (extracted_outline_min == std::numeric_limits<int>::max()
            ? std::string{}
-           : "; extracted_outline_vertices=" +
+: "; extracted_outline_vertices=" +
                  std::to_string(extracted_outline_min) +
                  (extracted_outline_min == extracted_outline_max
                       ? std::string{}
-                      : "-" + std::to_string(extracted_outline_max))) +
+: "-" + std::to_string(extracted_outline_max))) +
       "; frames=" + std::to_string(original.samples.size()) +
       "; visible_outline_frames=" + std::to_string(applied_frames) +
       "; compacted_visible_outline_frames=" +
@@ -308,7 +308,7 @@ VisibleOutlinePrepassResult TryVisibleOutlinePrepass(
                  std::to_string(uniformed_frames) +
                  "; uniform_visible_outline_max_error=" +
                  std::to_string(uniform_max_error)
-           : std::string{}) +
+: std::string{}) +
       "; frame_outline_error=not_evaluated";
   return result;
 }

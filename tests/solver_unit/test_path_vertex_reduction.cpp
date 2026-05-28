@@ -61,7 +61,7 @@ bbsolver::Sample SampleWithFlat(const std::vector<double>& flat) {
 bbsolver::PropertyKeys KeysWithFlats(
     const std::vector<std::vector<double>>& flats) {
   bbsolver::PropertyKeys keys;
-  for (const std::vector<double>& flat : flats) {
+  for (const std::vector<double>& flat: flats) {
     keys.keys.push_back(KeyWithFlat(flat));
   }
   return keys;
@@ -70,7 +70,7 @@ bbsolver::PropertyKeys KeysWithFlats(
 bbsolver::PropertySamples SamplesWithFlats(
     const std::vector<std::vector<double>>& flats) {
   bbsolver::PropertySamples samples;
-  for (const std::vector<double>& flat : flats) {
+  for (const std::vector<double>& flat: flats) {
     samples.samples.push_back(SampleWithFlat(flat));
   }
   return samples;

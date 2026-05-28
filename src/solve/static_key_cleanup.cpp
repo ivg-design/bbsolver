@@ -125,7 +125,7 @@ int FindFinalStaticSuffixStartSample(const std::vector<Sample>& samples) {
     }
     start = idx;
   }
-  return start < static_cast<int>(samples.size()) - 1 ? start : -1;
+  return start < static_cast<int>(samples.size()) - 1 ? start: -1;
 }
 
 int TrimSamplesAfterTime(PropertySamples& samples, double end_t_sec) {
@@ -176,7 +176,7 @@ FinalStaticBoundaryAnchorResult AnchorFinalStaticBoundary(
   PropertyKeys candidate = keys;
   std::vector<Key> anchored;
   anchored.reserve(keys.keys.size());
-  for (const Key& key : keys.keys) {
+  for (const Key& key: keys.keys) {
     if (key.t_sec < boundary_t - key_time_eps) {
       anchored.push_back(key);
     } else {
@@ -214,7 +214,7 @@ FinalStaticBoundaryAnchorResult AnchorFinalStaticBoundary(
 
   const double screen_tolerance =
       config.tolerance_screen_px > 0.0 ? config.tolerance_screen_px
-                                       : config.tolerance;
+: config.tolerance;
   const bool property_ok = report.max_err <= config.tolerance + 1e-9;
   const bool screen_ok =
       (config.tolerance_screen_px <= 0.0 && config.weight_screen <= 0.0) ||

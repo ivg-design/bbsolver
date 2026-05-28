@@ -23,7 +23,7 @@ void AddInfluenceCandidate(std::vector<ShapeTemporalInfluencePair>& candidates,
       ClampShapeTemporalInfluencePercent(in_influence,
                                          options.min_bezier_influence,
                                          options.max_bezier_influence);
-  for (const ShapeTemporalInfluencePair& candidate : candidates) {
+  for (const ShapeTemporalInfluencePair& candidate: candidates) {
     if (ShapeTemporalInfluencesAlmostSame(candidate.out_influence, out) &&
         ShapeTemporalInfluencesAlmostSame(candidate.in_influence, in)) {
       return;
@@ -47,7 +47,7 @@ std::vector<double> UniformInfluenceValues(
   values.reserve(static_cast<std::size_t>(steps + 1));
   for (int idx = 0; idx < steps; ++idx) {
     const double alpha =
-        steps == 1 ? 0.0 : static_cast<double>(idx) /
+        steps == 1 ? 0.0: static_cast<double>(idx) /
                                   static_cast<double>(steps - 1);
     values.push_back(lo + (hi - lo) * alpha);
   }
@@ -97,8 +97,8 @@ BuildInitialShapeTemporalInfluenceCandidates(
   AddInfluenceCandidate(candidates, q1, q1, options);
 
   const std::vector<double> values = UniformInfluenceValues(options);
-  for (double out : values) {
-    for (double in : values) {
+  for (double out: values) {
+    for (double in: values) {
       AddInfluenceCandidate(candidates, out, in, options);
     }
   }

@@ -30,7 +30,7 @@ bool PassesKeyValidation(const ErrorReport& report,
   const bool property_ok = report.max_err <= config.tolerance + 1e-9;
   const double screen_tolerance =
       config.tolerance_screen_px > 0.0 ? config.tolerance_screen_px
-                                       : config.tolerance;
+: config.tolerance;
   const bool screen_ok =
       (config.tolerance_screen_px <= 0.0 && config.weight_screen <= 0.0) ||
       report.max_err_screen_px <= screen_tolerance + 1e-9;
@@ -59,9 +59,9 @@ PropertyKeys SolvePathDecomposedProperty(const PropertySamples& property_samples
   }
   if (!decomposed.stable_topology) {
     const std::string warning =
-        decomposed.warning.empty() ? "topology unstable" : decomposed.warning;
+        decomposed.warning.empty() ? "topology unstable": decomposed.warning;
     flat_keys.notes =
-        flat_keys.notes.empty() ? warning : flat_keys.notes + "; " + warning;
+        flat_keys.notes.empty() ? warning: flat_keys.notes + "; " + warning;
     return flat_keys;
   }
 
@@ -148,7 +148,7 @@ PropertyKeys SolvePathDecomposedProperty(const PropertySamples& property_samples
       "; flat_keys=" + std::to_string(flat_keys.keys.size()) +
       "; flat_err=" + std::to_string(flat_keys.max_err);
   reassembled.notes =
-      reassembled.notes.empty() ? child_note : reassembled.notes + "; " + child_note;
+      reassembled.notes.empty() ? child_note: reassembled.notes + "; " + child_note;
 
   if (!reassembled.converged ||
       (flat_keys.converged &&
@@ -159,7 +159,7 @@ PropertyKeys SolvePathDecomposedProperty(const PropertySamples& property_samples
         "; candidate_err=" + std::to_string(reassembled.max_err) +
         "; flat_fallback_keys=" + std::to_string(flat_keys.keys.size());
     flat_keys.notes =
-        flat_keys.notes.empty() ? fallback_note : flat_keys.notes + "; " + fallback_note;
+        flat_keys.notes.empty() ? fallback_note: flat_keys.notes + "; " + fallback_note;
     return flat_keys;
   }
   return reassembled;

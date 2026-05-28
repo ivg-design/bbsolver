@@ -36,7 +36,7 @@ BridgePruneCandidateEvaluation EvaluateBridgePruneCandidateImpl(
   if (!fit_ok) {
     evaluation.failure_note =
         std::to_string(target_vertices) +
-        (batch ? "v_batch_remove_" : "v_remove_") +
+        (batch ? "v_batch_remove_": "v_remove_") +
         std::to_string(evaluation.removed_index) + ":bridge_fit_failed";
     return evaluation;
   }
@@ -51,7 +51,7 @@ BridgePruneCandidateEvaluation EvaluateBridgePruneCandidateImpl(
   if (!PassesBridgePruneKeyValidation(validation, config)) {
     evaluation.failure_note =
         std::to_string(target_vertices) +
-        (batch ? "v_batch_remove_" : "v_remove_") +
+        (batch ? "v_batch_remove_": "v_remove_") +
         std::to_string(evaluation.removed_index) + ":err=" +
         std::to_string(validation.max_err);
     return evaluation;
@@ -66,7 +66,7 @@ BridgePruneCandidateEvaluation EvaluateBridgePruneCandidateImpl(
   if (!sharp_validation.ok) {
     evaluation.failure_note =
         std::to_string(target_vertices) +
-        (batch ? "v_batch_remove_" : "v_remove_") +
+        (batch ? "v_batch_remove_": "v_remove_") +
         std::to_string(evaluation.removed_index) +
         ":sharp_corner_preserve_failed:" + sharp_validation.notes;
     return evaluation;
@@ -87,7 +87,7 @@ bool PassesBridgePruneKeyValidation(const ErrorReport& report,
                                     const SolverConfig& config) {
   const bool property_ok = report.max_err <= config.tolerance + 1e-9;
   const double screen_tolerance =
-      config.tolerance_screen_px > 0.0 ? config.tolerance_screen_px :
+      config.tolerance_screen_px > 0.0 ? config.tolerance_screen_px:
                                          config.tolerance;
   const bool screen_ok =
       (config.tolerance_screen_px <= 0.0 && config.weight_screen <= 0.0) ||

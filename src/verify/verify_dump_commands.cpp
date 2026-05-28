@@ -207,7 +207,7 @@ int RunVerifyCommand(int argc, char** argv) {
   nlohmann::json property_results = nlohmann::json::array();
   bool all_ok = true;
   int verified_count = 0;
-  for (const PropertyKeys& property_keys : bundle.property_results) {
+  for (const PropertyKeys& property_keys: bundle.property_results) {
     const auto sample_it =
         std::find_if(samples.properties.begin(),
                      samples.properties.end(),
@@ -293,7 +293,7 @@ int RunVerifyCommand(int argc, char** argv) {
          report.max_err_screen_px <=
              (samples.config.tolerance_screen_px > 0.0
                   ? samples.config.tolerance_screen_px
-                  : samples.config.tolerance) +
+: samples.config.tolerance) +
                  1e-9);
     all_ok = all_ok && property_ok;
     ++verified_count;
@@ -319,7 +319,7 @@ int RunVerifyCommand(int argc, char** argv) {
       {"property_results", property_results},
   };
   std::cout << out.dump(2) << '\n';
-  return all_ok ? 0 : kVerifyMismatchExitCode;
+  return all_ok ? 0: kVerifyMismatchExitCode;
 }
 
 int RunDumpCommand(int argc, char** argv) {

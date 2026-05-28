@@ -18,7 +18,7 @@ namespace bbsolver::segment_fit {
 bool Passes(const ErrorReport& report, const SolverConfig& cfg) {
   const bool property_ok = report.max_err <= cfg.tolerance * kAcceptanceHeadroom;
   const double screen_tolerance =
-      cfg.tolerance_screen_px > 0.0 ? cfg.tolerance_screen_px : cfg.tolerance;
+      cfg.tolerance_screen_px > 0.0 ? cfg.tolerance_screen_px: cfg.tolerance;
   const bool screen_ok =
       (cfg.tolerance_screen_px <= 0.0 && cfg.weight_screen <= 0.0) ||
       report.max_err_screen_px <= screen_tolerance;
@@ -62,7 +62,7 @@ double AcceptanceScreenCeiling(const SolverConfig& cfg) {
   if (cfg.tolerance_screen_px <= 0.0 && cfg.weight_screen <= 0.0) {
     return std::numeric_limits<double>::infinity();
   }
-  return cfg.tolerance_screen_px > 0.0 ? cfg.tolerance_screen_px : cfg.tolerance;
+  return cfg.tolerance_screen_px > 0.0 ? cfg.tolerance_screen_px: cfg.tolerance;
 }
 
 double LinearFailFastPropertyCeiling(const PropertySamples& ps,
@@ -156,7 +156,7 @@ void AddOrdinaryHoldAttribution(SegmentFitResult& attribution,
                                 const ErrorReport& report) {
   attribution.fit_segment_hold_units_evaluated += report.units_evaluated;
   attribution.fit_segment_hold_fail_fast_exits +=
-      report.fail_fast_exit ? 1 : 0;
+      report.fail_fast_exit ? 1: 0;
   attribution.fit_segment_hold_shape_outline_wall_ms +=
       report.shape_outline_wall_ms;
 }
@@ -165,7 +165,7 @@ void AddOrdinaryLinearAttribution(SegmentFitResult& attribution,
                                   const ErrorReport& report) {
   attribution.fit_segment_linear_units_evaluated += report.units_evaluated;
   attribution.fit_segment_linear_fail_fast_exits +=
-      report.fail_fast_exit ? 1 : 0;
+      report.fail_fast_exit ? 1: 0;
   attribution.fit_segment_linear_shape_outline_wall_ms +=
       report.shape_outline_wall_ms;
 }

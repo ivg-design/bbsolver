@@ -31,7 +31,7 @@ struct PathDecomposeResult {
 const char* PathChannelName(PathChannel channel);
 
 // AE Path properties are serialized as:
-//   [closed_flag, vertex_count, x, y, in_x, in_y, out_x, out_y, ...]
+//   [closed_flag, vertex_count, x, y, in_x, in_y, out_x, out_y,...]
 // Stable-topology paths decompose into 3 * vertex_count 2D-spatial children:
 // vert, in_tangent, and out_tangent for each vertex.
 PathDecomposeResult DecomposePathBundle(const PropertySamples& ps);

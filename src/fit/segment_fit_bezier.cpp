@@ -24,9 +24,9 @@ std::vector<TemporalEase> HermiteEase(const PropertySamples& ps,
       eases.push_back({EndpointSpatialSpeed(ps, i, j, out_ease),
                        ClampInfluence(kDefaultInfluence, cfg)});
     } else {
-      const int dim = ps.property.is_separated ? c : 0;
+      const int dim = ps.property.is_separated ? c: 0;
       const double slope = out_ease ? EndpointSlopeOut(ps, i, j, dim)
-                                    : EndpointSlopeIn(ps, i, j, dim);
+: EndpointSlopeIn(ps, i, j, dim);
       eases.push_back({slope, ClampInfluence(kDefaultInfluence, cfg)});
     }
   }
@@ -54,9 +54,9 @@ std::vector<double> HermiteSpatialTangents(const PropertySamples& ps,
   const double influence = ClampInfluence(kDefaultInfluence, cfg) / 100.0;
   for (int d = 0; d < Dimensions(ps); ++d) {
     const double slope = out_tangent ? EndpointSlopeOut(ps, i, j, d)
-                                     : EndpointSlopeIn(ps, i, j, d);
+: EndpointSlopeIn(ps, i, j, d);
     tangents[static_cast<std::size_t>(d)] =
-        (out_tangent ? 1.0 : -1.0) * slope * influence * dt;
+        (out_tangent ? 1.0: -1.0) * slope * influence * dt;
   }
   return tangents;
 }

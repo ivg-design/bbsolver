@@ -1,0 +1,3 @@
+mode,eps,request_id,samples,keys,temporal_compression_ratio,volume_compression_ratio,output_v1_uniform,solver_max_err_px,ae_roundtrip_max_err_px,cli_verify_max_err_px,solve_time_s,cli_flags
+default_two_pass,1.0,req-1779737483003,242,83,2.9157,6.7065,22,0.974036,1.159738,0.974036,13.0,none
+experimental_flagset,1.0,req-1779741201109,242,139,1.741,4.3985,20,0.982232,3.989838,1.204325,394.01,--decompose-paths --fit-canonical-paths --fit-replacement-paths --emit-landmark-subpaths

@@ -12,7 +12,7 @@ namespace path_fit_geometry {
 namespace {
 
 double ComponentOrZero(const std::vector<double>& values, std::size_t idx) {
-  return idx < values.size() ? values[idx] : 0.0;
+  return idx < values.size() ? values[idx]: 0.0;
 }
 
 std::size_t VertexOffset(int vertex_index) {
@@ -118,7 +118,7 @@ std::vector<Point> FlatToDensePolyline(const std::vector<double>& flat) {
 
   const int seg_count = decoded.closed
       ? decoded.vertex_count
-      : std::max(0, decoded.vertex_count - 1);
+: std::max(0, decoded.vertex_count - 1);
   if (seg_count <= 0) {
     points.push_back(VertexAt(flat, 0));
     return points;
@@ -163,13 +163,13 @@ double DirectedPolylineDistance(const std::vector<Point>& a_points,
   }
   const int seg_count = closed
       ? static_cast<int>(b_points.size())
-      : std::max(0, static_cast<int>(b_points.size()) - 1);
+: std::max(0, static_cast<int>(b_points.size()) - 1);
   if (seg_count <= 0) {
     return Distance(a_points.front(), b_points.front());
   }
 
   double max_err = 0.0;
-  for (Point p : a_points) {
+  for (Point p: a_points) {
     double best = std::numeric_limits<double>::infinity();
     for (int i = 0; i < seg_count; ++i) {
       best = std::min(

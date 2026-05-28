@@ -31,7 +31,7 @@ PropertyKeys SolvePlainProperty(const PropertySamples& property_samples,
         static_cast<int>(std::round(std::max(1.0, comp.fps)));
     effective_max_gap_samples = path_specific_fit_enabled
         ? PathSpecificMaxGap(comp, config)
-        : std::max(12, std::min(60, fps_one_second));
+: std::max(12, std::min(60, fps_one_second));
   }
   return SolveProperty(
       property_samples,

@@ -16,7 +16,7 @@ std::vector<double> ShapeFlatPolygon(
   out.reserve(2 + 6 * vertices.size());
   out.push_back(static_cast<double>(kClosedFlag));
   out.push_back(static_cast<double>(vertices.size()));
-  for (const auto& v : vertices) {
+  for (const auto& v: vertices) {
     out.push_back(v.first);
     out.push_back(v.second);
     out.push_back(0.0);

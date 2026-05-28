@@ -37,8 +37,8 @@ void TestSolveStartEventShape() {
   // W11 portability: derive both endpoints from
   // std::filesystem::temp_directory_path() so the test does not bake in
   // a POSIX `/tmp/` prefix. The event builder serializes the path via
-  // .string(), so what matters is that the JSON value round-trips
-  // through that .string() — the actual prefix is the platform's temp
+  //.string(), so what matters is that the JSON value round-trips
+  // through that.string() — the actual prefix is the platform's temp
   // root (`/tmp` on POSIX, `%TEMP%` on Windows).
   const std::filesystem::path tmp_root =
       std::filesystem::temp_directory_path();
@@ -64,9 +64,9 @@ void TestSolveStartEventShape() {
   Require(event["request_id"] == "req-start",
           "solve-start event must echo request id");
   Require(event["input"].get<std::string>() == input_path.string(),
-          "solve-start event must echo input path .string() verbatim");
+          "solve-start event must echo input path.string() verbatim");
   Require(event["output"].get<std::string>() == output_path.string(),
-          "solve-start event must echo output path .string() verbatim");
+          "solve-start event must echo output path.string() verbatim");
   Require(event["properties"] == 4,
           "solve-start event must echo property count");
   Require(event["tolerance"] == 0.75,

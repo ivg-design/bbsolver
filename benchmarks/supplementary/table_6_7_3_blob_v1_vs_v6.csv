@@ -1,0 +1,7 @@
+expression_version,eps,request_id,samples,keys,volume_compression_ratio,source_topology_transitions,solver_max_err_px,ae_roundtrip_max_err_px,cli_verify_max_err_px,verify_to_solver_gap_ratio,solve_time_s
+v1_continuous_off_curve,0.5,req-1779762426464,364,152,2.4341,74,0.197604,0.197741,2.954137,1.0007,5.43
+v1_continuous_off_curve,1.5,req-1779762426464,364,150,2.4711,74,1.448515,9.940318,2.954137,6.8624,6.24
+v1_continuous_off_curve,3,req-1779762426464,364,130,2.9028,74,2.958117,12.126516,2.954137,4.0994,5.15
+v6_subdivision_on_curve,0.5,req-1779786372293,602,81,7.373,31,0.477026,0.675744,2.754894,1.4166,40.9
+v6_subdivision_on_curve,1.5,req-1779786372293,602,43,13.8526,31,1.465335,1.464972,2.754894,0.9998,68.82
+v6_subdivision_on_curve,3,req-1779786372293,602,21,28.3986,31,2.754894,2.591253,2.754894,0.9406,93.85

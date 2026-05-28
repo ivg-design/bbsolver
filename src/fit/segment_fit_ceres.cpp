@@ -180,7 +180,7 @@ SegmentFitResult TrySeparatedCeresBezier(int i,
       },
       cfg,
       comp,
-      ps.layer_xform_at_start ? &*ps.layer_xform_at_start : nullptr);
+      ps.layer_xform_at_start ? &*ps.layer_xform_at_start: nullptr);
   CopyError(result, report);
   result.feasible = Passes(report, cfg);
   if (result.feasible) {
@@ -223,11 +223,11 @@ SegmentFitResult TryHermiteBezier(int i,
       },
       cfg,
       comp,
-      ps.layer_xform_at_start ? &*ps.layer_xform_at_start : nullptr);
+      ps.layer_xform_at_start ? &*ps.layer_xform_at_start: nullptr);
   CopyError(result, report);
   result.feasible = Passes(report, cfg);
   result.reason =
-      result.feasible ? "bezier_ok" : "infeasible_bezier_heuristic";
+      result.feasible ? "bezier_ok": "infeasible_bezier_heuristic";
   return result;
 }
 
@@ -271,7 +271,7 @@ SegmentFitResult TryCeresBezier(int i,
   const double max_influence =
       std::min(100.0, std::max(min_influence, cfg.max_influence));
 
-  for (auto& block : temporal) {
+  for (auto& block: temporal) {
     problem.AddParameterBlock(block.data(), 4);
     problem.SetParameterLowerBound(block.data(), 1, min_influence);
     problem.SetParameterUpperBound(block.data(), 1, max_influence);
@@ -279,7 +279,7 @@ SegmentFitResult TryCeresBezier(int i,
     problem.SetParameterUpperBound(block.data(), 3, max_influence);
   }
   if (ps.property.is_spatial) {
-    for (auto& block : spatial) {
+    for (auto& block: spatial) {
       problem.AddParameterBlock(block.data(), 2);
     }
   }
@@ -287,7 +287,7 @@ SegmentFitResult TryCeresBezier(int i,
   for (int sample_idx = i + 1; sample_idx < j; ++sample_idx) {
     const double t = SampleTime(ps, sample_idx);
     for (int d = 0; d < dims; ++d) {
-      const int channel = ps.property.is_separated ? d : 0;
+      const int channel = ps.property.is_separated ? d: 0;
       const double weight = ResidualWeightForDim(ps, cfg, d);
       if (ps.property.is_spatial) {
         auto* cost =
@@ -330,14 +330,14 @@ SegmentFitResult TryCeresBezier(int i,
 
   result.ease_out_at_i.clear();
   result.ease_in_at_j.clear();
-  for (const auto& block : temporal) {
+  for (const auto& block: temporal) {
     result.ease_out_at_i.push_back({block[0], ClampInfluence(block[1], cfg)});
     result.ease_in_at_j.push_back({block[2], ClampInfluence(block[3], cfg)});
   }
   if (ps.property.is_spatial) {
     result.spatial_out_at_i.clear();
     result.spatial_in_at_j.clear();
-    for (const auto& block : spatial) {
+    for (const auto& block: spatial) {
       result.spatial_out_at_i.push_back(block[0]);
       result.spatial_in_at_j.push_back(block[1]);
     }
@@ -363,7 +363,7 @@ SegmentFitResult TryCeresBezier(int i,
       },
       cfg,
       comp,
-      ps.layer_xform_at_start ? &*ps.layer_xform_at_start : nullptr);
+      ps.layer_xform_at_start ? &*ps.layer_xform_at_start: nullptr);
   CopyError(result, report);
   result.feasible = Passes(report, cfg);
   if (result.feasible) {

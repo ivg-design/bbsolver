@@ -93,7 +93,7 @@ inline void UnsetEnv(const char* name) {
 class ScopedEnv {
  public:
   explicit ScopedEnv(std::string name)
-      : name_(std::move(name)), had_value_(false) {
+: name_(std::move(name)), had_value_(false) {
     auto current = GetEnvOpt(name_.c_str());
     if (current.first) {
       had_value_ = true;
@@ -103,7 +103,7 @@ class ScopedEnv {
   }
 
   ScopedEnv(std::string name, const char* value)
-      : ScopedEnv(std::move(name)) {
+: ScopedEnv(std::move(name)) {
     if (value != nullptr) {
       Set(value);
     }

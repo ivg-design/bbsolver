@@ -24,7 +24,7 @@ bool Contains(const std::string& text, const std::string& needle) {
 }
 
 double ComponentOrZero(const std::vector<double>& value, std::size_t idx) {
-  return idx < value.size() ? value[idx] : 0.0;
+  return idx < value.size() ? value[idx]: 0.0;
 }
 
 double PointDistance(const std::vector<double>& a,
@@ -61,7 +61,7 @@ Bounds PathBounds(const std::vector<std::vector<double>>& points) {
   }
   bounds.min_x = bounds.max_x = ComponentOrZero(points.front(), 0);
   bounds.min_y = bounds.max_y = ComponentOrZero(points.front(), 1);
-  for (const std::vector<double>& point : points) {
+  for (const std::vector<double>& point: points) {
     const double x = ComponentOrZero(point, 0);
     const double y = ComponentOrZero(point, 1);
     bounds.min_x = std::min(bounds.min_x, x);
@@ -116,7 +116,7 @@ std::vector<std::vector<double>> SampleValues(
     const bbsolver::PropertySamples& property) {
   std::vector<std::vector<double>> values;
   values.reserve(property.samples.size());
-  for (const bbsolver::Sample& sample : property.samples) {
+  for (const bbsolver::Sample& sample: property.samples) {
     values.push_back(sample.v);
   }
   return values;

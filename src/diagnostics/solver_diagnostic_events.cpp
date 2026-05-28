@@ -103,7 +103,7 @@ nlohmann::json BuildCancellationStatusEvent(
       {"partial_write_exit_code", kCancelledPartialExitCode},
   };
   out["cancel_file_path"] =
-      cancel_file.has_value() ? cancel_file->string() : std::string();
+      cancel_file.has_value() ? cancel_file->string(): std::string();
   return out;
 }
 

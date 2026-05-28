@@ -74,7 +74,7 @@ ReplacementPathFitResult FitReplacementPathProperty(
 
   std::vector<std::vector<double>> shape_flat_frames;
   shape_flat_frames.reserve(property_samples.samples.size());
-  for (const Sample& sample : property_samples.samples) {
+  for (const Sample& sample: property_samples.samples) {
     shape_flat_frames.push_back(sample.v);
   }
 
@@ -206,7 +206,7 @@ ReplacementPathFitResult FitReplacementPathProperty(
       }
 
       if (!fraction_coherence_applied) {
-        for (int seed_idx : seed_indices) {
+        for (int seed_idx: seed_indices) {
           try_fraction_layout(phase2_records[seed_idx].outline_fractions,
                               seed_idx,
                               /*adaptive_count=*/0);
@@ -254,11 +254,11 @@ ReplacementPathFitResult FitReplacementPathProperty(
                         "; best_attempt_err=" +
                         (best_attempt_err < std::numeric_limits<double>::infinity()
                              ? std::to_string(best_attempt_err)
-                             : "none");
+: "none");
         return attempt;
       }
       attempt.max_outline_error = 0.0;
-      for (ReplacementFrameFitRecord& rec : phase2_records) {
+      for (ReplacementFrameFitRecord& rec: phase2_records) {
         Sample s;
         s.t_sec = rec.t_sec;
         s.v = std::move(rec.fitted);
@@ -270,7 +270,7 @@ ReplacementPathFitResult FitReplacementPathProperty(
     emit_target_progress("path_replacement_target_layout_done",
                          fraction_coherence_applied
                              ? "Replacement fraction layout accepted"
-                             : "Replacement fraction layout not accepted",
+: "Replacement fraction layout not accepted",
                          0.78);
 
     ReplacementFractionCoherenceNoteInput fraction_note_input;

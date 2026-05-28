@@ -22,7 +22,7 @@ void AppendJoinedNote(std::string& notes, const std::string& note) {
   if (note.empty()) {
     return;
   }
-  notes = notes.empty() ? note : notes + "; " + note;
+  notes = notes.empty() ? note: notes + "; " + note;
 }
 
 void AppendSampleTimingNote(std::string& note,
@@ -68,7 +68,7 @@ std::string AccuracyGateOptimizationNote(
       static_cast<double>(std::max(1, source_count));
   std::string note = no_practical_reduction
       ? "no_practical_optimization_at_accuracy_gate=true"
-      : "marginal_optimization_at_accuracy_gate=true";
+: "marginal_optimization_at_accuracy_gate=true";
   note +=
       "; optimization_blocker=accuracy_gate"
       "; current_tolerance=" + std::to_string(config.tolerance) +

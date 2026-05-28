@@ -57,7 +57,7 @@ std::vector<double> EvaluateClosedLoopShapeAtParam(
     double param) {
   const std::size_t unique_count = closed_values.size() - 1;
   if (unique_count < 3) {
-    return closed_values.empty() ? std::vector<double>() : closed_values.front();
+    return closed_values.empty() ? std::vector<double>(): closed_values.front();
   }
   if (param >= static_cast<double>(unique_count) - 1e-12) {
     return closed_values.front();
@@ -67,7 +67,7 @@ std::vector<double> EvaluateClosedLoopShapeAtParam(
           ? std::fmod(std::fmod(param, static_cast<double>(unique_count)) +
                           static_cast<double>(unique_count),
                       static_cast<double>(unique_count))
-          : std::fmod(param, static_cast<double>(unique_count));
+: std::fmod(param, static_cast<double>(unique_count));
   const int segment = std::clamp(
       static_cast<int>(std::floor(wrapped)),
       0,

@@ -2,5 +2,5 @@
 
 int main() {
   bbsolver::SolverConfig config;
-  return config.tolerance > 0.0 ? 0 : 1;
+  return config.tolerance > 0.0 ? 0: 1;
 }

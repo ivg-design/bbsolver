@@ -25,28 +25,28 @@ std::string BuildMotionSmoothShapeFlatNotes(
       std::to_string(in.source_key_schedule.redundant_removed) +
       "; source_key_anchor_simplification=" +
       std::string(in.source_key_schedule.simplification_enabled ? "true"
-                                                                : "false") +
+: "false") +
       "; source_key_simplify_tolerance=" +
       std::to_string(in.source_key_schedule.simplify_tolerance) +
       "; motion_smooth_source_fidelity=" +
-      std::string(in.config.motion_smooth_source_fidelity ? "true" : "false") +
+      std::string(in.config.motion_smooth_source_fidelity ? "true": "false") +
       "; source_fidelity_samples=" +
       std::to_string(in.config.motion_smooth_source_fidelity
                          ? in.source_key_schedule.simplified_count
-                         : 0) +
+: 0) +
       "; source_fidelity_mode=" +
       std::string(in.config.motion_smooth_source_fidelity
                       ? "source_key_pose_constraints"
-                      : "off") +
+: "off") +
       "; source_pose_constraints=" +
       std::to_string(in.config.motion_smooth_source_fidelity
                          ? in.source_key_schedule.simplified_count
-                         : 0) +
+: 0) +
       "; source_pose_constraint_keys=" +
       std::to_string(in.source_pose_constraint_key_count) +
       "; source_pose_interval_rove=" +
       std::string(in.source_pose_interval_schedule.applied ? "true"
-                                                           : "false") +
+: "false") +
       "; source_pose_interval_rove_max_time_shift_sec=" +
       std::to_string(in.source_pose_interval_schedule.max_time_shift_sec) +
       "; input_samples=" + std::to_string(in.property_samples.samples.size()) +
@@ -68,13 +68,13 @@ std::string BuildMotionSmoothShapeFlatNotes(
       "; trajectory_turn_after_deg=" +
       std::to_string(in.trajectory_turn_after_deg) +
       "; motion_smooth_closed_loop=" +
-      std::string(in.closed_loop ? "true" : "false") +
+      std::string(in.closed_loop ? "true": "false") +
       "; loop_close_distance=" +
       std::to_string(in.loop_close_distance) +
       (in.closed_loop
            ? std::string("; closed_loop_resample=true") +
                  "; adaptive_closed_loop_resample=" +
-                 (in.adaptive_closed_loop_resample ? "true" : "false") +
+                 (in.adaptive_closed_loop_resample ? "true": "false") +
                  "; loop_subdivisions=" +
                  std::to_string(in.loop_subdivisions) +
                  "; loop_refinement_passes=" +
@@ -82,14 +82,14 @@ std::string BuildMotionSmoothShapeFlatNotes(
                  "; loop_refinement_splits=" +
                  std::to_string(in.adaptive_loop.splits) +
                  "; loop_refinement_budget_hit=" +
-                 (in.adaptive_loop.budget_hit ? "true" : "false") +
+                 (in.adaptive_loop.budget_hit ? "true": "false") +
                  "; loop_max_keys=" +
                  std::to_string(in.adaptive_loop.max_keys) +
                  "; loop_target_turn_deg=" +
                  std::to_string(in.adaptive_loop.target_turn_deg) +
                  "; loop_chord_error_tolerance=" +
                  std::to_string(in.adaptive_loop.chord_error_tolerance)
-           : "") +
+: "") +
       "; " + ShapeMotionQualityNote(in.motion_quality_before,
                                     "motion_quality_before") +
       "; " + ShapeMotionQualityNote(in.motion_quality_after,
@@ -104,9 +104,9 @@ std::string BuildMotionSmoothShapeFlatNotes(
       "; key_schedule=" +
       std::string(in.config.motion_smooth_source_fidelity
                       ? "source_key_times_spline"
-                      : "source_keys_roved") +
+: "source_keys_roved") +
       "; rove_applied=" +
-      std::string(in.rove_schedule.rove_applied ? "true" : "false") +
+      std::string(in.rove_schedule.rove_applied ? "true": "false") +
       "; rove_total_travel=" +
       std::to_string(in.rove_schedule.total_travel) +
       "; rove_max_segment_travel=" +
@@ -117,14 +117,14 @@ std::string BuildMotionSmoothShapeFlatNotes(
       std::to_string(in.rove_schedule.max_time_shift_sec) +
       "; static_source_keys_removed=" +
       std::to_string(in.rove_schedule.static_keys_removed) +
-      "; motion_smooth_ease=" + (in.use_ease ? "on" : "off") +
+      "; motion_smooth_ease=" + (in.use_ease ? "on": "off") +
       "; motion_smooth_bezier=" +
       std::to_string(in.config.motion_smooth_bezier_x1) + "," +
       std::to_string(in.config.motion_smooth_bezier_y1) + "," +
       std::to_string(in.config.motion_smooth_bezier_x2) + "," +
       std::to_string(in.config.motion_smooth_bezier_y2) +
       "; source_error_not_constrained=" +
-      std::string(in.config.motion_smooth_source_fidelity ? "false" : "true");
+      std::string(in.config.motion_smooth_source_fidelity ? "false": "true");
 }
 
 }  // namespace bbsolver

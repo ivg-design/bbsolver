@@ -13,8 +13,8 @@
 // shared here so outline-error, refinement, and canonical-layout modules do
 // not duplicate the pipeline.
 //
-// Usage from a .cpp:
-//   namespace bbsolver { namespace { using namespace pff_dense; ... } }
+// Usage from a.cpp:
+//   namespace bbsolver { namespace { using namespace pff_dense;... } }
 // keeps existing unqualified call sites compiling unchanged. The outline
 // overloads (`Distance` and `PointSegmentDistance` on `ShapeFlatOutlinePoint`)
 // coexist with the `pff_geom::Point` overloads via standard C++ overload

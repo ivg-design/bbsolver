@@ -43,7 +43,7 @@ int ForwardDenseSpan(int begin, int end, int dense_count, bool closed) {
   if (end >= begin) {
     return end - begin;
   }
-  return closed ? dense_count - begin + end : 0;
+  return closed ? dense_count - begin + end: 0;
 }
 
 void CubicMarkKept(const std::vector<DensePoint>& dense,
@@ -84,7 +84,7 @@ std::vector<int> BuildForwardSourceVertexCandidates(const std::vector<int>& sour
     return {};
   }
   ordered.push_back({0, begin});
-  for (int dense_index : source_to_dense) {
+  for (int dense_index: source_to_dense) {
     if (dense_index < 0 || dense_index >= dense_count ||
         dense_index == begin || dense_index == end) {
       continue;
@@ -111,7 +111,7 @@ std::vector<int> BuildForwardSourceVertexCandidates(const std::vector<int>& sour
 
   std::vector<int> candidates;
   candidates.reserve(ordered.size());
-  for (const auto& [offset, dense_index] : ordered) {
+  for (const auto& [offset, dense_index]: ordered) {
     (void)offset;
     candidates.push_back(dense_index);
   }
@@ -185,12 +185,12 @@ std::vector<int> SimplifySourceVertexIntervals(
 
   std::vector<int> kept;
   const int interval_count = closed ? static_cast<int>(required_sorted.size())
-                                    : std::max(0, static_cast<int>(required_sorted.size()) - 1);
+: std::max(0, static_cast<int>(required_sorted.size()) - 1);
   for (int interval = 0; interval < interval_count; ++interval) {
     const int begin = required_sorted[static_cast<std::size_t>(interval)];
     const int end = closed
         ? required_sorted[static_cast<std::size_t>((interval + 1) % required_sorted.size())]
-        : required_sorted[static_cast<std::size_t>(interval + 1)];
+: required_sorted[static_cast<std::size_t>(interval + 1)];
     std::vector<int> candidates = BuildForwardSourceVertexCandidates(
         source_to_dense, static_cast<int>(dense.size()), begin, end, closed);
     std::vector<int> interval_kept = SimplifyCandidateIntervalDp(
@@ -247,7 +247,7 @@ std::vector<int> SimplifyDensePolyline(const std::vector<DensePoint>& dense,
   }
 
   std::vector<bool> keep(dense.size(), false);
-  for (int index : required) {
+  for (int index: required) {
     if (index >= 0 && index < static_cast<int>(keep.size())) {
       keep[static_cast<std::size_t>(index)] = true;
     }
@@ -296,14 +296,14 @@ std::vector<int> EnsureMinimumKept(const std::vector<DensePoint>& dense,
                                    std::vector<int> kept,
                                    bool closed) {
   const int min_count = closed ? std::min(3, static_cast<int>(dense.size()))
-                               : std::min(2, static_cast<int>(dense.size()));
+: std::min(2, static_cast<int>(dense.size()));
   kept = UniqueSortedIndices(std::move(kept));
   while (static_cast<int>(kept.size()) < min_count) {
     double best_err = -1.0;
     int best_index = -1;
     std::vector<pff_geom::Point> kept_points;
     kept_points.reserve(kept.size());
-    for (int index : kept) {
+    for (int index: kept) {
       kept_points.push_back(dense[static_cast<std::size_t>(index)].p);
     }
     for (std::size_t i = 0; i < dense.size(); ++i) {

@@ -46,7 +46,7 @@ BridgePruneBatchApplyResult ApplyBridgePruneAcceptedBatchRemovals(
   std::vector<int> removed_original_indices;
   removed_original_indices.push_back(selected.removed_index);
 
-  for (int candidate_order_index : selection.accepted_order) {
+  for (int candidate_order_index: selection.accepted_order) {
     if (candidate_order_index == selection.best_index) {
       continue;
     }

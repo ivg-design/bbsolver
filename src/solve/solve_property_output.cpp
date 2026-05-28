@@ -23,7 +23,7 @@ int InferredOutputDimensions(const PropertySamples& property_samples,
   if (property_keys.dimensions > 0) {
     return property_keys.dimensions;
   }
-  for (const Key& key : property_keys.keys) {
+  for (const Key& key: property_keys.keys) {
     if (!key.v.empty()) {
       return static_cast<int>(key.v.size());
     }
@@ -90,13 +90,13 @@ void AppendSolvedPropertyOutput(const PropertyOutputRequest& request) {
   keys.total_keys += static_cast<int>(property_keys.keys.size());
   keys.total_samples_input += static_cast<int>(property_samples.samples.size());
   FillOutputDimensions(property_samples, &property_keys);
-  for (auto& subpath_keys : landmark_subpath_keys) {
+  for (auto& subpath_keys: landmark_subpath_keys) {
     FillOutputDimensions(property_samples, &subpath_keys);
   }
   const std::size_t key_count = property_keys.keys.size();
   const double max_err = property_keys.max_err;
   keys.property_results.push_back(std::move(property_keys));
-  for (auto& subpath_keys : landmark_subpath_keys) {
+  for (auto& subpath_keys: landmark_subpath_keys) {
     keys.total_keys += static_cast<int>(subpath_keys.keys.size());
     keys.property_results.push_back(std::move(subpath_keys));
   }

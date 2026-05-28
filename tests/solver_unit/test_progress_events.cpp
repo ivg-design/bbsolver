@@ -268,9 +268,9 @@ void TestProgressWriterNoOpAndJsonLine() {
   writer.Emit({{"event", "unit"}, {"phase", "phase"}, {"progress", 0.5}});
 
   char buffer[256] = {};
-  const std::ptrdiff_t read_count = ::read(fds[0], buffer, sizeof(buffer) - 1);
-  ::close(fds[0]);
-  ::close(fds[1]);
+  const std::ptrdiff_t read_count =::read(fds[0], buffer, sizeof(buffer) - 1);
+::close(fds[0]);
+::close(fds[1]);
   Require(read_count > 0, "progress writer did not emit bytes");
   const std::string line(buffer, static_cast<std::size_t>(read_count));
   Require(!line.empty() && line.back() == '\n',
